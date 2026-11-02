@@ -1,0 +1,17 @@
+{
+  "description": "Golden cases for HTML -> plain text (job descriptions). Run by crawler (go test) and by the extension's TypeScript port of the normalizer.",
+  "cases": [
+    { "html": "", "text": "" },
+    { "html": "<p>Hello <strong>world</strong></p>", "text": "Hello world" },
+    { "html": "<h2>About us</h2><p>We build things.</p><ul><li>Go</li><li>React</li></ul>", "text": "About us\nWe build things.\nGo\nReact" },
+    { "html": "Line one<br>Line two<br/>Line three<BR />", "text": "Line one\nLine two\nLine three" },
+    { "html": "<div>Fish &amp; chips &lt;3 caf&eacute; &#8212; &#x2713; &nbsp;done</div>", "text": "Fish & chips <3 café — ✓ done" },
+    { "html": "<p>Keep</p><script>alert('x')</script><style>.a{color:red}</style><p>this</p>", "text": "Keep\nthis" },
+    { "html": "<!-- hidden note --><p>Visible</p>", "text": "Visible" },
+    { "html": "<p>  lots   of\n\n   space  </p>", "text": "lots of\nspace" },
+    { "html": "<span style=\"font-weight: 400;\">Inline</span><span>spans</span>", "text": "Inline spans" },
+    { "html": "<table><tr><td>Cell A</td><td>Cell B</td></tr><tr><td>Row 2</td></tr></table>", "text": "Cell A Cell B\nRow 2" },
+    { "html": "<p>Salary: ₹15,00,000 – ₹25,00,000</p>", "text": "Salary: ₹15,00,000 – ₹25,00,000" },
+    { "html": "<p>a</p><hr><p>b</p>", "text": "a\nb" }
+  ]
+}
