@@ -46,9 +46,9 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 2.1 Fill only on a page the user opened, only on Autofill button/shortcut or "Autofill each new step automatically" (default ON)
 - [ ] 2.1 Auto-step setting fills only the visible tab; never clicks or navigates
 - [ ] 2.1 Allowed interactions limited to setting control values, opening comboboxes, attaching files, "Add another" section buttons
-- [ ] 2.1 `isNavigationOrSubmitControl(element)` guard implemented
-- [ ] 2.1 Every programmatic click goes through one `safeClick()` that refuses forbidden elements on Assist sites
-- [ ] 2.1 Guard unit-tested with many real button labels and structures
+- [x] 2.1 `isNavigationOrSubmitControl(element)` guard implemented
+- [x] 2.1 Every programmatic click goes through one `safeClick()` that refuses forbidden elements on Assist sites
+- [x] 2.1 Guard unit-tested with many real button labels and structures
 - [ ] 2.1 Never opens the next job, never loops through results, never works in background tabs on Assist sites
 - [ ] 2.1 No network requests to Assist sites (no scraping, hidden fetches, internal APIs); DOM of loaded pages only
 - [ ] 2.1 Search-page badges computed only from what the page already loaded
@@ -56,7 +56,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 ### 2.2 Auto allowlist
 
 - [x] 2.2 `AUTO_SUBMIT_HOSTS` is one constant in `shared`
-- [ ] 2.2 Single submit function asserts exact hostname match right before clicking and throws otherwise (unit-tested)
+- [x] 2.2 Single submit function asserts exact hostname match right before clicking and throws otherwise (unit-tested)
 - [ ] 2.2 Test builds may add a local fixture host via a build-time flag; a test asserts production builds exclude it
 - [ ] 2.2 Allowlist hosts verified during development (changes logged in DECISIONS)
 
@@ -71,7 +71,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 2.3 Never invent facts on resumes, cover letters, or answers
 - [ ] 2.3 AI never decides sensitive answers (work auth, sponsorship, salary/CTC, notice, background check, relocation, attestations, DOB); missing -> stop, ask, save to answer bank
 - [ ] 2.3 Never accept terms/consent for the user, except privacy-notice acknowledgement on Auto forms when the opt-in (default OFF) is on
-- [ ] 2.3 Never fill hidden or disabled fields
+- [x] 2.3 Never fill hidden or disabled fields
 - [ ] 2.3 Never apply twice to the same job; respect per-company and daily caps
 - [ ] 2.3 Auto-apply OFF by default; enabling requires an explanation dialog and a score threshold
 
@@ -404,12 +404,12 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 16. Apply engine
 
-- [ ] 16.1 `resolveMode(url)` returns auto only for exact allowlisted hosts; known Assist hosts; generic otherwise
-- [ ] 16.1 `resolveMode` tested with tricky URLs (`jobs.lever.co.evil.com`, query-string tricks, subdomains, uppercase)
+- [x] 16.1 `resolveMode(url)` returns auto only for exact allowlisted hosts; known Assist hosts; generic otherwise
+- [x] 16.1 `resolveMode` tested with tricky URLs (`jobs.lever.co.evil.com`, query-string tricks, subdomains, uppercase)
 - [ ] 16.2 `SiteAdapter` interface as specified; only Auto adapters implement `findSubmitControl`
 - [ ] 16.2 Selectors in one file per adapter; labels/text/ARIA preferred; CONTRIBUTING explains fixing adapters
-- [ ] 16.3 Collect visible, enabled controls incl. custom comboboxes, date pickers, file inputs
-- [ ] 16.3 Label resolution order (label for, aria-labelledby, aria-label, wrapping label, legend/preceding text, placeholder, name) + normalization
+- [x] 16.3 Collect visible, enabled controls incl. custom comboboxes, date pickers, file inputs
+- [x] 16.3 Label resolution order (label for, aria-labelledby, aria-label, wrapping label, legend/preceding text, placeholder, name) + normalization
 - [ ] 16.3 Rule-table classifier in `lib/apply/fields/rules.ts` with all canonical keys
 - [ ] 16.3 150+ classification tests incl. Indian forms
 - [ ] 16.3 Value resolution order: profile -> answer bank (exact, fuzzy Jaccard >= 0.9, type/options fit) -> sensitive stop -> EEO decline -> AI (confidence >= 0.75, exact option match, maxlength) -> unknown handling
