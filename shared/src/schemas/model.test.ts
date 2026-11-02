@@ -38,7 +38,7 @@ describe("SettingsSchema", () => {
       autofillEachStep: true,
       badges: { naukri: true, indeed: true, linkedin: false },
     });
-    expect(s.tailoring).toEqual({ projectsToPick: 2, template: "classic" });
+    expect(s.tailoring).toEqual({ projectsToPick: 2, template: "classic", baseResume: "uploaded" });
     expect(s.coverLetter).toEqual({ mode: "ask" });
     expect(s.sources).toMatchObject({
       feed: true,
