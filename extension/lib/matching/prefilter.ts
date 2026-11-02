@@ -52,7 +52,7 @@ export function matchProfile(profile: Profile, preferences: Preferences): MatchP
 /** The job type from an ATS employment type ("Full-time", "FullTime", "Contract") or the title. */
 export function jobTypeOf(job: Pick<Job, "employmentType" | "title">): JobType | undefined {
   const type = (job.employmentType ?? "").toLowerCase().replace(/[^a-z]/g, "");
-  if (/intern/.test(type) || /\bintern(ship)?s?\b/i.test(job.title)) return "internship";
+  if (type.includes("intern") || /\bintern(ship)?s?\b/i.test(job.title)) return "internship";
   if (/contract|freelance|temporary|temp\b/.test(type)) return "contract";
   if (type.startsWith("part")) return "part_time";
   if (/full|permanent|regular/.test(type)) return "full_time";
