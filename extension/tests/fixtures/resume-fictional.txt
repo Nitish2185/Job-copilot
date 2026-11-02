@@ -1,0 +1,22 @@
+Aarav Mehta
+aarav.mehta@example.com | +91 99999 01234 | Pune, India
+github.com/aarav-dev | linkedin.com/in/aarav-mehta-example
+
+Summary
+Full-stack developer with 4 years of experience building React and Node.js applications.
+
+Experience
+Software Engineer, Example Fintech Pvt Ltd (Jul 2022 - Present)
+- Built payment dashboards with React, TypeScript and Node.js
+- Reduced API latency by 30% using Redis caching
+Junior Developer, Sample Labs (Jun 2020 - Jun 2022)
+- Developed REST APIs in Express and MongoDB
+
+Education
+B.Tech Computer Science, Example Institute of Technology, 2016 - 2020
+
+Projects
+Job Board - a job listing app built with Next.js and PostgreSQL
+
+Skills
+JavaScript, TypeScript, React, Node.js, Express, MongoDB, PostgreSQL, Redis, Docker

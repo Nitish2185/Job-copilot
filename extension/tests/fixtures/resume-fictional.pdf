@@ -1,0 +1,58 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 967 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+50 750 Td
+(Aarav Mehta) Tj T*
+(aarav.mehta@example.com | +91 99999 01234 | Pune, India) Tj T*
+(github.com/aarav-dev | linkedin.com/in/aarav-mehta-example) Tj T*
+() Tj T*
+(Summary) Tj T*
+(Full-stack developer with 4 years of experience building React and Node.js applications.) Tj T*
+() Tj T*
+(Experience) Tj T*
+(Software Engineer, Example Fintech Pvt Ltd \(Jul 2022 - Present\)) Tj T*
+(- Built payment dashboards with React, TypeScript and Node.js) Tj T*
+(- Reduced API latency by 30% using Redis caching) Tj T*
+(Junior Developer, Sample Labs \(Jun 2020 - Jun 2022\)) Tj T*
+(- Developed REST APIs in Express and MongoDB) Tj T*
+() Tj T*
+(Education) Tj T*
+(B.Tech Computer Science, Example Institute of Technology, 2016 - 2020) Tj T*
+() Tj T*
+(Projects) Tj T*
+(Job Board - a job listing app built with Next.js and PostgreSQL) Tj T*
+() Tj T*
+(Skills) Tj T*
+(JavaScript, TypeScript, React, Node.js, Express, MongoDB, PostgreSQL, Redis, Docker) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001259 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1329
+%%EOF
