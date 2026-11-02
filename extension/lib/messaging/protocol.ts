@@ -58,6 +58,36 @@ const anyPage = { kind: "any_page" } as const;
 
 const ResumeChoiceSchema = z.enum(["current", "tailored"]);
 
+/** A job read from a page (schema.org data, site DOM or AI). */
+const PageJobSchema = z.object({
+  title: z.string().min(1).max(300),
+  company: z.string().min(1).max(300),
+  locations: z.array(z.string().max(200)).max(20),
+  descriptionHtml: z.string().max(200_000),
+  url: z.string().max(4000),
+  applyUrl: z.string().max(4000).optional(),
+  externalApplyUrl: z.string().max(4000).optional(),
+  postedAt: z.string().max(60).optional(),
+  employmentType: z.string().max(200).optional(),
+  remote: z.boolean().optional(),
+  salary: z
+    .object({
+      min: z.number().optional(),
+      max: z.number().optional(),
+      currency: z.string().regex(/^[A-Z]{3}$/),
+      period: z.enum(["year", "month", "hour"]),
+    })
+    .optional(),
+  skills: z.array(z.string().max(80)).max(60).optional(),
+});
+
+const CardSchema = z.object({
+  title: z.string().max(300),
+  company: z.string().max(300),
+  location: z.string().max(300),
+  url: z.string().max(4000),
+});
+
 const FileDataSchema = z.object({
   name: z.string(),
   type: z.string(),
@@ -313,6 +343,48 @@ export const MESSAGES = {
     }),
     response: z.object({ created: z.boolean(), error: z.string().optional() }),
     sender: extensionOnly,
+  },
+  "jobs/saveFromPage": {
+    request: z.object({ page: PageJobSchema }),
+    response: z.object({
+      jobId: z.string(),
+      created: z.boolean(),
+      mode: z.enum(["auto", "assist"]),
+    }),
+    sender: anyPage,
+  },
+  "jobs/scoreOne": {
+    request: z.object({ jobId: z.string().min(1) }),
+    response: z.object({
+      final: z.number().optional(),
+      isEstimate: z.boolean().optional(),
+      error: z.string().optional(),
+    }),
+    sender: anyPage,
+  },
+  "match/quickScores": {
+    request: z.object({ cards: z.array(CardSchema).max(100) }),
+    response: z.object({
+      scores: z.array(
+        z.object({
+          final: z.number().optional(),
+          isEstimate: z.boolean().optional(),
+          jobId: z.string().optional(),
+          excluded: z.string().optional(),
+        }),
+      ),
+    }),
+    sender: anyPage,
+  },
+  "ai/extractJobFromPage": {
+    request: z.object({ url: z.string().max(4000), text: z.string().max(100_000) }),
+    response: z.object({ page: PageJobSchema.optional(), error: z.string().optional() }),
+    sender: anyPage,
+  },
+  "apply/assistConfirmed": {
+    request: z.object({ url: z.string().max(4000), text: z.string().max(500).optional() }),
+    response: z.object({ created: z.boolean() }),
+    sender: anyPage,
   },
   "queue/add": {
     request: z.object({ jobIds: z.array(z.string().min(1)).min(1).max(200) }),

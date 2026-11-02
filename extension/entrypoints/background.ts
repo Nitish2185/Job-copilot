@@ -3,6 +3,7 @@ import { defineBackground } from "wxt/utils/define-background";
 import { ALARMS, scheduleAlarms } from "@/lib/alarms/alarms";
 import { aiHandlers } from "@/lib/background/aiHandlers";
 import { matchHandlers } from "@/lib/background/matchHandlers";
+import { pageHandlers } from "@/lib/background/pageHandlers";
 import { queueHandlers } from "@/lib/background/queueHandlers";
 import { applyHandlers } from "@/lib/background/applyHandlers";
 import { autofillHandlers, registerAutofillTriggers } from "@/lib/background/autofill";
@@ -22,6 +23,7 @@ export default defineBackground(() => {
     ...applyHandlers,
     ...autofillHandlers,
     ...queueHandlers,
+    ...pageHandlers,
   });
 
   registerAutofillTriggers();
