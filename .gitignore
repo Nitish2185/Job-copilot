@@ -23,7 +23,7 @@ crawler/crawl
 crawler/crawl.exe
 
 # Local crawler output when running outside CI
-data/
+/data/
 
 # Test output
 coverage/
