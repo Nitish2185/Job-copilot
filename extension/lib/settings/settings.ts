@@ -104,6 +104,8 @@ export const FlagsSchema = z.object({
   /** Kill switch for auto-apply, with the reason shown to the user. */
   autoApplyPaused: z.object({ at: z.string(), reason: z.string() }).optional(),
   onboardingStep: z.number().int().nonnegative().optional(),
+  /** Auto-apply failures in a row; three pause auto-apply (spec 16.5). */
+  autoApplyFailures: z.number().int().nonnegative().optional(),
 });
 export type Flags = z.infer<typeof FlagsSchema>;
 

@@ -7,6 +7,7 @@
 import type { AnswerBankEntry, Preferences, Profile } from "@job-copilot/shared";
 import { discoverFields, type FieldKind, type FormField } from "./fields/discover";
 import { resolveField, type FillValue, type Resolution, type ValueSource } from "./fields/resolve";
+import { visibleCaptcha } from "./adapters/common";
 import { classifyField } from "./fields/rules";
 import { fillField, fillFile, type Mode, type Undo } from "./fill";
 
@@ -70,13 +71,12 @@ export interface EngineDeps {
 
 const MAX_PASSES = 3;
 
-const CAPTCHA =
-  'iframe[src*="recaptcha"], iframe[src*="hcaptcha"], iframe[src*="challenges.cloudflare.com"], .g-recaptcha, .h-captcha, .cf-turnstile, [data-sitekey]';
 const VERIFICATION =
   /\b(otp|one[ -]?time (password|code|passcode)|verification code|security code|confirmation code|2fa|two[ -]factor)\b/i;
 
+/** A CAPTCHA challenge the user can see (invisible CAPTCHA scripts do not count). */
 export function detectCaptcha(doc: Document): boolean {
-  return doc.querySelector(CAPTCHA) !== null;
+  return visibleCaptcha(doc);
 }
 
 export function base64ToBlob(file: FileData): Blob {

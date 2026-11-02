@@ -82,6 +82,10 @@ export const ApplicationSchema = z.object({
   contacts: z.array(ContactSchema).optional(),
   /** True when this run stopped before submitting because dry run was on. */
   dryRun: z.boolean().optional(),
+  /** Questions the user still has to answer before this application can continue. */
+  pendingQuestions: z
+    .array(z.object({ question: z.string(), key: z.string(), note: z.string().optional() }))
+    .optional(),
   events: z.array(ApplicationEventSchema),
 });
 export type Application = z.infer<typeof ApplicationSchema>;
@@ -106,5 +110,10 @@ export const QueueItemSchema = z.object({
   lastError: z.string().optional(),
   scheduledFor: IsoDateTimeSchema,
   tabId: z.number().int().optional(),
+  /** The user approved this item in the Review queue. */
+  approved: z.boolean().optional(),
+  resumeChoice: z.enum(["current", "tailored"]).optional(),
+  /** When the current step started (a stuck step is retried after a restart). */
+  startedAt: IsoDateTimeSchema.optional(),
 });
 export type QueueItem = z.infer<typeof QueueItemSchema>;

@@ -43,6 +43,12 @@ export function resolveMode(url: string): ModeResolution {
     return { mode: "assist", adapterId: "generic" };
   }
   const host = parsed.hostname.toLowerCase().replace(/\.$/, "");
+  // E2E builds only: local fixture pages under /<adapter>/... act as that Auto site.
+  if (import.meta.env.JOB_COPILOT_E2E === true && host === "127.0.0.1") {
+    const first = parsed.pathname.split("/")[1] ?? "";
+    const fixture = Object.values(AUTO_ADAPTERS).find((a) => a === first);
+    if (fixture) return { mode: "auto", adapterId: fixture };
+  }
   if (isAutoSubmitUrl(url)) {
     const adapterId = AUTO_ADAPTERS[host];
     if (adapterId) return { mode: "auto", adapterId };
