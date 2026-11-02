@@ -2,9 +2,24 @@
 
 ## Current phase
 
-**Phase 2 - Go crawler** (starting)
+**Phase 3 - Extension data layer and feed sync** (starting)
 
 ## Done
+
+### Phase 2 - Go crawler (accepted 2026-11-02)
+
+- Verified every API with live GET requests; trimmed fixtures in `crawler/testdata/fixtures/`.
+- Go ports of the normalizer, tagger, experience/location/remote parsers and URL detection pass
+  every shared golden case (Go and TypeScript agree).
+- Fetchers: Greenhouse (embed apply form), Lever (incl. EU), Ashby, SmartRecruiters (capped
+  detail fetches), Workable widget API. Polite HTTP client (limits, retries, Retry-After).
+- State and diff (failed fetches close nothing), feed writer (snapshot, daily shards, closed
+  files, companies, index with SHA-256, 30-day retention), developer-role filter.
+- Commands: `crawl`, `validate-companies [--fix]`, `discover`, `stats`. Live contract tests
+  behind `-tags=live`.
+- `companies.json`: 166 verified companies (37 hiring in India, 68 remote).
+- First live crawl: 9,587 developer jobs, 9.5 MB snapshot, validated with Zod.
+- `crawl.yml` (every 6 h + manual) and a placeholder site with a feed status panel.
 
 ### Phase 1 - Shared foundations (accepted 2026-11-02)
 
@@ -39,11 +54,15 @@
 
 ## Next
 
-Phase 2: verify ATS endpoints with real GET requests and save trimmed fixtures; Go fetchers
-(Greenhouse, Lever, Ashby, SmartRecruiters, Workable if a stable endpoint exists); Go ports of
-the normalizer, tagger and parsers passing the shared golden cases; state and diff; feed writer;
-`validate-companies`, `discover`, `stats`; seed `companies.json` with 100+ verified companies;
-`crawl.yml`; placeholder site deploy. Then tell the owner how to turn on GitHub Pages.
+Phase 3: Dexie schema and migrations, settings store (sync) and secrets (local), typed
+messaging bus, alarms, feed sync (snapshot, deltas, ETag, closed jobs, unknown schema version),
+personal boards (URL detection, direct fetch, TypeScript port of the normalizer with the same
+golden cases including `html.cases.json`), hash-routed dashboard with a virtualized job list.
+
+## Waiting on the owner
+
+- Turn on GitHub Pages (Settings > Pages > Source: GitHub Actions) and run the "Crawl jobs"
+  workflow once from the Actions tab. Until then the scheduled crawl fails at the deploy step.
 
 ## Known issues
 

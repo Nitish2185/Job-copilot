@@ -21,7 +21,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 ## 1. What we are building
 
 - [x] 1 App name lives in one constant (`APP_NAME`) so it is easy to rename
-- [ ] 1.1 Finds jobs from the shared feed (Greenhouse, Lever, Ashby, SmartRecruiters, Workable if verified)
+- [x] 1.1 Finds jobs from the shared feed (Greenhouse, Lever, Ashby, SmartRecruiters, Workable if verified)
 - [ ] 1.1 Finds jobs from the user's own company list (fetched directly by the extension)
 - [ ] 1.1 Finds jobs from optional listing APIs with the user's own keys (Adzuna, JSearch)
 - [ ] 1.1 Saves jobs from any page the user is viewing
@@ -32,7 +32,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 1.1 Assist mode everywhere else (fills, the user submits)
 - [ ] 1.1 Tracks every application with exact resume and answers sent, follow-ups, stages, analytics (incl. tailored vs current response rate)
 - [ ] 1.2 No backend server, no hosted database, no paid services
-- [ ] 1.2 Shared feed is static JSON on GitHub Pages built by a scheduled workflow
+- [x] 1.2 Shared feed is static JSON on GitHub Pages built by a scheduled workflow
 - [ ] 1.2 BYOK: Gemini default; Groq, OpenRouter, Ollama, any OpenAI-compatible endpoint; keys stay on device
 - [ ] 1.2 All user data local (IndexedDB + `chrome.storage`); only AI requests and applications leave the device
 - [ ] 1.2 Works without an AI key (keyword matching, profile autofill, tracking, base resume); AI features show "Add an AI key to enable this"
@@ -80,7 +80,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 2.4 Pause between automatic submissions: default 90 s, minimum 30 s, configurable
 - [ ] 2.4 Daily automatic-submission cap: default 20, max 50
 - [ ] 2.4 Per-company cap: default 2 per 30 days, configurable
-- [ ] 2.4 Crawler: clear User-Agent with repo URL, per-host concurrency limit, retries with backoff, honors 429 and `Retry-After`
+- [x] 2.4 Crawler: clear User-Agent with repo URL, per-host concurrency limit, retries with backoff, honors 429 and `Retry-After`
 
 ### 2.5 Untrusted content
 
@@ -90,7 +90,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 3. Architecture
 
-- [ ] 3 GitHub Actions cron (every 6 h) runs the crawler, commits state to the `data` branch, deploys Pages (site + `/feed/*.json`)
+- [x] 3 GitHub Actions cron (every 6 h) runs the crawler, commits state to the `data` branch, deploys Pages (site + `/feed/*.json`)
 - [ ] 3 Extension background handles feed sync, personal boards, listing APIs, matcher, AI scheduler, apply queue, notifications
 - [ ] 3 No server of ours anywhere
 
@@ -116,7 +116,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 4 date-fns; `crypto.randomUUID()`; `crypto.subtle` SHA-256
 - [ ] 4 Vitest, Testing Library, fake-indexeddb; Playwright e2e against local fixtures only
 - [x] 4 ESLint (typescript-eslint) + Prettier
-- [ ] 4 Go crawler uses only stdlib + `x/sync` (errgroup, semaphore); no web frameworks
+- [x] 4 Go crawler uses only stdlib + `x/sync` (errgroup, semaphore); no web frameworks
 - [ ] 4 Site: Vite + React on GitHub Pages
 - [ ] 4 CI/CD workflows: `ci.yml`, `crawl.yml`, `release.yml`
 - [x] 4 MIT license
@@ -142,90 +142,90 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ### 7.1 Overview
 
-- [ ] 7.1 `crawl` subcommand
-- [ ] 7.1 `validate-companies [--fix]` subcommand with summary table
-- [ ] 7.1 `discover <careers-url>` subcommand prints a ready-to-paste entry
-- [ ] 7.1 `stats` subcommand (per platform, per country, top skills)
-- [ ] 7.1 Module path owner kept in one place (set-owner script)
+- [x] 7.1 `crawl` subcommand
+- [x] 7.1 `validate-companies [--fix]` subcommand with summary table
+- [x] 7.1 `discover <careers-url>` subcommand prints a ready-to-paste entry
+- [x] 7.1 `stats` subcommand (per platform, per country, top skills)
+- [x] 7.1 Module path owner kept in one place (set-owner script)
 
 ### 7.2 Companies
 
-- [ ] 7.2 `crawler/companies.json` seed list: 150+ candidates, good share India/remote
-- [ ] 7.2 Every entry verified with `validate-companies`; 100+ valid entries
+- [x] 7.2 `crawler/companies.json` seed list: 150+ candidates, good share India/remote
+- [x] 7.2 Every entry verified with `validate-companies`; 100+ valid entries
 
 ### 7.3 Fetchers
 
-- [ ] 7.3 `Fetcher` interface (`Platform()`, `Fetch(ctx, Company)`)
-- [ ] 7.3 Greenhouse fetcher (verified endpoint, unescaped HTML content, hosted `applyUrl`)
-- [ ] 7.3 Lever fetcher (global + EU)
-- [ ] 7.3 Ashby fetcher (with compensation)
-- [ ] 7.3 SmartRecruiters fetcher (paginated; details only for new jobs, rate-limited)
-- [ ] 7.3 Workable fetcher if a stable public endpoint is verified, otherwise documented exclusion
-- [ ] 7.3 Trimmed real responses saved as fixtures in `crawler/testdata/`
+- [x] 7.3 `Fetcher` interface (`Platform()`, `Fetch(ctx, Company)`)
+- [x] 7.3 Greenhouse fetcher (verified endpoint, unescaped HTML content, hosted `applyUrl`)
+- [x] 7.3 Lever fetcher (global + EU)
+- [x] 7.3 Ashby fetcher (with compensation)
+- [x] 7.3 SmartRecruiters fetcher (paginated; details only for new jobs, rate-limited)
+- [x] 7.3 Workable fetcher if a stable public endpoint is verified, otherwise documented exclusion
+- [x] 7.3 Trimmed real responses saved as fixtures in `crawler/testdata/`
 
 ### 7.4 Normalization
 
-- [ ] 7.4 Skills tagged from title + description
-- [ ] 7.4 Experience range parser (smallest min, largest max, prefers numbers near "experience")
-- [ ] 7.4 Location and country parser using `locations.json` (aliases like Bengaluru/Bangalore)
-- [ ] 7.4 Remote from API fields first, then "remote" in location/title
-- [ ] 7.4 Salary only when the API provides it
-- [ ] 7.4 Snippet: first 300 chars of plain text, whitespace collapsed
-- [ ] 7.4 `descHash`: SHA-256 of plain-text description
+- [x] 7.4 Skills tagged from title + description
+- [x] 7.4 Experience range parser (smallest min, largest max, prefers numbers near "experience")
+- [x] 7.4 Location and country parser using `locations.json` (aliases like Bengaluru/Bangalore)
+- [x] 7.4 Remote from API fields first, then "remote" in location/title
+- [x] 7.4 Salary only when the API provides it
+- [x] 7.4 Snippet: first 300 chars of plain text, whitespace collapsed
+- [x] 7.4 `descHash`: SHA-256 of plain-text description
 
 ### 7.5 Skills
 
 - [x] 7.5 `shared/data/skills.json` with 300+ skills (id, display, aliases, category, optional ambiguous + contextPatterns)
-- [ ] 7.5 Tagger: case-insensitive whole-word matching with punctuation (`node.js`, `c#`, `c++`, `.net`, `next.js`, `ci/cd`)
-- [ ] 7.5 Tagger distinguishes java/javascript, react/react native, sql/specific databases; node = node.js
-- [ ] 7.5 Ambiguous names (go, r, c, spring, express) only via unambiguous aliases or context patterns; never from ordinary English
-- [ ] 7.5 Output sorted, de-duplicated canonical IDs
-- [ ] 7.5 `skills.cases.json` with 120+ cases run by Go and Vitest with identical output
+- [x] 7.5 Tagger: case-insensitive whole-word matching with punctuation (`node.js`, `c#`, `c++`, `.net`, `next.js`, `ci/cd`)
+- [x] 7.5 Tagger distinguishes java/javascript, react/react native, sql/specific databases; node = node.js
+- [x] 7.5 Ambiguous names (go, r, c, spring, express) only via unambiguous aliases or context patterns; never from ordinary English
+- [x] 7.5 Output sorted, de-duplicated canonical IDs
+- [x] 7.5 `skills.cases.json` with 120+ cases run by Go and Vitest with identical output
 
 ### 7.6 HTTP
 
-- [ ] 7.6 User-Agent `JobCopilotCrawler/1.0 (+repo URL)`
-- [ ] 7.6 Global concurrency 8, per-host 2, 20 s timeout
-- [ ] 7.6 Up to 3 retries with exponential backoff + jitter for 5xx, timeouts, 429; honors `Retry-After`
-- [ ] 7.6 No retry on 404; reported in run summary
-- [ ] 7.6 Structured `slog` logs; exit non-zero only if more than 50% of companies fail
+- [x] 7.6 User-Agent `JobCopilotCrawler/1.0 (+repo URL)`
+- [x] 7.6 Global concurrency 8, per-host 2, 20 s timeout
+- [x] 7.6 Up to 3 retries with exponential backoff + jitter for 5xx, timeouts, 429; honors `Retry-After`
+- [x] 7.6 No retry on 404; reported in run summary
+- [x] 7.6 Structured `slog` logs; exit non-zero only if more than 50% of companies fail
 
 ### 7.7 State and diff
 
-- [ ] 7.7 State file `data/state/seen.json` (firstSeenAt, lastSeenAt, descHash, companyKey)
-- [ ] 7.7 New = not in state; closed = missing and company fetch succeeded; never close on failed fetch
-- [ ] 7.7 Changed descHash updates the snapshot
-- [ ] 7.7 Closed jobs removed from state after 30 days
+- [x] 7.7 State file `data/state/seen.json` (firstSeenAt, lastSeenAt, descHash, companyKey)
+- [x] 7.7 New = not in state; closed = missing and company fetch succeeded; never close on failed fetch
+- [x] 7.7 Changed descHash updates the snapshot
+- [x] 7.7 Closed jobs removed from state after 30 days
 
 ### 7.8 Output
 
-- [ ] 7.8 `snapshot.json` compact, all open jobs
-- [ ] 7.8 `jobs/YYYY-MM-DD.json` daily shards; multiple runs per day merge
-- [ ] 7.8 `closed/YYYY-MM-DD.json`
-- [ ] 7.8 Public `companies.json` with job counts, `lastOkAt`, `lastStatus`
-- [ ] 7.8 `index.json` with schemaVersion, counts, snapshot hash, shard and closed-shard lists
-- [ ] 7.8 30-day retention for shards; index lists only retained files
-- [ ] 7.8 Warning when `snapshot.json` exceeds 15 MB
+- [x] 7.8 `snapshot.json` compact, all open jobs
+- [x] 7.8 `jobs/YYYY-MM-DD.json` daily shards; multiple runs per day merge
+- [x] 7.8 `closed/YYYY-MM-DD.json`
+- [x] 7.8 Public `companies.json` with job counts, `lastOkAt`, `lastStatus`
+- [x] 7.8 `index.json` with schemaVersion, counts, snapshot hash, shard and closed-shard lists
+- [x] 7.8 30-day retention for shards; index lists only retained files
+- [x] 7.8 Warning when `snapshot.json` exceeds 15 MB
 - [ ] 7.8 Full descriptions not in the feed; fetched on demand (Ashby board cached 1 h)
 
 ### 7.9 Discover
 
-- [ ] 7.9 Platform/token detection from URLs and HTML markers (Greenhouse incl. embed + `gh_jid`, Lever + EU, Ashby, SmartRecruiters, Workable)
-- [ ] 7.9 `platform-urls.cases.json` with 40+ cases used by Go `discover` and TS `detect.ts`
+- [x] 7.9 Platform/token detection from URLs and HTML markers (Greenhouse incl. embed + `gh_jid`, Lever + EU, Ashby, SmartRecruiters, Workable)
+- [x] 7.9 `platform-urls.cases.json` with 40+ cases used by Go `discover` and TS `detect.ts`
 
 ### 7.10 Crawler tests
 
-- [ ] 7.10 Parser tests per platform against fixtures
-- [ ] 7.10 Tagger, experience, location tests against shared golden cases
-- [ ] 7.10 Diff tests: new, closed, changed, failed fetch closes nothing
-- [ ] 7.10 Golden feed output test in Go + Zod parse of the golden output in `shared`
-- [ ] 7.10 `go vet` and `-race`
-- [ ] 7.10 Live contract tests behind `-tags=live` (not in normal CI)
+- [x] 7.10 Parser tests per platform against fixtures
+- [x] 7.10 Tagger, experience, location tests against shared golden cases
+- [x] 7.10 Diff tests: new, closed, changed, failed fetch closes nothing
+- [x] 7.10 Golden feed output test in Go + Zod parse of the golden output in `shared`
+- [x] 7.10 `go vet` and `-race`
+- [x] 7.10 Live contract tests behind `-tags=live` (not in normal CI)
 
 ## 8. Feed contract
 
 - [x] 8 `FeedJob` and `FeedIndex` Zod schemas in `shared/src/schemas/feed.ts`
-- [ ] 8 Go structs mirror the schema with matching JSON tags
+- [x] 8 Go structs mirror the schema with matching JSON tags
 - [x] 8 `applyUrl` must be on an `AUTO_SUBMIT_HOSTS` host
 - [ ] 8 Contract changes bump `schemaVersion`; extension shows "Update the extension to keep receiving jobs" for unknown versions
 
@@ -520,7 +520,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 ## 23. CI/CD and distribution
 
 - [ ] 23.1 `ci.yml`: frozen install, lint, typecheck, unit, Chrome + Firefox builds, Go vet/test/build, e2e, pnpm + Go caching
-- [ ] 23.2 `crawl.yml`: 6-hourly + manual, permissions, concurrency group, data branch (orphan if missing), crawl, commit data, site build with `/feed`, Pages deploy, run summary
+- [x] 23.2 `crawl.yml`: 6-hourly + manual, permissions, concurrency group, data branch (orphan if missing), crawl, commit data, site build with `/feed`, Pages deploy, run summary
 - [ ] 23.3 `release.yml`: on `v*` tags, Chrome/Edge + Firefox zips + sources zip, release with SHA-256 checksums and notes
 - [ ] 23.4 `docs/PUBLISHING.md` (Edge, AMO with sources, Chrome load-unpacked, optional Chrome Web Store, listing text, screenshots, justifications, privacy URL)
 - [ ] 23.5 Site pages: Home, Install, Get a free Gemini key, Privacy Policy, FAQ, Feed status
@@ -531,7 +531,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 - [x] 24 Phase 0 - Setup accepted
 - [x] 24 Phase 1 - Shared foundations accepted
-- [ ] 24 Phase 2 - Go crawler accepted
+- [x] 24 Phase 2 - Go crawler accepted
 - [ ] 24 Phase 3 - Data layer and feed sync accepted
 - [ ] 24 Phase 4 - Onboarding and profile accepted
 - [ ] 24 Phase 5 - Matching accepted
