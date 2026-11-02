@@ -72,7 +72,8 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 
 ## Extension
 
-- **UI pages read the database with Dexie live queries; every write goes through a background message.** Spec 4 asks for Dexie live queries in the UI and spec 9.5 routes shared-data access through the background; reads stay reactive while writes get one validated, rate-limited path.
+- **UI pages read the database with Dexie live queries. Writes that involve syncing, AI or anything rate-limited go through a background message; the user's own edits (profile, preferences, uploaded files, answer-bank edits) are written by the dashboard directly.** Spec 4 asks for Dexie live queries in the UI and spec 9.5 routes shared data and AI through the background; files cannot travel in extension messages, and plain user edits need no shared rate limit.
+- **Projects live inside the profile record (`Profile.projects`).** The data model nests them there; the `projects` table stays reserved for a later need.
 - **Message replies use `sendResponse` + `return true`** instead of returning a promise from `onMessage`, which works the same in Chrome, Edge and Firefox.
 - **Closing a feed job only changes the status of `new` jobs.** Saved, applied, hidden and queued jobs keep their status and get `closedAt`, so nothing the user did disappears; a job that comes back reopens as `new`.
 - **Feed sync verifies every checksummed file before writing anything from it**, and a mismatch leaves the previous data in place with an error status.
