@@ -17,3 +17,4 @@ export * from "./skills/tagger";
 export * from "./parsing/experience";
 export * from "./parsing/location";
 export * from "./parsing/phrase";
+export * from "./platforms/detect";
