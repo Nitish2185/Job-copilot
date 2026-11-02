@@ -188,6 +188,8 @@ export const MESSAGES = {
     request: z.object({
       jobId: z.string().min(1),
       projectIds: z.array(z.string().min(1)).max(3),
+      /** Above 0 asks the AI for a fresh version instead of the cached one. */
+      attempt: z.number().int().min(0).max(20).default(0),
     }),
     response: z.object({
       content: TailoredContentSchema,

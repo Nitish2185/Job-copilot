@@ -34,6 +34,8 @@ export const TailorResumeOutputSchema = z.object({
 export type TailorResumeOutput = z.infer<typeof TailorResumeOutputSchema>;
 
 export interface TailorResumeInput {
+  /** 0 for the first try; higher numbers ask for a fresh version (and skip the cached answer). */
+  attempt: number;
   job: {
     title: string;
     mustHave: string[];
@@ -64,6 +66,7 @@ export function tailorRequest(
   picked: readonly Project[],
   job: Pick<Job, "title">,
   analysis: JdAnalysis,
+  attempt = 0,
 ): {
   input: TailorResumeInput;
   experienceKeys: Map<string, string>;
@@ -75,6 +78,7 @@ export function tailorRequest(
     experienceKeys,
     projectKeys,
     input: {
+      attempt,
       job: {
         title: job.title,
         mustHave: analysis.mustHave,
@@ -145,7 +149,7 @@ export const tailorResumeTask: AiTask<TailorResumeInput, TailorResumeOutput> = {
   cacheTtlMs: CACHE_TTL.tailorResume,
   redactInput: true,
   priority: "user",
-  buildMessages: ({ job, candidate }) => [
+  buildMessages: ({ attempt, job, candidate }) => [
     {
       role: "system",
       content: [
@@ -156,6 +160,9 @@ export const tailorResumeTask: AiTask<TailorResumeInput, TailorResumeOutput> = {
         "summary: at most 60 words, aimed at this job. skillsOrder: candidate skill ids, most relevant first; you may leave some out.",
         "experienceRewrites: rephrase existing bullets (bulletIndex is the bullet's position, from 0) to stress what the job wants; each at most 30 words. experienceBulletOrder: the bullet positions in the best order.",
         "projectBullets: 2-4 bullets per project, using only that project's own description, bullets and tech stack. keywordsTargeted: job keywords the tailored resume now mentions.",
+        ...(attempt > 0
+          ? [`This is attempt ${String(attempt + 1)}: word it differently from earlier attempts.`]
+          : []),
       ].join("\n"),
     },
     {

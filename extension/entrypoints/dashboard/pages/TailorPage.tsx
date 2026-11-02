@@ -101,6 +101,7 @@ export function TailorPage() {
   const [rendering, setRendering] = useState(false);
   const [edited, setEdited] = useState<ReadonlySet<string>>(new Set());
   const [savedText, setSavedText] = useState<string>();
+  const [attempt, setAttempt] = useState(0);
   const started = useRef(false);
 
   const render = async (s: State, t: ResumeTemplate) => {
@@ -119,11 +120,16 @@ export function TailorPage() {
     }
   };
 
-  const tailor = async (base: Omit<State, "tailored" | "doc">, t: ResumeTemplate) => {
+  const tailor = async (
+    base: Omit<State, "tailored" | "doc">,
+    t: ResumeTemplate,
+    tryNumber = 0,
+  ) => {
     setProgress("Tailoring your resume...");
     const tailored = await sendMessage("ai/tailorResume", {
       jobId: base.job.id,
       projectIds: base.picks.map((p) => p.projectId),
+      attempt: tryNumber,
     });
     const projects = base.picks
       .map((p) => base.profile.projects.find((x) => x.id === p.projectId))
@@ -280,6 +286,25 @@ export function TailorPage() {
           <Button onClick={() => void render(state, template)} disabled={rendering}>
             {rendering ? "Updating..." : "Update preview"}
           </Button>
+          {tailored.source === "ai" && (
+            <Button
+              variant="ghost"
+              disabled={rendering}
+              onClick={() => {
+                const next = attempt + 1;
+                setAttempt(next);
+                void tailor(
+                  { job, profile, analysis: state.analysis, picks },
+                  template,
+                  next,
+                ).catch((e: unknown) => {
+                  setError(e instanceof Error ? e.message : "Could not tailor the resume.");
+                });
+              }}
+            >
+              Regenerate
+            </Button>
+          )}
           {pdfUrl && (
             <a
               href={pdfUrl}

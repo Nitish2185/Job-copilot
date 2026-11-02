@@ -114,6 +114,7 @@ export async function picksFor(
 export async function tailoredFor(
   jobId: string,
   projectIds: readonly string[],
+  attempt = 0,
 ): Promise<{
   content: TailoredContent;
   issues: string[];
@@ -135,7 +136,7 @@ export async function tailoredFor(
   let source: "ai" | "local" = "local";
   let aiError: string | undefined;
   if (await isAiConfigured()) {
-    const request = tailorRequest(profile, picked, job, analysis);
+    const request = tailorRequest(profile, picked, job, analysis, attempt);
     try {
       const result = await runTask(await buildRuntime(), tailorResumeTask, request.input);
       changes = changesFromOutput(result.value, request.experienceKeys, request.projectKeys);
@@ -178,6 +179,6 @@ export async function coverLetterFor(
 export const tailorHandlers: Handlers = {
   "ai/analyzeJd": ({ jobId, refresh }) => analysisFor(jobId, refresh),
   "ai/pickProjects": ({ jobId, count }) => picksFor(jobId, count),
-  "ai/tailorResume": ({ jobId, projectIds }) => tailoredFor(jobId, projectIds),
+  "ai/tailorResume": ({ jobId, projectIds, attempt }) => tailoredFor(jobId, projectIds, attempt),
   "ai/writeCoverLetter": ({ jobId }) => coverLetterFor(jobId),
 };

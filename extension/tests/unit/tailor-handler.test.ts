@@ -1,7 +1,11 @@
 import type { Job, Profile } from "@job-copilot/shared";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type * as Runner from "@/lib/ai/runner";
-import type { TailorResumeOutput } from "@/lib/ai/tasks/tailorResume";
+import {
+  tailorRequest,
+  tailorResumeTask,
+  type TailorResumeOutput,
+} from "@/lib/ai/tasks/tailorResume";
 import { tailoredFor } from "@/lib/background/tailorHandlers";
 import { getDb } from "@/lib/db/db";
 import { emptyProfile } from "@/lib/profile/profile";
@@ -145,5 +149,25 @@ describe("tailoredFor (background)", () => {
     expect(result.content.experience[0]?.bullets.every((b) => !b.changed)).toBe(true);
     expect(result.content.projects).toHaveLength(1);
     expect(result.issues).toEqual([]);
+  });
+});
+
+describe("regenerating", () => {
+  it("asks for a different wording on later attempts, so the cached answer is not reused", () => {
+    const analysis = {
+      jobId: job.id,
+      mustHave: [],
+      niceToHave: [],
+      keywords: [],
+      seniority: "mid",
+      responsibilitiesSummary: "",
+      createdAt: "2026-11-02T00:00:00Z",
+      model: "local",
+    };
+    const first = tailorRequest(profile, [], job, analysis).input;
+    const second = tailorRequest(profile, [], job, analysis, 1).input;
+    expect(tailorResumeTask.buildMessages(first)[0]?.content).not.toContain("attempt");
+    expect(tailorResumeTask.buildMessages(second)[0]?.content).toContain("This is attempt 2");
+    expect(second).not.toEqual(first);
   });
 });
