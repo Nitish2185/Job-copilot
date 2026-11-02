@@ -10,8 +10,8 @@ import { browser } from "wxt/browser";
 import { Button } from "@/components/ui/Button";
 import { ErrorMessage } from "@/components/ui/States";
 import { answerToText } from "@/lib/answers/answerBank";
-import { resolveMode } from "@/lib/apply/mode";
 import { getDb } from "@/lib/db/db";
+import { autoPlatformFor } from "@/lib/jobs/autoPlatform";
 import { sendMessage } from "@/lib/messaging/client";
 
 function Note({ ok, children }: { ok: boolean; children: ReactNode }) {
@@ -163,21 +163,6 @@ export function SavedAnswers() {
       </ul>
     </details>
   );
-}
-
-const AUTO_NAMES: Record<string, string> = {
-  greenhouse: "Greenhouse",
-  lever: "Lever",
-  ashby: "Ashby",
-  workable: "Workable",
-  smartrecruiters: "SmartRecruiters",
-};
-
-/** The Auto platform a job from an Assist site really applies through, if any. */
-export function autoPlatformFor(job: Job): string | undefined {
-  if (!job.externalApplyUrl) return undefined;
-  const resolved = resolveMode(job.externalApplyUrl);
-  return resolved.mode === "auto" ? AUTO_NAMES[resolved.adapterId] : undefined;
 }
 
 /**

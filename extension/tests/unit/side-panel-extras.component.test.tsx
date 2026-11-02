@@ -2,12 +2,8 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import {
-  AutoViaPlatform,
-  SavedAnswers,
-  SubmittedPrompt,
-  autoPlatformFor,
-} from "@/entrypoints/sidepanel/PagePanels";
+import { AutoViaPlatform, SavedAnswers, SubmittedPrompt } from "@/entrypoints/sidepanel/PagePanels";
+import { autoPlatformFor } from "@/lib/jobs/autoPlatform";
 import { newAnswer } from "@/lib/answers/answerBank";
 import { getDb } from "@/lib/db/db";
 import { sampleJob } from "./helpers";
