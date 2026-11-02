@@ -1,0 +1,23 @@
+{
+  "description": "Golden cases for remote detection: API fields first, then 'hybrid'/'remote' in locations or title. Run by shared (Vitest) and crawler (go test).",
+  "cases": [
+    { "input": { "workplaceType": "remote", "locations": ["Bengaluru"], "title": "Engineer" }, "expected": "remote" },
+    { "input": { "workplaceType": "Remote", "locations": ["Hybrid - Pune"], "title": "Engineer" }, "expected": "remote" },
+    { "input": { "workplaceType": "hybrid", "locations": [], "title": "Engineer" }, "expected": "hybrid" },
+    { "input": { "workplaceType": "on-site", "locations": ["Remote"], "title": "Engineer" }, "expected": "onsite" },
+    { "input": { "workplaceType": "OnSite", "locations": [], "title": "Engineer" }, "expected": "onsite" },
+    { "input": { "workplaceType": "onsite", "locations": [], "title": "Engineer" }, "expected": "onsite" },
+    { "input": { "workplaceType": "In-Office", "locations": [], "title": "Engineer" }, "expected": "onsite" },
+    { "input": { "workplaceType": "unspecified", "locations": ["Remote - India"], "title": "Engineer" }, "expected": "remote" },
+    { "input": { "isRemote": true, "locations": ["Bengaluru"], "title": "Engineer" }, "expected": "remote" },
+    { "input": { "isRemote": false, "locations": ["Remote"], "title": "Engineer" }, "expected": "remote" },
+    { "input": { "locations": ["Bengaluru (Hybrid)"], "title": "Engineer" }, "expected": "hybrid" },
+    { "input": { "locations": ["Remote or Hybrid - Pune"], "title": "Engineer" }, "expected": "hybrid" },
+    { "input": { "locations": ["Bengaluru"], "title": "Senior Engineer" }, "expected": "unknown" },
+    { "input": { "locations": [], "title": "Senior Engineer (Remote)" }, "expected": "remote" },
+    { "input": { "locations": ["Work from home"], "title": "Engineer" }, "expected": "remote" },
+    { "input": { "locations": ["WFH"], "title": "Engineer" }, "expected": "remote" },
+    { "input": { "locations": ["Remotely located teams"], "title": "Engineer" }, "expected": "unknown" },
+    { "input": { "workplaceType": null, "isRemote": null, "locations": [], "title": "" }, "expected": "unknown" }
+  ]
+}

@@ -46,3 +46,6 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **Text is normalized to ASCII before matching** (lowercase, Unicode dashes to "-", other non-ASCII to spaces). String positions then mean the same in UTF-16 and UTF-8.
 - **Snippets are cut by whole characters while the UTF-16 length is at most 300.** Always passes the schema's `max(300)` and is computable identically in Go.
 - **Golden case files and data files are excluded from Prettier** so they stay one entry per line.
+- **Accented Latin letters are folded to ASCII before matching** (`shared/data/fold.json`, generated from Unicode NFD plus overrides such as ß -> ss). "Zürich", "São Paulo" and "Kraków" then match; Go loads the same table.
+- **Location parsing is data-driven** (`shared/data/locations.json`: 75 countries, US/Canadian/Australian/Indian states, 230 cities). Bare 2-3 letter codes resolve last: a state of a country whose city was found wins ("Indianapolis, IN" -> US), otherwise an ISO country code ("Remote, IN" -> India), otherwise a state. Ambiguous names that cause more harm than good (Georgia, Victoria, Cambridge, Birmingham, Reading) are left out on purpose.
+- **Remote detection** uses API fields first (`workplaceType`, `isRemote`), then "hybrid" before "remote" / "wfh" / "work from home" in locations and title.

@@ -5,14 +5,27 @@
  * run the golden cases in shared/testcases, so keep the two in step.
  */
 
+import foldData from "../../data/fold.json";
+
 /** Unicode dashes that become "-": hyphen, non-breaking hyphen, figure/en/em dash, bar, minus. */
 const DASH_CODE_POINTS = new Set([0x2010, 0x2011, 0x2012, 0x2013, 0x2014, 0x2015, 0x2212]);
 
+/** Accented Latin letters folded to ASCII ("ü" -> "u", "ß" -> "ss"), keyed by code point. */
+const FOLD = new Map(
+  Object.entries(foldData.map as Record<string, string>).map(([hex, ascii]) => [
+    Number.parseInt(hex, 16),
+    ascii,
+  ]),
+);
+
+const isCombiningMark = (code: number) => code >= 0x300 && code <= 0x36f;
+
 /**
- * Lowercases ASCII letters, turns Unicode dashes into "-", turns every other
- * non-ASCII character and every control character into a space, then collapses
- * runs of spaces and trims. The result is pure ASCII, so string positions mean
- * the same thing in TypeScript (UTF-16) and Go (bytes).
+ * Lowercases ASCII letters, folds accented Latin letters to ASCII (fold.json),
+ * drops combining accent marks, turns Unicode dashes into "-", and turns every
+ * other non-ASCII character and every control character into a space. Then
+ * collapses runs of spaces and trims. The result is pure ASCII, so string
+ * positions mean the same thing in TypeScript (UTF-16) and Go (bytes).
  */
 export function normalizeForMatching(input: string): string {
   let out = "";
@@ -24,10 +37,12 @@ export function normalizeForMatching(input: string): string {
       out += " ";
     } else if (code < 0x80) {
       out += ch;
+    } else if (isCombiningMark(code)) {
+      continue;
     } else if (DASH_CODE_POINTS.has(code)) {
       out += "-";
     } else {
-      out += " ";
+      out += FOLD.get(code) ?? " ";
     }
   }
   return collapseSpaces(out);

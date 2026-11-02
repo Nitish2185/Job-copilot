@@ -15,3 +15,5 @@ export * from "./parsing/normalize";
 export * from "./skills/dictionary";
 export * from "./skills/tagger";
 export * from "./parsing/experience";
+export * from "./parsing/location";
+export * from "./parsing/phrase";
