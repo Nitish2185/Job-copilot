@@ -18,3 +18,6 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **TypeScript pinned to 6.0.3, not 7.0.x.** `typescript-eslint` 8.72 supports TypeScript `<6.1.0` only, and the spec requires ESLint with typescript-eslint. Revisit when typescript-eslint supports TS 7.
 - **ESLint uses `strictTypeChecked` + `stylisticTypeChecked` with the project service.** Catches floating promises and unsafe `any` in async extension code; Prettier handles formatting (`eslint-config-prettier`).
 - **`@types/node` pinned to the Node 24 line (24.19.2).** Matches the Node LTS used locally and in CI.
+- **WXT auto-imports are off (`imports: false`).** Every file imports `browser` from `wxt/browser` and helpers from `wxt/utils/*`, so code reads without generated globals and ESLint needs no extra setup.
+- **Firefox builds use Manifest V2, Chrome/Edge MV3.** WXT 0.21's default and recommendation (spec 9.6). Firefox add-on ID is `job-copilot@<owner>.github.io`, derived from `GITHUB_OWNER`.
+- **`web-ext` installed as a dev dependency.** WXT needs it to open a browser on `pnpm dev`; the dev profile lives in `extension/.wxt/chrome-data` (git-ignored) so data survives restarts.
