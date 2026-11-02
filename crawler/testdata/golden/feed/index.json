@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-02T06:00:00Z",
+  "totalOpenJobs": 12,
+  "companyCount": 5,
+  "skillsVersion": "2026-11-02",
+  "snapshot": {
+    "file": "snapshot.json",
+    "sha256": "7dff4c8b1d91b579f0ab4c03a69e4258ab86de0623fbfc7e5338e2b0dad7abf9",
+    "count": 12
+  },
+  "shards": [
+    {
+      "date": "2026-11-02",
+      "file": "jobs/2026-11-02.json",
+      "count": 14,
+      "sha256": "cee5e49f1b75ad7f68ea1fbc13eb391873fb5d767fa2ba18afa3feb4455f9c0e"
+    }
+  ],
+  "closedShards": [
+    {
+      "date": "2026-11-02",
+      "file": "closed/2026-11-02.json",
+      "count": 2
+    }
+  ]
+}

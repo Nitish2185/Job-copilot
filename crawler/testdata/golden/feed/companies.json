@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-11-02T06:00:00Z",
+  "companies": [
+    {
+      "name": "Ramp",
+      "platform": "ashby",
+      "token": "ramp",
+      "jobCount": 3,
+      "lastOkAt": "2026-11-02T06:00:00Z",
+      "lastStatus": "ok"
+    },
+    {
+      "name": "GitLab",
+      "platform": "greenhouse",
+      "token": "gitlab",
+      "jobCount": 3,
+      "lastOkAt": "2026-11-02T06:00:00Z",
+      "lastStatus": "ok"
+    },
+    {
+      "name": "Gone Co",
+      "platform": "lever",
+      "token": "goneco",
+      "jobCount": 0,
+      "lastStatus": "not_found"
+    },
+    {
+      "name": "Palantir",
+      "platform": "lever",
+      "token": "palantir",
+      "jobCount": 3,
+      "lastOkAt": "2026-11-02T06:00:00Z",
+      "lastStatus": "ok"
+    },
+    {
+      "name": "Bosch Group",
+      "platform": "smartrecruiters",
+      "token": "BoschGroup",
+      "jobCount": 3,
+      "lastOkAt": "2026-11-02T06:00:00Z",
+      "lastStatus": "ok"
+    }
+  ]
+}
