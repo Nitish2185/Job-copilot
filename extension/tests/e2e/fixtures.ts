@@ -17,10 +17,35 @@ export interface FixtureServer {
   requests: string[];
 }
 
+/** A local OpenAI-compatible server. `reply` picks the JSON answer for each chat request. */
+export interface MockAiServer {
+  /** Base URL to enter as a custom provider, e.g. http://127.0.0.1:1234/v1 */
+  baseUrl: string;
+  /** Raw bodies of every chat request, to check what would have left the device. */
+  chatBodies: string[];
+  /** Picks the answer from the raw request body (which includes the task's instructions). */
+  reply: (requestBody: string) => unknown;
+}
+
+async function listen(server: Server): Promise<string> {
+  await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
+  const { port } = server.address() as AddressInfo;
+  return `http://127.0.0.1:${String(port)}`;
+}
+
+async function close(server: Server): Promise<void> {
+  await new Promise<void>((resolve) => {
+    server.close(() => {
+      resolve();
+    });
+  });
+}
+
 export const test = base.extend<{
   context: BrowserContext;
   extensionId: string;
   server: FixtureServer;
+  aiServer: MockAiServer;
 }>({
   // eslint-disable-next-line no-empty-pattern -- Playwright fixtures take an options object
   context: async ({}, use) => {
@@ -55,14 +80,56 @@ export const test = base.extend<{
         .writeHead(200, { "Content-Type": "application/json", ETag: `"${sha256(body)}"` })
         .end(body);
     });
-    await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
-    const { port } = server.address() as AddressInfo;
-    await use({ url: `http://127.0.0.1:${String(port)}`, files, requests });
-    await new Promise<void>((resolve) => {
-      server.close(() => {
-        resolve();
+    await use({ url: await listen(server), files, requests });
+    await close(server);
+  },
+
+  // eslint-disable-next-line no-empty-pattern -- Playwright fixtures take an options object
+  aiServer: async ({}, use) => {
+    const mock: MockAiServer = { baseUrl: "", chatBodies: [], reply: () => ({ ok: true }) };
+    const server = createServer((req, res) => {
+      const path = new URL(req.url ?? "/", "http://localhost").pathname;
+      let body = "";
+      req.on("data", (chunk: Buffer) => {
+        body += chunk.toString("utf8");
+      });
+      req.on("end", () => {
+        res.setHeader("Content-Type", "application/json");
+        if (req.method === "GET" && path === "/v1/models") {
+          res.end(
+            JSON.stringify({
+              object: "list",
+              data: [{ id: "mock-model", object: "model", created: 0, owned_by: "test" }],
+            }),
+          );
+          return;
+        }
+        if (req.method === "POST" && path === "/v1/chat/completions") {
+          mock.chatBodies.push(body);
+          res.end(
+            JSON.stringify({
+              id: `chatcmpl-${String(mock.chatBodies.length)}`,
+              object: "chat.completion",
+              created: 0,
+              model: "mock-model",
+              choices: [
+                {
+                  index: 0,
+                  message: { role: "assistant", content: JSON.stringify(mock.reply(body)) },
+                  finish_reason: "stop",
+                },
+              ],
+              usage: { prompt_tokens: 1, completion_tokens: 1, total_tokens: 2 },
+            }),
+          );
+          return;
+        }
+        res.writeHead(404).end(JSON.stringify({ error: { message: "not found" } }));
       });
     });
+    mock.baseUrl = `${await listen(server)}/v1`;
+    await use(mock);
+    await close(server);
   },
 });
 
