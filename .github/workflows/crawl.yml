@@ -1,0 +1,87 @@
+name: Crawl jobs
+
+# Builds the shared job feed every 6 hours and publishes it with the website on
+# GitHub Pages. Crawler state lives on the `data` branch, which is replaced by a
+# single fresh commit on every run so the repository does not grow.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: crawl
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check out the data branch into ./data
+        run: |
+          if git ls-remote --exit-code --heads origin data > /dev/null; then
+            git fetch --depth=1 origin data:refs/remotes/origin/data
+            git worktree add -B data data origin/data
+          else
+            git worktree add --orphan -b data data
+          fi
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: crawler/go.mod
+          cache-dependency-path: crawler/go.sum
+
+      - name: Build the crawler
+        run: go -C crawler build -o bin/crawl ./cmd/crawl
+
+      - name: Crawl
+        run: crawler/bin/crawl crawl --root "$GITHUB_WORKSPACE" --data "$GITHUB_WORKSPACE/data"
+
+      - name: Save state to the data branch
+        working-directory: data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan data-next
+          git add -A
+          git commit --quiet -m "data: crawl $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push --force origin data-next:data
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install site dependencies
+        run: pnpm install --frozen-lockfile --filter "@job-copilot/site..."
+
+      - name: Build the site
+        run: pnpm --filter @job-copilot/site build
+
+      - name: Add the feed to the site
+        run: |
+          mkdir -p site/dist/feed
+          cp -R data/feed/. site/dist/feed/
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
