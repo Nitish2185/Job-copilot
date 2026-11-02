@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { defaultPreferences } from "@/lib/profile/store";
-import { formToPreferences, preferencesToForm } from "@/lib/profile/preferencesForm";
+import {
+  currencyForCountry,
+  formToPreferences,
+  preferencesToForm,
+} from "@/lib/profile/preferencesForm";
 
 describe("preferences form", () => {
   it("parses Indian CTC inputs and shows them back as LPA", () => {
@@ -55,5 +59,13 @@ describe("preferences form", () => {
   it("leaves voluntary diversity answers empty by default (decline)", () => {
     const result = formToPreferences(preferencesToForm(defaultPreferences("US")), "USD");
     expect(result.ok && result.preferences.eeo).toBeUndefined();
+  });
+});
+
+describe("currencyForCountry", () => {
+  it("defaults CTC fields to the user's currency", () => {
+    expect(currencyForCountry("IN")).toBe("INR");
+    expect(currencyForCountry("de")).toBe("EUR");
+    expect(currencyForCountry("")).toBe("USD");
   });
 });

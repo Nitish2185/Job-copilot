@@ -175,3 +175,23 @@ export function formToPreferences(v: PreferencesFormValues, currency: string): P
     }),
   };
 }
+
+const EURO_COUNTRIES = new Set(
+  "AT BE CY DE EE ES FI FR GR HR IE IT LT LU LV MT NL PT SI SK".split(" "),
+);
+const COUNTRY_CURRENCY: Record<string, string> = {
+  IN: "INR",
+  US: "USD",
+  GB: "GBP",
+  CA: "CAD",
+  AU: "AUD",
+  SG: "SGD",
+  AE: "AED",
+};
+
+/** The currency CTC fields default to for the user's country (INR for India). */
+export function currencyForCountry(countryCode: string): string {
+  const code = countryCode.trim().toUpperCase();
+  if (EURO_COUNTRIES.has(code)) return "EUR";
+  return COUNTRY_CURRENCY[code] ?? "USD";
+}
