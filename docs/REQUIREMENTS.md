@@ -20,7 +20,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 1. What we are building
 
-- [ ] 1 App name lives in one constant (`APP_NAME`) so it is easy to rename
+- [x] 1 App name lives in one constant (`APP_NAME`) so it is easy to rename
 - [ ] 1.1 Finds jobs from the shared feed (Greenhouse, Lever, Ashby, SmartRecruiters, Workable if verified)
 - [ ] 1.1 Finds jobs from the user's own company list (fetched directly by the extension)
 - [ ] 1.1 Finds jobs from optional listing APIs with the user's own keys (Adzuna, JSearch)
@@ -55,7 +55,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ### 2.2 Auto allowlist
 
-- [ ] 2.2 `AUTO_SUBMIT_HOSTS` is one constant in `shared`
+- [x] 2.2 `AUTO_SUBMIT_HOSTS` is one constant in `shared`
 - [ ] 2.2 Single submit function asserts exact hostname match right before clicking and throws otherwise (unit-tested)
 - [ ] 2.2 Test builds may add a local fixture host via a build-time flag; a test asserts production builds exclude it
 - [ ] 2.2 Allowlist hosts verified during development (changes logged in DECISIONS)
@@ -115,11 +115,11 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 4 `openai` package with per-provider `baseURL` (`dangerouslyAllowBrowser: true`)
 - [ ] 4 date-fns; `crypto.randomUUID()`; `crypto.subtle` SHA-256
 - [ ] 4 Vitest, Testing Library, fake-indexeddb; Playwright e2e against local fixtures only
-- [ ] 4 ESLint (typescript-eslint) + Prettier
+- [x] 4 ESLint (typescript-eslint) + Prettier
 - [ ] 4 Go crawler uses only stdlib + `x/sync` (errgroup, semaphore); no web frameworks
 - [ ] 4 Site: Vite + React on GitHub Pages
 - [ ] 4 CI/CD workflows: `ci.yml`, `crawl.yml`, `release.yml`
-- [ ] 4 MIT license
+- [x] 4 MIT license
 - [ ] 4 No Express, MongoDB, servers, paid APIs, Selenium, or production Puppeteer
 
 ## 5. Repository structure
@@ -525,11 +525,11 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 23.4 `docs/PUBLISHING.md` (Edge, AMO with sources, Chrome load-unpacked, optional Chrome Web Store, listing text, screenshots, justifications, privacy URL)
 - [ ] 23.5 Site pages: Home, Install, Get a free Gemini key, Privacy Policy, FAQ, Feed status
 - [ ] 23.6 User-only steps documented in README and final message
-- [ ] 23.6 `pnpm run set-owner` script updates every owner placeholder
+- [x] 23.6 `pnpm run set-owner` script updates every owner placeholder
 
 ## 24. Phases
 
-- [ ] 24 Phase 0 - Setup accepted
+- [x] 24 Phase 0 - Setup accepted
 - [ ] 24 Phase 1 - Shared foundations accepted
 - [ ] 24 Phase 2 - Go crawler accepted
 - [ ] 24 Phase 3 - Data layer and feed sync accepted
