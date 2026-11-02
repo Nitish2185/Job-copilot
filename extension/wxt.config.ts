@@ -29,6 +29,16 @@ const OPTIONAL_HOSTS = [
   "https://*/*",
 ];
 
+/** Application forms where Job Copilot may fill and, when the user enabled it, submit (AUTO_SUBMIT_HOSTS). */
+const AUTO_APPLY_HOSTS = [
+  "https://boards.greenhouse.io/*",
+  "https://job-boards.greenhouse.io/*",
+  "https://jobs.lever.co/*",
+  "https://jobs.eu.lever.co/*",
+  "https://jobs.ashbyhq.com/*",
+  "https://jobs.smartrecruiters.com/*",
+];
+
 /** The shared feed on GitHub Pages. */
 const FEED_HOST = `${new URL(PAGES_BASE_URL).origin}/*`;
 
@@ -57,6 +67,7 @@ export default defineConfig({
       "scripting",
       "activeTab",
       "contextMenus",
+      "notifications",
     ],
     commands: {
       autofill: {
@@ -68,7 +79,13 @@ export default defineConfig({
         description: "Open the Job Copilot side panel",
       },
     },
-    host_permissions: [...ATS_API_HOSTS, ...CORE_API_HOSTS, FEED_HOST, ...E2E_HOSTS],
+    host_permissions: [
+      ...ATS_API_HOSTS,
+      ...AUTO_APPLY_HOSTS,
+      ...CORE_API_HOSTS,
+      FEED_HOST,
+      ...E2E_HOSTS,
+    ],
     // MV2 (Firefox) lists optional hosts under optional_permissions; WXT does not convert them.
     // 'wasm-unsafe-eval' lets the PDF layout engine (WebAssembly) run; no eval, no remote code.
     ...(browser === "firefox"
@@ -82,6 +99,17 @@ export default defineConfig({
           content_security_policy: { extension_pages: EXTENSION_CSP },
         }),
   }),
+  hooks: {
+    // E2E builds run the Auto site script on local fixture pages too; release builds never do.
+    "build:manifestGenerated": (_wxt, manifest) => {
+      if (!E2E) return;
+      for (const script of manifest.content_scripts ?? []) {
+        if (script.js?.some((file) => file.includes("auto-ats"))) {
+          script.matches = [...(script.matches ?? []), "http://127.0.0.1/*"];
+        }
+      }
+    },
+  },
   vite: () => ({
     plugins: [tailwindcss()],
     define: { "import.meta.env.JOB_COPILOT_E2E": JSON.stringify(E2E) },

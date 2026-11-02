@@ -314,6 +314,80 @@ export const MESSAGES = {
     response: z.object({ created: z.boolean(), error: z.string().optional() }),
     sender: extensionOnly,
   },
+  "queue/add": {
+    request: z.object({ jobIds: z.array(z.string().min(1)).min(1).max(200) }),
+    response: z.object({
+      queued: z.number().int(),
+      skipped: z.array(z.object({ jobId: z.string(), reason: z.string() })),
+    }),
+    sender: extensionOnly,
+  },
+  "queue/approve": {
+    request: z.object({ applicationId: z.string().min(1) }),
+    response: z.object({ ok: z.boolean() }),
+    sender: extensionOnly,
+  },
+  "queue/reject": {
+    request: z.object({ applicationId: z.string().min(1) }),
+    response: z.object({ ok: z.boolean() }),
+    sender: extensionOnly,
+  },
+  "queue/answer": {
+    request: z.object({
+      applicationId: z.string().min(1),
+      answers: z
+        .array(
+          z.object({ question: z.string().min(1), key: z.string(), answer: z.string().min(1) }),
+        )
+        .min(1)
+        .max(50),
+    }),
+    response: z.object({ ok: z.boolean() }),
+    sender: extensionOnly,
+  },
+  "queue/openAndFinish": {
+    request: z.object({ applicationId: z.string().min(1) }),
+    response: z.object({ ok: z.boolean(), error: z.string().optional() }),
+    sender: extensionOnly,
+  },
+  "autoApply/status": {
+    request: z.object({}),
+    response: z.object({
+      enabled: z.boolean(),
+      dryRun: z.boolean(),
+      paused: z.object({ at: z.string(), reason: z.string() }).optional(),
+      pending: z.number().int(),
+      review: z.number().int(),
+      needsYou: z.number().int(),
+      sentToday: z.number().int(),
+      appliedToday: z.number().int(),
+      dailyCap: z.number().int(),
+    }),
+    sender: extensionOnly,
+  },
+  "autoApply/pause": {
+    request: z.object({ reason: z.string().max(200).optional() }),
+    response: z.object({ ok: z.boolean() }),
+    sender: extensionOnly,
+  },
+  "autoApply/resume": {
+    request: z.object({}),
+    response: z.object({ ok: z.boolean() }),
+    sender: extensionOnly,
+  },
+  "autoApply/enable": {
+    request: z.object({
+      threshold: z.number().int().min(0).max(100),
+      approvalMode: z.enum(["always", "below_threshold"]),
+    }),
+    response: z.object({ ok: z.boolean() }),
+    sender: extensionOnly,
+  },
+  "autoApply/disable": {
+    request: z.object({}),
+    response: z.object({ ok: z.boolean() }),
+    sender: extensionOnly,
+  },
   "apply/autofillTab": {
     request: z.object({
       tabId: z.number().int().optional(),

@@ -120,3 +120,9 @@ export async function updateFlags(patch: Partial<Flags>): Promise<Flags> {
   await browser.storage.local.set({ [FLAGS_KEY]: next });
   return next;
 }
+
+/** Lifts the auto-apply pause (the kill switch) and resets the failure count. */
+export async function clearAutoApplyPause(): Promise<void> {
+  const { autoApplyPaused: _paused, ...rest } = await loadFlags();
+  await browser.storage.local.set({ [FLAGS_KEY]: { ...rest, autoApplyFailures: 0 } });
+}
