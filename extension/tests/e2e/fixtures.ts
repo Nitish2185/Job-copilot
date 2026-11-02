@@ -38,6 +38,8 @@ async function close(server: Server): Promise<void> {
     server.close(() => {
       resolve();
     });
+    // Pages keep connections alive; drop them so the server can stop.
+    server.closeAllConnections();
   });
 }
 
@@ -78,7 +80,10 @@ export const test = base.extend<{
         return;
       }
       res
-        .writeHead(200, { "Content-Type": "application/json", ETag: `"${sha256(body)}"` })
+        .writeHead(200, {
+          "Content-Type": path.endsWith(".html") ? "text/html; charset=utf-8" : "application/json",
+          ETag: `"${sha256(body)}"`,
+        })
         .end(body);
     });
     await use({ url: await listen(server), files, requests });

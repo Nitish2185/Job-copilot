@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fixture: job application form</title>
+    <style>
+      body {
+        font: 14px sans-serif;
+        padding: 20px;
+      }
+      .row {
+        margin: 10px 0;
+      }
+      .styled-radio input {
+        opacity: 0;
+        position: absolute;
+      }
+      .styled-radio label {
+        border: 1px solid #999;
+        padding: 4px 10px;
+        margin-right: 4px;
+      }
+      .honeypot {
+        position: absolute;
+        left: -9999px;
+      }
+      #country-list {
+        display: none;
+        border: 1px solid #ccc;
+      }
+      #country-list[data-open] {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Software Engineer, Fixture Corp</h1>
+    <form id="application" action="/submitted" method="post">
+      <div class="row">
+        <label for="first">First name *</label><input id="first" name="first_name" required />
+      </div>
+      <div class="row">
+        <label for="last">Last name *</label><input id="last" name="last_name" required />
+      </div>
+      <div class="row">
+        <label for="email">Email *</label><input id="email" type="email" required />
+      </div>
+      <div class="row">
+        <label for="dial">Country code</label>
+        <select id="dial">
+          <option value="">Select...</option>
+          <option>+1</option>
+          <option>+91</option>
+        </select>
+        <label for="phone">Phone</label><input id="phone" type="tel" />
+      </div>
+      <!-- React-style: the form only "sees" values that arrive through input events. -->
+      <div class="row"><label for="city">Current location</label><input id="city" /></div>
+      <div class="row"><label for="linkedin">LinkedIn profile</label><input id="linkedin" /></div>
+      <div class="row">
+        <span id="ctc-q">Current CTC (in LPA)</span><input aria-labelledby="ctc-q" id="ctc" />
+      </div>
+      <div class="row">
+        <label for="notice">Notice period</label>
+        <select id="notice">
+          <option value="">Choose</option>
+          <option>Immediate</option>
+          <option>1 month</option>
+          <option>2 months</option>
+          <option>3 months</option>
+        </select>
+      </div>
+      <fieldset class="row styled-radio">
+        <legend>Are you willing to relocate?</legend>
+        <input type="radio" id="rel-yes" name="relocate" value="yes" /><label for="rel-yes"
+          >Yes</label
+        >
+        <input type="radio" id="rel-no" name="relocate" value="no" /><label for="rel-no">No</label>
+      </fieldset>
+      <div id="relocation-follow-up"></div>
+      <div class="row">
+        <span id="country-label">Country</span>
+        <div
+          role="combobox"
+          id="country"
+          aria-labelledby="country-label"
+          aria-controls="country-list"
+          aria-expanded="false"
+          tabindex="0"
+        >
+          Select a country
+        </div>
+        <ul id="country-list" role="listbox">
+          <li role="option">United States</li>
+          <li role="option">India</li>
+          <li role="option">Indonesia</li>
+        </ul>
+      </div>
+      <div class="row">
+        <label for="resume">Resume/CV *</label>
+        <button type="button" id="attach">Attach</button>
+        <input id="resume" type="file" accept=".pdf" style="display: none" />
+        <span id="resume-name"></span>
+      </div>
+      <fieldset class="row">
+        <legend>Will you now or in the future require visa sponsorship?</legend>
+        <label><input type="radio" name="sponsor" value="yes" /> Yes</label>
+        <label><input type="radio" name="sponsor" value="no" /> No</label>
+      </fieldset>
+      <div class="row">
+        <label for="gender">Gender</label>
+        <select id="gender">
+          <option value="">Select</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Decline to self-identify</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="why">What excites you about this role? *</label
+        ><textarea id="why" required></textarea>
+      </div>
+      <div class="row">
+        <label for="salary">Expected salary (USD) *</label><input id="salary" required />
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="privacy" /> I have read the privacy notice</label>
+      </div>
+      <div class="row">
+        <label for="disabled">Employee ID</label><input id="disabled" disabled />
+      </div>
+      <div class="honeypot">
+        <label for="website">Website</label><input id="website" tabindex="-1" />
+      </div>
+      <div class="row chatbot-panel" id="chatbot">
+        <p>Are you an immediate joiner?</p>
+        <div class="chip" role="button" tabindex="0">Yes</div>
+        <div class="chip" role="button" tabindex="0">No</div>
+        <input aria-label="Type your answer" /><button type="button" aria-label="Send">➤</button>
+      </div>
+      <div class="row">
+        <a href="/other-job" id="other-link">See another job</a>
+        <button type="button" id="next">Next</button>
+        <button type="submit" id="submit">Submit application</button>
+      </div>
+    </form>
+    <script>
+      window.forbiddenClicks = [];
+      for (const sel of ["#next", "#submit", "#other-link", ".chip", "[aria-label=Send]"]) {
+        for (const el of document.querySelectorAll(sel)) {
+          el.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.forbiddenClicks.push(sel);
+          });
+        }
+      }
+      document.getElementById("application").addEventListener("submit", (e) => {
+        e.preventDefault();
+        window.forbiddenClicks.push("form submit");
+      });
+      // React-style controlled input: records values that came through input events.
+      window.seenByForm = {};
+      document.getElementById("city").addEventListener("input", (e) => {
+        window.seenByForm.city = e.target.value;
+      });
+      // Choosing "Yes" for relocation reveals a follow-up question.
+      document.getElementById("rel-yes").addEventListener("change", () => {
+        document.getElementById("relocation-follow-up").innerHTML =
+          '<div class="row"><label for="pref-city">Preferred city</label><input id="pref-city" /></div>';
+      });
+      const combo = document.getElementById("country");
+      const list = document.getElementById("country-list");
+      combo.addEventListener("click", () => {
+        combo.setAttribute("aria-expanded", "true");
+        list.setAttribute("data-open", "");
+      });
+      for (const option of list.querySelectorAll("[role=option]")) {
+        option.addEventListener("click", () => {
+          combo.textContent = option.textContent;
+          combo.setAttribute("aria-expanded", "false");
+          list.removeAttribute("data-open");
+        });
+      }
+      document.getElementById("resume").addEventListener("change", (e) => {
+        document.getElementById("resume-name").textContent = e.target.files[0]?.name ?? "";
+      });
+    </script>
+  </body>
+</html>
