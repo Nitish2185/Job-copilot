@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@job-copilot/shared": "workspace:*",
+    "@react-pdf/renderer": "4.9.0",
     "@tanstack/react-virtual": "3.14.24",
     "dexie": "4.4.7",
     "dexie-react-hooks": "4.4.0",
