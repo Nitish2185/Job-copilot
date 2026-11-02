@@ -120,3 +120,32 @@ export async function newAnswer(
   if (input.options) entry.options = [...input.options];
   return entry;
 }
+
+/** An answer as editable text: lists joined with commas, booleans as Yes/No. */
+export function answerToText(answer: AnswerValue): string {
+  if (Array.isArray(answer)) return answer.join(", ");
+  if (typeof answer === "boolean") return answer ? "Yes" : "No";
+  return String(answer);
+}
+
+/** Reads edited text back in the shape of the previous answer; null when it does not fit. */
+export function textToAnswer(text: string, previous: AnswerValue): AnswerValue | null {
+  const value = text.trim();
+  if (value === "") return null;
+  if (typeof previous === "boolean") {
+    if (/^(yes|true|y)$/i.test(value)) return true;
+    if (/^(no|false|n)$/i.test(value)) return false;
+    return null;
+  }
+  if (typeof previous === "number") {
+    const n = Number(value.replace(/,/g, ""));
+    return Number.isFinite(n) ? n : null;
+  }
+  if (Array.isArray(previous)) {
+    return value
+      .split(",")
+      .map((v) => v.trim())
+      .filter((v) => v !== "");
+  }
+  return value;
+}

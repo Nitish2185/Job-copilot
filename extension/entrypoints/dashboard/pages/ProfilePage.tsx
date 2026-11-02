@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { AnswerBankEditor } from "@/components/profile/AnswerBankEditor";
 import { PreferencesForm } from "@/components/profile/PreferencesForm";
 import { ProfileEditor } from "@/components/profile/ProfileEditor";
 import { Loading } from "@/components/ui/States";
 import { currencyForCountry } from "@/lib/profile/preferencesForm";
 import { usePreferences, useProfile } from "../hooks";
 
-type Tab = "profile" | "answers";
+type Tab = "profile" | "preferences" | "answers";
+
+const TABS: [Tab, string][] = [
+  ["profile", "About you"],
+  ["preferences", "Answers and job preferences"],
+  ["answers", "Saved answers"],
+];
 
 /** Edit everything from onboarding later (spec 10.1). Every save bumps the profile version. */
 export function ProfilePage() {
@@ -35,31 +42,22 @@ export function ProfilePage() {
           </Link>
         </p>
       </div>
-      <div role="tablist" aria-label="Profile sections" className="flex gap-2">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={tab === "profile"}
-          className={tabClass("profile")}
-          onClick={() => {
-            setTab("profile");
-            setSaved(undefined);
-          }}
-        >
-          About you
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={tab === "answers"}
-          className={tabClass("answers")}
-          onClick={() => {
-            setTab("answers");
-            setSaved(undefined);
-          }}
-        >
-          Answers and job preferences
-        </button>
+      <div role="tablist" aria-label="Profile sections" className="flex flex-wrap gap-2">
+        {TABS.map(([t, label]) => (
+          <button
+            key={t}
+            type="button"
+            role="tab"
+            aria-selected={tab === t}
+            className={tabClass(t)}
+            onClick={() => {
+              setTab(t);
+              setSaved(undefined);
+            }}
+          >
+            {label}
+          </button>
+        ))}
       </div>
       {saved && (
         <p role="status" className="text-sm text-green-700 dark:text-green-400">
@@ -67,7 +65,7 @@ export function ProfilePage() {
         </p>
       )}
       <div role="tabpanel">
-        {tab === "profile" ? (
+        {tab === "profile" && (
           <ProfileEditor
             key={profile.id}
             profile={profile}
@@ -75,7 +73,8 @@ export function ProfilePage() {
               setSaved(`Saved. Profile version ${String(p.version)}.`);
             }}
           />
-        ) : (
+        )}
+        {tab === "preferences" && (
           <PreferencesForm
             preferences={preferences}
             currency={currencyForCountry(profile.basics.country)}
@@ -84,6 +83,7 @@ export function ProfilePage() {
             }}
           />
         )}
+        {tab === "answers" && <AnswerBankEditor />}
       </div>
     </div>
   );
