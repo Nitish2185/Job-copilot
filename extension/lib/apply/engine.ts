@@ -37,6 +37,7 @@ export interface FieldReport {
   label: string;
   key: string;
   status: FieldStatus;
+  required?: boolean;
   source?: ValueSource;
   value?: string;
   note?: string;
@@ -136,7 +137,13 @@ export async function runAutofill(
   };
 
   const record = (field: FormField, key: string, r: Omit<FieldReport, "id" | "label" | "key">) => {
-    reports.set(field.id, { id: field.id, label: field.label, key, ...r });
+    reports.set(field.id, {
+      id: field.id,
+      label: field.label,
+      key,
+      ...(field.required && { required: true }),
+      ...r,
+    });
   };
 
   let attachedResume = false;

@@ -90,6 +90,7 @@ export const AutofillReportSchema = z.object({
         label: z.string(),
         key: z.string(),
         status: z.enum(["filled", "needs_you", "skipped", "error"]),
+        required: z.boolean().optional(),
         source: z.enum(["profile", "preferences", "answer_bank", "ai", "decline"]).optional(),
         value: z.string().optional(),
         note: z.string().optional(),
