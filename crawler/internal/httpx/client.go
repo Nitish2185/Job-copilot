@@ -184,7 +184,7 @@ func (c *Client) attempt(ctx context.Context, u *url.URL) ([]byte, time.Duration
 		return nil, 0, err
 	}
 	req.Header.Set("User-Agent", c.opts.UserAgent)
-	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Accept", "application/json, text/html;q=0.9, */*;q=0.8")
 
 	resp, err := c.opts.HTTPClient.Do(req)
 	if err != nil {
