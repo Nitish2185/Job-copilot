@@ -3,7 +3,7 @@
  * its request and response and a rule saying who may send it. The background
  * validates both before a handler runs.
  */
-import { CompanySchema, JobStatusSchema } from "@job-copilot/shared";
+import { CompanySchema, JdAnalysisSchema, JobStatusSchema } from "@job-copilot/shared";
 import { z } from "zod";
 import { ProjectDescriptionSchema } from "../ai/tasks/describeProject";
 import { ProfileDraftSchema } from "../ai/tasks/extractProfile";
@@ -158,6 +158,11 @@ export const MESSAGES = {
       fullName: z.string().max(200).optional(),
     }),
     response: z.object({ draft: ProfileDraftSchema, model: z.string() }),
+    sender: extensionOnly,
+  },
+  "ai/analyzeJd": {
+    request: z.object({ jobId: z.string().min(1), refresh: z.boolean().default(false) }),
+    response: z.object({ analysis: JdAnalysisSchema, aiError: z.string().optional() }),
     sender: extensionOnly,
   },
   "ai/describeProject": {

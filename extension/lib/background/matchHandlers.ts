@@ -3,7 +3,7 @@
  * every sync and AI-scored in the background within the daily budget; the
  * dashboard asks for full re-scoring after profile changes.
  */
-import { providerNeedsKey } from "../ai/providers";
+import { isAiConfigured } from "../ai/configured";
 import { runTask } from "../ai/runner";
 import { buildRuntime } from "../ai/runtime";
 import type { Priority } from "../ai/scheduler";
@@ -14,7 +14,7 @@ import { prefilterJobs, scoreWithAi, type MatchInputs, type ScoreOrder } from ".
 import type { AiScoringResult, ScoringQuota } from "../messaging/protocol";
 import type { Handlers } from "../messaging/server";
 import { loadPreferences, loadProfile } from "../profile/store";
-import { loadSecrets, loadSettings } from "../settings/settings";
+import { loadSettings } from "../settings/settings";
 
 /** Jobs AI-scored automatically after one sync (the rest wait for the next sync or the user). */
 export const BACKGROUND_SCORING_PER_RUN = 50;
@@ -29,10 +29,7 @@ async function loadInputs(): Promise<MatchInputs> {
   return { profile, preferences, settings };
 }
 
-async function aiConfigured(): Promise<boolean> {
-  const [settings, secrets] = await Promise.all([loadSettings(), loadSecrets()]);
-  return !providerNeedsKey(settings.ai.provider) || Boolean(secrets.aiKeys[settings.ai.provider]);
-}
+const aiConfigured = isAiConfigured;
 
 function budgetFor(inputs: MatchInputs): ScoringBudget {
   return new ScoringBudget(storageScoringUsage, inputs.settings.ai.dailyScoringBudget);
