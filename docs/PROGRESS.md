@@ -2,9 +2,29 @@
 
 ## Current phase
 
-**Phase 7 - Apply engine core** (starting)
+**Phase 8 - Auto pipeline** (starting)
 
 ## Done
+
+### Phase 7 - Apply engine core (accepted 2026-11-02)
+
+- Mode resolution: Auto only for exact allowlisted https hosts; Naukri, Indeed, LinkedIn and
+  Workday get Assist adapters; everything else is generic Assist. Tested with look-alike URLs.
+- Guards: `isNavigationOrSubmitControl`, a single `safeClick` (Assist allows only form widgets
+  and "Add another"), and `submitApplication` with an exact-hostname check. 80+ tests.
+- Field discovery (visible, enabled; labels in the spec's order; honeypots, disabled fields and
+  login forms skipped), a rule-table classifier with 180+ real questions (Indian forms included),
+  option matching (Yes/No, notice, years, LPA/lakh/crore, countries, phones), value resolution
+  (profile -> saved answers -> sensitive stop -> diversity decline -> AI -> needs you), and AI
+  answers only for non-sensitive questions with code-side acceptance.
+- Filling (native setter + events, selects, safe clicks for radios/checkboxes/comboboxes, file
+  attach), resume first and wait for the page to settle, 3 scan passes, highlights with a
+  field-source panel and undo.
+- Autofill with Alt+Shift+F or the right-click menu (activeTab + scripting), the side panel
+  (match, resume choice, cover letter, Autofill, "Mark as applied" without duplicates), and a
+  Firefox sidebar.
+- E2E: a fixture form with every tricky case fills correctly and no forbidden control is ever
+  clicked.
 
 ### Phase 6 - Resume tailoring and cover letters (accepted 2026-11-02)
 
@@ -134,11 +154,12 @@
 
 ## Next
 
-Phase 7: field discovery, classification rules (150+ tests), value resolution, option
-matching, filling techniques, highlight overlay and undo, the guards (`AUTO_SUBMIT_HOSTS`,
-`isNavigationOrSubmitControl`, `safeClick`), the generic Assist adapter with the Autofill
-button, shortcut and context menu, and the side panel. Linking resume versions and cover letters
-to applications (14.1, 14.6, 14.7) lands with Phases 7-8.
+Phase 8: the persisted queue state machine, Greenhouse/Lever/Ashby/Workable/SmartRecruiters
+adapters with fixtures, background-tab orchestration, pre-submit checks, confirmation and error
+detection, Review queue and Needs-you pages, caps, pauses, kill switch, auto-pause, dry run and
+the enable-auto-apply explanation flow. Still open from Phase 7: "Autofill each new step
+automatically" (needs the per-site Assist content scripts of Phase 9), saved-answer suggestions
+in the side panel, and the "Did you submit?" prompt after Assist confirmation.
 
 ## Waiting on the owner
 

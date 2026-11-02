@@ -29,7 +29,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 1.1 Ranks jobs: local keyword prefilter, then AI score with reasons, must-have checklist, missing skills
 - [ ] 1.1 Prepares applications from profile + answer bank; optional tailored resume (2 most relevant real projects) and cover letter
 - [ ] 1.1 Auto mode on Greenhouse, Lever, Ashby, Workable, SmartRecruiters (background tab, after approval or above threshold)
-- [ ] 1.1 Assist mode everywhere else (fills, the user submits)
+- [x] 1.1 Assist mode everywhere else (fills, the user submits)
 - [ ] 1.1 Tracks every application with exact resume and answers sent, follow-ups, stages, analytics (incl. tailored vs current response rate)
 - [ ] 1.2 No backend server, no hosted database, no paid services
 - [x] 1.2 Shared feed is static JSON on GitHub Pages built by a scheduled workflow
@@ -45,12 +45,12 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 2.1 Assist list covers Naukri, Indeed, LinkedIn, Wellfound, Glassdoor, Foundit, Instahyre, Hirist, Cutshort, Workday, iCIMS, Taleo/Oracle, SuccessFactors, and every non-allowlisted site
 - [ ] 2.1 Fill only on a page the user opened, only on Autofill button/shortcut or "Autofill each new step automatically" (default ON)
 - [ ] 2.1 Auto-step setting fills only the visible tab; never clicks or navigates
-- [ ] 2.1 Allowed interactions limited to setting control values, opening comboboxes, attaching files, "Add another" section buttons
+- [x] 2.1 Allowed interactions limited to setting control values, opening comboboxes, attaching files, "Add another" section buttons
 - [x] 2.1 `isNavigationOrSubmitControl(element)` guard implemented
 - [x] 2.1 Every programmatic click goes through one `safeClick()` that refuses forbidden elements on Assist sites
 - [x] 2.1 Guard unit-tested with many real button labels and structures
-- [ ] 2.1 Never opens the next job, never loops through results, never works in background tabs on Assist sites
-- [ ] 2.1 No network requests to Assist sites (no scraping, hidden fetches, internal APIs); DOM of loaded pages only
+- [x] 2.1 Never opens the next job, never loops through results, never works in background tabs on Assist sites
+- [x] 2.1 No network requests to Assist sites (no scraping, hidden fetches, internal APIs); DOM of loaded pages only
 - [ ] 2.1 Search-page badges computed only from what the page already loaded
 
 ### 2.2 Auto allowlist
@@ -62,15 +62,15 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ### 2.3 Never
 
-- [ ] 2.3 Never ask for, store, or type job-site passwords; never log in for the user
-- [ ] 2.3 Detect logged-out state and show a "please log in" banner; never fill login or sign-up forms
-- [ ] 2.3 Never request the `cookies` permission or read cookies
+- [x] 2.3 Never ask for, store, or type job-site passwords; never log in for the user
+- [x] 2.3 Detect logged-out state and show a "please log in" banner; never fill login or sign-up forms
+- [x] 2.3 Never request the `cookies` permission or read cookies
 - [ ] 2.3 Never bypass CAPTCHAs/bot checks; on detection stop, mark "Needs you", notify
-- [ ] 2.3 No human-imitation automation (fake mouse moves, typing delays, fingerprint changes, proxies)
-- [ ] 2.3 Never fill email/SMS verification codes; stop and mark "Needs you"
+- [x] 2.3 No human-imitation automation (fake mouse moves, typing delays, fingerprint changes, proxies)
+- [x] 2.3 Never fill email/SMS verification codes; stop and mark "Needs you"
 - [ ] 2.3 Never invent facts on resumes, cover letters, or answers
-- [ ] 2.3 AI never decides sensitive answers (work auth, sponsorship, salary/CTC, notice, background check, relocation, attestations, DOB); missing -> stop, ask, save to answer bank
-- [ ] 2.3 Never accept terms/consent for the user, except privacy-notice acknowledgement on Auto forms when the opt-in (default OFF) is on
+- [x] 2.3 AI never decides sensitive answers (work auth, sponsorship, salary/CTC, notice, background check, relocation, attestations, DOB); missing -> stop, ask, save to answer bank
+- [x] 2.3 Never accept terms/consent for the user, except privacy-notice acknowledgement on Auto forms when the opt-in (default OFF) is on
 - [x] 2.3 Never fill hidden or disabled fields
 - [ ] 2.3 Never apply twice to the same job; respect per-company and daily caps
 - [ ] 2.3 Auto-apply OFF by default; enabling requires an explanation dialog and a score threshold
@@ -99,7 +99,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 4 pnpm workspaces with `extension`, `site`, `shared`; Go module in `crawler/`
 - [ ] 4 WXT + TypeScript strict; builds Chrome/Edge MV3 and Firefox; uses WXT `browser` wrapper
 - [ ] 4 React + Tailwind; Radix UI primitives; lucide-react icons; reusable components in `extension/components/ui`
-- [ ] 4 On-site UI via WXT `createShadowRootUi`
+- [x] 4 On-site UI via WXT `createShadowRootUi` (a plain Shadow DOM overlay; see DECISIONS)
 - [x] 4 Dashboard uses react-router with a hash router
 - [x] 4 Zustand for UI-only state; Dexie live queries for DB state
 - [x] 4 Dexie + dexie-react-hooks with versioned schema
@@ -235,7 +235,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 - [ ] 9.1 Background service worker (alarms, sync, AI scheduler, matcher, queue, notifications, menus, commands, routing)
 - [x] 9.1 Dashboard full tab with `#/onboarding` opened on first install
-- [ ] 9.1 Side panel on Chrome/Edge; Firefox sidebar via per-browser config
+- [x] 9.1 Side panel on Chrome/Edge; Firefox sidebar via per-browser config
 - [ ] 9.1 Popup
 - [ ] 9.1 Auto adapter content scripts (greenhouse, lever, ashby, workable, smartrecruiters)
 - [ ] 9.1 Assist content scripts (naukri, indeed; linkedin and workday under optional permission)
@@ -248,11 +248,11 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 9.2 Permissions: storage, unlimitedStorage, alarms, notifications, scripting, activeTab, contextMenus, sidePanel (Chrome/Edge); `tabs` only with a logged reason
 - [ ] 9.2 Required hosts: Auto hosts, ATS API hosts, feed origin, api.github.com, Gemini API, Naukri, Indeed
 - [ ] 9.2 Optional hosts requested at runtime with explanation: LinkedIn, Workday, other AI providers, Ollama, custom URL, Adzuna, JSearch
-- [ ] 9.2 Never cookies, blocking webRequest, debugger, history, management, or required `<all_urls>`
+- [x] 9.2 Never cookies, blocking webRequest, debugger, history, management, or required `<all_urls>`
 
 ### 9.3 Commands and menus
 
-- [ ] 9.3 Commands `autofill` (Alt+Shift+F) and `toggle-side-panel` (Alt+Shift+J); current shortcut shown in UI
+- [x] 9.3 Commands `autofill` (Alt+Shift+F) and `toggle-side-panel` (Alt+Shift+J); current shortcut shown in UI
 - [ ] 9.3 Context menu: "Save this job to Job Copilot", "Score this job", "Autofill this form"
 
 ### 9.4 Service worker lifecycle
@@ -265,14 +265,14 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 - [x] 9.5 Typed message bus: discriminated union with Zod payload/response schemas
 - [x] 9.5 Background validates every message and checks `sender.tab.url` against the message type
-- [ ] 9.5 UI and content scripts reach AI and shared data only through background
+- [x] 9.5 UI and content scripts reach AI and shared data only through background
 
 ### 9.6 Cross-browser
 
 - [ ] 9.6 Chrome MV3, Edge (same build), Firefox per WXT recommendation
-- [ ] 9.6 Side panel/sidebar differences handled in one place
+- [x] 9.6 Side panel/sidebar differences handled in one place
 - [ ] 9.6 Firefox build tested manually in Phase 11; unsupported items documented
-- [ ] 9.6 No remote code, no `eval`; pdf.js worker and fonts bundled
+- [x] 9.6 No remote code, no `eval`; pdf.js worker and fonts bundled
 
 ## 10. Onboarding and profile
 
@@ -410,18 +410,18 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 16.2 Selectors in one file per adapter; labels/text/ARIA preferred; CONTRIBUTING explains fixing adapters
 - [x] 16.3 Collect visible, enabled controls incl. custom comboboxes, date pickers, file inputs
 - [x] 16.3 Label resolution order (label for, aria-labelledby, aria-label, wrapping label, legend/preceding text, placeholder, name) + normalization
-- [ ] 16.3 Rule-table classifier in `lib/apply/fields/rules.ts` with all canonical keys
-- [ ] 16.3 150+ classification tests incl. Indian forms
-- [ ] 16.3 Value resolution order: profile -> answer bank (exact, fuzzy Jaccard >= 0.9, type/options fit) -> sensitive stop -> EEO decline -> AI (confidence >= 0.75, exact option match, maxlength) -> unknown handling
-- [ ] 16.3 New AI answers saved as `pending_approval` and reused only after approval
-- [ ] 16.3 Option matching helpers (yes/no, notice buckets, year buckets, LPA ranges, country/state codes, phone formats, skill years) unit-tested
-- [ ] 16.4 Native value setter + input/change/blur events
-- [ ] 16.4 Native selects; custom comboboxes via `safeClick()` with verification
-- [ ] 16.4 Checkboxes/radios clicked only when state differs
-- [ ] 16.4 File attach via `DataTransfer` with verification
-- [ ] 16.4 Attach resume first, wait for idle (1.5 s quiet, 10 s max), then fill and correct pre-filled values
-- [ ] 16.4 Re-scan up to 3 passes for conditional questions
-- [ ] 16.4 Highlight overlay (green/blue/yellow) with field-source panel and "Undo autofill"
+- [x] 16.3 Rule-table classifier in `lib/apply/fields/rules.ts` with all canonical keys
+- [x] 16.3 150+ classification tests incl. Indian forms
+- [x] 16.3 Value resolution order: profile -> answer bank (exact, fuzzy Jaccard >= 0.9, type/options fit) -> sensitive stop -> EEO decline -> AI (confidence >= 0.75, exact option match, maxlength) -> unknown handling
+- [x] 16.3 New AI answers saved as `pending_approval` and reused only after approval
+- [x] 16.3 Option matching helpers (yes/no, notice buckets, year buckets, LPA ranges, country/state codes, phone formats, skill years) unit-tested
+- [x] 16.4 Native value setter + input/change/blur events
+- [x] 16.4 Native selects; custom comboboxes via `safeClick()` with verification
+- [x] 16.4 Checkboxes/radios clicked only when state differs
+- [x] 16.4 File attach via `DataTransfer` with verification
+- [x] 16.4 Attach resume first, wait for idle (1.5 s quiet, 10 s max), then fill and correct pre-filled values
+- [x] 16.4 Re-scan up to 3 passes for conditional questions
+- [x] 16.4 Highlight overlay (green/blue/yellow) with field-source panel and "Undo autofill"
 - [ ] 16.5 Persisted queue state machine (pending -> preparing -> running -> done/needs_you/failed, waiting_pause); max 2 transient retries
 - [ ] 16.5 Eligibility checks (enabled + explanation, allowlisted host, no previous application/dedupe, caps, active hours, threshold/approval, profile basics)
 - [ ] 16.5 Prepare step (description, analyzeJd, resume choice, tailoring, cover letter)
@@ -437,7 +437,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 16.6 Assist side panel: score, reasons, missing skills, resume options, cover letter copy, Autofill + shortcut, saved answers, "Mark as applied"
 - [ ] 16.6 Autofill each new step only on the viewed tab, never clicking forbidden controls
 - [ ] 16.6 Confirmation creates an Assist `Application`; otherwise asks "Did you submit this application?"
-- [ ] 16.6 Logged-out banner; never fills login forms
+- [x] 16.6 Logged-out banner; never fills login forms
 
 ## 17. Site adapters
 
@@ -449,7 +449,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 17.2 Indeed: badges, job details, Indeed Apply steps (verified flow), resume attach, country subdomains, company-site links, login detection
 - [ ] 17.3 LinkedIn: off by default, optional permission after explanation, badges, job view, Easy Apply steps, external Auto links
 - [ ] 17.4 Workday: optional permission; My Information, My Experience (Add blocks allowed), Application Questions, Voluntary Disclosures, Self Identify (decline by default)
-- [ ] 17.5 Generic adapter injected on demand; fills only
+- [x] 17.5 Generic adapter injected on demand; fills only
 - [ ] 17.6 Auto adapters (Greenhouse both UIs, Lever, Ashby, Workable, SmartRecruiters) with fixtures from real form structure
 - [ ] 17.6 Each Auto adapter detects confirmation and errors
 - [ ] 17.6 Embedded Greenhouse forms use the hosted URL
@@ -470,7 +470,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 18.1 `#/analytics`
 - [ ] 18.1 `#/settings` all sections listed in 18.1
 - [x] 18.1 `#/onboarding`
-- [ ] 18.2 Context-aware side panel
+- [x] 18.2 Context-aware side panel
 - [ ] 18.3 Popup counts, pause/resume, open dashboard, open side panel
 - [ ] 18.4 Notifications: digest, batched needs-you, follow-ups, auto-apply paused; click opens the right route
 

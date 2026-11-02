@@ -99,6 +99,19 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **Descriptions are fetched by the dashboard**, because DOMPurify needs a DOM and the background worker has none. They are stored sanitized and refreshed after 7 days. Greenhouse (`/v1/boards/{token}/jobs/{id}`) and Lever (`/v0/postings/{token}/{id}`) single-job endpoints return the same shape as one list item (verified with GET requests on 2026-11-02); Ashby and Workable boards are cached for an hour per dashboard session.
 - **E2E tests block every outside host** unless a test routes it, so no test can reach a real job site.
 
+## Apply engine (Phase 7)
+
+- **Assist clicks are an allowlist, not only a denylist.** `safeClick` refuses anything that looks like submit, next, send, links, chat answers, consent or delete everywhere, and on Assist sites it also refuses anything that is not a form widget (checkbox, radio, list option, combobox opener, "Add another"). A `<button>` without `type` inside a form counts as submit.
+- **Trailing-dot hosts are not Auto** (`jobs.lever.co.` is a different hostname string), matching the exact check in `submitApplication`.
+- **Visibility:** a field counts only when it and its ancestors are displayed, not transparent, not `aria-hidden`, and (in real browsers) not off-screen or squashed. Styled checkboxes and radios count when their label is visible; file inputs count when their container is visible (sites hide them behind an "Attach" button).
+- **Sensitive answers need the saved "ask once" answers.** Before the user saves preferences, every sensitive question goes to the user. Pay is never converted: a question in another currency than the saved one goes to the user, and so does every pay question when the user chose "ask me each time".
+- **Work authorization answers** come from the saved status for that country (citizen, permanent resident or work visa = Yes; needs sponsorship = No; other = ask). The country comes from the question, else the job, else the profile.
+- **The background classifies AI questions again** and refuses sensitive ones, so a page cannot get the AI to answer them. Accepted AI answers are saved as "waiting for approval" and shown in blue.
+- **Pressing Autofill always fills in Assist mode**, even on Auto hosts; submitting belongs to the queue (Phase 8).
+- **The overlay is a plain Shadow DOM panel**, not WXT's `createShadowRootUi`: the generic script is injected on demand and stays small without React. Outlines are set on the fields themselves and restored on close or undo.
+- **No `tabs` permission.** The side panel learns the page address on allowlisted hosts or after the user presses Autofill there (activeTab); otherwise it shows top matches and the shortcut.
+- **"Mark as applied" records one application per job**, also refusing a duplicate listing with the same company, title and place (`dedupeKey`).
+
 ## AI providers (verified against official docs on 2026-11-02)
 
 - **Base URLs:** Gemini `https://generativelanguage.googleapis.com/v1beta/openai/` (supports `/models` and structured JSON output), Groq `https://api.groq.com/openai/v1`, OpenRouter `https://openrouter.ai/api/v1`, Ollama `http://localhost:11434/v1` (ignores the API key but the client must send one).
