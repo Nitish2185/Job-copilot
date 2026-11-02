@@ -47,7 +47,7 @@ export function verificationCodeAsked(doc: Document): boolean {
 }
 
 const CONFIRMATION_TEXT =
-  /(thank you for (applying|your application|your interest)|thanks for applying|application (has been )?(submitted|received|sent)|we('ve| have) received your application|your application (is|was) (in|submitted|received))/i;
+  /(thank you for (applying|your application|your interest)|thanks for applying|application (has been |was |is )?(submitted|received|sent)|we('ve| have) received your application|your application (is|was) (in|submitted|received))/i;
 
 /** Confirmation by the page's own element, or by its wording. */
 export function confirmationByText(
