@@ -103,6 +103,16 @@ function latestEducation(profile: Profile) {
 }
 
 /** Pay as the field expects it: lakhs when the label says LPA/lakhs, else the full amount. */
+/** The currency a pay question names, if any ("in USD", "(₹)", "LPA" means INR). */
+export function currencyInLabel(label: string): string | undefined {
+  if (/₹|\binr\b|\brupees?\b|\b(lpa|lakhs?|lacs?|crores?)\b/i.test(label)) return "INR";
+  if (/\$|\busd\b|\bdollars?\b/i.test(label)) return "USD";
+  if (/€|\beur\b|\beuros?\b/i.test(label)) return "EUR";
+  if (/£|\bgbp\b|\bpounds?\b/i.test(label)) return "GBP";
+  const code = /\b([A-Z]{3})\b/.exec(label)?.[1];
+  return code && /^(AED|AUD|CAD|SGD|CHF|JPY)$/.test(code) ? code : undefined;
+}
+
 function payAnswer(
   amount: number,
   currency: string,
@@ -263,7 +273,11 @@ function profileAnswer(key: string, field: FormField, ctx: ResolveContext): Answ
               currency: prefs.expectedCtc.currency,
               period: prefs.expectedCtc.period,
             };
-      return pay ? payAnswer(pay.amount, pay.currency, pay.period, field.label) : undefined;
+      if (!pay) return undefined;
+      // "Expected salary (USD)" with a rupee answer: the user converts, not us.
+      const asked = currencyInLabel(field.label);
+      if (asked && asked !== pay.currency) return undefined;
+      return payAnswer(pay.amount, pay.currency, pay.period, field.label);
     }
     case "salary_currency":
       return text(prefs.expectedCtc?.currency ?? prefs.currentCtc?.currency);

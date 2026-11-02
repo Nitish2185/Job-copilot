@@ -190,6 +190,15 @@ describe("Indian forms", () => {
     });
   });
 
+  it("never converts pay into another currency", async () => {
+    expect(await one('<input aria-label="Expected salary (USD)">')).toMatchObject({
+      status: "needs_you",
+    });
+    expect(await one('<input aria-label="Expected salary in ₹">')).toMatchObject({
+      status: "fill",
+    });
+  });
+
   it("stops salary questions when the user wants to answer them each time", async () => {
     const result = await one('<input aria-label="Expected CTC">', {
       preferences: { ...preferences, salaryDisclosure: "ask_each_time" },
