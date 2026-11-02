@@ -199,10 +199,28 @@ async function finishAfterResume(page: Page, viaGithub: boolean): Promise<void> 
   await page.getByRole("button", { name: "Continue" }).click();
 
   await expect(page.getByRole("heading", { level: 1, name: "Done" })).toBeVisible();
-  await expect(page.getByRole("status")).toHaveText("40 open jobs ready.", { timeout: 30_000 });
+  await expect(page.getByRole("status")).toContainText("40 open jobs ready.", { timeout: 30_000 });
   await page.getByRole("button", { name: "See my matches" }).click();
   await expect(page).toHaveURL(/#\/matches$/);
-  await expect(page.getByTestId("job-count")).toHaveText("40 jobs");
+}
+
+/** The mock AI's answer to a scoreJobs request: every job key in the request scores 85. */
+function scoreReply(body: string): unknown {
+  const keys = new Set([...body.matchAll(/\\"key\\":\\"(j\d+)\\"/g)].map((m) => m[1]));
+  return {
+    scores: [...keys].map((key) => ({
+      key,
+      score: 85,
+      verdict: "strong",
+      mustHave: [{ skill: "React", met: true }],
+      niceToHave: [],
+      experienceFit: "fit",
+      locationFit: true,
+      salaryFit: null,
+      reasons: ["Uses React and TypeScript"],
+      redFlags: [],
+    })),
+  };
 }
 
 function expectRedacted(ai: MockAiServer): void {
@@ -221,6 +239,7 @@ test("onboards with a fictional resume and a mocked AI provider", async ({
   aiServer.reply = (body) => {
     if (body.includes("resume into structured profile")) return DRAFT;
     if (body.includes("describe a software project")) return DESCRIPTION;
+    if (body.includes("rate how well each job fits")) return scoreReply(body);
     return { ok: true };
   };
   const page = await context.newPage();
@@ -248,6 +267,16 @@ test("onboards with a fictional resume and a mocked AI provider", async ({
   await page.getByRole("button", { name: "Confirm and continue" }).click();
 
   await finishAfterResume(page, true);
+
+  // Jobs are ranked: only good fits show by default, the best ones already scored by AI.
+  await expect(page.getByLabel("Score 85", { exact: true }).first()).toBeVisible();
+  await expect(page.getByTestId("job-count")).not.toHaveText("40 jobs");
+  await expect(page.getByTestId("ai-quota")).toContainText("AI scores left today");
+  // Show all ignores the score, but the 20 US jobs stay out: the preferences ask for India.
+  await page.getByLabel("Show all scores").check();
+  await expect(page.getByTestId("job-count")).toHaveText("20 jobs");
+  await page.getByRole("button", { name: "AI-score the next 20" }).click();
+  await expect(page.getByRole("status")).toHaveText(/Scored \d+ jobs with AI\./);
 
   expectRedacted(aiServer);
   const profile = (await readRecord(page, "profile", "me")) as {
@@ -302,6 +331,8 @@ test("onboards with AI skipped, filling the profile by hand", async ({
   await page.getByRole("button", { name: "Confirm and continue" }).click();
 
   await finishAfterResume(page, false);
+  // Without skills in the profile jobs are not ranked yet, so every job shows.
+  await expect(page.getByTestId("job-count")).toHaveText("40 jobs");
 
   expect(aiServer.chatBodies).toHaveLength(0);
   const profile = (await readRecord(page, "profile", "me")) as {
@@ -315,7 +346,7 @@ test("onboards with AI skipped, filling the profile by hand", async ({
 
   // Everything stays editable later on the Profile page; each save bumps the version.
   const before = profile.version;
-  await page.getByRole("link", { name: "Profile" }).click();
+  await page.getByRole("link", { name: "Profile", exact: true }).click();
   await page.getByLabel("Headline").fill("Full-stack developer (React, Node.js)");
   await page.getByRole("button", { name: "Save profile" }).click();
   await expect(page.getByRole("status")).toHaveText(

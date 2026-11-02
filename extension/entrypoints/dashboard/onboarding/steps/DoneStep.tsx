@@ -3,45 +3,94 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/Button";
 import { ErrorMessage } from "@/components/ui/States";
 import { sendMessage } from "@/lib/messaging/client";
-import type { FeedSyncResult } from "@/lib/messaging/protocol";
 import { StepFooter, type StepProps } from "../StepFooter";
 
-/** Step 9: first feed sync with progress, then the Matches page (spec 10, step 9). */
+/** Top matches scored with AI right after setup (when AI is set up). */
+const FIRST_AI_BATCH = 20;
+
+interface Summary {
+  openJobs?: number;
+  passed: number;
+  aiScored: number;
+  aiError?: string;
+}
+
+const PHASES = [
+  "Downloading today’s jobs...",
+  "Ranking jobs for you...",
+  "Scoring your top matches with AI...",
+];
+
+/** Step 9: first feed sync and scoring with progress, then the Matches page (spec 10, step 9). */
 export function DoneStep({ back }: StepProps) {
   const navigate = useNavigate();
   const started = useRef(false);
-  const [result, setResult] = useState<FeedSyncResult>();
+  const [phase, setPhase] = useState(0);
+  const [summary, setSummary] = useState<Summary>();
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    // Effects run twice in development; one sync is enough.
+    // Effects run twice in development; one run is enough.
     if (started.current) return;
     started.current = true;
-    sendMessage("feed/sync", { force: false }).then(setResult, (e: unknown) => {
-      setError(e instanceof Error ? e.message : "The job feed could not be downloaded.");
-    });
+    void (async () => {
+      try {
+        const feed = await sendMessage("feed/sync", { force: false });
+        if (feed.status === "error")
+          setError(feed.error ?? "The job feed could not be downloaded.");
+        setPhase(1);
+        const ranked = await sendMessage("match/prefilter", { all: true });
+        const result: Summary = {
+          ...(feed.totalOpenJobs !== undefined && { openJobs: feed.totalOpenJobs }),
+          passed: ranked.passed,
+          aiScored: 0,
+        };
+        const quota = await sendMessage("match/quota", {});
+        if (quota.aiConfigured && ranked.passed > 0) {
+          setPhase(2);
+          const ai = await sendMessage("match/scoreNext", { count: FIRST_AI_BATCH, order: "best" });
+          result.aiScored = ai.scored;
+          if (ai.error) result.aiError = ai.error;
+        }
+        setSummary(result);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Setup could not finish.");
+        setSummary({ passed: 0, aiScored: 0 });
+      }
+    })();
   }, []);
 
-  const failed = error ?? (result?.status === "error" ? result.error : undefined);
   return (
     <div className="space-y-4 text-sm">
-      <p>Your profile is ready. Job Copilot is now downloading today’s developer jobs.</p>
-      {!result && !error && (
+      <p>Your profile is ready. Job Copilot is now finding jobs that fit you.</p>
+      {!summary && (
         <div>
-          <progress className="w-full" aria-label="Downloading jobs" />
-          <p className="mt-1 text-slate-500">This can take a minute the first time.</p>
+          <progress
+            className="w-full"
+            max={PHASES.length}
+            value={phase}
+            aria-label="Setting up your matches"
+          />
+          <p className="mt-1 text-slate-500">{PHASES[phase]}</p>
         </div>
       )}
-      {result && result.status !== "error" && (
+      {summary && (
         <p role="status" className="text-green-700 dark:text-green-400">
-          {result.totalOpenJobs !== undefined
-            ? `${result.totalOpenJobs.toLocaleString()} open jobs ready.`
-            : "Jobs are up to date."}
+          {summary.openJobs !== undefined
+            ? `${summary.openJobs.toLocaleString()} open jobs ready. `
+            : "Jobs are up to date. "}
+          {`${summary.passed.toLocaleString()} fit your profile.`}
+          {summary.aiScored > 0 && ` ${String(summary.aiScored)} scored with AI.`}
         </p>
       )}
-      {failed && (
+      {summary?.aiError && (
+        <p className="text-amber-700 dark:text-amber-300">
+          AI scoring stopped early: {summary.aiError}. Jobs show estimates until they are scored.
+        </p>
+      )}
+      {error && (
         <ErrorMessage>
-          {failed} Job Copilot will try again in the background; you can look at your matches later.
+          {error} Job Copilot will try again in the background; you can look at your matches later.
         </ErrorMessage>
       )}
       <StepFooter back={back}>
