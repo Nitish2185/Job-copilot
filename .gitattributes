@@ -1,0 +1,12 @@
+# Store text with LF everywhere so golden files and tests match on every OS.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.zip binary
