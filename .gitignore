@@ -1,0 +1,46 @@
+# Personal AI-agent tooling (kept local, never committed)
+.agents/
+.claude/
+.aider-desk/
+skills-lock.json
+
+# Original spec prompts (verbatim copies live in docs/spec/)
+prompt/
+
+# Real-site page captures used to build fixtures (may contain personal data)
+captures/
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.output/
+.wxt/
+*.tsbuildinfo
+crawler/bin/
+crawler/crawl
+crawler/crawl.exe
+
+# Local crawler output when running outside CI
+data/
+
+# Test output
+coverage/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Editors and OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log
