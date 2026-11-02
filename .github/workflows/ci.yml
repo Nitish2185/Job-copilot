@@ -59,7 +59,7 @@ jobs:
       - uses: actions/setup-go@v7
         with:
           go-version-file: crawler/go.mod
-          cache-dependency-path: crawler/go.mod
+          cache-dependency-path: crawler/go.sum
 
       - name: gofmt
         run: test -z "$(gofmt -l .)" || (gofmt -l . && exit 1)
