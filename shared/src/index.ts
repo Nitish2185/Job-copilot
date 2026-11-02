@@ -14,3 +14,4 @@ export * from "./schemas/settings";
 export * from "./parsing/normalize";
 export * from "./skills/dictionary";
 export * from "./skills/tagger";
+export * from "./parsing/experience";
