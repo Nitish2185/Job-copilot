@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { EmptyState, ErrorMessage, Loading } from "@/components/ui/States";
 import { getDb } from "@/lib/db/db";
 import { sendMessage } from "@/lib/messaging/client";
+import { suggestionUrl } from "@/lib/sources/suggest";
 
 const PLATFORM_NAMES: Record<string, string> = {
   greenhouse: "Greenhouse",
@@ -131,6 +132,14 @@ export function CompaniesPage() {
                 <Button onClick={() => void sendMessage("boards/sync", { id: c.id })}>
                   Check now
                 </Button>
+                <a
+                  href={suggestionUrl(c)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm text-blue-700 underline dark:text-blue-400"
+                >
+                  Suggest for the shared list
+                </a>
                 <Button
                   variant="ghost"
                   onClick={() => void sendMessage("boards/remove", { id: c.id })}
