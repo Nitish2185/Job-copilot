@@ -192,4 +192,57 @@ test("fills a fixture application form and never clicks forbidden controls", asy
     return chrome.runtime.sendMessage({ type: "apply/lastReport", payload: { tabId: tab?.id } });
   }, `${server.url}/apply.html`);
   expect(JSON.stringify(report)).toContain("Current CTC (in LPA)");
+
+  // Side panel: once the page is a saved job, "Mark as applied" records it, only once.
+  const formUrl = `${server.url}/apply.html`;
+  await dashboard.evaluate(async (url) => {
+    await new Promise<void>((resolve, reject) => {
+      const open = indexedDB.open("job-copilot");
+      open.onerror = () => {
+        reject(open.error ?? new Error("open"));
+      };
+      open.onsuccess = () => {
+        const tx = open.result.transaction("jobs", "readwrite");
+        tx.objectStore("jobs").put({
+          id: "manual:fixture",
+          platform: "other",
+          source: "saved_from_page",
+          company: { name: "Fixture Corp" },
+          title: "Software Engineer",
+          locations: [],
+          remote: "unknown",
+          countryCodes: [],
+          url,
+          applyUrl: url,
+          firstSeenAt: "2026-11-01T00:00:00Z",
+          skills: [],
+          snippet: "",
+          mode: "assist",
+          dedupeKey: "fixture corp|software engineer|",
+          status: "new",
+        });
+        tx.oncomplete = () => {
+          open.result.close();
+          resolve();
+        };
+      };
+    });
+  }, formUrl);
+  const panelCalls = await dashboard.evaluate(async (url) => {
+    const { chrome } = globalThis as unknown as { chrome: Chrome };
+    const [tab] = await chrome.tabs.query({ url: `${url}*` });
+    const send = (type: string) =>
+      chrome.runtime.sendMessage({ type, payload: { tabId: tab?.id } });
+    return {
+      info: await send("apply/pageInfo"),
+      first: await send("apply/markApplied"),
+      second: await send("apply/markApplied"),
+    };
+  }, formUrl);
+  expect(panelCalls.info).toMatchObject({ ok: true, data: { jobId: "manual:fixture" } });
+  expect(panelCalls.first).toMatchObject({ ok: true, data: { created: true } });
+  expect(panelCalls.second).toMatchObject({
+    ok: true,
+    data: { created: false, error: "You already applied to this job." },
+  });
 });

@@ -5,7 +5,9 @@
  */
 import type { Job } from "@job-copilot/shared";
 import { browser } from "wxt/browser";
+import { recordAssistApplication } from "../apply/applications";
 import type { AutofillData, FileData } from "../apply/engine";
+import { resolveMode } from "../apply/mode";
 import { getDb } from "../db/db";
 import type { AutofillReportMessage } from "../messaging/protocol";
 import type { Handlers } from "../messaging/server";
@@ -171,6 +173,40 @@ export const autofillHandlers: Handlers = {
     const report = await lastReport(tabId);
     return report ? { report } : {};
   },
+  "apply/pageInfo": async ({ tabId }) => {
+    // Without the "tabs" permission the address is known only where Job Copilot may
+    // read the page (allowlisted hosts) or after the user pressed Autofill there.
+    const tab = await browser.tabs.get(tabId).catch(() => undefined);
+    const url = tab?.url ?? (await lastReport(tabId))?.url;
+    if (!url) return {};
+    const job = await findJobForUrl(url);
+    return { url, adapterId: resolveMode(url).adapterId, ...(job && { jobId: job.id }) };
+  },
+  "apply/markApplied": async ({ tabId, resumeChoice }) => {
+    const report = await lastReport(tabId);
+    const tab = await browser.tabs.get(tabId).catch(() => undefined);
+    const url = tab?.url ?? report?.url;
+    const job = url ? await findJobForUrl(url) : undefined;
+    if (!job) {
+      return { created: false, error: "This page is not a job saved in Job Copilot yet." };
+    }
+    const db = getDb();
+    const tailored =
+      resumeChoice === "tailored"
+        ? (await db.resumeVersions.where("jobId").equals(job.id).toArray())
+            .filter((v) => v.kind === "tailored")
+            .sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0]
+        : undefined;
+    const letter = await db.coverLetters.where("jobId").equals(job.id).first();
+    const { created } = await recordAssistApplication(db, {
+      job,
+      ...(report && { report }),
+      resumeChoice,
+      ...(tailored && { resumeVersionId: tailored.id }),
+      ...(letter && { coverLetterId: letter.id }),
+    });
+    return created ? { created } : { created, error: "You already applied to this job." };
+  },
   "apply/autofillTab": async ({ tabId, resumeChoice }) => {
     const id = tabId ?? (await activeTabId());
     if (id === undefined) return { filled: 0, needsYou: 0, error: "No tab to fill." };
@@ -179,6 +215,16 @@ export const autofillHandlers: Handlers = {
 };
 
 export const AUTOFILL_MENU_ID = "jc-autofill-form";
+
+/** Chrome and Edge open the side panel; Firefox toggles its sidebar (same page). */
+function openSidePanel(windowId: number | undefined): void {
+  const api = browser as unknown as {
+    sidePanel?: { open: (o: { windowId: number }) => Promise<void> };
+    sidebarAction?: { toggle: () => Promise<void> };
+  };
+  if (api.sidePanel && windowId !== undefined) void api.sidePanel.open({ windowId });
+  else if (api.sidebarAction) void api.sidebarAction.toggle();
+}
 
 /** Shortcut and right-click menu (spec 9.3); both grant activeTab for the current page. */
 export function registerAutofillTriggers(): void {
@@ -195,6 +241,10 @@ export function registerAutofillTriggers(): void {
     if (info.menuItemId === AUTOFILL_MENU_ID && tab?.id !== undefined) void injectAndRun(tab.id);
   });
   browser.commands.onCommand.addListener((command, tab) => {
+    if (command === "toggle-side-panel") {
+      openSidePanel(tab?.windowId);
+      return;
+    }
     if (command !== "autofill") return;
     void (async () => {
       const id = tab?.id ?? (await activeTabId());

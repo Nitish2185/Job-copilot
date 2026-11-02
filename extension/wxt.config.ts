@@ -63,6 +63,10 @@ export default defineConfig({
         suggested_key: { default: "Alt+Shift+F" },
         description: "Autofill the application form on this page",
       },
+      "toggle-side-panel": {
+        suggested_key: { default: "Alt+Shift+J" },
+        description: "Open the Job Copilot side panel",
+      },
     },
     host_permissions: [...ATS_API_HOSTS, ...CORE_API_HOSTS, FEED_HOST, ...E2E_HOSTS],
     // MV2 (Firefox) lists optional hosts under optional_permissions; WXT does not convert them.

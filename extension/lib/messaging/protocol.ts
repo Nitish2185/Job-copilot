@@ -296,6 +296,23 @@ export const MESSAGES = {
     response: z.object({ report: AutofillReportSchema.optional() }),
     sender: extensionOnly,
   },
+  "apply/pageInfo": {
+    request: z.object({ tabId: z.number().int() }),
+    response: z.object({
+      url: z.string().optional(),
+      jobId: z.string().optional(),
+      adapterId: z.string().optional(),
+    }),
+    sender: extensionOnly,
+  },
+  "apply/markApplied": {
+    request: z.object({
+      tabId: z.number().int(),
+      resumeChoice: ResumeChoiceSchema.default("current"),
+    }),
+    response: z.object({ created: z.boolean(), error: z.string().optional() }),
+    sender: extensionOnly,
+  },
   "apply/autofillTab": {
     request: z.object({
       tabId: z.number().int().optional(),
