@@ -23,3 +23,5 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **`web-ext` installed as a dev dependency.** WXT needs it to open a browser on `pnpm dev`; the dev profile lives in `extension/.wxt/chrome-data` (git-ignored) so data survives restarts.
 - **Go race tests (`-race`) run in CI only.** The race detector needs cgo and a C compiler, which this Windows machine does not have; `ubuntu-latest` runners do. Locally `pnpm test:go` runs the same tests without `-race`.
 - **Crawler repo URL and User-Agent live in `crawler/internal/project`.** One Go constant for `set-owner` to rewrite.
+- **GitHub Actions pinned to major version tags (`@v7`), not commit SHAs.** Readable and still gets security patches; all actions are first-party or pnpm's own.
+- **`pnpm audit --audit-level=high` in CI.** Low and moderate advisories are printed but do not fail the build (spec 21).
