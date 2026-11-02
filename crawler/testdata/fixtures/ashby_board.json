@@ -1,0 +1,287 @@
+{
+  "apiVersion": "1",
+  "jobs": [
+    {
+      "id": "95f450a1-0d38-4d58-9aac-9d7e655adc36",
+      "title": "Security Engineer, Privacy",
+      "department": "Engineering",
+      "team": "Backend",
+      "employmentType": "FullTime",
+      "location": "New York, NY (HQ)",
+      "shouldDisplayCompensationOnJobPostings": true,
+      "secondaryLocations": [
+        {
+          "location": "San Francisco, CA",
+          "address": {
+            "postalAddress": {
+              "addressRegion": "California ",
+              "addressCountry": "USA",
+              "addressLocality": "San Fransisco"
+            }
+          }
+        },
+        {
+          "location": "Remote (US)",
+          "address": {
+            "postalAddress": {
+              "addressCountry": "United States"
+            }
+          }
+        }
+      ],
+      "publishedAt": "2026-01-20T21:47:19.654+00:00",
+      "isListed": true,
+      "isRemote": true,
+      "workplaceType": "Hybrid",
+      "address": {
+        "postalAddress": {
+          "addressRegion": "NY",
+          "addressCountry": "USA",
+          "addressLocality": "New York City"
+        }
+      },
+      "jobUrl": "https://jobs.ashbyhq.com/ramp/95f450a1-0d38-4d58-9aac-9d7e655adc36",
+      "applyUrl": "https://jobs.ashbyhq.com/ramp/95f450a1-0d38-4d58-9aac-9d7e655adc36/application",
+      "descriptionHtml": "<h1><strong>About Ramp</strong></h1><p style=\"min-height:1.5em\">Ramp is building the smart infrastructure for finance teams, embedded in the transaction flow of every dollar a business spends. We automate how over $275B in annualized spend flows in and out of 85,000+ companies: authorizing payments, flagging risk, categorizing spend, and closing books.</p><p style=\"min-height:1.5em\">The problems are high-stakes, data-dense, and unforgiving.</p><p style=\"min-height:1.5em\">We hire people with high agency and high urgency. We look for slope over intercept. We care less about where you trained and more about what you’ve built. At Ramp, everyone is a builder who owns problems end to end and makes consequential decisions that shape the outcome.</p><p style=\"min-height:1.5em\">The median Ramp customer saves 7.5% and grows revenue 16% in their first year – far in excess of businesses operating without Ramp. We believe every ambitious company deserves the same.</p><p style=\"min-height:1.5em\">If you want to build systems that directly shape how companies move and manage billions, Ramp is the place to do it.</p><p style=\"min-height:1.5em\"></p><p style=\"min-height:1.5em\">As Ramp’s founding Privacy engineer, you will build a privacy program that powers Ramp’s growth while earning trust from customers and prospects.</p><p style=\"min-height:1.5em\"><strong>What You’ll Do</strong></p><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Build privacy-focused application primitives and integrate them into our existing products</p></li><li><p style=\"min-height:1.5em\">Partner with other engineering teams to design and deploy solutions which are inherently privacy-centric and secure</p></li><li><p style=\"min-height:1.5em\">Improve, implement, and deploy data retention and anonymization strategies across our environment</p></li><li><p style=\"min-height:1.5em\">Track shifting legal standards (alongside with Ramp’s Privacy Counsel) and update Ramp systems and processes to match</p></li></ul><p style=\"min-height:1.5em\"><strong>What You Need</strong></p><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Minimum of 4 years of experience building software</p></li><li><p style=\"min-height:1.5em\">Minimum of 2 years of experienced focused on platform, privacy, and/or security</p></li><li><p style=\"min-height:1.5em\">Desire to work in a fast-paced environment, continuously grow, and master your craft</p></li><li><p style=\"min-height:1.5em\">Ability to turn business and product ideas into engineering solutions</p></li></ul><p style=\"min-height:1.5em\"><strong>Nice-to-Haves</strong></p><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Working knowledge of data-protection legal requirements</p></li><li><p style=\"min-height:1.5em\">Experience with Python (Flask), React, and AWS (ECS, as well as other core services)</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>Benefits available to all full-time Ramp employees (Global)</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Flexible PTO</p></li><li><p style=\"min-height:1.5em\">Centralized home-office equipment ordering</p></li><li><p style=\"min-height:1.5em\">Health and wellness stipend</p></li><li><p style=\"min-height:1.5em\">Budget for intra-office travel</p></li><li><p style=\"min-height:1.5em\">Weekly coffee stipend</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>United States</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">100% medical, dental &amp; vision insurance coverage for you, with partial coverage for dependents</p></li><li><p style=\"min-height:1.5em\">One Medical annual membership</p></li><li><p style=\"min-height:1.5em\">401(k), including employer match on contributions made while employed by Ramp</p></li><li><p style=\"min-height:1.5em\">Fertility HRA (up to $10,000 per year)</p></li><li><p style=\"min-height:1.5em\">Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay</p></li><li><p style=\"min-height:1.5em\">Pet insurance</p></li><li><p style=\"min-height:1.5em\">In-office perks: lunch, snacks, drinks, and more</p></li><li><p style=\"min-height:1.5em\">Relocation expense coverage to NYC or SF (if needed)</p><p style=\"min-height:1.5em\"></p></li></ul><h2><strong>Canada</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Group medical, dental, and vision coverage through Sun Life</p></li><li><p style=\"min-height:1.5em\">Life, AD&amp;D, and disability coverage</p></li><li><p style=\"min-height:1.5em\">Fertility drug coverage (up to $4,000 lifetime)</p></li><li><p style=\"min-height:1.5em\">Group Retirement Plan with employer match (RRSP + DPSP)</p></li><li><p style=\"min-height:1.5em\">Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay, with additional time available at reduced pay</p></li><li><p style=\"min-height:1.5em\">Employee Assistance Program and virtual care through Lumino Health</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>United Kingdom</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Private medical insurance through Freedom Elite</p></li><li><p style=\"min-height:1.5em\">Virtual GP and at-home care via eMed x Livi</p></li><li><p style=\"min-height:1.5em\">Workplace pension through Penfold, with salary sacrifice option</p></li><li><p style=\"min-height:1.5em\">Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay with additional time available at reduced pay</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>Referral Instructions</strong></h2><p style=\"min-height:1.5em\">If you are being referred for the role, please contact that person to apply on your behalf.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><h2><strong>Other notices</strong></h2><p style=\"min-height:1.5em\">Pursuant to the San Francisco Fair Chance Ordinance, we will consider for employment qualified applicants with arrest and conviction records.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><em>Beware of recruiting scams: Ramp will only contact you through official @</em><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"http://Ramp.com\"><em>Ramp.com</em></a><em> email addresses and will never ask for payment or sensitive personal information during the hiring process.</em></p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://ramp.com/legal/applicant-privacy-notice\">Ramp Applicant Privacy Notice</a></p>",
+      "descriptionPlain": "ABOUT RAMP\n\nRamp is building the smart infrastructure for finance teams, embedded in the transaction flow of every dollar a business spends. We automate how over $275B in annualized spend flows in and out of 85,000+ companies: authorizing payments, flagging risk, categorizing spend, and closing books.\n\nThe problems are high-stakes, data-dense, and unforgiving.\n\nWe hire people with high agency and high urgency. We look for slope over intercept. We care less about where you trained and more about what you’ve built. At Ramp, everyone is a builder who owns problems end to end and makes consequential decisions that shape the outcome.\n\nThe median Ramp customer saves 7.5% and grows revenue 16% in their first year – far in excess of businesses operating without Ramp. We believe every ambitious company deserves the same.\n\nIf you want to build systems that directly shape how companies move and manage billions, Ramp is the place to do it.\n\n\n\nAs Ramp’s founding Privacy engineer, you will build a privacy program that powers Ramp’s growth while earning trust from customers and prospects.\n\nWhat You’ll Do\n\n - Build privacy-focused application primitives and integrate them into our existing products\n\n - Partner with other engineering teams to design and deploy solutions which are inherently privacy-centric and secure\n\n - Improve, implement, and deploy data retention and anonymization strategies across our environment\n\n - Track shifting legal standards (alongside with Ramp’s Privacy Counsel) and update Ramp systems and processes to match\n\nWhat You Need\n\n - Minimum of 4 years of experience building software\n\n - Minimum of 2 years of experienced focused on platform, privacy, and/or security\n\n - Desire to work in a fast-paced environment, continuously grow, and master your craft\n\n - Ability to turn business and product ideas into engineering solutions\n\nNice-to-Haves\n\n - Working knowledge of data-protection legal requirements\n\n - Experience with Python (Flask), React, and AWS (ECS, as well as other core services)\n\n\n\n\nBENEFITS AVAILABLE TO ALL FULL-TIME RAMP EMPLOYEES (GLOBAL)\n\n - Flexible PTO\n\n - Centralized home-office equipment ordering\n\n - Health and wellness stipend\n\n - Budget for intra-office travel\n\n - Weekly coffee stipend\n\n\n\n\nUNITED STATES\n\n - 100% medical, dental & vision insurance coverage for you, with partial coverage for dependents\n\n - One Medical annual membership\n\n - 401(k), including employer match on contributions made while employed by Ramp\n\n - Fertility HRA (up to $10,000 per year)\n\n - Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay\n\n - Pet insurance\n\n - In-office perks: lunch, snacks, drinks, and more\n\n - Relocation expense coverage to NYC or SF (if needed)\n   \n   \n\n\nCANADA\n\n - Group medical, dental, and vision coverage through Sun Life\n\n - Life, AD&D, and disability coverage\n\n - Fertility drug coverage (up to $4,000 lifetime)\n\n - Group Retirement Plan with employer match (RRSP + DPSP)\n\n - Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay, with additional time available at reduced pay\n\n - Employee Assistance Program and virtual care through Lumino Health\n\n\n\n\nUNITED KINGDOM\n\n - Private medical insurance through Freedom Elite\n\n - Virtual GP and at-home care via eMed x Livi\n\n - Workplace pension through Penfold, with salary sacrifice option\n\n - Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay with additional time available at reduced pay\n\n\n\n\nREFERRAL INSTRUCTIONS\n\nIf you are being referred for the role, please contact that person to apply on your behalf.\n\n \n\n\nOTHER NOTICES\n\nPursuant to the San Francisco Fair Chance Ordinance, we will consider for employment qualified applicants with arrest and conviction records.\n\n \n\nBeware of recruiting scams: Ramp will only contact you through official @Ramp.com http://Ramp.com email addresses and will never ask for payment or sensitive personal information during the hiring process.\n\n \n\nRamp Applicant Privacy Notice https://ramp.com/legal/applicant-privacy-notice",
+      "compensation": {
+        "compensationTierSummary": "$184.8K – $374.9K • Offers Equity",
+        "scrapeableCompensationSalarySummary": "$184.8K - $374.9K",
+        "compensationTiers": [
+          {
+            "id": "032d3a30-b8c3-45e0-837b-cee5be402daa",
+            "tierSummary": "$184.8K – $374.9K • Offers Equity",
+            "title": null,
+            "additionalInformation": null,
+            "components": [
+              {
+                "id": "58d1a583-3618-4d04-babf-1a10b1448f92",
+                "summary": "$184.8K – $374.9K",
+                "compensationType": "Salary",
+                "interval": "1 YEAR",
+                "currencyCode": "USD",
+                "minValue": 184800,
+                "maxValue": 374900
+              },
+              {
+                "id": "466b5c1f-2f39-426a-a875-a592b5226313",
+                "summary": "Offers Equity",
+                "compensationType": "EquityCashValue",
+                "interval": "1 YEAR",
+                "currencyCode": "USD",
+                "minValue": null,
+                "maxValue": null
+              }
+            ]
+          }
+        ],
+        "summaryComponents": [
+          {
+            "compensationType": "Salary",
+            "interval": "1 YEAR",
+            "currencyCode": "USD",
+            "minValue": 184800,
+            "maxValue": 374900
+          },
+          {
+            "compensationType": "EquityCashValue",
+            "interval": "1 YEAR",
+            "currencyCode": "USD",
+            "minValue": null,
+            "maxValue": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "a808d519-404a-4aee-9189-2b1ad62d0330",
+      "title": "Account Executive | SLED",
+      "department": "Sales",
+      "team": "Account Executive",
+      "employmentType": "FullTime",
+      "location": "San Francisco, CA",
+      "shouldDisplayCompensationOnJobPostings": true,
+      "secondaryLocations": [
+        {
+          "location": "Remote (US)",
+          "address": {
+            "postalAddress": {
+              "addressCountry": "United States"
+            }
+          }
+        },
+        {
+          "location": "New York, NY (HQ)",
+          "address": {
+            "postalAddress": {
+              "addressRegion": "NY",
+              "addressCountry": "USA",
+              "addressLocality": "New York City"
+            }
+          }
+        }
+      ],
+      "publishedAt": "2026-10-13T03:26:10.759+00:00",
+      "isListed": true,
+      "isRemote": true,
+      "workplaceType": "Remote",
+      "address": {
+        "postalAddress": {
+          "addressRegion": "California ",
+          "addressCountry": "USA",
+          "addressLocality": "San Fransisco"
+        }
+      },
+      "jobUrl": "https://jobs.ashbyhq.com/ramp/a808d519-404a-4aee-9189-2b1ad62d0330",
+      "applyUrl": "https://jobs.ashbyhq.com/ramp/a808d519-404a-4aee-9189-2b1ad62d0330/application",
+      "descriptionHtml": "<h1><strong>About Ramp</strong></h1><p style=\"min-height:1.5em\">Ramp is building the smart infrastructure for finance teams, embedded in the transaction flow of every dollar a business spends. We automate how over $275B in annualized spend flows in and out of 85,000+ companies: authorizing payments, flagging risk, categorizing spend, and closing books.</p><p style=\"min-height:1.5em\">The problems are high-stakes, data-dense, and unforgiving.</p><p style=\"min-height:1.5em\">We hire people with high agency and high urgency. We look for slope over intercept. We care less about where you trained and more about what you’ve built. At Ramp, everyone is a builder who owns problems end to end and makes consequential decisions that shape the outcome.</p><p style=\"min-height:1.5em\">The median Ramp customer saves 7.5% and grows revenue 16% in their first year – far in excess of businesses operating without Ramp. We believe every ambitious company deserves the same.</p><p style=\"min-height:1.5em\">If you want to build systems that directly shape how companies move and manage billions, Ramp is the place to do it.</p><p style=\"min-height:1.5em\"></p><h2><strong>About the Role</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">As an Account Executive | SLED at Ramp, you are a proven hunter &amp; sales closer with track record of quota attainment and overachievement. We believe strongly in our value proposition of aligning incentives with our customers and you will bring it to life through the sales process with C-Level executives and key decision makers. As an early member of the team, you will also have the opportunity to help build the sales engine and define the sales strategy that fuels the growth of the company! This is a highly impactful individual contributor role.</p></li><li><p style=\"min-height:1.5em\">You’ll combine your knowledge of higher education and state and local government procurement with a deep understanding of Ramp’s value proposition to grow Ramp’s presence and product usage within the SLED space.</p></li></ul><h2><strong>What You’ll Do</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Drive revenue for Ramp, owning the entire sales cycle through close</p></li><li><p style=\"min-height:1.5em\">Develop strategies for closing opportunities within your assigned territory</p></li><li><p style=\"min-height:1.5em\">Develop winning sales strategies that focus on compelling value propositions.</p></li><li><p style=\"min-height:1.5em\">Liaise with, influence, and indirectly lead cross-functional partners to align on strategy and execution</p></li><li><p style=\"min-height:1.5em\">Leverage sales methodologies to uncover prospect needs and pain points</p></li><li><p style=\"min-height:1.5em\">Own sales activity and monthly revenue forecasting in Salesforce and Gong</p></li><li><p style=\"min-height:1.5em\">Collaborate with product, design, and engineering teams to incorporate customer feedback</p></li><li><p style=\"min-height:1.5em\">Routinely represent Ramp at industry conferences nationally and regionally</p></li></ul><h2><strong>What You Need</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">5+ years of quota-carrying sales experience, with a consistent record of exceeding goals</p></li><li><p style=\"min-height:1.5em\">Proven experience in sales with a track record of closing deals within the SLED space</p></li><li><p style=\"min-height:1.5em\">Strategic thinker with a systems mindset; able to synthesize market insights, assess competition, and design scalable strategies for new verticals</p></li><li><p style=\"min-height:1.5em\">Experience in a fast-paced SaaS or GTM environment is a plus</p></li><li><p style=\"min-height:1.5em\">Strong data-driven decision-making skills and ability to create scalable sales systems</p></li><li><p style=\"min-height:1.5em\">Excellent communication, presentation, and influencing skills; capable of articulating technical, contractual, and financial value to senior stakeholders</p></li><li><p style=\"min-height:1.5em\">Proven ability to collaborate with cross-functional teams and drive process improvements</p></li><li><p style=\"min-height:1.5em\">High-energy, service-oriented leader with a strong work ethic and problem-solving mindset</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>Benefits available to all full-time Ramp employees (Global)</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Flexible PTO</p></li><li><p style=\"min-height:1.5em\">Centralized home-office equipment ordering</p></li><li><p style=\"min-height:1.5em\">Health and wellness stipend</p></li><li><p style=\"min-height:1.5em\">Budget for intra-office travel</p></li><li><p style=\"min-height:1.5em\">Weekly coffee stipend</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>United States</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">100% medical, dental &amp; vision insurance coverage for you, with partial coverage for dependents</p></li><li><p style=\"min-height:1.5em\">One Medical annual membership</p></li><li><p style=\"min-height:1.5em\">401(k), including employer match on contributions made while employed by Ramp</p></li><li><p style=\"min-height:1.5em\">Fertility HRA (up to $10,000 per year)</p></li><li><p style=\"min-height:1.5em\">Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay</p></li><li><p style=\"min-height:1.5em\">Pet insurance</p></li><li><p style=\"min-height:1.5em\">In-office perks: lunch, snacks, drinks, and more</p></li><li><p style=\"min-height:1.5em\">Relocation expense coverage to NYC or SF (if needed)</p><p style=\"min-height:1.5em\"></p></li></ul><h2><strong>Canada</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Group medical, dental, and vision coverage through Sun Life</p></li><li><p style=\"min-height:1.5em\">Life, AD&amp;D, and disability coverage</p></li><li><p style=\"min-height:1.5em\">Fertility drug coverage (up to $4,000 lifetime)</p></li><li><p style=\"min-height:1.5em\">Group Retirement Plan with employer match (RRSP + DPSP)</p></li><li><p style=\"min-height:1.5em\">Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay, with additional time available at reduced pay</p></li><li><p style=\"min-height:1.5em\">Employee Assistance Program and virtual care through Lumino Health</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>United Kingdom</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Private medical insurance through Freedom Elite</p></li><li><p style=\"min-height:1.5em\">Virtual GP and at-home care via eMed x Livi</p></li><li><p style=\"min-height:1.5em\">Workplace pension through Penfold, with salary sacrifice option</p></li><li><p style=\"min-height:1.5em\">Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay with additional time available at reduced pay</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>Referral Instructions</strong></h2><p style=\"min-height:1.5em\">If you are being referred for the role, please contact that person to apply on your behalf.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><h2><strong>Other notices</strong></h2><p style=\"min-height:1.5em\">Pursuant to the San Francisco Fair Chance Ordinance, we will consider for employment qualified applicants with arrest and conviction records.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><em>Beware of recruiting scams: Ramp will only contact you through official @</em><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"http://Ramp.com\"><em>Ramp.com</em></a><em> email addresses and will never ask for payment or sensitive personal information during the hiring process.</em></p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://ramp.com/legal/applicant-privacy-notice\">Ramp Applicant Privacy Notice</a></p>",
+      "descriptionPlain": "ABOUT RAMP\n\nRamp is building the smart infrastructure for finance teams, embedded in the transaction flow of every dollar a business spends. We automate how over $275B in annualized spend flows in and out of 85,000+ companies: authorizing payments, flagging risk, categorizing spend, and closing books.\n\nThe problems are high-stakes, data-dense, and unforgiving.\n\nWe hire people with high agency and high urgency. We look for slope over intercept. We care less about where you trained and more about what you’ve built. At Ramp, everyone is a builder who owns problems end to end and makes consequential decisions that shape the outcome.\n\nThe median Ramp customer saves 7.5% and grows revenue 16% in their first year – far in excess of businesses operating without Ramp. We believe every ambitious company deserves the same.\n\nIf you want to build systems that directly shape how companies move and manage billions, Ramp is the place to do it.\n\n\n\n\nABOUT THE ROLE\n\n - As an Account Executive | SLED at Ramp, you are a proven hunter & sales closer with track record of quota attainment and overachievement. We believe strongly in our value proposition of aligning incentives with our customers and you will bring it to life through the sales process with C-Level executives and key decision makers. As an early member of the team, you will also have the opportunity to help build the sales engine and define the sales strategy that fuels the growth of the company! This is a highly impactful individual contributor role.\n\n - You’ll combine your knowledge of higher education and state and local government procurement with a deep understanding of Ramp’s value proposition to grow Ramp’s presence and product usage within the SLED space.\n\n\nWHAT YOU’LL DO\n\n - Drive revenue for Ramp, owning the entire sales cycle through close\n\n - Develop strategies for closing opportunities within your assigned territory\n\n - Develop winning sales strategies that focus on compelling value propositions.\n\n - Liaise with, influence, and indirectly lead cross-functional partners to align on strategy and execution\n\n - Leverage sales methodologies to uncover prospect needs and pain points\n\n - Own sales activity and monthly revenue forecasting in Salesforce and Gong\n\n - Collaborate with product, design, and engineering teams to incorporate customer feedback\n\n - Routinely represent Ramp at industry conferences nationally and regionally\n\n\nWHAT YOU NEED\n\n - 5+ years of quota-carrying sales experience, with a consistent record of exceeding goals\n\n - Proven experience in sales with a track record of closing deals within the SLED space\n\n - Strategic thinker with a systems mindset; able to synthesize market insights, assess competition, and design scalable strategies for new verticals\n\n - Experience in a fast-paced SaaS or GTM environment is a plus\n\n - Strong data-driven decision-making skills and ability to create scalable sales systems\n\n - Excellent communication, presentation, and influencing skills; capable of articulating technical, contractual, and financial value to senior stakeholders\n\n - Proven ability to collaborate with cross-functional teams and drive process improvements\n\n - High-energy, service-oriented leader with a strong work ethic and problem-solving mindset\n\n\n\n\nBENEFITS AVAILABLE TO ALL FULL-TIME RAMP EMPLOYEES (GLOBAL)\n\n - Flexible PTO\n\n - Centralized home-office equipment ordering\n\n - Health and wellness stipend\n\n - Budget for intra-office travel\n\n - Weekly coffee stipend\n\n\n\n\nUNITED STATES\n\n - 100% medical, dental & vision insurance coverage for you, with partial coverage for dependents\n\n - One Medical annual membership\n\n - 401(k), including employer match on contributions made while employed by Ramp\n\n - Fertility HRA (up to $10,000 per year)\n\n - Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay\n\n - Pet insurance\n\n - In-office perks: lunch, snacks, drinks, and more\n\n - Relocation expense coverage to NYC or SF (if needed)\n   \n   \n\n\nCANADA\n\n - Group medical, dental, and vision coverage through Sun Life\n\n - Life, AD&D, and disability coverage\n\n - Fertility drug coverage (up to $4,000 lifetime)\n\n - Group Retirement Plan with employer match (RRSP + DPSP)\n\n - Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay, with additional time available at reduced pay\n\n - Employee Assistance Program and virtual care through Lumino Health\n\n\n\n\nUNITED KINGDOM\n\n - Private medical insurance through Freedom Elite\n\n - Virtual GP and at-home care via eMed x Livi\n\n - Workplace pension through Penfold, with salary sacrifice option\n\n - Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay with additional time available at reduced pay\n\n\n\n\nREFERRAL INSTRUCTIONS\n\nIf you are being referred for the role, please contact that person to apply on your behalf.\n\n \n\n\nOTHER NOTICES\n\nPursuant to the San Francisco Fair Chance Ordinance, we will consider for employment qualified applicants with arrest and conviction records.\n\n \n\nBeware of recruiting scams: Ramp will only contact you through official @Ramp.com http://Ramp.com email addresses and will never ask for payment or sensitive personal information during the hiring process.\n\n \n\nRamp Applicant Privacy Notice https://ramp.com/legal/applicant-privacy-notice",
+      "compensation": {
+        "compensationTierSummary": "$243K – $371K • Offers Equity • Multiple Ranges",
+        "scrapeableCompensationSalarySummary": "$243K - $371K",
+        "compensationTiers": [
+          {
+            "id": "ce0cebbe-9e57-496d-a82a-2c893d5db195",
+            "tierSummary": "OTE $243K – $334K • Offers Equity",
+            "title": "Nationwide",
+            "additionalInformation": null,
+            "components": [
+              {
+                "id": "13b0e2bf-b2d4-4e32-b54b-b1ae4eaaa8fc",
+                "summary": "Offers Equity",
+                "compensationType": "EquityPercentage",
+                "interval": "NONE",
+                "currencyCode": null,
+                "minValue": null,
+                "maxValue": null
+              },
+              {
+                "id": "a528e1db-9421-4d6c-944f-53928ce48cc7",
+                "summary": "OTE $243K – $334K",
+                "compensationType": "Salary",
+                "interval": "1 YEAR",
+                "currencyCode": "USD",
+                "minValue": 243000,
+                "maxValue": 334000
+              }
+            ]
+          },
+          {
+            "id": "8402983c-0110-4d0f-b110-2619c78831a4",
+            "tierSummary": "OTE $270K – $371K • Offers Equity",
+            "title": "NY/SF",
+            "additionalInformation": null,
+            "components": [
+              {
+                "id": "4b597069-11ba-49a3-b2b5-19b760503833",
+                "summary": "Offers Equity",
+                "compensationType": "EquityPercentage",
+                "interval": "NONE",
+                "currencyCode": null,
+                "minValue": null,
+                "maxValue": null
+              },
+              {
+                "id": "49451c36-0e13-42ac-af52-03cd741826d3",
+                "summary": "OTE $270K – $371K",
+                "compensationType": "Salary",
+                "interval": "1 YEAR",
+                "currencyCode": "USD",
+                "minValue": 270000,
+                "maxValue": 371000
+              }
+            ]
+          }
+        ],
+        "summaryComponents": [
+          {
+            "compensationType": "EquityPercentage",
+            "minValue": null,
+            "maxValue": null,
+            "interval": "1 YEAR"
+          },
+          {
+            "minValue": 243000,
+            "maxValue": 371000,
+            "currencyCode": "USD",
+            "interval": "1 YEAR",
+            "compensationType": "Salary"
+          }
+        ]
+      }
+    },
+    {
+      "id": "0378cc97-de79-42f9-8401-d301c678f4d7",
+      "title": "Business Lead",
+      "department": "Finance",
+      "team": "Strategic Finance",
+      "employmentType": "FullTime",
+      "location": "New York, NY (HQ)",
+      "shouldDisplayCompensationOnJobPostings": true,
+      "secondaryLocations": [],
+      "publishedAt": "2026-10-12T13:48:36.560+00:00",
+      "isListed": true,
+      "isRemote": false,
+      "workplaceType": "OnSite",
+      "address": {
+        "postalAddress": {
+          "addressRegion": "NY",
+          "addressCountry": "USA",
+          "addressLocality": "New York City"
+        }
+      },
+      "jobUrl": "https://jobs.ashbyhq.com/ramp/0378cc97-de79-42f9-8401-d301c678f4d7",
+      "applyUrl": "https://jobs.ashbyhq.com/ramp/0378cc97-de79-42f9-8401-d301c678f4d7/application",
+      "descriptionHtml": "<h1><strong>About Ramp</strong></h1><p style=\"min-height:1.5em\">Ramp is building the smart infrastructure for finance teams, embedded in the transaction flow of every dollar a business spends. We automate how over $275B in annualized spend flows in and out of 85,000+ companies: authorizing payments, flagging risk, categorizing spend, and closing books.</p><p style=\"min-height:1.5em\">The problems are high-stakes, data-dense, and unforgiving.</p><p style=\"min-height:1.5em\">We hire people with high agency and high urgency. We look for slope over intercept. We care less about where you trained and more about what you’ve built. At Ramp, everyone is a builder who owns problems end to end and makes consequential decisions that shape the outcome.</p><p style=\"min-height:1.5em\">The median Ramp customer saves 7.5% and grows revenue 16% in their first year – far in excess of businesses operating without Ramp. We believe every ambitious company deserves the same.</p><p style=\"min-height:1.5em\">If you want to build systems that directly shape how companies move and manage billions, Ramp is the place to do it.</p><p style=\"min-height:1.5em\"></p><h1>About the Role </h1><p style=\"min-height:1.5em\">As the Business Lead, you will be commercially responsible for the success of a new product at Ramp. The mandate is to do whatever it takes to grow the business. You will be expected to identify and resolve internal and external bottlenecks, often with limited guidance and support. You will set the strategy, prove out new bets, and influence how hundreds of go‑to‑market teammates sell and support the product. It’s an opportunity to run a “business within the business” at a meaningful scale while working directly with Ramp’s senior leadership.</p><p style=\"min-height:1.5em\"></p><h2>What You'll Do</h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\"><u>Set the strategy:</u> Define the target customer, value proposition, pricing, packaging, and GTM approach.</p></li><li><p style=\"min-height:1.5em\"><u>Own the plan and results:</u> Set goals, measure progress, and take action when the things are off track.</p></li><li><p style=\"min-height:1.5em\"><u>Drive cross-functional execution:</u> Align stakeholders from different teams around clear priorities and goals.</p></li><li><p style=\"min-height:1.5em\"><u>Own feedback loops:</u> Work with customers and turn feedback into product and go-to-market changes.</p></li><li><p style=\"min-height:1.5em\"><u>Build for scale</u>: Identify resource needs, create repeatable processes, and transition mature work to the appropriate long-term teams.</p></li></ul><p style=\"min-height:1.5em\"></p><h2>What You Need</h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">5–10+ years in highly analytical, business‑driving roles</p></li><li><p style=\"min-height:1.5em\">A self-starter who will run through walls to get things done</p></li><li><p style=\"min-height:1.5em\">Exceptional analytical skills and command of data </p></li><li><p style=\"min-height:1.5em\">A systems thinker who understands how to build things that scale</p></li><li><p style=\"min-height:1.5em\">Strong communication skills and a team player</p></li></ul><p style=\"min-height:1.5em\"></p><p style=\"min-height:1.5em\"></p><h2><strong>Benefits available to all full-time Ramp employees (Global)</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Flexible PTO</p></li><li><p style=\"min-height:1.5em\">Centralized home-office equipment ordering</p></li><li><p style=\"min-height:1.5em\">Health and wellness stipend</p></li><li><p style=\"min-height:1.5em\">Budget for intra-office travel</p></li><li><p style=\"min-height:1.5em\">Weekly coffee stipend</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>United States</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">100% medical, dental &amp; vision insurance coverage for you, with partial coverage for dependents</p></li><li><p style=\"min-height:1.5em\">One Medical annual membership</p></li><li><p style=\"min-height:1.5em\">401(k), including employer match on contributions made while employed by Ramp</p></li><li><p style=\"min-height:1.5em\">Fertility HRA (up to $10,000 per year)</p></li><li><p style=\"min-height:1.5em\">Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay</p></li><li><p style=\"min-height:1.5em\">Pet insurance</p></li><li><p style=\"min-height:1.5em\">In-office perks: lunch, snacks, drinks, and more</p></li><li><p style=\"min-height:1.5em\">Relocation expense coverage to NYC or SF (if needed)</p><p style=\"min-height:1.5em\"></p></li></ul><h2><strong>Canada</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Group medical, dental, and vision coverage through Sun Life</p></li><li><p style=\"min-height:1.5em\">Life, AD&amp;D, and disability coverage</p></li><li><p style=\"min-height:1.5em\">Fertility drug coverage (up to $4,000 lifetime)</p></li><li><p style=\"min-height:1.5em\">Group Retirement Plan with employer match (RRSP + DPSP)</p></li><li><p style=\"min-height:1.5em\">Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay, with additional time available at reduced pay</p></li><li><p style=\"min-height:1.5em\">Employee Assistance Program and virtual care through Lumino Health</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>United Kingdom</strong></h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Private medical insurance through Freedom Elite</p></li><li><p style=\"min-height:1.5em\">Virtual GP and at-home care via eMed x Livi</p></li><li><p style=\"min-height:1.5em\">Workplace pension through Penfold, with salary sacrifice option</p></li><li><p style=\"min-height:1.5em\">Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay with additional time available at reduced pay</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>Referral Instructions</strong></h2><p style=\"min-height:1.5em\">If you are being referred for the role, please contact that person to apply on your behalf.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><h2><strong>Other notices</strong></h2><p style=\"min-height:1.5em\">Pursuant to the San Francisco Fair Chance Ordinance, we will consider for employment qualified applicants with arrest and conviction records.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><em>Beware of recruiting scams: Ramp will only contact you through official @</em><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"http://Ramp.com\"><em>Ramp.com</em></a><em> email addresses and will never ask for payment or sensitive personal information during the hiring process.</em></p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://ramp.com/legal/applicant-privacy-notice\">Ramp Applicant Privacy Notice</a></p>",
+      "descriptionPlain": "ABOUT RAMP\n\nRamp is building the smart infrastructure for finance teams, embedded in the transaction flow of every dollar a business spends. We automate how over $275B in annualized spend flows in and out of 85,000+ companies: authorizing payments, flagging risk, categorizing spend, and closing books.\n\nThe problems are high-stakes, data-dense, and unforgiving.\n\nWe hire people with high agency and high urgency. We look for slope over intercept. We care less about where you trained and more about what you’ve built. At Ramp, everyone is a builder who owns problems end to end and makes consequential decisions that shape the outcome.\n\nThe median Ramp customer saves 7.5% and grows revenue 16% in their first year – far in excess of businesses operating without Ramp. We believe every ambitious company deserves the same.\n\nIf you want to build systems that directly shape how companies move and manage billions, Ramp is the place to do it.\n\n\n\n\nABOUT THE ROLE \n\nAs the Business Lead, you will be commercially responsible for the success of a new product at Ramp. The mandate is to do whatever it takes to grow the business. You will be expected to identify and resolve internal and external bottlenecks, often with limited guidance and support. You will set the strategy, prove out new bets, and influence how hundreds of go‑to‑market teammates sell and support the product. It’s an opportunity to run a “business within the business” at a meaningful scale while working directly with Ramp’s senior leadership.\n\n\n\n\nWHAT YOU'LL DO\n\n - Set the strategy: Define the target customer, value proposition, pricing, packaging, and GTM approach.\n\n - Own the plan and results: Set goals, measure progress, and take action when the things are off track.\n\n - Drive cross-functional execution: Align stakeholders from different teams around clear priorities and goals.\n\n - Own feedback loops: Work with customers and turn feedback into product and go-to-market changes.\n\n - Build for scale: Identify resource needs, create repeatable processes, and transition mature work to the appropriate long-term teams.\n\n\n\n\nWHAT YOU NEED\n\n - 5–10+ years in highly analytical, business‑driving roles\n\n - A self-starter who will run through walls to get things done\n\n - Exceptional analytical skills and command of data \n\n - A systems thinker who understands how to build things that scale\n\n - Strong communication skills and a team player\n\n\n\n\n\n\nBENEFITS AVAILABLE TO ALL FULL-TIME RAMP EMPLOYEES (GLOBAL)\n\n - Flexible PTO\n\n - Centralized home-office equipment ordering\n\n - Health and wellness stipend\n\n - Budget for intra-office travel\n\n - Weekly coffee stipend\n\n\n\n\nUNITED STATES\n\n - 100% medical, dental & vision insurance coverage for you, with partial coverage for dependents\n\n - One Medical annual membership\n\n - 401(k), including employer match on contributions made while employed by Ramp\n\n - Fertility HRA (up to $10,000 per year)\n\n - Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay\n\n - Pet insurance\n\n - In-office perks: lunch, snacks, drinks, and more\n\n - Relocation expense coverage to NYC or SF (if needed)\n   \n   \n\n\nCANADA\n\n - Group medical, dental, and vision coverage through Sun Life\n\n - Life, AD&D, and disability coverage\n\n - Fertility drug coverage (up to $4,000 lifetime)\n\n - Group Retirement Plan with employer match (RRSP + DPSP)\n\n - Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay, with additional time available at reduced pay\n\n - Employee Assistance Program and virtual care through Lumino Health\n\n\n\n\nUNITED KINGDOM\n\n - Private medical insurance through Freedom Elite\n\n - Virtual GP and at-home care via eMed x Livi\n\n - Workplace pension through Penfold, with salary sacrifice option\n\n - Parental leave: up to 16 weeks (birthing + bonding) or 8 weeks (bonding only) at 100% pay with additional time available at reduced pay\n\n\n\n\nREFERRAL INSTRUCTIONS\n\nIf you are being referred for the role, please contact that person to apply on your behalf.\n\n \n\n\nOTHER NOTICES\n\nPursuant to the San Francisco Fair Chance Ordinance, we will consider for employment qualified applicants with arrest and conviction records.\n\n \n\nBeware of recruiting scams: Ramp will only contact you through official @Ramp.com http://Ramp.com email addresses and will never ask for payment or sensitive personal information during the hiring process.\n\n \n\nRamp Applicant Privacy Notice https://ramp.com/legal/applicant-privacy-notice",
+      "compensation": {
+        "compensationTierSummary": "$160K – $275K • Offers Equity",
+        "scrapeableCompensationSalarySummary": "$160K - $275K",
+        "compensationTiers": [
+          {
+            "id": "40ad4077-69e5-4ef1-94c0-818f280b65d9",
+            "tierSummary": "Target Base Salary $160K – $275K • Offers Equity",
+            "title": "NY",
+            "additionalInformation": null,
+            "components": [
+              {
+                "id": "f8e0fdf6-ccf6-42b5-b613-a18f1b59c736",
+                "summary": "Offers Equity",
+                "compensationType": "EquityCashValue",
+                "interval": "1 YEAR",
+                "currencyCode": "USD",
+                "minValue": null,
+                "maxValue": null
+              },
+              {
+                "id": "26000233-a2a1-460a-8a44-ef4699d22d19",
+                "summary": "Target Base Salary $160K – $275K",
+                "compensationType": "Salary",
+                "interval": "1 YEAR",
+                "currencyCode": "USD",
+                "minValue": 160000,
+                "maxValue": 275000
+              }
+            ]
+          }
+        ],
+        "summaryComponents": [
+          {
+            "compensationType": "EquityCashValue",
+            "interval": "1 YEAR",
+            "currencyCode": "USD",
+            "minValue": null,
+            "maxValue": null
+          },
+          {
+            "compensationType": "Salary",
+            "interval": "1 YEAR",
+            "currencyCode": "USD",
+            "minValue": 160000,
+            "maxValue": 275000
+          }
+        ]
+      }
+    }
+  ]
+}

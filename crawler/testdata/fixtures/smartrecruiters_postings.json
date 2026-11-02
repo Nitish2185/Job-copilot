@@ -1,0 +1,429 @@
+{
+  "offset": 0,
+  "limit": 100,
+  "totalFound": 3,
+  "content": [
+    {
+      "id": "744000159074300",
+      "name": "Calibration Engineer - Vehicle calibration",
+      "uuid": "6ab30d85-3203-4ebd-8981-07847f1bc517",
+      "jobAdId": "cddeb256-d1c9-4c3b-ab25-1dab8af50db0",
+      "defaultJobAd": true,
+      "refNumber": "REF290175G",
+      "company": {
+        "identifier": "BoschGroup",
+        "name": "Bosch Group"
+      },
+      "releasedDate": "2026-11-02T08:58:19.770Z",
+      "location": {
+        "city": "pune",
+        "country": "in",
+        "address": "2nd and 3rd floor, tower a,  panchshil business park , ii, survey no 20, balewadi village, haveli taluk,",
+        "postalCode": "411045",
+        "remote": false,
+        "hybrid": false,
+        "fullLocation": "pune, , India"
+      },
+      "industry": {
+        "id": "computer_software",
+        "label": "Computer Software"
+      },
+      "department": {},
+      "function": {
+        "id": "engineering",
+        "label": "Engineering"
+      },
+      "typeOfEmployment": {
+        "id": "part-time",
+        "label": "Part-time"
+      },
+      "experienceLevel": {
+        "id": "associate",
+        "label": "Associate"
+      },
+      "customField": [
+        {
+          "fieldId": "5abe2a4ab60a5e486a2d9b1d",
+          "fieldLabel": "Contract type",
+          "valueId": "1e46492b-d24f-460c-b095-38cf08a778d8",
+          "valueLabel": "Unlimited"
+        },
+        {
+          "fieldId": "5abe28e96d8bc56863dd9746",
+          "fieldLabel": "Tariff Area",
+          "valueId": "2473485f-051f-4fbc-b802-f3620b73998c",
+          "valueLabel": "India Local Grades"
+        },
+        {
+          "fieldId": "586a997ee4b05fd937b86098",
+          "fieldLabel": "Legal Entity(acronym)",
+          "valueId": "RBEI",
+          "valueLabel": "BGSW"
+        },
+        {
+          "fieldId": "586a99b5e4b0daa006ae1079",
+          "fieldLabel": "Working Location",
+          "valueId": "Pune",
+          "valueLabel": "Pune"
+        },
+        {
+          "fieldId": "5abe295a6d8bc56863dd9747",
+          "fieldLabel": "Global Salary Level",
+          "valueId": "427b1359-5057-4375-a2ae-6c649782296d",
+          "valueLabel": "Experienced/ Middle Tariff"
+        },
+        {
+          "fieldId": "69ca83a2489188782a1e9f87",
+          "fieldLabel": "Direct Or Indirect",
+          "valueId": "1aefbf4c-c10a-422e-a975-a504a7117792",
+          "valueLabel": "Indirect"
+        },
+        {
+          "fieldId": "5abe29f9b60a5e486a2d9b1c",
+          "fieldLabel": "Working hours",
+          "valueId": "60756b3e-dbab-4353-ac3a-0064d2bb27d8",
+          "valueLabel": "Full-time"
+        },
+        {
+          "fieldId": "586a9995e4b0daa006ae1078",
+          "fieldLabel": "Legal Entity",
+          "valueId": "Robert Bosch Engineering and Business Solutions Private Ltd.",
+          "valueLabel": "Bosch Global Software Technologies Private Limited"
+        },
+        {
+          "fieldId": "691cf1c93001c782b9560ab7",
+          "fieldLabel": "Division full name",
+          "valueId": "2c84b9fd-f59a-4d8f-8666-3d3e8b6d5cef",
+          "valueLabel": "BGSW"
+        },
+        {
+          "fieldId": "5abe27936d8bc56863dd9745",
+          "fieldLabel": "Position type",
+          "valueId": "c7b4da31-6f38-405a-b2e8-08a76e3c3f2c",
+          "valueLabel": "Professional"
+        },
+        {
+          "fieldId": "COUNTRY",
+          "fieldLabel": "Country/Region",
+          "valueId": "in",
+          "valueLabel": "India"
+        },
+        {
+          "fieldId": "586a971ee4b0daa006ae1077",
+          "fieldLabel": "Brands",
+          "valueId": "default",
+          "valueLabel": "Bosch Group"
+        },
+        {
+          "fieldId": "586a996ce4b05fd937b86097",
+          "fieldLabel": "Working Country",
+          "valueId": "IN",
+          "valueLabel": "India"
+        },
+        {
+          "fieldId": "586a9b22e4b05fd937b8609a",
+          "fieldLabel": "Local Grade",
+          "valueId": "IN_RBEI_52",
+          "valueLabel": "IN_RBEI_52"
+        },
+        {
+          "fieldId": "586a99a5e4b05fd937b86099",
+          "fieldLabel": "Division",
+          "valueId": "RBEI",
+          "valueLabel": "BGSW"
+        }
+      ],
+      "visibility": "PUBLIC",
+      "ref": "https://api.smartrecruiters.com/v1/companies/BoschGroup/postings/744000159074300",
+      "creator": {
+        "name": "Syed Mustafa Sadakathulla (GS/HRS22-IN)"
+      },
+      "language": {
+        "code": "en",
+        "label": "English",
+        "labelNative": "English (US)"
+      }
+    },
+    {
+      "id": "744000159075455",
+      "name": "Area Sales Manager",
+      "uuid": "ce95d6a7-5336-4b41-aa65-899e4572d73a",
+      "jobAdId": "4d6b2bea-bcd7-4966-af1f-db20168c6cce",
+      "defaultJobAd": true,
+      "refNumber": "REF299913B",
+      "company": {
+        "identifier": "BoschGroup",
+        "name": "Bosch Group"
+      },
+      "releasedDate": "2026-11-02T08:52:16.097Z",
+      "location": {
+        "city": "Asse",
+        "region": "Vlaanderen",
+        "country": "be",
+        "address": "Z.5 Mollem 580",
+        "postalCode": "1730",
+        "remote": false,
+        "hybrid": false,
+        "latitude": "50.9155732",
+        "longitude": "4.2353276",
+        "fullLocation": "Asse, Vlaanderen, Belgium"
+      },
+      "industry": {
+        "id": "logistics_and_supply_chain",
+        "label": "Logistics And Supply Chain"
+      },
+      "department": {},
+      "function": {
+        "id": "sales",
+        "label": "Sales"
+      },
+      "typeOfEmployment": {
+        "id": "permanent",
+        "label": "Full-time"
+      },
+      "experienceLevel": {
+        "id": "associate",
+        "label": "Associate"
+      },
+      "customField": [
+        {
+          "fieldId": "5abe2a4ab60a5e486a2d9b1d",
+          "fieldLabel": "Contract type",
+          "valueId": "1e46492b-d24f-460c-b095-38cf08a778d8",
+          "valueLabel": "Unlimited"
+        },
+        {
+          "fieldId": "5abe28e96d8bc56863dd9746",
+          "fieldLabel": "Tariff Area",
+          "valueId": "b8339437-df9b-4ff9-bbf6-5581b0624947",
+          "valueLabel": "Belgium Local Grades"
+        },
+        {
+          "fieldId": "586a997ee4b05fd937b86098",
+          "fieldLabel": "Legal Entity(acronym)",
+          "valueId": "aa047b35-d539-44d7-8275-683a77bdd76a",
+          "valueLabel": "RBVB"
+        },
+        {
+          "fieldId": "586a99b5e4b0daa006ae1079",
+          "fieldLabel": "Working Location",
+          "valueId": "7d5d9cea-6298-4d55-a678-3b4ad9966540",
+          "valueLabel": "Mollem"
+        },
+        {
+          "fieldId": "5abe295a6d8bc56863dd9747",
+          "fieldLabel": "Global Salary Level",
+          "valueId": "427b1359-5057-4375-a2ae-6c649782296d",
+          "valueLabel": "Experienced/ Middle Tariff"
+        },
+        {
+          "fieldId": "69ca83a2489188782a1e9f87",
+          "fieldLabel": "Direct Or Indirect",
+          "valueId": "1aefbf4c-c10a-422e-a975-a504a7117792",
+          "valueLabel": "Indirect"
+        },
+        {
+          "fieldId": "5abe29f9b60a5e486a2d9b1c",
+          "fieldLabel": "Working hours",
+          "valueId": "60756b3e-dbab-4353-ac3a-0064d2bb27d8",
+          "valueLabel": "Full-time"
+        },
+        {
+          "fieldId": "586a9995e4b0daa006ae1078",
+          "fieldLabel": "Legal Entity",
+          "valueId": "2f1931d5-3d0f-42a7-adb5-8e529c386beb",
+          "valueLabel": "Robert Bosch SA/NV"
+        },
+        {
+          "fieldId": "691cf1c93001c782b9560ab7",
+          "fieldLabel": "Division full name",
+          "valueId": "d46bc602-375e-4c5b-8773-170f49339203",
+          "valueLabel": "Power Tools"
+        },
+        {
+          "fieldId": "5abe27936d8bc56863dd9745",
+          "fieldLabel": "Position type",
+          "valueId": "c7b4da31-6f38-405a-b2e8-08a76e3c3f2c",
+          "valueLabel": "Professional"
+        },
+        {
+          "fieldId": "COUNTRY",
+          "fieldLabel": "Country/Region",
+          "valueId": "be",
+          "valueLabel": "Belgium"
+        },
+        {
+          "fieldId": "586a971ee4b0daa006ae1077",
+          "fieldLabel": "Brands",
+          "valueId": "default",
+          "valueLabel": "Bosch Group"
+        },
+        {
+          "fieldId": "586a996ce4b05fd937b86097",
+          "fieldLabel": "Working Country",
+          "valueId": "7dce6d14-4822-43d3-a529-6b3d535cd0ee",
+          "valueLabel": "Belgium"
+        },
+        {
+          "fieldId": "586a9b22e4b05fd937b8609a",
+          "fieldLabel": "Local Grade",
+          "valueId": "03428fcc-d20b-4c3a-8add-1c2ccf7c2dc2",
+          "valueLabel": "BE_Tariff Middle"
+        },
+        {
+          "fieldId": "586a99a5e4b05fd937b86099",
+          "fieldLabel": "Division",
+          "valueId": "PT",
+          "valueLabel": "PT"
+        }
+      ],
+      "visibility": "PUBLIC",
+      "ref": "https://api.smartrecruiters.com/v1/companies/BoschGroup/postings/744000159075455",
+      "language": {
+        "code": "nl",
+        "label": "Dutch",
+        "labelNative": "Nederlands"
+      }
+    },
+    {
+      "id": "744000159073324",
+      "name": "Intern, HR (Employer Branding & Talent Engagement)",
+      "uuid": "6d06cc22-2a75-42b0-9b1b-72720e585af9",
+      "jobAdId": "5565b8fc-257e-418b-a059-956c342d1529",
+      "defaultJobAd": true,
+      "refNumber": "REF296947M",
+      "company": {
+        "identifier": "BoschGroup",
+        "name": "Bosch Group"
+      },
+      "releasedDate": "2026-11-02T08:39:42.891Z",
+      "location": {
+        "city": "Singapore",
+        "country": "sg",
+        "address": "11 Bishan Street 21",
+        "postalCode": "573943",
+        "remote": false,
+        "hybrid": false,
+        "latitude": "1.3475716",
+        "longitude": "103.8413215",
+        "fullLocation": "Singapore, , Singapore"
+      },
+      "industry": {
+        "id": "mechanical_engineering",
+        "label": "Mechanical Or Industrial Engineering"
+      },
+      "department": {},
+      "function": {
+        "id": "human_resources",
+        "label": "Human Resources"
+      },
+      "typeOfEmployment": {
+        "id": "permanent",
+        "label": "Full-time"
+      },
+      "experienceLevel": {
+        "id": "internship",
+        "label": "Internship"
+      },
+      "customField": [
+        {
+          "fieldId": "5abe2a4ab60a5e486a2d9b1d",
+          "fieldLabel": "Contract type",
+          "valueId": "98487475-2a49-44f5-a615-408b525b3821",
+          "valueLabel": "Limited"
+        },
+        {
+          "fieldId": "5abe28e96d8bc56863dd9746",
+          "fieldLabel": "Tariff Area",
+          "valueId": "1d83a137-325a-48bb-97fc-61e5150a619f",
+          "valueLabel": "Singapore Local Grades"
+        },
+        {
+          "fieldId": "586a997ee4b05fd937b86098",
+          "fieldLabel": "Legal Entity(acronym)",
+          "valueId": "0192622d-fff4-487f-9495-6f3a7f6d33b2",
+          "valueLabel": "RBSI"
+        },
+        {
+          "fieldId": "586a99b5e4b0daa006ae1079",
+          "fieldLabel": "Working Location",
+          "valueId": "70deb26e-e2b9-40ca-bf95-85f5730ec04c",
+          "valueLabel": "Singapore"
+        },
+        {
+          "fieldId": "5abe295a6d8bc56863dd9747",
+          "fieldLabel": "Global Salary Level",
+          "valueId": "80ae06a1-4738-48e8-8aea-4613f58ecd57",
+          "valueLabel": "Others"
+        },
+        {
+          "fieldId": "69ca83a2489188782a1e9f87",
+          "fieldLabel": "Direct Or Indirect",
+          "valueId": "1aefbf4c-c10a-422e-a975-a504a7117792",
+          "valueLabel": "Indirect"
+        },
+        {
+          "fieldId": "5abe29f9b60a5e486a2d9b1c",
+          "fieldLabel": "Working hours",
+          "valueId": "60756b3e-dbab-4353-ac3a-0064d2bb27d8",
+          "valueLabel": "Full-time"
+        },
+        {
+          "fieldId": "586a9995e4b0daa006ae1078",
+          "fieldLabel": "Legal Entity",
+          "valueId": "a584d752-f1a5-46c6-bb3a-78dfd8ddb5ff",
+          "valueLabel": "Robert Bosch (SEA) Pte Ltd"
+        },
+        {
+          "fieldId": "691cf1c93001c782b9560ab7",
+          "fieldLabel": "Division full name",
+          "valueId": "777edb90-530c-4977-8107-f92e85b58876",
+          "valueLabel": "Corporate"
+        },
+        {
+          "fieldId": "5abe27936d8bc56863dd9745",
+          "fieldLabel": "Position type",
+          "valueId": "f524b939-fe55-407b-a0b0-e8f4eec28997",
+          "valueLabel": "Intern"
+        },
+        {
+          "fieldId": "COUNTRY",
+          "fieldLabel": "Country/Region",
+          "valueId": "sg",
+          "valueLabel": "Singapore"
+        },
+        {
+          "fieldId": "586a971ee4b0daa006ae1077",
+          "fieldLabel": "Brands",
+          "valueId": "default",
+          "valueLabel": "Bosch Group"
+        },
+        {
+          "fieldId": "586a996ce4b05fd937b86097",
+          "fieldLabel": "Working Country",
+          "valueId": "c5857f19-effd-4d50-aa2a-22a0adc9c809",
+          "valueLabel": "Singapore"
+        },
+        {
+          "fieldId": "586a9b22e4b05fd937b8609a",
+          "fieldLabel": "Local Grade",
+          "valueId": "3037ad15-7175-40aa-baf0-e4dcc6b11782",
+          "valueLabel": "SG_Intern"
+        },
+        {
+          "fieldId": "586a99a5e4b05fd937b86099",
+          "fieldLabel": "Division",
+          "valueId": "C",
+          "valueLabel": "C"
+        }
+      ],
+      "visibility": "PUBLIC",
+      "ref": "https://api.smartrecruiters.com/v1/companies/BoschGroup/postings/744000159073324",
+      "language": {
+        "code": "en",
+        "label": "English",
+        "labelNative": "English (US)"
+      }
+    }
+  ]
+}

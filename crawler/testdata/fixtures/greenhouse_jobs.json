@@ -1,0 +1,160 @@
+{
+  "jobs": [
+    {
+      "absolute_url": "https://job-boards.greenhouse.io/gitlab/jobs/8586667002",
+      "data_compliance": [
+        {
+          "type": "gdpr",
+          "requires_consent": false,
+          "requires_processing_consent": false,
+          "requires_retention_consent": false,
+          "retention_period": null,
+          "demographic_data_consent_applies": false
+        }
+      ],
+      "internal_job_id": 6429612002,
+      "location": {
+        "name": "Remote, United Kingdom"
+      },
+      "metadata": [
+        {
+          "id": 4595831002,
+          "name": "Quota Coverage Type",
+          "value": "n/a",
+          "value_type": "single_select"
+        }
+      ],
+      "id": 8586667002,
+      "updated_at": "2026-10-28T12:23:39-04:00",
+      "requisition_id": "6462",
+      "title": "Engineering Manager, Build ",
+      "company_name": "GitLab",
+      "first_published": "2026-08-19T11:33:14-04:00",
+      "language": "en",
+      "application_deadline": null,
+      "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;p&gt;GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.&lt;/p&gt;\n&lt;p&gt;The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values&amp;nbsp;and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. &lt;a href=&quot;https://www.youtube.com/watch?v=OuZIb5zszQI&quot;&gt;Co-create the future with us&lt;/a&gt; as we build technology that transforms how the world develops software.&lt;/p&gt;\n&lt;p&gt;*&lt;em&gt;Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab.&lt;/em&gt;&lt;/p&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Summary:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;Lead the Build team within GitLab Delivery, accountable for the strategy, execution, and operational excellence of the systems that turn GitLab source code into secure, verified, and distributable artifacts for Self-Managed and other delivery targets. The role owns the build platform foundations that make component delivery faster, more consistent, and more self-service for development teams, while ensuring artifacts are reliable for customers to install and operate.&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Key Responsibilities:&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Lead the Build team roadmap across UBT, TUBE, and the broader build platform.&lt;/li&gt;\n&lt;li&gt;Own delivery of GitLab distributable artifacts, including packages, container images, and cloud marketplace images.&lt;/li&gt;\n&lt;li&gt;Drive a build-once, deploy-everywhere model across Omnibus, CNG, and future delivery targets.&lt;/li&gt;\n&lt;li&gt;Lead centralized dependency management and coordinated dependency updates across components.&lt;/li&gt;\n&lt;li&gt;Ensure supply chain security through SBOMs, provenance, vetted dependencies, and compliant build isolation.&lt;/li&gt;\n&lt;li&gt;Create self-service onboarding paths with standard CI templates, documentation, and paved paths.&lt;/li&gt;\n&lt;li&gt;Improve build quality and consistency through unified build environments and validation.&lt;/li&gt;\n&lt;li&gt;Establish observability, dashboards, and metrics for build pipelines and platform impact.&lt;/li&gt;\n&lt;li&gt;Partner across Delivery and adjacent teams to unblock onboarding and reduce coordination overhead.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;What you&#39;ll bring:&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Proven track record building and owning large-scale distributed services, with the technical depth to dive into architecture and guide the team on technical strategy&lt;/li&gt;\n&lt;li&gt;Experience in driving operational excellence and you&#39;ve owned services running at four-nines (99.99%) SLOs and know what it takes to keep them there&lt;/li&gt;\n&lt;li&gt;Experience leveraging AI tooling to boost team productivity, with real lessons learned from both wins and missteps&lt;/li&gt;\n&lt;li&gt;A history of building and managing high-performing, accountable team cultures, including managing out when necessary&lt;/li&gt;\n&lt;li&gt;Comfort driving complex projects to completion without relying on a dedicated TPM&lt;/li&gt;\n&lt;li&gt;Experience leading distributed and remote teams effectively&lt;/li&gt;\n&lt;/ul&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;h4&gt;&lt;strong&gt;How GitLab Supports Full-Time Employees&lt;/strong&gt;&lt;/h4&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=&quot;https://about.gitlab.com/handbook/total-rewards/benefits/general-and-entity-benefits/&quot;&gt;Benefits to support your health, finances, and well-being&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://handbook.gitlab.com/handbook/people-group/time-off-and-absence/time-off-types/#flexible-paid-time-off-pto&quot;&gt;Flexible Paid Time Off&amp;nbsp;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://handbook.gitlab.com/handbook/company/culture/inclusion/tmrg-tmag/&quot;&gt;Team Member Resource Groups&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://handbook.gitlab.com/handbook/total-rewards/stock-options/&quot;&gt;Equity Compensation &amp;amp; Employee Stock Purchase Plan&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://handbook.gitlab.com/handbook/people-group/learning-and-development/growth-and-development/&quot;&gt;Growth and Development Fund&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://about.gitlab.com/handbook/total-rewards/benefits/general-and-entity-benefits/#parental-leave&quot;&gt;Parental Leave&lt;/a&gt;&amp;nbsp;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;Please note that we welcome interest from candidates with varying levels of experience; many successful candidates do not meet every single requirement. Additionally, studies have shown that people from &lt;a href=&quot;https://about.gitlab.com/company/culture/inclusion/#examples-of-select-underrepresented-groups&quot;&gt;underrepresented groups&lt;/a&gt; are less likely to apply to a job unless they meet every single qualification. If you&#39;re excited about this role, please apply and allow our recruiters to assess your application.&lt;/p&gt;\n&lt;hr&gt;\n&lt;p&gt;&lt;strong&gt;Country Hiring Guidelines: &lt;/strong&gt;GitLab hires new team members in countries around the world. All of our roles are remote, however some roles may carry specific location-based eligibility requirements. Our Talent Acquisition team can help answer any questions about location after starting the recruiting process.&amp;nbsp;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Privacy Policy: &lt;/strong&gt;Please review our &lt;a href=&quot;https://handbook.gitlab.com/handbook/hiring/candidate-faq/recruitment-privacy-policy/&quot; target=&quot;_blank&quot;&gt;Recruitment Privacy Policy.&lt;/a&gt; Your privacy is important to us.&lt;/p&gt;\n&lt;p&gt;GitLab is proud to be an equal opportunity workplace and is an affirmative action employer. GitLab’s policies and practices relating to recruitment, employment, career development and advancement, promotion, and retirement are based solely on merit, regardless of race, color, religion, ancestry, sex (including pregnancy, lactation, sexual orientation, gender identity, or gender expression), national origin, age, citizenship, marital status, mental or physical disability, genetic information (including family medical history), discharge status from the military, protected veteran status (which includes disabled veterans, recently separated veterans, active duty wartime or campaign badge veterans, and Armed Forces service medal veterans), or any other basis protected by law. GitLab will not tolerate discrimination or harassment based on any of these characteristics. See also&amp;nbsp;&lt;a href=&quot;https://about.gitlab.com/handbook/people-policies/inc-usa/#equal-employment-opportunity-policy&quot; target=&quot;_blank&quot;&gt;GitLab’s EEO Policy&lt;/a&gt;&amp;nbsp;and&amp;nbsp;&lt;a href=&quot;https://about.gitlab.com/handbook/labor-and-employment-notices/#eeoc-us-equal-employment-opportunity-commission-notices&quot; target=&quot;_blank&quot;&gt;EEO is the Law&lt;/a&gt;. If you have a disability or special need that requires&amp;nbsp;&lt;a href=&quot;https://about.gitlab.com/handbook/people-policies/inc-usa/#reasonable-accommodation&quot; target=&quot;_blank&quot;&gt;accommodation&lt;/a&gt;, please let us know during the&amp;nbsp;&lt;a href=&quot;https://about.gitlab.com/handbook/hiring/interviewing/#adjustments-to-our-interview-process&quot; target=&quot;_blank&quot;&gt;recruiting process&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;",
+      "departments": [
+        {
+          "id": 4016843002,
+          "name": "Platforms Engineering",
+          "child_ids": [],
+          "parent_id": 4011044002
+        }
+      ],
+      "offices": [],
+      "ai_disclaimer": null,
+      "include_ai_disclaimer": null,
+      "ai_opt_out_request_url": null
+    },
+    {
+      "absolute_url": "https://job-boards.greenhouse.io/gitlab/jobs/8636648002",
+      "data_compliance": [
+        {
+          "type": "gdpr",
+          "requires_consent": false,
+          "requires_processing_consent": false,
+          "requires_retention_consent": false,
+          "retention_period": null,
+          "demographic_data_consent_applies": false
+        }
+      ],
+      "internal_job_id": 6449327002,
+      "location": {
+        "name": "Remote, United Kingdom"
+      },
+      "metadata": [
+        {
+          "id": 4595831002,
+          "name": "Quota Coverage Type",
+          "value": "n/a",
+          "value_type": "single_select"
+        }
+      ],
+      "id": 8636648002,
+      "updated_at": "2026-10-28T12:23:39-04:00",
+      "requisition_id": "6670",
+      "title": " Engineering Manager, Dedicated Integrations",
+      "company_name": "GitLab",
+      "first_published": "2026-08-10T05:08:25-04:00",
+      "language": "en",
+      "application_deadline": null,
+      "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;p&gt;GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.&lt;/p&gt;\n&lt;p&gt;The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values&amp;nbsp;and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. &lt;a href=&quot;https://www.youtube.com/watch?v=OuZIb5zszQI&quot;&gt;Co-create the future with us&lt;/a&gt; as we build technology that transforms how the world develops software.&lt;/p&gt;\n&lt;p&gt;*&lt;em&gt;Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab.&lt;/em&gt;&lt;/p&gt;&lt;/div&gt;&lt;p&gt;We&#39;re looking for a technical engineering manager to lead a team building and operating large-scale distributed systems. The ideal candidate combines deep technical expertise with strong operational instincts and a passion for building high-performing teams.&lt;/p&gt;\n&lt;p&gt;You will lead the Dedicated Platform Integration team, responsible for the integration of third-party and modular features in the GitLab ecosystem, for Dedicated platform hosted SaaS.&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Key Responsibilities:&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Enable effective execution&amp;nbsp; with Quality and Speed, in partnership with the team’s Product Manager&lt;/li&gt;\n&lt;li&gt;Ensure 3+ 9s availability of Dedicated infrastructure, ensuring security and automating for maximum scalability and number of tenants.&lt;/li&gt;\n&lt;li&gt;Provide clear direction, meaningful feedback and foster an environment where meaningless toil gets ruthlessly automated and Devops ownership is enforced.&lt;/li&gt;\n&lt;li&gt;Continuously improved owned artifacts in a direction of optimizing platforms for self-service ownership of production for feature implementers.&lt;/li&gt;\n&lt;li&gt;Recruitment, onboarding and development of excellent and productive team members.&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Be a role model for the team: provide Proof of concepts, agentic mindset and extreme simplification of processes and removal of human toil. Show and Tell, not only Tell.&lt;/li&gt;\n&lt;li&gt;Role model Incident Management best-practices, lead in fast resolutions, escalations and train and codify best practices to the whole of GitLab&lt;/li&gt;\n&lt;li&gt;Data driven approach to prioritization, impact quantification and management of risk and technical debt.Able to use AI to demonstrate concepts and translate technical complexity to drive stakeholder decisions.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;What you&#39;ll bring:&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Proven track record building and owning large-scale distributed services, with the technical depth to dive into architecture and guide the team on technical strategy&lt;/li&gt;\n&lt;li&gt;Experience with fleet management products, including Terraform, AWS and automated provisioning at scale (20+ clusters)&lt;/li&gt;\n&lt;li&gt;Experience in driving operational excellence and you&#39;ve owned services running at four-nines (99.99%) SLOs and know what it takes to keep them there&lt;/li&gt;\n&lt;li&gt;Experience leveraging AI tooling to boost team productivity, with real lessons learned from both wins and missteps&lt;/li&gt;\n&lt;li&gt;A history of building and managing high-performing, accountable team cultures, including managing out when necessary&lt;/li&gt;\n&lt;li&gt;Comfort driving complex projects to completion without relying on a dedicated TPM&lt;/li&gt;\n&lt;li&gt;Experience leading distributed and remote teams effectively&lt;/li&gt;\n&lt;/ul&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;h4&gt;&lt;strong&gt;How GitLab Supports Full-Time Employees&lt;/strong&gt;&lt;/h4&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=&quot;https://about.gitlab.com/handbook/total-rewards/benefits/general-and-entity-benefits/&quot;&gt;Benefits to support your health, finances, and well-being&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://handbook.gitlab.com/handbook/people-group/time-off-and-absence/time-off-types/#flexible-paid-time-off-pto&quot;&gt;Flexible Paid Time Off&amp;nbsp;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://handbook.gitlab.com/handbook/company/culture/inclusion/tmrg-tmag/&quot;&gt;Team Member Resource Groups&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://handbook.gitlab.com/handbook/total-rewards/stock-options/&quot;&gt;Equity Compensation &amp;amp; Employee Stock Purchase Plan&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://handbook.gitlab.com/handbook/people-group/learning-and-development/growth-and-development/&quot;&gt;Growth and Development Fund&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=&quot;https://about.gitlab.com/handbook/total-rewards/benefits/general-and-entity-benefits/#parental-leave&quot;&gt;Parental Leave&lt;/a&gt;&amp;nbsp;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;Please note that we welcome interest from candidates with varying levels of experience; many successful candidates do not meet every single requirement. Additionally, studies have shown that people from &lt;a href=&quot;https://about.gitlab.com/company/culture/inclusion/#examples-of-select-underrepresented-groups&quot;&gt;underrepresented groups&lt;/a&gt; are less likely to apply to a job unless they meet every single qualification. If you&#39;re excited about this role, please apply and allow our recruiters to assess your application.&lt;/p&gt;\n&lt;hr&gt;\n&lt;p&gt;&lt;strong&gt;Country Hiring Guidelines: &lt;/strong&gt;GitLab hires new team members in countries around the world. All of our roles are remote, however some roles may carry specific location-based eligibility requirements. Our Talent Acquisition team can help answer any questions about location after starting the recruiting process.&amp;nbsp;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Privacy Policy: &lt;/strong&gt;Please review our &lt;a href=&quot;https://handbook.gitlab.com/handbook/hiring/candidate-faq/recruitment-privacy-policy/&quot; target=&quot;_blank&quot;&gt;Recruitment Privacy Policy.&lt;/a&gt; Your privacy is important to us.&lt;/p&gt;\n&lt;p&gt;GitLab is proud to be an equal opportunity workplace and is an affirmative action employer. GitLab’s policies and practices relating to recruitment, employment, career development and advancement, promotion, and retirement are based solely on merit, regardless of race, color, religion, ancestry, sex (including pregnancy, lactation, sexual orientation, gender identity, or gender expression), national origin, age, citizenship, marital status, mental or physical disability, genetic information (including family medical history), discharge status from the military, protected veteran status (which includes disabled veterans, recently separated veterans, active duty wartime or campaign badge veterans, and Armed Forces service medal veterans), or any other basis protected by law. GitLab will not tolerate discrimination or harassment based on any of these characteristics. See also&amp;nbsp;&lt;a href=&quot;https://about.gitlab.com/handbook/people-policies/inc-usa/#equal-employment-opportunity-policy&quot; target=&quot;_blank&quot;&gt;GitLab’s EEO Policy&lt;/a&gt;&amp;nbsp;and&amp;nbsp;&lt;a href=&quot;https://about.gitlab.com/handbook/labor-and-employment-notices/#eeoc-us-equal-employment-opportunity-commission-notices&quot; target=&quot;_blank&quot;&gt;EEO is the Law&lt;/a&gt;. If you have a disability or special need that requires&amp;nbsp;&lt;a href=&quot;https://about.gitlab.com/handbook/people-policies/inc-usa/#reasonable-accommodation&quot; target=&quot;_blank&quot;&gt;accommodation&lt;/a&gt;, please let us know during the&amp;nbsp;&lt;a href=&quot;https://about.gitlab.com/handbook/hiring/interviewing/#adjustments-to-our-interview-process&quot; target=&quot;_blank&quot;&gt;recruiting process&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;",
+      "departments": [
+        {
+          "id": 4016843002,
+          "name": "Platforms Engineering",
+          "child_ids": [],
+          "parent_id": 4011044002
+        }
+      ],
+      "offices": [],
+      "ai_disclaimer": null,
+      "include_ai_disclaimer": null,
+      "ai_opt_out_request_url": null
+    },
+    {
+      "absolute_url": "https://stripe.com/jobs/search?gh_jid=7984866",
+      "data_compliance": [
+        {
+          "type": "gdpr",
+          "requires_consent": false,
+          "requires_processing_consent": false,
+          "requires_retention_consent": false,
+          "retention_period": null,
+          "demographic_data_consent_applies": false
+        }
+      ],
+      "education": "education_required",
+      "internal_job_id": 3465046,
+      "location": {
+        "name": "Toronto"
+      },
+      "metadata": null,
+      "id": 7984866,
+      "updated_at": "2026-10-29T10:42:09-04:00",
+      "requisition_id": "See Opening ID",
+      "title": "Product Manager, Ecosystem Risk",
+      "company_name": "Stripe",
+      "first_published": "2026-06-11T09:20:38-04:00",
+      "language": "en",
+      "application_deadline": null,
+      "content": "&lt;h2&gt;Who we are&lt;/h2&gt;\n&lt;h3&gt;About Stripe&lt;/h3&gt;\n&lt;p&gt;Stripe is a financial infrastructure platform for businesses. Millions of companies — from the world&#39;s largest enterprises to the most ambitious startups — use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone&#39;s reach while doing the most important work of your career.&lt;/p&gt;\n&lt;h3&gt;About the team&lt;/h3&gt;\n&lt;p&gt;The Ecosystem Risk Product Management team sits at the intersection of growth and protection. Our focus is twofold. We enable online businesses—including those in emerging and regulated industries—to start and grow on Stripe, while protecting consumers, merchants, and partners from financial crimes. We build financial infrastructure at scale that powers every transaction on Stripe, deliver merchant-facing UI and API experiences, and develop AI-driven solutions to some of the hardest and most exciting challenges in the digital economy.&lt;/p&gt;\n&lt;h2&gt;What you&#39;ll do&lt;/h2&gt;\n&lt;h3&gt;Responsibilities&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Own the vision and multi-year roadmap for AI-powered financial crimes controls—spanning detection, investigation, information collection, and the UI and API surfaces that tie them together.&lt;/li&gt;\n&lt;li&gt;Build core infrastructure that underpins Stripe&#39;s growing suite of products and services. • Develop investigator tools that power accurate case reviews using the best of AI and human expertise.&lt;/li&gt;\n&lt;li&gt;Drive cross-functional execution by partnering closely with engineering, operations, design, data science, go-to-market, legal, and product teams across Stripe.&lt;/li&gt;\n&lt;li&gt;Define and own success metrics, navigate complex trade-offs, drive prioritization, and measure outcomes with rigor to demonstrate impact.&lt;/li&gt;\n&lt;li&gt;Align leadership and stakeholders by synthesizing input from across the organization and external sources, and communicating a clear point of view to peers and executives.&lt;/li&gt;\n&lt;li&gt;Monitor the external landscape—regulatory trends, emerging technologies, and competitive offerings—to inform strategy and identify opportunities.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;Who you are&lt;/h2&gt;\n&lt;h3&gt;Minimum requirements&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;7+ years in Product Management&lt;/li&gt;\n&lt;li&gt;Proven experience building infrastructure and user experiences at scale&lt;/li&gt;\n&lt;li&gt;Track record of operating effectively in highly cross-functional environments&lt;/li&gt;\n&lt;li&gt;Excellent analytical, problem-solving, and decision-making skills&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h3&gt;Preferred qualifications&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Experience in financial crimes or fraud prevention within financial services&lt;/li&gt;\n&lt;/ul&gt;",
+      "departments": [
+        {
+          "id": 83108,
+          "name": "8260 Risk and Compliance Platform PM",
+          "child_ids": [],
+          "parent_id": 150328
+        }
+      ],
+      "offices": [
+        {
+          "id": 87006,
+          "name": "Canada Locations",
+          "location": null,
+          "child_ids": [
+            93355,
+            212396,
+            243441,
+            264677,
+            83765,
+            83863,
+            80164,
+            80439,
+            83762,
+            83763,
+            83766,
+            83764
+          ],
+          "parent_id": 673
+        }
+      ],
+      "ai_disclaimer": null,
+      "include_ai_disclaimer": false,
+      "ai_opt_out_request_url": "http://app.greenhouse.io/ai_opt_out_request/job_post/7984866/ai_opt_out"
+    }
+  ],
+  "meta": {
+    "total": 3
+  }
+}
