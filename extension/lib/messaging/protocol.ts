@@ -7,6 +7,7 @@ import { CompanySchema, JdAnalysisSchema, JobStatusSchema } from "@job-copilot/s
 import { z } from "zod";
 import { ProjectDescriptionSchema } from "../ai/tasks/describeProject";
 import { ProfileDraftSchema } from "../ai/tasks/extractProfile";
+import { TailoredContentSchema } from "../resume/tailor";
 
 const ProviderIdSchema = z.enum(["gemini", "groq", "openrouter", "ollama", "custom"]);
 const ProviderTargetSchema = z.object({
@@ -178,6 +179,19 @@ export const MESSAGES = {
           matchedKeywords: z.array(z.string()),
         }),
       ),
+      source: z.enum(["ai", "local"]),
+      aiError: z.string().optional(),
+    }),
+    sender: extensionOnly,
+  },
+  "ai/tailorResume": {
+    request: z.object({
+      jobId: z.string().min(1),
+      projectIds: z.array(z.string().min(1)).max(3),
+    }),
+    response: z.object({
+      content: TailoredContentSchema,
+      issues: z.array(z.string()),
       source: z.enum(["ai", "local"]),
       aiError: z.string().optional(),
     }),

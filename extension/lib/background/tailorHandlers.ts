@@ -9,11 +9,14 @@ import { runTask } from "../ai/runner";
 import { buildRuntime } from "../ai/runtime";
 import { analyzeJdTask } from "../ai/tasks/analyzeJd";
 import { pickProjectsTask, projectsForPicking } from "../ai/tasks/pickProjects";
+import { changesFromOutput, tailorRequest, tailorResumeTask } from "../ai/tasks/tailorResume";
 import { getDb } from "../db/db";
 import { LOCAL_MODEL, analysisFromAi, jobText, localJdAnalysis } from "../jobs/analysis";
 import type { Handlers } from "../messaging/server";
 import { loadProfile } from "../profile/store";
+import { localTailorChanges } from "../resume/localTailor";
 import { finalizePicks, type ProjectPick } from "../resume/pick";
+import { applyTailoring, type TailorChanges, type TailoredContent } from "../resume/tailor";
 import { loadSettings } from "../settings/settings";
 
 /**
@@ -101,7 +104,52 @@ export async function picksFor(
   }
 }
 
+/**
+ * Tailored content for a job and the chosen projects (spec 14.2 steps 3-4): the
+ * AI's changes (or a local reordering without AI), always checked by the
+ * validator.
+ */
+export async function tailoredFor(
+  jobId: string,
+  projectIds: readonly string[],
+): Promise<{
+  content: TailoredContent;
+  issues: string[];
+  source: "ai" | "local";
+  aiError?: string;
+}> {
+  const db = getDb();
+  const [job, profile, { analysis }] = await Promise.all([
+    db.jobs.get(jobId),
+    loadProfile(db),
+    analysisFor(jobId),
+  ]);
+  if (!job) throw new Error("This job is no longer saved on this device.");
+  const picked = projectIds
+    .map((id) => profile.projects.find((p) => p.id === id))
+    .filter((p): p is NonNullable<typeof p> => p?.included === true);
+
+  let changes: TailorChanges = localTailorChanges(profile, analysis);
+  let source: "ai" | "local" = "local";
+  let aiError: string | undefined;
+  if (await isAiConfigured()) {
+    const request = tailorRequest(profile, picked, job, analysis);
+    try {
+      const result = await runTask(await buildRuntime(), tailorResumeTask, request.input);
+      changes = changesFromOutput(result.value, request.experienceKeys, request.projectKeys);
+      source = "ai";
+    } catch (error) {
+      aiError = error instanceof Error ? error.message : String(error);
+    }
+  }
+  const { content, issues } = applyTailoring(profile, picked, changes, {
+    jobCompany: job.company.name,
+  });
+  return { content, issues, source, ...(aiError && { aiError }) };
+}
+
 export const tailorHandlers: Handlers = {
   "ai/analyzeJd": ({ jobId, refresh }) => analysisFor(jobId, refresh),
   "ai/pickProjects": ({ jobId, count }) => picksFor(jobId, count),
+  "ai/tailorResume": ({ jobId, projectIds }) => tailoredFor(jobId, projectIds),
 };

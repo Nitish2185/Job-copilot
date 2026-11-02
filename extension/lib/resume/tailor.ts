@@ -4,6 +4,7 @@
  * certifications and contact details always come from the profile.
  */
 import type { Profile, Project } from "@job-copilot/shared";
+import { z } from "zod";
 import {
   BULLET_MAX_WORDS,
   SUMMARY_MAX_WORDS,
@@ -22,21 +23,25 @@ export interface TailorChanges {
   keywordsTargeted: string[];
 }
 
-export interface TailoredBullet {
-  text: string;
+const TailoredBulletSchema = z.object({
+  text: z.string(),
   /** Rewritten by the AI and accepted by the validator. */
-  changed: boolean;
-}
+  changed: z.boolean(),
+});
+export type TailoredBullet = z.infer<typeof TailoredBulletSchema>;
 
-export interface TailoredContent {
-  summary: string;
-  summaryChanged: boolean;
-  skills: { id: string; displayName: string }[];
-  skillsReordered: boolean;
-  experience: { experienceId: string; bullets: TailoredBullet[] }[];
-  projects: { projectId: string; bullets: TailoredBullet[] }[];
-  keywordsTargeted: string[];
-}
+export const TailoredContentSchema = z.object({
+  summary: z.string(),
+  summaryChanged: z.boolean(),
+  skills: z.array(z.object({ id: z.string(), displayName: z.string() })),
+  skillsReordered: z.boolean(),
+  experience: z.array(
+    z.object({ experienceId: z.string(), bullets: z.array(TailoredBulletSchema) }),
+  ),
+  projects: z.array(z.object({ projectId: z.string(), bullets: z.array(TailoredBulletSchema) })),
+  keywordsTargeted: z.array(z.string()),
+});
+export type TailoredContent = z.infer<typeof TailoredContentSchema>;
 
 export const PROJECT_BULLETS = { min: 2, max: 4 } as const;
 

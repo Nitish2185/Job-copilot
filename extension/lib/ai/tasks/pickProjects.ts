@@ -49,7 +49,7 @@ export const pickProjectsTask: AiTask<PickProjectsInput, PickProjectsOutput> = {
   id: "pickProjects",
   promptVersion: 1,
   schema: PickProjectsOutputSchema,
-  cacheTtlMs: CACHE_TTL.analyzeJd,
+  cacheTtlMs: CACHE_TTL.pickProjects,
   redactInput: true,
   priority: "user",
   buildMessages: ({ job, projects, count }) => [

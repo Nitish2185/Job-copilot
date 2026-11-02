@@ -59,5 +59,8 @@ export const CACHE_TTL = {
   describeProject: null,
   analyzeJd: 30 * DAY_MS,
   scoreJobs: 30 * DAY_MS,
+  pickProjects: 30 * DAY_MS,
+  tailorResume: 30 * DAY_MS,
+  writeCoverLetter: 30 * DAY_MS,
   answerQuestion: 90 * DAY_MS,
 } as const;
