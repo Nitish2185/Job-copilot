@@ -44,6 +44,9 @@ jobs:
       - name: Build extension (Chrome/Edge and Firefox)
         run: pnpm --filter @job-copilot/extension build
 
+      - name: Release build never includes the test host (spec 2.2)
+        run: node scripts/check-release-build.mjs extension/.output/chrome-mv3
+
       - name: Audit dependencies (fails on high or critical only)
         run: pnpm audit --audit-level=high
 
