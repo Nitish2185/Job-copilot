@@ -197,6 +197,15 @@ export const MESSAGES = {
     }),
     sender: extensionOnly,
   },
+  "ai/writeCoverLetter": {
+    request: z.object({ jobId: z.string().min(1) }),
+    response: z.object({
+      text: z.string(),
+      issues: z.array(z.string()),
+      projectIds: z.array(z.string()),
+    }),
+    sender: extensionOnly,
+  },
   "ai/describeProject": {
     request: z.object({
       name: z.string().min(1),

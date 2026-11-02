@@ -91,6 +91,14 @@ const TAILORING = {
   keywordsTargeted: ["React", "TypeScript"],
 };
 
+/** The mock AI's cover letter: one sentence invents an employer and must be removed. */
+const COVER_LETTER = [
+  "Dear Acme hiring team,",
+  `I build React and TypeScript web apps, and my Job Board project lists jobs from a PostgreSQL database. ${Array.from({ length: 140 }, () => "useful").join(" ")}.`,
+  "I previously built search at Google. I would enjoy building React apps with your team.",
+  "Kind regards,",
+].join("\n\n");
+
 const GITHUB_REPOS = [
   {
     full_name: "aarav-dev/job-board",
@@ -271,6 +279,7 @@ test("onboards with a fictional resume and a mocked AI provider", async ({
     if (body.includes("rate how well each job fits")) return scoreReply(body);
     if (body.includes("You analyze a software job description")) return ANALYSIS;
     if (body.includes("You tailor a resume to one job")) return TAILORING;
+    if (body.includes("You write a short cover letter")) return { text: COVER_LETTER };
     return { ok: true };
   };
   const page = await context.newPage();
@@ -336,6 +345,12 @@ test("onboards with a fictional resume and a mocked AI provider", async ({
   await expect(page.getByRole("list", { name: "Reasons" })).toContainText(
     "Uses React and TypeScript",
   );
+
+  // Cover letter: written by the (mock) AI, checked, editable.
+  await page.getByRole("button", { name: "Write a cover letter" }).click();
+  await expect(page.getByLabel("Cover letter")).toHaveValue(/Dear Acme hiring team,/);
+  await expect(page.getByLabel("Cover letter")).not.toHaveValue(/Google/);
+  await expect(page.getByTestId("letter-issues")).toContainText("Removed a sentence");
 
   // Tailored resume: honest changes are used, an invented number is rejected by the validator.
   await page.getByRole("link", { name: "Make a resume for this job" }).click();

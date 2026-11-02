@@ -4,6 +4,7 @@ import { Check, ExternalLink, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { ScoreBadge } from "@/components/matching/ScoreBadge";
+import { CoverLetterPanel } from "@/components/resume/CoverLetterPanel";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Field";
@@ -12,6 +13,7 @@ import { getDb } from "@/lib/db/db";
 import { ensureDescription } from "@/lib/jobs/description";
 import { sanitizeHtml } from "@/lib/jobs/sanitize";
 import { sendMessage } from "@/lib/messaging/client";
+import { useProfile } from "../hooks";
 
 const FIT_TEXT: Record<AiScore["experienceFit"], string> = {
   under: "Less experience than asked",
@@ -183,6 +185,7 @@ function Description({ job }: { job: Job }) {
 /** One job: description, match breakdown and related jobs (spec 18.1 `#/jobs/:id`). */
 export function JobDetailPage() {
   const { id = "" } = useParams();
+  const profile = useProfile();
   const data = useLiveQuery(async () => {
     const db = getDb();
     const job = await db.jobs.get(id);
@@ -275,6 +278,11 @@ export function JobDetailPage() {
           <Section title="How well it fits">
             <Breakdown job={job} score={data.score} />
           </Section>
+          {profile && (
+            <Section title="Cover letter">
+              <CoverLetterPanel job={job} profile={profile} />
+            </Section>
+          )}
           <Section title={`More at ${job.company.name}`}>
             {data.applications.length > 0 && (
               <p className="text-sm">

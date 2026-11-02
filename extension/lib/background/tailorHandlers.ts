@@ -5,15 +5,17 @@
  */
 import type { JdAnalysis } from "@job-copilot/shared";
 import { isAiConfigured } from "../ai/configured";
-import { runTask } from "../ai/runner";
+import { AiNotConfiguredError, runTask } from "../ai/runner";
 import { buildRuntime } from "../ai/runtime";
 import { analyzeJdTask } from "../ai/tasks/analyzeJd";
 import { pickProjectsTask, projectsForPicking } from "../ai/tasks/pickProjects";
 import { changesFromOutput, tailorRequest, tailorResumeTask } from "../ai/tasks/tailorResume";
+import { coverLetterInput, writeCoverLetterTask } from "../ai/tasks/writeCoverLetter";
 import { getDb } from "../db/db";
 import { LOCAL_MODEL, analysisFromAi, jobText, localJdAnalysis } from "../jobs/analysis";
 import type { Handlers } from "../messaging/server";
 import { loadProfile } from "../profile/store";
+import { validateCoverLetter } from "../resume/coverLetter";
 import { localTailorChanges } from "../resume/localTailor";
 import { finalizePicks, type ProjectPick } from "../resume/pick";
 import { applyTailoring, type TailorChanges, type TailoredContent } from "../resume/tailor";
@@ -148,8 +150,34 @@ export async function tailoredFor(
   return { content, issues, source, ...(aiError && { aiError }) };
 }
 
+/** A checked cover letter for a job (spec 15.1). Needs AI. */
+export async function coverLetterFor(
+  jobId: string,
+): Promise<{ text: string; issues: string[]; projectIds: string[] }> {
+  if (!(await isAiConfigured())) throw new AiNotConfiguredError();
+  const db = getDb();
+  const [job, profile, { analysis }, { picks }] = await Promise.all([
+    db.jobs.get(jobId),
+    loadProfile(db),
+    analysisFor(jobId),
+    picksFor(jobId),
+  ]);
+  if (!job) throw new Error("This job is no longer saved on this device.");
+  const picked = picks
+    .map((p) => profile.projects.find((x) => x.id === p.projectId))
+    .filter((p): p is NonNullable<typeof p> => p !== undefined);
+  const result = await runTask(
+    await buildRuntime(),
+    writeCoverLetterTask,
+    coverLetterInput(profile, job, analysis, picked),
+  );
+  const checked = validateCoverLetter(result.value.text, profile, picked, job.company.name);
+  return { ...checked, projectIds: picked.map((p) => p.id) };
+}
+
 export const tailorHandlers: Handlers = {
   "ai/analyzeJd": ({ jobId, refresh }) => analysisFor(jobId, refresh),
   "ai/pickProjects": ({ jobId, count }) => picksFor(jobId, count),
   "ai/tailorResume": ({ jobId, projectIds }) => tailoredFor(jobId, projectIds),
+  "ai/writeCoverLetter": ({ jobId }) => coverLetterFor(jobId),
 };

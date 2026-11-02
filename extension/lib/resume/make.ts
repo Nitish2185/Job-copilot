@@ -38,3 +38,27 @@ export async function makeResumePdf(
     relevance: relevanceFor(options.analysis),
   });
 }
+
+/** The cover letter as a PDF (for forms that need a file). */
+export async function makeCoverLetterPdf(profile: Profile, text: string): Promise<Uint8Array> {
+  const [{ renderCoverLetterPdf }, { registerBundledFonts }, { locationLine }] = await Promise.all([
+    import("./pdf/render"),
+    import("./pdf/browserFonts"),
+    import("./document"),
+  ]);
+  registerBundledFonts();
+  const { basics } = profile;
+  return renderCoverLetterPdf({
+    fullName: basics.fullName,
+    contact: [basics.email, basics.phone, locationLine(basics)]
+      .filter((v) => v !== "")
+      .join("  |  "),
+    date: new Date().toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    text,
+    pageSize: pageSizeFor(basics.country),
+  });
+}

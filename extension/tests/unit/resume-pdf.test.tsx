@@ -7,7 +7,12 @@ import { emptyProfile } from "@/lib/profile/profile";
 import { pdfItemsToText } from "@/lib/resume/extract";
 import { baseProjects, buildResumeDocument, resumeFileName } from "@/lib/resume/document";
 import { registerResumeFonts } from "@/lib/resume/pdf/setup";
-import { countPdfPages, fitResume, renderResumePdf } from "@/lib/resume/pdf/render";
+import {
+  countPdfPages,
+  fitResume,
+  renderCoverLetterPdf,
+  renderResumePdf,
+} from "@/lib/resume/pdf/render";
 
 const fontPath = (file: string) =>
   fileURLToPath(new URL(`../../public/fonts/${file}`, import.meta.url));
@@ -162,6 +167,20 @@ describe("resume PDF", () => {
     });
     expect(junior.fits).toBe(false);
   }, 240_000);
+
+  it("renders a cover letter with its paragraphs", async () => {
+    const bytes = await renderCoverLetterPdf({
+      fullName: "Aarav Mehta",
+      contact: "aarav.mehta@example.com",
+      date: "November 2, 2026",
+      text: ["Dear Acme hiring team,", "I build React apps.", "Kind regards,"].join("\n\n"),
+      pageSize: "A4",
+    });
+    const { text, pages } = await pdfText(bytes);
+    expect(pages).toBe(1);
+    expect(text).toContain("Dear Acme hiring team,");
+    expect(text).toContain("I build React apps.");
+  }, 30_000);
 
   it("names the file after the person and company", () => {
     expect(resumeFileName("Aarav Kumar Mehta", "Acme, Inc.")).toBe(

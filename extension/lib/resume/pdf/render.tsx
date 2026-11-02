@@ -6,6 +6,7 @@
  */
 import type { ResumeDocument } from "@job-copilot/shared";
 import { pdf } from "@react-pdf/renderer";
+import { CoverLetterPdf, type CoverLetterPdfProps } from "./CoverLetterPdf";
 import { ResumePdf } from "./ResumePdf";
 import type { PageSize, ResumeTemplate } from "./setup";
 
@@ -130,4 +131,9 @@ export async function fitResume(
     }
   }
   return { bytes, pages, fontSize, document: doc, dropped, fits: pages <= allowedPages };
+}
+
+export async function renderCoverLetterPdf(props: CoverLetterPdfProps): Promise<Uint8Array> {
+  const blob = await pdf(<CoverLetterPdf {...props} />).toBlob();
+  return new Uint8Array(await blob.arrayBuffer());
 }
