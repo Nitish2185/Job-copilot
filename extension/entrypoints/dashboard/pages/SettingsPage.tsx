@@ -1,6 +1,7 @@
 import { FEED_BASE_URL } from "@job-copilot/shared/config";
 import { useEffect, useState, type SyntheticEvent } from "react";
 import { AiSettingsForm } from "@/components/ai/AiSettingsForm";
+import { AssistSettings } from "@/components/apply/AssistSettings";
 import { AutoApplySettings } from "@/components/apply/AutoApplySettings";
 import { AiUsage } from "@/components/ai/AiUsage";
 import { Button } from "@/components/ui/Button";
@@ -82,6 +83,12 @@ export function SettingsPage() {
         description="Off until you turn it on. Only on Greenhouse, Lever, Ashby, Workable and SmartRecruiters forms."
       >
         <AutoApplySettings />
+      </Section>
+      <Section
+        title="Assist sites"
+        description="Naukri, Indeed, LinkedIn, Workday and any other form: Job Copilot fills, you review and submit."
+      >
+        <AssistSettings />
       </Section>
       <section>
         <h2 className="font-medium">Shared job feed</h2>
