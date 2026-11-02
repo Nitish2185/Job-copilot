@@ -93,6 +93,8 @@ export const SettingsSchema = z.object({
     .object({
       projectsToPick: z.number().int().min(2).max(3).default(2),
       template: z.enum(["classic", "compact"]).default("classic"),
+      /** "Apply with my resume" uses the uploaded file, or the clean one generated from the profile. */
+      baseResume: z.enum(["uploaded", "generated"]).default("uploaded"),
     })
     .prefault({}),
 
