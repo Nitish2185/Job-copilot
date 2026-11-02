@@ -2,9 +2,31 @@
 
 ## Current phase
 
-**Phase 4 - Onboarding and profile** (starting)
+**Phase 5 - Matching** (starting)
 
 ## Done
+
+### Phase 4 - Onboarding and profile (accepted 2026-11-02)
+
+- AI layer: OpenAI-compatible client for Gemini (default `gemini-3.5-flash-lite`), Groq,
+  OpenRouter, Ollama and custom endpoints (base URLs verified); scheduler with token bucket,
+  daily budget, priorities, 429 backoff and fallback provider; SHA-256 cache with TTLs;
+  redaction of contacts, profile links, DOB, addresses and the user's name; JSON validation with
+  one repair retry. Tasks `extractProfile` and `describeProject`.
+- AI settings form (provider, key kept on this device, model list, test, fallback, host
+  permission request) and today's usage, in onboarding and Settings.
+- Resume upload (PDF via bundled pdf.js worker, DOCX via mammoth, 5 MB limit, scanned-resume
+  warning), local contact extraction and name guess, stored as the base resume.
+- Profile editor for every section with "please check" highlights, experience total and skill
+  years; preferences form with India CTC helpers (LPA, lakh, crore); job preferences.
+- GitHub import: repo list with rate-limit display, forks/archived unticked, details only for
+  ticked repos, 7-day cache, optional token, AI or GitHub-filled descriptions, merge with resume
+  projects, per-project toggles.
+- Nine-step onboarding wizard that saves progress after each step; Profile page (profile,
+  answers and job preferences, saved answers with approval of AI suggestions).
+- Tests: 150+ extension unit and component tests (Testing Library); Playwright onboarding with
+  the fictional resume and a mock OpenAI-compatible server (checks nothing personal reached the
+  AI), and the same flow with AI skipped.
 
 ### Phase 3 - Extension data layer and feed sync (accepted 2026-11-02)
 
@@ -71,12 +93,11 @@
 
 ## Next
 
-Phase 4: AI client and provider settings (verify base URLs and the default Gemini model from
-official docs; test button; model list), scheduler (rate limit, daily budget, priority, 429 and
-fallback), cache, redaction; resume upload and parsing (pdf.js worker bundled, mammoth);
-`extractProfile`; profile editor; GitHub import and `describeProject`; manual projects;
-preferences with India helpers (LPA parser); job preferences; answer bank basics; onboarding
-wizard that also works with AI skipped. E2E: onboarding with a fictional resume and mocked AI.
+Phase 5: local prefilter score, AI batch scoring (`scoreJobs`, batches of 10) with budget and
+quota UI, full Matches page (filters, virtualized list, scores and reasons), Job detail page,
+skill gaps, re-scoring. Also finish two Phase 4 hooks that need scoring: the onboarding Done
+step starts the first scoring run, and a profile change recomputes prefilter scores and offers
+"Re-score top 50 with AI".
 
 ## Waiting on the owner
 
@@ -88,7 +109,6 @@ wizard that also works with AI skipped. E2E: onboarding with a fictional resume 
 - Firefox build warns that new add-ons must declare `data_collection_permissions`. Decide the
   declaration with the store listing in Phase 11.
 - Go race tests only run in CI (no C compiler on this machine).
-- Default Gemini model name and AI base URLs are unverified until Phase 4.
 - A local crawl from this machine once failed Bosch's 50-page SmartRecruiters listing on a DNS
   hiccup; the crawler kept its previous jobs as designed.
 

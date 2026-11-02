@@ -78,6 +78,16 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **Closing a feed job only changes the status of `new` jobs.** Saved, applied, hidden and queued jobs keep their status and get `closedAt`, so nothing the user did disappears; a job that comes back reopens as `new`.
 - **Feed sync verifies every checksummed file before writing anything from it**, and a mismatch leaves the previous data in place with an error status.
 
+- **Forms validate by converting to the data model and parsing it with the model's Zod schema** (`lib/profile/form.ts`, `lib/profile/preferencesForm.ts`), which turns Zod issues into plain sentences. Form values are strings (comma lists, "12 LPA", line-per-bullet text), so a `zodResolver` would need a second schema for the form shape; `@hookform/resolvers` was removed.
+- **Onboarding progress is the furthest step reached** (`flags.onboardingStep`, local storage). Reopening `#/onboarding` resumes there and every earlier step stays clickable.
+- **The resume owner's name is confirmed before the AI reads the resume.** No profile exists yet during onboarding, so the name is guessed locally from the top of the resume, shown for the user to confirm, and sent with the extract request so redaction removes it. Contacts (email, phone, profile links) are extracted locally and shown as "kept on this device".
+- **GitHub is called from the dashboard, not the background.** Its limit is per IP, not per provider budget, and the import is user-driven. Repo lists and README details are cached in local storage for 7 days; README details are keyed by the repo's last push.
+- **Host permission requests drop the port** (`http://localhost/*` for Ollama on :11434) so they match the manifest's optional host patterns; all origins are requested in one prompt as the first await of the click, which Firefox requires.
+- **Turning off the fallback AI provider removes it** (`saveAiProvider`); the generic settings merge keeps old values for missing keys.
+- **Lakh and crore mean rupees.** `parseCtc("12 LPA", "USD")` is 12 lakh INR, not 1.2 million dollars. CTC fields default to the currency of the profile's country (INR for IN, EUR for euro countries, USD otherwise).
+- **Preferred cities and remote preference are asked once, on the job preferences step** (spec lists them in both steps 6 and 7). Relocation and start date stay on the questions step.
+- **Diversity answers are free text with suggestions**; an empty field means "decline to self-identify" and is not stored.
+
 ## AI providers (verified against official docs on 2026-11-02)
 
 - **Base URLs:** Gemini `https://generativelanguage.googleapis.com/v1beta/openai/` (supports `/models` and structured JSON output), Groq `https://api.groq.com/openai/v1`, OpenRouter `https://openrouter.ai/api/v1`, Ollama `http://localhost:11434/v1` (ignores the API key but the client must send one).

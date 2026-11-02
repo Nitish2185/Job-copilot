@@ -33,7 +33,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 1.1 Tracks every application with exact resume and answers sent, follow-ups, stages, analytics (incl. tailored vs current response rate)
 - [ ] 1.2 No backend server, no hosted database, no paid services
 - [x] 1.2 Shared feed is static JSON on GitHub Pages built by a scheduled workflow
-- [ ] 1.2 BYOK: Gemini default; Groq, OpenRouter, Ollama, any OpenAI-compatible endpoint; keys stay on device
+- [x] 1.2 BYOK: Gemini default; Groq, OpenRouter, Ollama, any OpenAI-compatible endpoint; keys stay on device
 - [ ] 1.2 All user data local (IndexedDB + `chrome.storage`); only AI requests and applications leave the device
 - [ ] 1.2 Works without an AI key (keyword matching, profile autofill, tracking, base resume); AI features show "Add an AI key to enable this"
 - [ ] 1.2 First-class India support (Naukri, Indeed India, CTC in LPA, notice period) while working globally
@@ -103,18 +103,18 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 4 Dashboard uses react-router with a hash router
 - [ ] 4 Zustand for UI-only state; Dexie live queries for DB state
 - [x] 4 Dexie + dexie-react-hooks with versioned schema
-- [ ] 4 react-hook-form + Zod resolver
-- [ ] 4 Zod as single source of truth; JSON Schema exported from Zod for AI structured output
+- [x] 4 react-hook-form + Zod resolver (validation through the model's Zod schemas; see DECISIONS)
+- [x] 4 Zod as single source of truth; JSON Schema exported from Zod for AI structured output
 - [x] 4 @tanstack/react-virtual for lists (10,000+ jobs)
 - [ ] 4 @dnd-kit for the Kanban board
 - [ ] 4 Recharts for analytics
-- [ ] 4 pdfjs-dist with the worker bundled locally
-- [ ] 4 mammoth for DOCX
+- [x] 4 pdfjs-dist with the worker bundled locally
+- [x] 4 mammoth for DOCX
 - [ ] 4 @react-pdf/renderer with bundled open-license fonts
 - [ ] 4 DOMPurify for every piece of external HTML
-- [ ] 4 `openai` package with per-provider `baseURL` (`dangerouslyAllowBrowser: true`)
+- [x] 4 `openai` package with per-provider `baseURL` (`dangerouslyAllowBrowser: true`)
 - [ ] 4 date-fns; `crypto.randomUUID()`; `crypto.subtle` SHA-256
-- [ ] 4 Vitest, Testing Library, fake-indexeddb; Playwright e2e against local fixtures only
+- [x] 4 Vitest, Testing Library, fake-indexeddb; Playwright e2e against local fixtures only
 - [x] 4 ESLint (typescript-eslint) + Prettier
 - [x] 4 Go crawler uses only stdlib + `x/sync` (errgroup, semaphore); no web frameworks
 - [ ] 4 Site: Vite + React on GitHub Pages
@@ -131,7 +131,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 ## 6. Data model
 
 - [x] 6 Zod schemas in `shared/src/schemas/` with inferred types: Profile, Project, Preferences, AnswerBankEntry, Job, JobScore, JdAnalysis, Application, ResumeVersion, CoverLetter, QueueItem, Company, AiCacheEntry, StoredFile
-- [ ] 6 `Profile.version` increments on every edit
+- [x] 6 `Profile.version` increments on every edit
 - [x] 6 Settings schema with all defaults from section 6
 - [x] 6 Secrets (AI keys, GitHub token, Adzuna, JSearch) only in `chrome.storage.local`; never synced, logged, or exported unless "include API keys" is ticked
 - [x] 6 Dexie tables and indexes as listed (jobs: status, platform, firstSeenAt, company.token, dedupeKey, mode; scores: final; applications: jobId, stage, submittedAt)
@@ -276,52 +276,52 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 10. Onboarding and profile
 
-- [ ] 10 First install opens `dashboard.html#/onboarding`; steps revisitable; progress saved after every step
-- [ ] 10.S1 Welcome and privacy explanation (data local, what goes to AI, what goes to employers, Auto vs Assist, auto-apply off)
-- [ ] 10.S2 AI setup: provider choice, key link + steps, Test button, model list from `/models` with text fallback, default Flash-class model in config, optional fallback provider, Skip
-- [ ] 10.S3 Resume upload PDF/DOCX up to 5 MB stored as base resume
-- [ ] 10.S3 Text extraction (pdfjs, mammoth); scanned-resume warning under 200 chars
-- [ ] 10.S3 Local regex extraction of contact details before any AI call
-- [ ] 10.S3 `extractProfile` with AI on redacted text; manual side-by-side editor without AI
-- [ ] 10.S3 Full editable profile form; uncertain AI fields highlighted; user confirms
-- [ ] 10.S3 `totalExperienceMonths` computed (overridable); skill years suggested from experience
-- [ ] 10.S4 GitHub import: repo list with rate-limit display; languages/README only for ticked repos; cache; weekly refresh; optional no-scope token in local storage
-- [ ] 10.S4 Forks and archived repos unticked by default
-- [ ] 10.S4 `describeProject` with AI (user approves); prefill from repo data without AI
-- [ ] 10.S4 Merge with resume projects instead of duplicating
-- [ ] 10.S4 Per-project toggles: "Real project" and "Always include in tailored resumes"
-- [ ] 10.S5 Manual projects not on GitHub
-- [ ] 10.S6 Preferences form covering every Preferences field with one-line usage notes
-- [ ] 10.S6 India helpers: INR default for IN; CTC parser for "12 LPA", "12.5 lakh", "1200000"; display as "12 LPA"; unit-tested
-- [ ] 10.S7 Job preferences (roles, level, job types, countries, locations, remote, min salary, excluded keywords, hidden companies)
-- [ ] 10.S8 Modes step: Auto vs Assist table; auto-apply stays off; resume default choice
+- [x] 10 First install opens `dashboard.html#/onboarding`; steps revisitable; progress saved after every step
+- [x] 10.S1 Welcome and privacy explanation (data local, what goes to AI, what goes to employers, Auto vs Assist, auto-apply off)
+- [x] 10.S2 AI setup: provider choice, key link + steps, Test button, model list from `/models` with text fallback, default Flash-class model in config, optional fallback provider, Skip
+- [x] 10.S3 Resume upload PDF/DOCX up to 5 MB stored as base resume
+- [x] 10.S3 Text extraction (pdfjs, mammoth); scanned-resume warning under 200 chars
+- [x] 10.S3 Local regex extraction of contact details before any AI call
+- [x] 10.S3 `extractProfile` with AI on redacted text; manual side-by-side editor without AI
+- [x] 10.S3 Full editable profile form; uncertain AI fields highlighted; user confirms
+- [x] 10.S3 `totalExperienceMonths` computed (overridable); skill years suggested from experience
+- [x] 10.S4 GitHub import: repo list with rate-limit display; languages/README only for ticked repos; cache; weekly refresh; optional no-scope token in local storage
+- [x] 10.S4 Forks and archived repos unticked by default
+- [x] 10.S4 `describeProject` with AI (user approves); prefill from repo data without AI
+- [x] 10.S4 Merge with resume projects instead of duplicating
+- [x] 10.S4 Per-project toggles: "Real project" and "Always include in tailored resumes"
+- [x] 10.S5 Manual projects not on GitHub
+- [x] 10.S6 Preferences form covering every Preferences field with one-line usage notes
+- [x] 10.S6 India helpers: INR default for IN; CTC parser for "12 LPA", "12.5 lakh", "1200000"; display as "12 LPA"; unit-tested
+- [x] 10.S7 Job preferences (roles, level, job types, countries, locations, remote, min salary, excluded keywords, hidden companies)
+- [x] 10.S8 Modes step: Auto vs Assist table; auto-apply stays off; resume default choice
 - [ ] 10.S9 Done step starts first feed sync and scoring with progress, then opens Matches
-- [ ] 10.1 Profile page edits everything; every save increments version
+- [x] 10.1 Profile page edits everything; every save increments version
 - [ ] 10.1 Profile change recomputes prefilter scores; offers "Re-score top 50 with AI"
 
 ## 11. AI layer
 
-- [ ] 11.1 Provider client with base URLs for Gemini, Groq, OpenRouter, Ollama, custom (verified)
-- [ ] 11.1 Chat completions with JSON Schema `response_format` when supported, else JSON object + schema in prompt
-- [ ] 11.2 `runTask` with id, promptVersion, prompt builder, Zod schema, cache TTL, sensitive-input flag
-- [ ] 11.2 Flow: build -> cache -> schedule -> parse -> validate -> one repair retry -> `AiValidationError`
-- [ ] 11.2 All AI calls through background
-- [ ] 11.3 Token-bucket rate limiter per provider (default 10 rpm)
-- [ ] 11.3 Daily budget: warning at 80%, pause at 100% until local midnight with message
-- [ ] 11.3 On 429: honor retry delay, exponential backoff, switch to fallback provider
-- [ ] 11.3 Priority queue: user-initiated before background tasks
-- [ ] 11.3 Settings shows requests today, cache hits, errors, provider status
-- [ ] 11.4 Cache key SHA-256(taskId + promptVersion + model + canonical JSON input)
-- [ ] 11.4 TTLs: profile/project never; JD analysis 30 d; scoring 30 d; answers 90 d
-- [ ] 11.5 Redaction of email, phone, address, DOB, full name before sending (default on)
+- [x] 11.1 Provider client with base URLs for Gemini, Groq, OpenRouter, Ollama, custom (verified)
+- [x] 11.1 Chat completions with JSON Schema `response_format` when supported, else JSON object + schema in prompt
+- [x] 11.2 `runTask` with id, promptVersion, prompt builder, Zod schema, cache TTL, sensitive-input flag
+- [x] 11.2 Flow: build -> cache -> schedule -> parse -> validate -> one repair retry -> `AiValidationError`
+- [x] 11.2 All AI calls through background
+- [x] 11.3 Token-bucket rate limiter per provider (default 10 rpm)
+- [x] 11.3 Daily budget: warning at 80%, pause at 100% until local midnight with message
+- [x] 11.3 On 429: honor retry delay, exponential backoff, switch to fallback provider
+- [x] 11.3 Priority queue: user-initiated before background tasks
+- [x] 11.3 Settings shows requests today, cache hits, errors, provider status
+- [x] 11.4 Cache key SHA-256(taskId + promptVersion + model + canonical JSON input)
+- [x] 11.4 TTLs: profile/project never; JD analysis 30 d; scoring 30 d; answers 90 d
+- [x] 11.5 Redaction of email, phone, address, DOB, full name before sending (default on)
 - [ ] 11.5 Contact fields extracted locally and never sent; PDFs rendered locally
-- [ ] 11.5 Redactor unit-tested with Indian +91, international, plus-sign emails
-- [ ] 11.6 Untrusted-content system message for every web-content task
+- [x] 11.5 Redactor unit-tested with Indian +91, international, plus-sign emails
+- [x] 11.6 Untrusted-content system message for every web-content task
 - [ ] 11.6 Instruction-like text in JDs adds a red flag and never raises the score
-- [ ] 11.6 AI output is data only
-- [ ] 11.7 Versioned prompt files in `lib/ai/prompts/` with Zod output schemas
-- [ ] 11.7 Task `extractProfile`
-- [ ] 11.7 Task `describeProject`
+- [x] 11.6 AI output is data only
+- [x] 11.7 Versioned prompt files in `lib/ai/prompts/` with Zod output schemas
+- [x] 11.7 Task `extractProfile`
+- [x] 11.7 Task `describeProject`
 - [ ] 11.7 Task `scoreJobs` (batches of 10; unknown IDs ignored)
 - [ ] 11.7 Task `analyzeJd` (cached per job)
 - [ ] 11.7 Task `pickProjects` (IDs verified by code)
