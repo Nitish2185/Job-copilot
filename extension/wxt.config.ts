@@ -36,6 +36,9 @@ const FEED_HOST = `${new URL(PAGES_BASE_URL).origin}/*`;
 const E2E = process.env.JOB_COPILOT_E2E === "1";
 const E2E_HOSTS = E2E ? ["http://localhost/*", "http://127.0.0.1/*"] : [];
 
+/** Extension pages: own scripts only, plus WebAssembly for the resume PDF layout engine. */
+const EXTENSION_CSP = "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';";
+
 // Firefox builds use Manifest V2 (WXT's default); Chrome and Edge use MV3.
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
@@ -50,12 +53,17 @@ export default defineConfig({
     permissions: ["storage", "unlimitedStorage", "alarms"],
     host_permissions: [...ATS_API_HOSTS, ...CORE_API_HOSTS, FEED_HOST, ...E2E_HOSTS],
     // MV2 (Firefox) lists optional hosts under optional_permissions; WXT does not convert them.
+    // 'wasm-unsafe-eval' lets the PDF layout engine (WebAssembly) run; no eval, no remote code.
     ...(browser === "firefox"
       ? {
           optional_permissions: OPTIONAL_HOSTS,
           browser_specific_settings: { gecko: { id: GECKO_ID } },
+          content_security_policy: EXTENSION_CSP,
         }
-      : { optional_host_permissions: OPTIONAL_HOSTS }),
+      : {
+          optional_host_permissions: OPTIONAL_HOSTS,
+          content_security_policy: { extension_pages: EXTENSION_CSP },
+        }),
   }),
   vite: () => ({
     plugins: [tailwindcss()],

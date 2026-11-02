@@ -38,3 +38,9 @@ when it ships.
 
 `cookies`, blocking `webRequest`, `debugger`, `history`, `management`, and `<all_urls>` as a
 required permission.
+
+## Content security policy
+
+Extension pages use `script-src 'self' 'wasm-unsafe-eval'; object-src 'self';`. The only
+addition to the browser default is `'wasm-unsafe-eval'`, which lets the bundled resume PDF
+layout engine (WebAssembly) run. JavaScript `eval` stays blocked and no remote code is loaded.
