@@ -33,7 +33,7 @@ export function parseCtc(input: string, defaultCurrency = "INR"): Ctc | null {
   const text = input.trim().toLowerCase();
   if (text === "") return null;
 
-  let currency = defaultCurrency;
+  let currency: string | undefined;
   for (const [pattern, code] of CURRENCY_WORDS) {
     if (pattern.test(input)) {
       currency = code;
@@ -51,8 +51,13 @@ export function parseCtc(input: string, defaultCurrency = "INR"): Ctc | null {
     ? "month"
     : "year";
 
-  if (/^\s*(?:cr|crore|crores)\b/.test(after)) amount *= CRORE;
-  else if (/^\s*(?:l|lpa|lakh|lakhs|lac|lacs)\b/.test(after)) amount *= LAKH;
+  const lakh = /^\s*(?:l|lpa|lakh|lakhs|lac|lacs)\b/.test(after);
+  const crore = /^\s*(?:cr|crore|crores)\b/.test(after);
+  // Lakh and crore are Indian units, so they mean rupees unless a currency is written.
+  currency ??= lakh || crore ? "INR" : defaultCurrency;
+
+  if (crore) amount *= CRORE;
+  else if (lakh) amount *= LAKH;
   else if (/^\s*k\b/.test(after)) amount *= 1_000;
   else if (/^\s*(?:m|mn|million)\b/.test(after)) amount *= 1_000_000;
   else if (currency === "INR" && period === "year" && amount < 1_000) amount *= LAKH;

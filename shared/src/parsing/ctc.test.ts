@@ -31,6 +31,19 @@ describe("parseCtc", () => {
     expect(parseCtc("150000", "USD")).toEqual({ amount: 150_000, currency: "USD", period: "year" });
   });
 
+  it("reads lakh and crore as rupees even when the default currency is not INR", () => {
+    expect(parseCtc("12 LPA", "USD")).toEqual({
+      amount: 1_200_000,
+      currency: "INR",
+      period: "year",
+    });
+    expect(parseCtc("1.5 Cr", "EUR")).toEqual({
+      amount: 15_000_000,
+      currency: "INR",
+      period: "year",
+    });
+  });
+
   it("returns null without a number", () => {
     expect(parseCtc("")).toBeNull();
     expect(parseCtc("negotiable")).toBeNull();
