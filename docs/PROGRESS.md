@@ -70,8 +70,8 @@ golden cases including `html.cases.json`), hash-routed dashboard with a virtuali
   declaration with the store listing in Phase 11.
 - Go race tests only run in CI (no C compiler on this machine).
 - Default Gemini model name and AI base URLs are unverified until Phase 4.
-- Spec items for the tagger, parsers and URL detection (7.4, 7.5, 7.9) stay unticked until the
-  Go ports pass the same golden cases in Phase 2.
+- A local crawl from this machine once failed Bosch's 50-page SmartRecruiters listing on a DNS
+  hiccup; the crawler kept its previous jobs as designed.
 
 ## How to continue
 
