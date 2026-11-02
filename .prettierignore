@@ -1,0 +1,11 @@
+# Verbatim spec copies must never be reformatted
+docs/spec/
+
+pnpm-lock.yaml
+node_modules/
+dist/
+.output/
+.wxt/
+coverage/
+crawler/
+data/
