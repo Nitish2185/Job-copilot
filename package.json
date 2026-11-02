@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "pnpm --filter @job-copilot/extension dev",
     "build": "pnpm -r --if-present build",
-    "test": "pnpm -r --if-present test",
+    "test": "pnpm -r --if-present test && pnpm run test:scripts",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -18,7 +18,8 @@
     "e2e": "pnpm --filter @job-copilot/extension --if-present e2e",
     "set-owner": "node scripts/set-owner.mjs",
     "test:go": "go -C crawler test ./...",
-    "vet:go": "go -C crawler vet ./..."
+    "vet:go": "go -C crawler vet ./...",
+    "test:scripts": "node --test \"scripts/*.test.mjs\""
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
