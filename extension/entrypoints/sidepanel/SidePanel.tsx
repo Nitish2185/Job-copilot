@@ -1,7 +1,8 @@
 /**
  * Side panel (spec 16.6, 18.2). On a job or apply page: the match, the two
- * resume choices, the cover letter, Autofill and "Mark as applied". Elsewhere:
- * today's top matches, the Needs-you count and quick links.
+ * resume choices, the cover letter, Autofill, "Did you submit?" or "Mark as
+ * applied", saved answers and "Report a broken page". On other pages: "Save
+ * this job". Always: today's top matches, the Needs-you count and quick links.
  */
 import { skillDisplayName } from "@job-copilot/shared";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -14,6 +15,14 @@ import { ErrorMessage } from "@/components/ui/States";
 import { getDb } from "@/lib/db/db";
 import { sendMessage } from "@/lib/messaging/client";
 import type { AutofillReportMessage, MessageResponse } from "@/lib/messaging/protocol";
+import {
+  AutoViaPlatform,
+  CopyButton,
+  ReportBrokenPage,
+  SaveJobButton,
+  SavedAnswers,
+  SubmittedPrompt,
+} from "./PagePanels";
 
 type PageInfo = MessageResponse<"apply/pageInfo">;
 
@@ -34,23 +43,6 @@ function useShortcut(): string {
     });
   }, []);
   return shortcut;
-}
-
-function Copy({ text, label }: { text: string; label: string }) {
-  const [done, setDone] = useState(false);
-  return (
-    <Button
-      variant="ghost"
-      aria-label={label}
-      onClick={() =>
-        void navigator.clipboard.writeText(text).then(() => {
-          setDone(true);
-        })
-      }
-    >
-      {done ? "Copied" : "Copy"}
-    </Button>
-  );
 }
 
 function ReportSummary({ report }: { report: AutofillReportMessage }) {
@@ -200,7 +192,7 @@ function JobCard({
         <div className="space-y-1 text-sm">
           <div className="flex items-center justify-between">
             <span className="font-medium">Cover letter</span>
-            <Copy text={letter.text} label="Copy cover letter" />
+            <CopyButton text={letter.text} label="Copy cover letter" />
           </div>
           <p className="max-h-32 overflow-auto whitespace-pre-wrap rounded border border-slate-200 p-2 text-xs dark:border-slate-800">
             {letter.text}
@@ -209,11 +201,14 @@ function JobCard({
       )}
       {application ? (
         <p className="text-sm text-green-700 dark:text-green-400">You applied to this job.</p>
+      ) : report ? (
+        <SubmittedPrompt tabId={tabId} resumeChoice={choice} />
       ) : (
         <Button variant="primary" onClick={() => void markApplied()}>
           Mark as applied
         </Button>
       )}
+      {!application && <AutoViaPlatform job={job} />}
       {message &&
         (message.ok ? (
           <p role="status" className="text-sm text-green-700">
@@ -222,6 +217,8 @@ function JobCard({
         ) : (
           <ErrorMessage>{message.text}</ErrorMessage>
         ))}
+      <SavedAnswers />
+      <ReportBrokenPage tabId={tabId} />
     </section>
   );
 }
@@ -387,8 +384,11 @@ export function SidePanel() {
                 ? "This page is not a job saved in Job Copilot."
                 : "Job Copilot can read this page after you press Autofill on it."}
             </p>
+            <SaveJobButton tabId={tabId} onSaved={() => void refresh()} />
             <AutofillButton tabId={tabId} resumeChoice="current" />
             {report && <ReportSummary report={report} />}
+            <SavedAnswers />
+            <ReportBrokenPage tabId={tabId} />
           </section>
         )
       )}
