@@ -2,9 +2,30 @@
 
 ## Current phase
 
-**Phase 6 - Resume tailoring and cover letters** (starting)
+**Phase 7 - Apply engine core** (starting)
 
 ## Done
+
+### Phase 6 - Resume tailoring and cover letters (accepted 2026-11-02)
+
+- `analyzeJd` (cached per job, local fallback), `pickProjects` (AI only when needed; local
+  ranking by skill overlap then recency; "Always include" projects count toward N),
+  `tailorResume` (structured changes with short keys; "Regenerate" asks for a fresh version).
+- Code validator: no new skills, numbers, employers or certifications; summary 60 / bullet 30
+  word limits; bullets only reworded or reordered. Failed items keep the original text and the
+  reason is recorded. Tested with crafted dishonest AI answers.
+- PDF rendering with @react-pdf/renderer: Classic and Compact templates, bundled Lato (OFL),
+  one-page fitting (drop old bullets, then 10.5 -> 10 -> 9.5 pt; two pages only above 5 years).
+  Tests render real PDFs and read them back with pdf.js. Extension pages allow
+  `'wasm-unsafe-eval'` for the PDF layout engine.
+- Tailoring screen with PDF preview and "What changed" (reworded summary and bullets, skill
+  order, picked projects with reasons and swap, bullets left out, rejected changes), editing,
+  download and save as a `ResumeVersion`. Resumes page: uploaded and generated base resume
+  (selectable), template, tailored versions with preview, download and delete.
+- Cover letters: 150-250 words, same validator (bad sentences removed with the reason), saved
+  per job, editable, copy, PDF download; cover letter mode setting.
+- E2E covers tailoring with a mock AI (an invented number is rejected), saving, the Resumes page
+  and a cover letter with an invented employer removed.
 
 ### Phase 5 - Matching (accepted 2026-11-02)
 
@@ -113,11 +134,11 @@
 
 ## Next
 
-Phase 6: `analyzeJd` (cached per job), `pickProjects` with a fallback, `tailorResume`
-(structured changes only), the validator, two PDF templates with bundled fonts, one-page fitting,
-preview with "What changed" and editing, `ResumeVersion` storage, a generated base resume, and
-cover letters. Job page actions "Apply with a tailored resume" and "Generate cover letter" arrive
-here.
+Phase 7: field discovery, classification rules (150+ tests), value resolution, option
+matching, filling techniques, highlight overlay and undo, the guards (`AUTO_SUBMIT_HOSTS`,
+`isNavigationOrSubmitControl`, `safeClick`), the generic Assist adapter with the Autofill
+button, shortcut and context menu, and the side panel. Linking resume versions and cover letters
+to applications (14.1, 14.6, 14.7) lands with Phases 7-8.
 
 ## Waiting on the owner
 

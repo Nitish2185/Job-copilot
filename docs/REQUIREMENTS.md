@@ -110,7 +110,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 4 Recharts for analytics
 - [x] 4 pdfjs-dist with the worker bundled locally
 - [x] 4 mammoth for DOCX
-- [ ] 4 @react-pdf/renderer with bundled open-license fonts
+- [x] 4 @react-pdf/renderer with bundled open-license fonts
 - [x] 4 DOMPurify for every piece of external HTML
 - [x] 4 `openai` package with per-provider `baseURL` (`dangerouslyAllowBrowser: true`)
 - [ ] 4 date-fns; `crypto.randomUUID()`; `crypto.subtle` SHA-256
@@ -323,14 +323,14 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 11.7 Task `extractProfile`
 - [x] 11.7 Task `describeProject`
 - [x] 11.7 Task `scoreJobs` (batches of 10; unknown IDs ignored)
-- [ ] 11.7 Task `analyzeJd` (cached per job)
-- [ ] 11.7 Task `pickProjects` (IDs verified by code)
-- [ ] 11.7 Task `tailorResume` (structured changes only)
-- [ ] 11.7 Task `writeCoverLetter` (150-250 words)
+- [x] 11.7 Task `analyzeJd` (cached per job)
+- [x] 11.7 Task `pickProjects` (IDs verified by code)
+- [x] 11.7 Task `tailorResume` (structured changes only)
+- [x] 11.7 Task `writeCoverLetter` (150-250 words)
 - [ ] 11.7 Task `answerQuestion` (blocked for sensitive categories before calling)
 - [ ] 11.7 Task `extractJobFromPage`
 - [ ] 11.7 Task `interviewPrep` (Phase 11 stretch)
-- [ ] 11.8 Token budgets: JD 6000/1500 chars, README 2000, project descriptions 400, whitespace stripped, never full HTML
+- [x] 11.8 Token budgets: JD 6000/1500 chars, README 2000, project descriptions 400, whitespace stripped, never full HTML
 
 ## 12. Matching
 
@@ -373,32 +373,32 @@ Anything not done at the end moves to **Deferred** with a reason.
 ## 14. Resume
 
 - [ ] 14.1 Two choices everywhere: "Apply with my resume" / "Apply with a resume made for this job"; default from `resumeDefault`
-- [ ] 14.2 Tailoring pipeline: analyze, pick, tailor, validate, render, preview, save
-- [ ] 14.2 `pickProjects` honors N (2-3), highlight projects count toward N, IDs validated
-- [ ] 14.2 Deterministic project-pick fallback (techStack overlap, then recency)
-- [ ] 14.2 Preview with "What changed", edit text, swap project, regenerate
+- [x] 14.2 Tailoring pipeline: analyze, pick, tailor, validate, render, preview, save
+- [x] 14.2 `pickProjects` honors N (2-3), highlight projects count toward N, IDs validated
+- [x] 14.2 Deterministic project-pick fallback (techStack overlap, then recency)
+- [x] 14.2 Preview with "What changed", edit text, swap project, regenerate
 - [ ] 14.2 `ResumeVersion` stored and linked to the application
-- [ ] 14.3 `TailorOutput` structured schema; companies, titles, dates, education, certs, contacts copied from profile
-- [ ] 14.4 Validator: no new skills (tagger), no new numbers, no new employers/products/certs (best effort)
-- [ ] 14.4 Validator limits: summary 60 words, bullets 30 words, no more bullets than original
-- [ ] 14.4 Violations replaced with original text and recorded in `validation.issues`
-- [ ] 14.4 Validator unit-tested with crafted invented skills, numbers, employers
-- [ ] 14.5 Templates "Classic" and "Compact" (@react-pdf/renderer)
-- [ ] 14.5 ATS-friendly output (single column, standard headings, selectable text, bundled fonts)
-- [ ] 14.5 One-page fitting (drop oldest bullets, font 10.5 -> 10 -> 9.5; 2 pages only if > 5 years)
-- [ ] 14.5 File name `<First>_<Last>_Resume_<Company>.pdf` (sanitized)
-- [ ] 14.5 Test renders a PDF and extracts text with pdf.js
-- [ ] 14.5 "Generate a clean base resume from my profile" option
+- [x] 14.3 `TailorOutput` structured schema; companies, titles, dates, education, certs, contacts copied from profile
+- [x] 14.4 Validator: no new skills (tagger), no new numbers, no new employers/products/certs (best effort)
+- [x] 14.4 Validator limits: summary 60 words, bullets 30 words, no more bullets than original
+- [x] 14.4 Violations replaced with original text and recorded in `validation.issues`
+- [x] 14.4 Validator unit-tested with crafted invented skills, numbers, employers
+- [x] 14.5 Templates "Classic" and "Compact" (@react-pdf/renderer)
+- [x] 14.5 ATS-friendly output (single column, standard headings, selectable text, bundled fonts)
+- [x] 14.5 One-page fitting (drop oldest bullets, font 10.5 -> 10 -> 9.5; 2 pages only if > 5 years)
+- [x] 14.5 File name `<First>_<Last>_Resume_<Company>.pdf` (sanitized)
+- [x] 14.5 Test renders a PDF and extracts text with pdf.js
+- [x] 14.5 "Generate a clean base resume from my profile" option
 - [ ] 14.6 Validation issues send the application to Review regardless of score
 - [ ] 14.6 First `requireApprovalForFirstTailored` (default 5) tailored resumes need approval
 - [ ] 14.7 Naukri disables tailored option with explanation; per-site options per table
 
 ## 15. Cover letters and interview prep
 
-- [ ] 15.1 `coverLetter.mode` off/ask/always
-- [ ] 15.1 150-250 words, addressed to hiring team, mentions picked projects and met requirements
-- [ ] 15.1 Same validator as resumes
-- [ ] 15.1 PDF rendering when a file is required
+- [x] 15.1 `coverLetter.mode` off/ask/always
+- [x] 15.1 150-250 words, addressed to hiring team, mentions picked projects and met requirements
+- [x] 15.1 Same validator as resumes
+- [x] 15.1 PDF rendering when a file is required
 - [ ] 15.1 Saved as `CoverLetter`, editable, copy button in Assist
 - [ ] 15.2 "Prepare for interview" (questions, talking points, skills, questions to ask), saved with the application
 
@@ -463,7 +463,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 18.1 `#/review` approval queue with resume preview, answers (AI highlighted), cover letter, approve/edit/reject, bulk approve
 - [ ] 18.1 `#/needs-you` with "Open & finish" and "Answer & retry"
 - [ ] 18.1 `#/tracker` Kanban + list, drawer (timeline, resume, answers, cover letter, notes, follow-up, prep), CSV export
-- [ ] 18.1 `#/resumes` base, generated base, tailored by job; preview, download, delete, template picker
+- [x] 18.1 `#/resumes` base, generated base, tailored by job; preview, download, delete, template picker
 - [ ] 18.1 `#/answers` search, edit, delete, mark sensitive, approve pending
 - [ ] 18.1 `#/profile` all sections, projects with toggles and GitHub sync, preferences
 - [ ] 18.1 `#/companies` personal boards, hidden companies, suggest for shared list
