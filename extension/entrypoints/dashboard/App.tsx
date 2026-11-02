@@ -1,14 +1,27 @@
-import { APP_NAME } from "@job-copilot/shared/config";
+import { createHashRouter, Navigate, RouterProvider } from "react-router";
+import { Layout } from "./layout/Layout";
+import { CompaniesPage } from "./pages/CompaniesPage";
+import { MatchesPage } from "./pages/MatchesPage";
+import { OnboardingPage } from "./pages/OnboardingPage";
+import { RouteError } from "./pages/RouteError";
+import { SettingsPage } from "./pages/SettingsPage";
+
+/** Extension pages need hash routing (spec 4). Every route has an error boundary. */
+const router = createHashRouter([
+  {
+    element: <Layout />,
+    errorElement: <RouteError />,
+    children: [
+      { index: true, element: <Navigate to="/matches" replace /> },
+      { path: "matches", element: <MatchesPage />, errorElement: <RouteError /> },
+      { path: "companies", element: <CompaniesPage />, errorElement: <RouteError /> },
+      { path: "settings", element: <SettingsPage />, errorElement: <RouteError /> },
+      { path: "onboarding", element: <OnboardingPage />, errorElement: <RouteError /> },
+      { path: "*", element: <Navigate to="/matches" replace /> },
+    ],
+  },
+]);
 
 export function App() {
-  return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-3xl font-semibold tracking-tight">{APP_NAME}</h1>
-        <p className="mt-3 text-slate-600 dark:text-slate-400">
-          Your dashboard will appear here. Setup is in progress.
-        </p>
-      </div>
-    </main>
-  );
+  return <RouterProvider router={router} />;
 }
