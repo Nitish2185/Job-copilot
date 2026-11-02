@@ -50,7 +50,20 @@ export default defineConfig({
     description:
       "Free, private job-hunting assistant for developers: finds and ranks jobs, prepares applications, and fills forms.",
     action: { default_title: APP_NAME },
-    permissions: ["storage", "unlimitedStorage", "alarms"],
+    permissions: [
+      "storage",
+      "unlimitedStorage",
+      "alarms",
+      "scripting",
+      "activeTab",
+      "contextMenus",
+    ],
+    commands: {
+      autofill: {
+        suggested_key: { default: "Alt+Shift+F" },
+        description: "Autofill the application form on this page",
+      },
+    },
     host_permissions: [...ATS_API_HOSTS, ...CORE_API_HOSTS, FEED_HOST, ...E2E_HOSTS],
     // MV2 (Firefox) lists optional hosts under optional_permissions; WXT does not convert them.
     // 'wasm-unsafe-eval' lets the PDF layout engine (WebAssembly) run; no eval, no remote code.

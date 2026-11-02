@@ -4,6 +4,7 @@ import { ALARMS, scheduleAlarms } from "@/lib/alarms/alarms";
 import { aiHandlers } from "@/lib/background/aiHandlers";
 import { matchHandlers } from "@/lib/background/matchHandlers";
 import { applyHandlers } from "@/lib/background/applyHandlers";
+import { autofillHandlers, registerAutofillTriggers } from "@/lib/background/autofill";
 import { tailorHandlers } from "@/lib/background/tailorHandlers";
 import { handlers, runBoardsSync, runFeedSync } from "@/lib/background/tasks";
 import { registerMessageHandlers } from "@/lib/messaging/server";
@@ -17,7 +18,10 @@ export default defineBackground(() => {
     ...matchHandlers,
     ...tailorHandlers,
     ...applyHandlers,
+    ...autofillHandlers,
   });
+
+  registerAutofillTriggers();
 
   const openDashboard = (hash = "") =>
     browser.tabs.create({ url: browser.runtime.getURL("/dashboard.html") + hash });
