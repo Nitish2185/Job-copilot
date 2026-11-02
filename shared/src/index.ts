@@ -27,3 +27,4 @@ export * from "./boards/ashby";
 export * from "./boards/smartrecruiters";
 export * from "./boards/workable";
 export * from "./boards/normalize";
+export * from "./parsing/ctc";
