@@ -278,6 +278,37 @@ test("onboards with a fictional resume and a mocked AI provider", async ({
   await page.getByRole("button", { name: "AI-score the next 20" }).click();
   await expect(page.getByRole("status")).toHaveText(/Scored \d+ jobs with AI\./);
 
+  // Job detail: the full description is fetched from the (routed) Lever posting and sanitized.
+  await page.context().route(/^https:\/\/api\.lever\.co\/v0\/postings\//, (route) =>
+    route.fulfill({
+      json: {
+        id: new URL(route.request().url()).pathname.split("/").pop(),
+        text: "Frontend Developer",
+        hostedUrl: "https://jobs.lever.co/acme/x",
+        applyUrl: "https://jobs.lever.co/acme/x/apply",
+        createdAt: 1_793_000_000_000,
+        categories: { location: "Bengaluru, India", commitment: "Full-time" },
+        description:
+          "<p>Build React apps for millions of users.</p><script>window.pwned = 1</script>",
+        lists: [],
+      },
+    }),
+  );
+  const firstJob = page.getByTestId("job-row").first().getByRole("link");
+  const title = (await firstJob.textContent()) ?? "";
+  await firstJob.click();
+  await expect(page.getByRole("heading", { level: 1, name: title })).toBeVisible();
+  await expect(page.getByTestId("job-description")).toContainText(
+    "Build React apps for millions of users.",
+  );
+  await expect(page.locator("[data-testid=job-description] script")).toHaveCount(0);
+  await expect(page.getByRole("list", { name: "Reasons" })).toContainText(
+    "Uses React and TypeScript",
+  );
+  await page.getByRole("link", { name: "← Back to jobs" }).click();
+  // Filters are kept while visiting a job.
+  await expect(page.getByLabel("Show all scores")).toBeChecked();
+
   expectRedacted(aiServer);
   const profile = (await readRecord(page, "profile", "me")) as {
     basics: { fullName: string; email: string; country: string; githubUsername?: string };
