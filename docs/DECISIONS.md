@@ -25,3 +25,11 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **Crawler repo URL and User-Agent live in `crawler/internal/project`.** One Go constant for `set-owner` to rewrite.
 - **GitHub Actions pinned to major version tags (`@v7`), not commit SHAs.** Readable and still gets security patches; all actions are first-party or pnpm's own.
 - **`pnpm audit --audit-level=high` in CI.** Low and moderate advisories are printed but do not fail the build (spec 21).
+
+## Data contracts
+
+- **`snapshot.json` is an object `{ schemaVersion, generatedAt, jobs }`, not a bare array.** Leaves room for metadata; the spec only says "all currently open jobs".
+- **Public `companies.json` is `{ generatedAt, companies: [...] }` with `lastStatus` in `ok | empty | not_found | error`.** The spec names the fields but not the shape.
+- **All timestamps are UTC ISO-8601 with `Z`.** The crawler converts API offsets to UTC; ISO strings sort correctly in IndexedDB indexes and survive JSON export.
+- **Feed `schemaVersion` parses as any positive integer.** The extension compares it with `FEED_SCHEMA_VERSION` and shows "Update the extension" instead of failing to parse.
+- **Schema URLs accept only http(s).** Zod's `z.url()` alone also accepts `javascript:`.
