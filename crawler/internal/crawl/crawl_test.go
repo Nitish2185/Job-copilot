@@ -80,6 +80,7 @@ func run(t *testing.T, dataDir, companies string, now time.Time, withDetails boo
 	}
 	sum, err := crawl.Run(context.Background(), crawl.Config{
 		Root: testutil.Root(t), DataDir: dataDir, CompaniesPath: path, Now: now, Fetchers: fixtureFetchers(t, withDetails),
+		AllRoles: true, // the golden output covers every fixture job
 	})
 	if err != nil {
 		t.Fatal(err)

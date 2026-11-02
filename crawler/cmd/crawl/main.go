@@ -101,6 +101,7 @@ func runCrawl(ctx context.Context, args []string, stdout, stderr io.Writer) int 
 	companiesPath := fs.String("companies", "", "companies file (default <root>/crawler/companies.json)")
 	detailCap := fs.Int("detail-cap", fetch.DefaultDetailCap, "SmartRecruiters description fetches per company per run")
 	verbose := fs.Bool("v", false, "debug logging")
+	allRoles := fs.Bool("all-roles", false, "keep every job, not only developer roles")
 	if err := fs.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return 0
@@ -116,6 +117,7 @@ func runCrawl(ctx context.Context, args []string, stdout, stderr io.Writer) int 
 	started := time.Now()
 	sum, err := crawl.Run(ctx, crawl.Config{
 		Root: root, DataDir: *dataDir, CompaniesPath: *companiesPath, Logger: log, DetailCap: *detailCap,
+		AllRoles: *allRoles,
 	})
 	if err != nil {
 		fmt.Fprintln(stderr, "error:", err)
@@ -146,7 +148,8 @@ func summaryMarkdown(s crawl.Summary, took time.Duration) string {
 	fmt.Fprintf(&b, "| New jobs | %d |\n", s.NewJobs)
 	fmt.Fprintf(&b, "| Closed jobs | %d |\n", s.ClosedJobs)
 	fmt.Fprintf(&b, "| Changed descriptions | %d |\n", s.ChangedJobs)
-	fmt.Fprintf(&b, "| Skipped jobs | %d |\n", s.SkippedJobs)
+	fmt.Fprintf(&b, "| Not developer roles (filtered) | %d |\n", s.FilteredJobs)
+	fmt.Fprintf(&b, "| Skipped jobs (invalid) | %d |\n", s.SkippedJobs)
 	fmt.Fprintf(&b, "| Snapshot size | %.1f MB |\n", float64(s.SnapshotBytes)/(1<<20))
 	fmt.Fprintf(&b, "| Took | %s |\n\n", took.Round(time.Second))
 	if len(s.NotFound) > 0 {

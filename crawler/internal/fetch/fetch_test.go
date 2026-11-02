@@ -211,3 +211,22 @@ func TestWorkable(t *testing.T) {
 		t.Errorf("postedAt %v", j.PostedAt)
 	}
 }
+
+func TestSmartRecruitersKeepDropsTitlesBeforeDetails(t *testing.T) {
+	var detailRequests int
+	files := map[string][]byte{"/v1/companies/BoschGroup/postings": testutil.ReadFile(t, "crawler/testdata/fixtures/smartrecruiters_postings.json")}
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if body, ok := files[r.URL.Path]; ok {
+			_, _ = w.Write(body)
+			return
+		}
+		detailRequests++
+		http.NotFound(w, r)
+	}))
+	defer srv.Close()
+	sr := &fetch.SmartRecruiters{Client: client(), BaseURL: srv.URL, Keep: func(title string) bool { return strings.Contains(title, "Calibration") }}
+	jobs := fetchAll(t, sr, fetch.Company{Platform: "smartrecruiters", Token: "BoschGroup"})
+	if len(jobs) != 1 || detailRequests != 1 {
+		t.Fatalf("kept %d jobs with %d detail requests, want 1 and 1", len(jobs), detailRequests)
+	}
+}

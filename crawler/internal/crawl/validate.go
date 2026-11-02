@@ -66,7 +66,7 @@ func Validate(ctx context.Context, companies []fetch.Company, fetchers map[strin
 
 // ValidationFetchers are the real fetchers without SmartRecruiters detail calls.
 func ValidationFetchers(client fetch.Getter) map[string]fetch.Fetcher {
-	return DefaultFetchers(client, 1, func(fetch.Company, string) bool { return true })
+	return DefaultFetchers(client, 1, func(fetch.Company, string) bool { return true }, nil)
 }
 
 // WriteCompanies rewrites companies.json, one entry per line, in the given order.

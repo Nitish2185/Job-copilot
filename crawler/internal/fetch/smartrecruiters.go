@@ -25,6 +25,8 @@ type SmartRecruiters struct {
 	BaseURL    string // default https://api.smartrecruiters.com
 	DetailCap  int    // default DefaultDetailCap
 	HasDetails func(c Company, externalID string) bool
+	// Keep, when set, drops postings by title before any detail request.
+	Keep func(title string) bool
 }
 
 func (s *SmartRecruiters) Platform() string { return "smartrecruiters" }
@@ -89,6 +91,9 @@ func (s *SmartRecruiters) Fetch(ctx context.Context, c Company) ([]RawJob, error
 			return nil, err
 		}
 		for _, p := range resp.Content {
+			if s.Keep != nil && !s.Keep(p.Name) {
+				continue
+			}
 			publicURL := "https://jobs.smartrecruiters.com/" + url.PathEscape(c.Token) + "/" + url.PathEscape(p.ID)
 			raw := RawJob{
 				ExternalID:     p.ID,

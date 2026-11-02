@@ -35,6 +35,8 @@ type Config struct {
 	Fetchers           map[string]fetch.Fetcher
 	CompanyConcurrency int // default 16
 	DetailCap          int // SmartRecruiters detail fetches per company, default fetch.DefaultDetailCap
+	// AllRoles keeps every job; by default only developer roles go into the feed.
+	AllRoles bool
 }
 
 // Summary of a run, printed by the crawl command.
@@ -49,6 +51,7 @@ type Summary struct {
 	ClosedJobs    int
 	ChangedJobs   int
 	SkippedJobs   int
+	FilteredJobs  int // not developer roles
 	SnapshotBytes int
 	Warnings      []string
 }
@@ -86,12 +89,12 @@ func NewClient(logger *slog.Logger) *httpx.Client {
 
 // DefaultFetchers builds the real fetchers. hasDetails tells SmartRecruiters
 // which postings already have descriptions from earlier runs.
-func DefaultFetchers(client fetch.Getter, detailCap int, hasDetails func(fetch.Company, string) bool) map[string]fetch.Fetcher {
+func DefaultFetchers(client fetch.Getter, detailCap int, hasDetails func(fetch.Company, string) bool, keep func(title string) bool) map[string]fetch.Fetcher {
 	return fetch.Registry(
 		&fetch.Greenhouse{Client: client},
 		&fetch.Lever{Client: client},
 		&fetch.Ashby{Client: client},
-		&fetch.SmartRecruiters{Client: client, DetailCap: detailCap, HasDetails: hasDetails},
+		&fetch.SmartRecruiters{Client: client, DetailCap: detailCap, HasDetails: hasDetails, Keep: keep},
 		&fetch.Workable{Client: client},
 	)
 }
@@ -171,18 +174,23 @@ func Run(ctx context.Context, cfg Config) (Summary, error) {
 		j, ok := prevByID[c.Platform+":"+c.Token+":"+externalID]
 		return ok && j.DescHash != emptyDescHash
 	}
+	keep := norm.IsDeveloperRole
+	if cfg.AllRoles {
+		keep = func(string) bool { return true }
+	}
 	fetchers := cfg.Fetchers
 	if fetchers == nil {
-		fetchers = DefaultFetchers(NewClient(log), cfg.DetailCap, hasDetails)
+		fetchers = DefaultFetchers(NewClient(log), cfg.DetailCap, hasDetails, keep)
 	}
 
 	outcomes := make([]state.Outcome, len(companies))
 	skipped := make([]int, len(companies))
+	filtered := make([]int, len(companies))
 	g, gctx := errgroup.WithContext(ctx)
 	g.SetLimit(cfg.CompanyConcurrency)
 	for i, c := range companies {
 		g.Go(func() error {
-			outcomes[i], skipped[i] = fetchCompany(gctx, log, fetchers[c.Platform], norm, c, prevByID)
+			outcomes[i], skipped[i], filtered[i] = fetchCompany(gctx, log, fetchers[c.Platform], norm, keep, c, prevByID)
 			return nil
 		})
 	}
@@ -201,6 +209,7 @@ func Run(ctx context.Context, cfg Config) (Summary, error) {
 			JobCount: entry.JobCount, LastOkAt: entry.LastOkAt, LastStatus: entry.LastStatus,
 		})
 		sum.SkippedJobs += skipped[i]
+		sum.FilteredJobs += filtered[i]
 		switch outcomes[i].Status {
 		case state.StatusNotFound:
 			sum.Failed++
@@ -239,11 +248,11 @@ func Run(ctx context.Context, cfg Config) (Summary, error) {
 	return sum, nil
 }
 
-func fetchCompany(ctx context.Context, log *slog.Logger, f fetch.Fetcher, norm *normalize.Normalizer, c fetch.Company, prev map[string]feed.Job) (state.Outcome, int) {
+func fetchCompany(ctx context.Context, log *slog.Logger, f fetch.Fetcher, norm *normalize.Normalizer, keep func(string) bool, c fetch.Company, prev map[string]feed.Job) (state.Outcome, int, int) {
 	out := state.Outcome{Key: c.Key()}
 	if f == nil {
 		out.Status = state.StatusError
-		return out, 0
+		return out, 0, 0
 	}
 	raws, err := f.Fetch(ctx, c)
 	if err != nil {
@@ -254,10 +263,14 @@ func fetchCompany(ctx context.Context, log *slog.Logger, f fetch.Fetcher, norm *
 			out.Status = state.StatusError
 			log.Warn("company fetch failed", "company", c.Key(), "error", err)
 		}
-		return out, 0
+		return out, 0, 0
 	}
-	skipped := 0
+	skipped, filtered := 0, 0
 	for _, r := range raws {
+		if !keep(r.Title) {
+			filtered++
+			continue
+		}
 		job, err := norm.Job(c, r)
 		if err != nil {
 			skipped++
@@ -275,6 +288,6 @@ func fetchCompany(ctx context.Context, log *slog.Logger, f fetch.Fetcher, norm *
 	if len(out.Jobs) == 0 {
 		out.Status = state.StatusEmpty
 	}
-	log.Info("company fetched", "company", c.Key(), "jobs", len(out.Jobs), "skipped", skipped)
-	return out, skipped
+	log.Info("company fetched", "company", c.Key(), "jobs", len(out.Jobs), "skipped", skipped, "filtered", filtered)
+	return out, skipped, filtered
 }
