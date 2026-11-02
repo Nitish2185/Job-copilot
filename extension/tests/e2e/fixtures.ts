@@ -53,8 +53,9 @@ export const test = base.extend<{
       channel: "chromium",
       args: [`--disable-extensions-except=${EXTENSION_PATH}`, `--load-extension=${EXTENSION_PATH}`],
     });
-    // Never reach the real feed or any real job site from tests.
-    await context.route(/^https:\/\/[^/]*github\.io\//, (route) => route.abort());
+    // Never reach the real feed, a real job site or any other outside host from tests:
+    // everything that is not local is blocked unless a test routes it (later routes win).
+    await context.route(/^https?:\/\/(?!127\.0\.0\.1[:/]|localhost[:/])/, (route) => route.abort());
     await use(context);
     await context.close();
   },
