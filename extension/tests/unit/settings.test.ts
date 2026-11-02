@@ -6,6 +6,7 @@ import {
   loadFlags,
   loadSecrets,
   loadSettings,
+  saveAiProvider,
   updateFlags,
   updateSecrets,
   updateSettings,
@@ -65,5 +66,24 @@ describe("deepMerge", () => {
       a: { b: 1, c: [3] },
       d: 1,
     });
+  });
+
+  it("saves the AI provider and removes the fallback when it is turned off", async () => {
+    await saveAiProvider({
+      provider: "groq",
+      baseUrl: "https://api.groq.com/openai/v1",
+      model: "llama-4",
+      fallback: { provider: "gemini", baseUrl: "https://example.com/", model: "m" },
+    });
+    expect((await loadSettings()).ai.fallback?.provider).toBe("gemini");
+    await saveAiProvider({
+      provider: "groq",
+      baseUrl: "https://api.groq.com/openai/v1",
+      model: "llama-4",
+    });
+    const ai = (await loadSettings()).ai;
+    expect(ai.fallback).toBeUndefined();
+    expect(ai.model).toBe("llama-4");
+    expect(ai.requestsPerMinute).toBe(10);
   });
 });

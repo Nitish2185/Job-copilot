@@ -56,6 +56,18 @@ export async function updateSettings(patch: DeepPartial<Settings>): Promise<Sett
   return next;
 }
 
+export type AiProviderChoice = Pick<Settings["ai"], "provider" | "baseUrl" | "model" | "fallback">;
+
+/** Saves the AI provider choice. Unlike updateSettings, leaving out `fallback` removes it. */
+export async function saveAiProvider(choice: AiProviderChoice): Promise<Settings> {
+  const current = await loadSettings();
+  const ai: Settings["ai"] = { ...current.ai, ...choice };
+  if (choice.fallback === undefined) delete ai.fallback;
+  const next = SettingsSchema.parse({ ...current, ai });
+  await browser.storage.sync.set({ [SETTINGS_KEY]: next });
+  return next;
+}
+
 /** Writes defaults on first install (development builds start in dry-run mode). */
 export async function ensureSettings(): Promise<Settings> {
   const stored: unknown = (await browser.storage.sync.get(SETTINGS_KEY))[SETTINGS_KEY];
