@@ -100,12 +100,12 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 4 WXT + TypeScript strict; builds Chrome/Edge MV3 and Firefox; uses WXT `browser` wrapper
 - [ ] 4 React + Tailwind; Radix UI primitives; lucide-react icons; reusable components in `extension/components/ui`
 - [ ] 4 On-site UI via WXT `createShadowRootUi`
-- [ ] 4 Dashboard uses react-router with a hash router
+- [x] 4 Dashboard uses react-router with a hash router
 - [ ] 4 Zustand for UI-only state; Dexie live queries for DB state
-- [ ] 4 Dexie + dexie-react-hooks with versioned schema
+- [x] 4 Dexie + dexie-react-hooks with versioned schema
 - [ ] 4 react-hook-form + Zod resolver
 - [ ] 4 Zod as single source of truth; JSON Schema exported from Zod for AI structured output
-- [ ] 4 @tanstack/react-virtual for lists (10,000+ jobs)
+- [x] 4 @tanstack/react-virtual for lists (10,000+ jobs)
 - [ ] 4 @dnd-kit for the Kanban board
 - [ ] 4 Recharts for analytics
 - [ ] 4 pdfjs-dist with the worker bundled locally
@@ -133,10 +133,10 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 6 Zod schemas in `shared/src/schemas/` with inferred types: Profile, Project, Preferences, AnswerBankEntry, Job, JobScore, JdAnalysis, Application, ResumeVersion, CoverLetter, QueueItem, Company, AiCacheEntry, StoredFile
 - [ ] 6 `Profile.version` increments on every edit
 - [x] 6 Settings schema with all defaults from section 6
-- [ ] 6 Secrets (AI keys, GitHub token, Adzuna, JSearch) only in `chrome.storage.local`; never synced, logged, or exported unless "include API keys" is ticked
-- [ ] 6 Dexie tables and indexes as listed (jobs: status, platform, firstSeenAt, company.token, dedupeKey, mode; scores: final; applications: jobId, stage, submittedAt)
+- [x] 6 Secrets (AI keys, GitHub token, Adzuna, JSearch) only in `chrome.storage.local`; never synced, logged, or exported unless "include API keys" is ticked
+- [x] 6 Dexie tables and indexes as listed (jobs: status, platform, firstSeenAt, company.token, dedupeKey, mode; scores: final; applications: jobId, stage, submittedAt)
 - [ ] 6 Settings in `chrome.storage.sync`; answer bank mirror chunked under quota (~100 KB total, ~8 KB/item), else local-only with an export/import notice
-- [ ] 6 Dexie schema versions with migrations that never lose data; migrations tested
+- [x] 6 Dexie schema versions with migrations that never lose data; migrations tested
 
 ## 7. Go crawler
 
@@ -234,7 +234,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 ### 9.1 Entrypoints
 
 - [ ] 9.1 Background service worker (alarms, sync, AI scheduler, matcher, queue, notifications, menus, commands, routing)
-- [ ] 9.1 Dashboard full tab with `#/onboarding` opened on first install
+- [x] 9.1 Dashboard full tab with `#/onboarding` opened on first install
 - [ ] 9.1 Side panel on Chrome/Edge; Firefox sidebar via per-browser config
 - [ ] 9.1 Popup
 - [ ] 9.1 Auto adapter content scripts (greenhouse, lever, ashby, workable, smartrecruiters)
@@ -244,7 +244,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ### 9.2 Permissions
 
-- [ ] 9.2 `docs/PERMISSIONS.md` justifies every permission
+- [x] 9.2 `docs/PERMISSIONS.md` justifies every permission
 - [ ] 9.2 Permissions: storage, unlimitedStorage, alarms, notifications, scripting, activeTab, contextMenus, sidePanel (Chrome/Edge); `tabs` only with a logged reason
 - [ ] 9.2 Required hosts: Auto hosts, ATS API hosts, feed origin, api.github.com, Gemini API, Naukri, Indeed
 - [ ] 9.2 Optional hosts requested at runtime with explanation: LinkedIn, Workday, other AI providers, Ollama, custom URL, Adzuna, JSearch
@@ -263,8 +263,8 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ### 9.5 Messaging
 
-- [ ] 9.5 Typed message bus: discriminated union with Zod payload/response schemas
-- [ ] 9.5 Background validates every message and checks `sender.tab.url` against the message type
+- [x] 9.5 Typed message bus: discriminated union with Zod payload/response schemas
+- [x] 9.5 Background validates every message and checks `sender.tab.url` against the message type
 - [ ] 9.5 UI and content scripts reach AI and shared data only through background
 
 ### 9.6 Cross-browser
@@ -348,14 +348,14 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 13. Job sources
 
-- [ ] 13.1 Install: download index + snapshot (sha256 verified), upsert
-- [ ] 13.1 Every 6 h: index with `If-None-Match`; only new shards and closed files
-- [ ] 13.1 Re-download snapshot when offline longer than retained shards
-- [ ] 13.1 `FEED_BASE_URL` in config, overridable in Settings
-- [ ] 13.1 Unknown `schemaVersion` stops sync with update message
-- [ ] 13.2 "Add company" by URL via shared `detect.ts`; clear message when unsupported
-- [ ] 13.2 Personal boards fetched every 6 h with a TS port of the normalizer (same golden cases)
-- [ ] 13.2 "Suggest for the shared list" opens a pre-filled GitHub issue URL
+- [x] 13.1 Install: download index + snapshot (sha256 verified), upsert
+- [x] 13.1 Every 6 h: index with `If-None-Match`; only new shards and closed files
+- [x] 13.1 Re-download snapshot when offline longer than retained shards
+- [x] 13.1 `FEED_BASE_URL` in config, overridable in Settings
+- [x] 13.1 Unknown `schemaVersion` stops sync with update message
+- [x] 13.2 "Add company" by URL via shared `detect.ts`; clear message when unsupported
+- [x] 13.2 Personal boards fetched every 6 h with a TS port of the normalizer (same golden cases)
+- [x] 13.2 "Suggest for the shared list" opens a pre-filled GitHub issue URL
 - [ ] 13.3 Adzuna (verified endpoint) and JSearch (verified endpoint), off by default, with daily call limits
 - [ ] 13.3 Listing results normalized into Job; mode from apply URL host
 - [ ] 13.4 Save from page: JSON-LD `JobPosting`, then adapter `readJob()`, then AI `extractJobFromPage` or prefilled form
@@ -366,7 +366,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 13.7 Optional "AI-score the jobs on this page" (max 10 per click) via scheduler
 - [ ] 13.7 Shadow DOM badge with score, color, top skills, Save button
 - [ ] 13.7 `MutationObserver` for new cards; never fetches pages or clicks
-- [ ] 13.8 `dedupeKey` = normalized company | title | primary location
+- [x] 13.8 `dedupeKey` = normalized company | title | primary location
 - [ ] 13.8 Merge keeps earliest firstSeenAt, all URLs, prefers Auto-eligible apply URL
 - [ ] 13.8 "Also listed on ..." shown on merged jobs
 
@@ -457,7 +457,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 ## 18. User interface
 
 - [ ] 18 Accessible (keyboard, ARIA, contrast, focus), light/dark, responsive
-- [ ] 18 Loading, empty, error states on every list; error boundaries on every route
+- [x] 18 Loading, empty, error states on every list; error boundaries on every route
 - [ ] 18.1 `#/matches` with filters, sort, bulk actions, "AI-score the next 20" with quota, virtualized rows
 - [ ] 18.1 `#/jobs/:id` with sanitized description, match breakdown, reasons, red flags, gaps, same-company info, actions
 - [ ] 18.1 `#/review` approval queue with resume preview, answers (AI highlighted), cover letter, approve/edit/reject, bulk approve
@@ -508,14 +508,14 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 22.1 AI task tests with a fake OpenAI-compatible client (repair retry, validation failure, 429, fallback)
 - [ ] 22.1 Component tests (onboarding steps, matches filters, review queue, auto-apply enable flow)
 - [ ] 22.2 E2E onboarding with fictional resume and mocked AI
-- [ ] 22.2 E2E feed sync against a local fixture feed server
+- [x] 22.2 E2E feed sync against a local fixture feed server
 - [ ] 22.2 E2E autofill on Greenhouse, Lever, Ashby fixtures
 - [ ] 22.2 E2E Assist fixtures (Naukri, Indeed) prove no submit/next/continue/send click
 - [ ] 22.2 E2E Auto dry run + full submit on test-only fixture host with recorded Application
 - [ ] 22.2 Production build excludes the fixture host
 - [ ] 22.3 Go tests (fixtures, golden cases, diff, golden output, vet, race; live behind tag)
 - [ ] 22.4 Tests never contact real job sites, submit, or use real personal data
-- [ ] 22.4 CI runs unit, Go, builds, and e2e (new headless or virtual display)
+- [x] 22.4 CI runs unit, Go, builds, and e2e (new headless or virtual display)
 
 ## 23. CI/CD and distribution
 
@@ -532,7 +532,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 24 Phase 0 - Setup accepted
 - [x] 24 Phase 1 - Shared foundations accepted
 - [x] 24 Phase 2 - Go crawler accepted
-- [ ] 24 Phase 3 - Data layer and feed sync accepted
+- [x] 24 Phase 3 - Data layer and feed sync accepted
 - [ ] 24 Phase 4 - Onboarding and profile accepted
 - [ ] 24 Phase 5 - Matching accepted
 - [ ] 24 Phase 6 - Resume tailoring and cover letters accepted

@@ -2,9 +2,26 @@
 
 ## Current phase
 
-**Phase 3 - Extension data layer and feed sync** (starting)
+**Phase 4 - Onboarding and profile** (starting)
 
 ## Done
+
+### Phase 3 - Extension data layer and feed sync (accepted 2026-11-02)
+
+- Dexie schema with every table and index from the spec, plus a migration test.
+- Settings (sync storage, Zod-validated, dev builds start in dry run), secrets and runtime flags
+  (local storage only).
+- Typed message bus with Zod schemas and sender rules; background handlers for feed, boards and
+  job status.
+- Feed sync: snapshot with SHA-256 check, ETag, daily shards, closed files, gap detection,
+  unknown-version stop; keeps user statuses.
+- Personal company boards: add by URL, direct API fetch, TypeScript normalizer proven identical
+  to Go on the fixtures, closes missing jobs only after successful fetches, suggestion issue link.
+- Alarms (feed and boards every 6 h, feed on startup); manifest permissions documented.
+- Dashboard: hash router with error boundaries, virtualized job list (search, mode filter,
+  save/hide), feed status bar, companies page, feed URL setting, onboarding placeholder.
+- Playwright e2e in Chromium: 3,000-job local fixture feed and a fixture-backed personal board.
+  Runs in CI.
 
 ### Phase 2 - Go crawler (accepted 2026-11-02)
 
@@ -54,10 +71,12 @@
 
 ## Next
 
-Phase 3: Dexie schema and migrations, settings store (sync) and secrets (local), typed
-messaging bus, alarms, feed sync (snapshot, deltas, ETag, closed jobs, unknown schema version),
-personal boards (URL detection, direct fetch, TypeScript port of the normalizer with the same
-golden cases including `html.cases.json`), hash-routed dashboard with a virtualized job list.
+Phase 4: AI client and provider settings (verify base URLs and the default Gemini model from
+official docs; test button; model list), scheduler (rate limit, daily budget, priority, 429 and
+fallback), cache, redaction; resume upload and parsing (pdf.js worker bundled, mammoth);
+`extractProfile`; profile editor; GitHub import and `describeProject`; manual projects;
+preferences with India helpers (LPA parser); job preferences; answer bank basics; onboarding
+wizard that also works with AI skipped. E2E: onboarding with a fictional resume and mocked AI.
 
 ## Waiting on the owner
 
