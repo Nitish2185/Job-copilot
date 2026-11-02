@@ -28,10 +28,13 @@ export function senderAllowed(rule: SenderRule, sender: Sender, ctx: SenderConte
   if (rule.kind === "extension") {
     return sender.url?.startsWith(ctx.extensionOrigin) === true;
   }
+  if (rule.kind === "any_page" && sender.url?.startsWith(ctx.extensionOrigin) === true) return true;
   const pageUrl = sender.tab?.url;
   if (!pageUrl) return false;
   try {
-    const host = new URL(pageUrl).hostname.toLowerCase();
+    const url = new URL(pageUrl);
+    if (rule.kind === "any_page") return url.protocol === "https:" || url.protocol === "http:";
+    const host = url.hostname.toLowerCase();
     return rule.hosts.includes(host);
   } catch {
     return false;

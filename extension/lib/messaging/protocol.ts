@@ -35,7 +35,10 @@ export type AiStatus = z.infer<typeof AiStatusSchema>;
 /** Who may send a message type. */
 export type SenderRule =
   | { kind: "extension" } // dashboard, popup, side panel
-  | { kind: "content"; hosts: readonly string[] }; // content scripts on these exact hosts
+  | { kind: "content"; hosts: readonly string[] } // content scripts on these exact hosts
+  // Extension pages, or our content script on any http(s) page (the generic Assist
+  // adapter is injected on demand). Web pages themselves cannot send these messages.
+  | { kind: "any_page" };
 
 export interface MessageDefinition<Req extends z.ZodType, Res extends z.ZodType> {
   request: Req;
@@ -44,6 +47,23 @@ export interface MessageDefinition<Req extends z.ZodType, Res extends z.ZodType>
 }
 
 const extensionOnly = { kind: "extension" } as const;
+const anyPage = { kind: "any_page" } as const;
+
+const FieldKindSchema = z.enum([
+  "text",
+  "textarea",
+  "email",
+  "tel",
+  "url",
+  "number",
+  "date",
+  "select",
+  "radio",
+  "checkbox",
+  "checkbox_group",
+  "combobox",
+  "file",
+]);
 
 export const FeedSyncResultSchema = z.object({
   status: z.enum(["unchanged", "updated", "snapshot", "update_required", "error"]),
@@ -207,6 +227,21 @@ export const MESSAGES = {
       projectIds: z.array(z.string()),
     }),
     sender: extensionOnly,
+  },
+  "ai/answerQuestion": {
+    request: z.object({
+      question: z.string().min(1).max(1000),
+      kind: FieldKindSchema,
+      options: z.array(z.string().max(300)).max(100).default([]),
+      maxLength: z.number().int().positive().optional(),
+      jobId: z.string().optional(),
+    }),
+    response: z.object({
+      answer: z.string().optional(),
+      confidence: z.number().optional(),
+      note: z.string().optional(),
+    }),
+    sender: anyPage,
   },
   "ai/describeProject": {
     request: z.object({
