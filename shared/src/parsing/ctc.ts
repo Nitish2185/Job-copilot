@@ -45,7 +45,7 @@ export function parseCtc(input: string, defaultCurrency = "INR"): Ctc | null {
   if (!number?.[1]) return null;
   let amount = Number(number[1].replace(/,/g, ""));
   if (!Number.isFinite(amount)) return null;
-  const after = text.slice((number.index ?? 0) + number[1].length);
+  const after = text.slice(number.index + number[1].length);
 
   const period: Ctc["period"] = /\b(per\s+month|\/\s*m(?:onth|o)?\b|monthly|pm\b|p\.m\.)/.test(text)
     ? "month"
