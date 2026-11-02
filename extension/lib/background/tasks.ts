@@ -9,6 +9,16 @@ import type { Handlers } from "../messaging/server";
 import { loadSettings } from "../settings/settings";
 import { addCompanyFromUrl, syncBoards, type BoardDeps } from "../sources/boards";
 import { closeJobs } from "../feed/jobs";
+import { afterJobsChanged } from "./matchHandlers";
+
+/** Matching never makes a sync fail; the next sync or a manual re-score tries again. */
+async function scoreAfterSync(): Promise<void> {
+  try {
+    await afterJobsChanged();
+  } catch {
+    // Ignored on purpose (see above).
+  }
+}
 
 function boardDeps(): BoardDeps {
   return { db: getDb(), fetch: globalThis.fetch.bind(globalThis), now: () => new Date() };
@@ -20,7 +30,7 @@ export function runFeedSync(force = false): Promise<FeedSyncResult> {
   feedRun ??= (async () => {
     const settings = await loadSettings();
     if (!settings.sources.feed) return { status: "unchanged" as const, added: 0, closed: 0 };
-    return syncFeed(
+    const result = await syncFeed(
       {
         db: getDb(),
         fetch: globalThis.fetch.bind(globalThis),
@@ -29,6 +39,8 @@ export function runFeedSync(force = false): Promise<FeedSyncResult> {
       },
       { force },
     );
+    await scoreAfterSync();
+    return result;
   })().finally(() => {
     feedRun = undefined;
   });
@@ -38,11 +50,18 @@ export function runFeedSync(force = false): Promise<FeedSyncResult> {
 let boardsRun: Promise<BoardsSyncResult> | undefined;
 
 export function runBoardsSync(id?: string): Promise<BoardsSyncResult> {
-  if (id !== undefined) return syncBoards(boardDeps(), id);
+  if (id !== undefined) {
+    return syncBoards(boardDeps(), id).then(async (result) => {
+      await scoreAfterSync();
+      return result;
+    });
+  }
   boardsRun ??= (async () => {
     const settings = await loadSettings();
     if (!settings.sources.personalBoards) return { companies: 0, failed: 0, added: 0, closed: 0 };
-    return syncBoards(boardDeps());
+    const result = await syncBoards(boardDeps());
+    await scoreAfterSync();
+    return result;
   })().finally(() => {
     boardsRun = undefined;
   });
@@ -53,7 +72,11 @@ export function runBoardsSync(id?: string): Promise<BoardsSyncResult> {
 export const handlers: Handlers = {
   "feed/sync": ({ force }) => runFeedSync(force),
 
-  "boards/add": ({ url, name }) => addCompanyFromUrl(boardDeps(), url, name),
+  "boards/add": async ({ url, name }) => {
+    const result = await addCompanyFromUrl(boardDeps(), url, name);
+    if (result.ok) await scoreAfterSync();
+    return result;
+  },
 
   "boards/remove": async ({ id }) => {
     const db = getDb();

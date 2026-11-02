@@ -2,13 +2,14 @@ import { browser } from "wxt/browser";
 import { defineBackground } from "wxt/utils/define-background";
 import { ALARMS, scheduleAlarms } from "@/lib/alarms/alarms";
 import { aiHandlers } from "@/lib/background/aiHandlers";
+import { matchHandlers } from "@/lib/background/matchHandlers";
 import { handlers, runBoardsSync, runFeedSync } from "@/lib/background/tasks";
 import { registerMessageHandlers } from "@/lib/messaging/server";
 import { ensureSettings, updateFlags } from "@/lib/settings/settings";
 
 export default defineBackground(() => {
   // Listeners are registered synchronously so a woken service worker sees every event.
-  registerMessageHandlers({ ...handlers, ...aiHandlers });
+  registerMessageHandlers({ ...handlers, ...aiHandlers, ...matchHandlers });
 
   const openDashboard = (hash = "") =>
     browser.tabs.create({ url: browser.runtime.getURL("/dashboard.html") + hash });

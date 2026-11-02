@@ -61,6 +61,21 @@ export const BoardsSyncResultSchema = z.object({
 });
 export type BoardsSyncResult = z.infer<typeof BoardsSyncResultSchema>;
 
+export const AiScoringResultSchema = z.object({
+  scored: z.number().int().nonnegative(),
+  remaining: z.number().int().nonnegative(),
+  error: z.string().optional(),
+});
+export type AiScoringResult = z.infer<typeof AiScoringResultSchema>;
+
+export const ScoringQuotaSchema = z.object({
+  aiConfigured: z.boolean(),
+  used: z.number().int().nonnegative(),
+  budget: z.number().int().nonnegative(),
+  remaining: z.number().int().nonnegative(),
+});
+export type ScoringQuota = z.infer<typeof ScoringQuotaSchema>;
+
 export const MESSAGES = {
   "feed/sync": {
     request: z.object({ force: z.boolean().default(false) }),
@@ -96,6 +111,29 @@ export const MESSAGES = {
       status: JobStatusSchema,
     }),
     response: z.object({ updated: z.number().int().nonnegative() }),
+    sender: extensionOnly,
+  },
+  "match/prefilter": {
+    /** all: re-score every job (after a profile or preference change); else only unscored jobs. */
+    request: z.object({ all: z.boolean().default(false) }),
+    response: z.object({
+      scored: z.number().int().nonnegative(),
+      passed: z.number().int().nonnegative(),
+    }),
+    sender: extensionOnly,
+  },
+  "match/scoreNext": {
+    request: z.object({
+      count: z.number().int().min(1).max(100),
+      order: z.enum(["newest", "best"]).default("newest"),
+      jobIds: z.array(z.string().min(1)).max(50).optional(),
+    }),
+    response: AiScoringResultSchema,
+    sender: extensionOnly,
+  },
+  "match/quota": {
+    request: z.object({}),
+    response: ScoringQuotaSchema,
     sender: extensionOnly,
   },
   "ai/status": {
