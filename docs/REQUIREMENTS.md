@@ -130,9 +130,9 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 6. Data model
 
-- [ ] 6 Zod schemas in `shared/src/schemas/` with inferred types: Profile, Project, Preferences, AnswerBankEntry, Job, JobScore, JdAnalysis, Application, ResumeVersion, CoverLetter, QueueItem, Company, AiCacheEntry, StoredFile
+- [x] 6 Zod schemas in `shared/src/schemas/` with inferred types: Profile, Project, Preferences, AnswerBankEntry, Job, JobScore, JdAnalysis, Application, ResumeVersion, CoverLetter, QueueItem, Company, AiCacheEntry, StoredFile
 - [ ] 6 `Profile.version` increments on every edit
-- [ ] 6 Settings schema with all defaults from section 6
+- [x] 6 Settings schema with all defaults from section 6
 - [ ] 6 Secrets (AI keys, GitHub token, Adzuna, JSearch) only in `chrome.storage.local`; never synced, logged, or exported unless "include API keys" is ticked
 - [ ] 6 Dexie tables and indexes as listed (jobs: status, platform, firstSeenAt, company.token, dedupeKey, mode; scores: final; applications: jobId, stage, submittedAt)
 - [ ] 6 Settings in `chrome.storage.sync`; answer bank mirror chunked under quota (~100 KB total, ~8 KB/item), else local-only with an export/import notice
@@ -175,7 +175,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ### 7.5 Skills
 
-- [ ] 7.5 `shared/data/skills.json` with 300+ skills (id, display, aliases, category, optional ambiguous + contextPatterns)
+- [x] 7.5 `shared/data/skills.json` with 300+ skills (id, display, aliases, category, optional ambiguous + contextPatterns)
 - [ ] 7.5 Tagger: case-insensitive whole-word matching with punctuation (`node.js`, `c#`, `c++`, `.net`, `next.js`, `ci/cd`)
 - [ ] 7.5 Tagger distinguishes java/javascript, react/react native, sql/specific databases; node = node.js
 - [ ] 7.5 Ambiguous names (go, r, c, spring, express) only via unambiguous aliases or context patterns; never from ordinary English
@@ -224,9 +224,9 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 8. Feed contract
 
-- [ ] 8 `FeedJob` and `FeedIndex` Zod schemas in `shared/src/schemas/feed.ts`
+- [x] 8 `FeedJob` and `FeedIndex` Zod schemas in `shared/src/schemas/feed.ts`
 - [ ] 8 Go structs mirror the schema with matching JSON tags
-- [ ] 8 `applyUrl` must be on an `AUTO_SUBMIT_HOSTS` host
+- [x] 8 `applyUrl` must be on an `AUTO_SUBMIT_HOSTS` host
 - [ ] 8 Contract changes bump `schemaVersion`; extension shows "Update the extension to keep receiving jobs" for unknown versions
 
 ## 9. Extension structure
@@ -530,7 +530,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 ## 24. Phases
 
 - [x] 24 Phase 0 - Setup accepted
-- [ ] 24 Phase 1 - Shared foundations accepted
+- [x] 24 Phase 1 - Shared foundations accepted
 - [ ] 24 Phase 2 - Go crawler accepted
 - [ ] 24 Phase 3 - Data layer and feed sync accepted
 - [ ] 24 Phase 4 - Onboarding and profile accepted
