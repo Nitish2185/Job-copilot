@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeForMatching } from "../parsing/normalize";
-import { SKILLS, SKILLS_VERSION, getSkill } from "./dictionary";
+import { SKILLS, SKILLS_VERSION, getSkill, withImpliedSkills } from "./dictionary";
 
 describe("skills.json", () => {
   it("has at least 300 skills", () => {
@@ -95,5 +95,12 @@ describe("skills.json", () => {
   it("only uses context patterns on ambiguous skills", () => {
     const misplaced = SKILLS.filter((s) => (s.contextPatterns?.length ?? 0) > 0 && !s.ambiguous);
     expect(misplaced.map((s) => s.id)).toEqual([]);
+  });
+
+  it("expands implied skills transitively", () => {
+    const skills = withImpliedSkills(["spring-boot"]);
+    expect(skills.has("spring")).toBe(true);
+    expect(skills.has("java")).toBe(true);
+    expect(withImpliedSkills([]).size).toBe(0);
   });
 });

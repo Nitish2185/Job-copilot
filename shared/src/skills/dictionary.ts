@@ -54,3 +54,18 @@ export function getSkill(id: string): SkillDefinition | undefined {
 export function skillDisplayName(id: string): string {
   return byId.get(id)?.display ?? id;
 }
+
+/** The skills plus everything they imply, transitively ("nextjs" -> "react" -> "javascript"). */
+export function withImpliedSkills(ids: Iterable<string>): Set<string> {
+  const out = new Set(ids);
+  const queue = [...out];
+  for (let id = queue.pop(); id !== undefined; id = queue.pop()) {
+    for (const implied of byId.get(id)?.implies ?? []) {
+      if (!out.has(implied)) {
+        out.add(implied);
+        queue.push(implied);
+      }
+    }
+  }
+  return out;
+}

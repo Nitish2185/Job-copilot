@@ -117,6 +117,8 @@ export const PrefilterResultSchema = z.object({
   missingSkills: z.array(SkillIdSchema),
   passed: z.boolean(),
   reasons: z.array(z.string()),
+  /** Set when a hard filter from the preferences removes the job (spec 12.1), e.g. "Hidden company". */
+  excluded: z.string().optional(),
 });
 export type PrefilterResult = z.infer<typeof PrefilterResultSchema>;
 
