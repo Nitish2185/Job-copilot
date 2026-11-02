@@ -4,6 +4,7 @@ import { AiSettingsForm } from "@/components/ai/AiSettingsForm";
 import { AiUsage } from "@/components/ai/AiUsage";
 import { Button } from "@/components/ui/Button";
 import { MatchingSettingsForm } from "@/components/matching/MatchingSettingsForm";
+import { CoverLetterSettings } from "@/components/resume/CoverLetterSettings";
 import { Section } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
 import { sendMessage } from "@/lib/messaging/client";
@@ -68,6 +69,12 @@ export function SettingsPage() {
             useMatchFilters.getState().reset(threshold);
           }}
         />
+      </Section>
+      <Section
+        title="Resumes and cover letters"
+        description="Templates and the base resume are on the Resumes page."
+      >
+        <CoverLetterSettings />
       </Section>
       <section>
         <h2 className="font-medium">Shared job feed</h2>
