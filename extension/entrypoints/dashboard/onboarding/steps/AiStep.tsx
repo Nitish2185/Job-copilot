@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiSettingsForm } from "@/components/ai/AiSettingsForm";
 import { Button } from "@/components/ui/Button";
 import { StepFooter, type StepProps } from "../StepFooter";
-import { useAiConfigured } from "../hooks";
+import { useAiConfigured } from "../../hooks";
 
 /** Step 2: AI provider setup, which can be skipped (spec 10, step 2). */
 export function AiStep({ next, back }: StepProps) {

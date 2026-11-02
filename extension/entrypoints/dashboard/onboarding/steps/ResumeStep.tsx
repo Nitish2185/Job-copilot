@@ -13,7 +13,7 @@ import { saveBaseResume } from "@/lib/profile/store";
 import { extractResumeText } from "@/lib/resume/extract";
 import { guessFullName } from "@/lib/resume/guessName";
 import { StepFooter, type StepProps } from "../StepFooter";
-import { useAiConfigured, useProfile } from "../hooks";
+import { useAiConfigured, useProfile } from "../../hooks";
 
 const EMPTY_DRAFT: ProfileDraft = {
   summary: "",

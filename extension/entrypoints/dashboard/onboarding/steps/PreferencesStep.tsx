@@ -2,7 +2,7 @@ import { PreferencesForm } from "@/components/profile/PreferencesForm";
 import { Loading } from "@/components/ui/States";
 import { currencyForCountry } from "@/lib/profile/preferencesForm";
 import { StepFooter, type StepProps } from "../StepFooter";
-import { usePreferences, useProfile } from "../hooks";
+import { usePreferences, useProfile } from "../../hooks";
 
 /** Steps 6 and 7: the ask-once answers, then job preferences (spec 10). */
 export function PreferencesStep({ next, back, part }: StepProps & { part: "ask-once" | "jobs" }) {

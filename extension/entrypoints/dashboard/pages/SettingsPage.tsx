@@ -1,11 +1,14 @@
 import { FEED_BASE_URL } from "@job-copilot/shared/config";
 import { useEffect, useState, type SyntheticEvent } from "react";
+import { AiSettingsForm } from "@/components/ai/AiSettingsForm";
+import { AiUsage } from "@/components/ai/AiUsage";
 import { Button } from "@/components/ui/Button";
+import { Section } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
 import { sendMessage } from "@/lib/messaging/client";
 import { loadSettings, updateSettings } from "@/lib/settings/settings";
 
-/** Settings grow phase by phase; for now the feed source (spec 13.1). */
+/** Settings grow phase by phase: the feed source (spec 13.1) and the AI provider (spec 11). */
 export function SettingsPage() {
   const [feedUrl, setFeedUrl] = useState("");
   const [status, setStatus] = useState<{ ok: boolean; text: string }>();
@@ -45,9 +48,16 @@ export function SettingsPage() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl p-6">
+    <div className="mx-auto max-w-3xl space-y-6 p-6">
       <h1 className="text-xl font-semibold">Settings</h1>
-      <section className="mt-6">
+      <Section
+        title="AI provider"
+        description="Your key is stored only on this device and is never synced or exported."
+      >
+        <AiUsage />
+        <AiSettingsForm />
+      </Section>
+      <section>
         <h2 className="font-medium">Shared job feed</h2>
         <form onSubmit={(e) => void save(e)} className="mt-2 space-y-2">
           <label htmlFor="feed-url" className="block text-sm text-slate-600 dark:text-slate-400">

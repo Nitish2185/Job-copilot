@@ -307,8 +307,20 @@ test("onboards with AI skipped, filling the profile by hand", async ({
   const profile = (await readRecord(page, "profile", "me")) as {
     basics: { fullName: string; phone: string };
     headline?: string;
+    version: number;
   };
   expect(profile.basics.fullName).toBe("Aarav Mehta");
   expect(profile.basics.phone).toContain("99999");
   expect(profile.headline).toBe("Full-stack developer");
+
+  // Everything stays editable later on the Profile page; each save bumps the version.
+  const before = profile.version;
+  await page.getByRole("link", { name: "Profile" }).click();
+  await page.getByLabel("Headline").fill("Full-stack developer (React, Node.js)");
+  await page.getByRole("button", { name: "Save profile" }).click();
+  await expect(page.getByRole("status")).toHaveText(
+    `Saved. Profile version ${String(before + 1)}.`,
+  );
+  await page.getByRole("tab", { name: "Answers and job preferences" }).click();
+  await expect(page.getByLabel("Current CTC")).toHaveValue("12 LPA");
 });

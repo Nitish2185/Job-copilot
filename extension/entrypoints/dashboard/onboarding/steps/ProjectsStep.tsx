@@ -2,7 +2,7 @@ import { ProfileEditor } from "@/components/profile/ProfileEditor";
 import { Button } from "@/components/ui/Button";
 import { Loading } from "@/components/ui/States";
 import { StepFooter, type StepProps } from "../StepFooter";
-import { useProfile } from "../hooks";
+import { useProfile } from "../../hooks";
 
 /** Step 5: private, company or freelance projects added by hand (spec 10, step 5). */
 export function ProjectsStep({ next, back }: StepProps) {

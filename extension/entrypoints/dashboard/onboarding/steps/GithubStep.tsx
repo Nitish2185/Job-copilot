@@ -17,7 +17,7 @@ import {
 } from "@/lib/sources/github";
 import { listReposCached, repoDetailsCached } from "@/lib/sources/githubCache";
 import { StepFooter, type StepProps } from "../StepFooter";
-import { useAiConfigured, useProfile } from "../hooks";
+import { useAiConfigured, useProfile } from "../../hooks";
 
 function RepoRow({
   repo,
