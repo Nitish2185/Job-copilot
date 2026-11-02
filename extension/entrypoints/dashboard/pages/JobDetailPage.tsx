@@ -234,6 +234,12 @@ export function JobDetailPage() {
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
+          <Link
+            to={`/jobs/${encodeURIComponent(job.id)}/resume`}
+            className="inline-flex items-center rounded-md border border-blue-600 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-50 dark:text-blue-300 dark:hover:bg-blue-950"
+          >
+            Make a resume for this job
+          </Link>
           {job.url && (
             <a
               href={job.url}

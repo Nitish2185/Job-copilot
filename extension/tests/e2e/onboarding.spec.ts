@@ -62,6 +62,35 @@ const DESCRIPTION = {
   techStack: ["Next.js", "PostgreSQL", "TypeScript"],
 };
 
+const ANALYSIS = {
+  mustHave: ["React", "TypeScript"],
+  niceToHave: ["Node.js"],
+  keywords: ["React", "TypeScript", "web apps"],
+  seniority: "mid",
+  responsibilitiesSummary: "Build React apps.",
+};
+
+/** The mock AI's tailoring: honest rewording plus one invented number the validator must catch. */
+const TAILORING = {
+  summary: "Full-stack developer focused on React and TypeScript web apps.",
+  skillsOrder: ["react", "typescript", "nodejs"],
+  experienceRewrites: [
+    {
+      experienceKey: "e1",
+      bulletIndex: 0,
+      text: "Built payment dashboards used by 2 million people with React",
+    },
+  ],
+  experienceBulletOrder: [],
+  projectBullets: [
+    {
+      projectKey: "p1",
+      bullets: ["Lists jobs from a PostgreSQL database", "Server-rendered pages with Next.js"],
+    },
+  ],
+  keywordsTargeted: ["React", "TypeScript"],
+};
+
 const GITHUB_REPOS = [
   {
     full_name: "aarav-dev/job-board",
@@ -240,6 +269,8 @@ test("onboards with a fictional resume and a mocked AI provider", async ({
     if (body.includes("resume into structured profile")) return DRAFT;
     if (body.includes("describe a software project")) return DESCRIPTION;
     if (body.includes("rate how well each job fits")) return scoreReply(body);
+    if (body.includes("You analyze a software job description")) return ANALYSIS;
+    if (body.includes("You tailor a resume to one job")) return TAILORING;
     return { ok: true };
   };
   const page = await context.newPage();
@@ -305,7 +336,32 @@ test("onboards with a fictional resume and a mocked AI provider", async ({
   await expect(page.getByRole("list", { name: "Reasons" })).toContainText(
     "Uses React and TypeScript",
   );
-  await page.getByRole("link", { name: "← Back to jobs" }).click();
+
+  // Tailored resume: honest changes are used, an invented number is rejected by the validator.
+  await page.getByRole("link", { name: "Make a resume for this job" }).click();
+  await expect(page.getByTestId("fit-info")).toHaveText(/1 page, 10\.5 pt/, { timeout: 30_000 });
+  await expect(page.getByLabel("Summary", { exact: true })).toHaveValue(
+    "Full-stack developer focused on React and TypeScript web apps.",
+  );
+  await expect(page.getByText("Reworded for this job").first()).toBeVisible();
+  await expect(page.getByTestId("validation-issues")).toContainText(
+    "adds numbers that are not in your profile (2)",
+  );
+  await expect(page.getByTitle("Resume preview")).toBeVisible();
+  await page
+    .getByLabel("Summary", { exact: true })
+    .fill("Full-stack developer who ships React apps.");
+  await page.getByRole("button", { name: "Update preview" }).click();
+  await page.getByRole("button", { name: "Save this resume" }).click();
+  await expect(page.getByRole("status")).toHaveText("Saved. You can find it on the Resumes page.");
+  await page.getByRole("link", { name: "Resumes", exact: true }).click();
+  await expect(page.getByTestId("tailored-list").getByRole("listitem")).toHaveCount(1);
+  await page.getByRole("button", { name: "Generate a clean base resume from my profile" }).click();
+  await expect(page.getByRole("status")).toHaveText("A clean resume was made from your profile.", {
+    timeout: 30_000,
+  });
+
+  await page.getByRole("link", { name: "Jobs", exact: true }).click();
   // Filters are kept while visiting a job.
   await expect(page.getByLabel("Show all scores")).toBeChecked();
 

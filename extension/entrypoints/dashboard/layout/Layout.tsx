@@ -4,6 +4,7 @@ import { NavLink, Outlet } from "react-router";
 const NAV = [
   { to: "/matches", label: "Jobs" },
   { to: "/profile", label: "Profile" },
+  { to: "/resumes", label: "Resumes" },
   { to: "/companies", label: "Companies" },
   { to: "/settings", label: "Settings" },
 ];
