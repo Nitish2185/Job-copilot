@@ -9,3 +9,7 @@ dist/
 coverage/
 crawler/
 data/
+
+# Data and golden cases are kept one entry per line for review
+shared/data/
+shared/testcases/

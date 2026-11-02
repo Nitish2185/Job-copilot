@@ -37,3 +37,12 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **Kill-switch and pause state are not settings.** They live in `chrome.storage.local` runtime flags so a pause on one device never syncs to another.
 - **Default Gemini model is `gemini-flash-latest` until verified in Phase 4.** The spec asks for a current free Flash-class model and says to verify names during development.
 - **Settings use Zod `.prefault({})` on each section.** `SettingsSchema.parse({})` yields all defaults, and partial stored settings are filled in on read.
+
+## Skills and text matching
+
+- **Skill dictionary adds an optional `implies` field.** Stacks and frameworks bring their base skills: `mern` -> mongodb, express, react, nodejs; `spring-boot` -> spring -> java; `nextjs` -> react; `aws-lambda` -> aws. Matching a "MERN stack developer" job against a profile listing React and Node otherwise fails.
+- **Context patterns are plain phrases, not regexes.** Go's RE2 has no lookarounds, so both taggers use substring search plus explicit boundary rules; the same code runs identically in TypeScript and Go.
+- **A longer alias hides only matches fully inside it.** "react native" hides "react", "sql server" hides "sql", but "REST API design" still tags both REST APIs and API design.
+- **Text is normalized to ASCII before matching** (lowercase, Unicode dashes to "-", other non-ASCII to spaces). String positions then mean the same in UTF-16 and UTF-8.
+- **Snippets are cut by whole characters while the UTF-16 length is at most 300.** Always passes the schema's `max(300)` and is computable identically in Go.
+- **Golden case files and data files are excluded from Prettier** so they stay one entry per line.

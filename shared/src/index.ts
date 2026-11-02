@@ -11,3 +11,6 @@ export * from "./schemas/preferences";
 export * from "./schemas/profile";
 export * from "./schemas/resume";
 export * from "./schemas/settings";
+export * from "./parsing/normalize";
+export * from "./skills/dictionary";
+export * from "./skills/tagger";
