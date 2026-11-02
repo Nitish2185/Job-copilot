@@ -22,9 +22,12 @@ const WORKABLE_SHORTCODE_PATTERN = /^[A-Za-z0-9]+$/;
 const RESERVED_TOKENS = new Set(["embed", "v1", "api", "jobs", "j", "oneclick-ui"]);
 const WORKABLE_RESERVED_SUBDOMAINS = new Set(["apply", "www", "jobs", "careers"]);
 
-/** Candidate ATS links inside HTML. Same pattern in Go (RE2) with the (?i) flag. */
+/**
+ * Candidate ATS links inside HTML. Same pattern in Go (RE2) with the (?i) flag.
+ * Whitespace is spelled out because \s means different things in JavaScript and RE2.
+ */
 const HTML_LINK_PATTERN =
-  /(?:https?:)?\/\/[a-z0-9.-]+\.(?:greenhouse\.io|lever\.co|ashbyhq\.com|smartrecruiters\.com|workable\.com)[^\s"'<>)\\]*/gi;
+  /(?:https?:)?\/\/[a-z0-9.-]+\.(?:greenhouse\.io|lever\.co|ashbyhq\.com|smartrecruiters\.com|workable\.com)[^\t\n\f\r "'<>)\\]*/gi;
 
 function parseUrl(raw: string): URL | null {
   const trimmed = raw.trim();
