@@ -74,3 +74,5 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 
 - **UI pages read the database with Dexie live queries; every write goes through a background message.** Spec 4 asks for Dexie live queries in the UI and spec 9.5 routes shared-data access through the background; reads stay reactive while writes get one validated, rate-limited path.
 - **Message replies use `sendResponse` + `return true`** instead of returning a promise from `onMessage`, which works the same in Chrome, Edge and Firefox.
+- **Closing a feed job only changes the status of `new` jobs.** Saved, applied, hidden and queued jobs keep their status and get `closedAt`, so nothing the user did disappears; a job that comes back reopens as `new`.
+- **Feed sync verifies every checksummed file before writing anything from it**, and a mismatch leaves the previous data in place with an error status.
