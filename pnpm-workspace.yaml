@@ -2,5 +2,3 @@ packages:
   - shared
   - extension
   - site
-minimumReleaseAgeExclude:
-  - globals@17.14.0
