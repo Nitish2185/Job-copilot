@@ -112,6 +112,18 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **No `tabs` permission.** The side panel learns the page address on allowlisted hosts or after the user presses Autofill there (activeTab); otherwise it shows top matches and the shortcut.
 - **"Mark as applied" records one application per job**, also refusing a duplicate listing with the same company, title and place (`dedupeKey`).
 
+## Auto pipeline (Phase 8)
+
+- **Invisible CAPTCHA scripts are not challenges.** Lever loads hCaptcha and Greenhouse reCAPTCHA on every form (seen on public pages, 2026-11-02). Only a visible challenge or checkbox widget stops the engine; if a challenge appears after submitting, the item goes to Needs-you and auto-apply pauses.
+- **Every auto application needs approval by default** (`approvalMode: "always"`); the user can switch to "only below the score" in the enable dialog or settings.
+- **AI-written answers always go to Review** before an automatic submit, even above the threshold, unless the item was approved.
+- **A dry run counts as a stop:** the application shows in Needs-you as "Dry run: this is what would have been submitted", with every answer, and nothing is sent.
+- **Tailored resumes are made in the dashboard**, not the background (the PDF engine needs a page). An automatic application that should use a tailored resume waits in Review until one exists and is approved.
+- **Adapter selectors live in one `SELECTORS` map** in `lib/apply/adapters/auto.ts` (one entry per site) instead of a folder per adapter: the Auto adapters share all logic, and one file is easier to fix.
+- **The page answers "submit" before clicking**, because submitting may unload it; the background then polls the (possibly new) page for 30 seconds for confirmation, errors or a CAPTCHA.
+- **The toolbar button opens a popup** (counts, kill switch, links) instead of the dashboard.
+- **E2E builds treat `127.0.0.1/<adapter>/...` as that Auto site** (build flag), and CI checks that release builds contain no trace of that host.
+
 ## AI providers (verified against official docs on 2026-11-02)
 
 - **Base URLs:** Gemini `https://generativelanguage.googleapis.com/v1beta/openai/` (supports `/models` and structured JSON output), Groq `https://api.groq.com/openai/v1`, OpenRouter `https://openrouter.ai/api/v1`, Ollama `http://localhost:11434/v1` (ignores the API key but the client must send one).

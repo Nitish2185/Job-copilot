@@ -28,7 +28,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 1.1 Accepts manually pasted job descriptions
 - [x] 1.1 Ranks jobs: local keyword prefilter, then AI score with reasons, must-have checklist, missing skills
 - [ ] 1.1 Prepares applications from profile + answer bank; optional tailored resume (2 most relevant real projects) and cover letter
-- [ ] 1.1 Auto mode on Greenhouse, Lever, Ashby, Workable, SmartRecruiters (background tab, after approval or above threshold)
+- [x] 1.1 Auto mode on Greenhouse, Lever, Ashby, Workable, SmartRecruiters (background tab, after approval or above threshold)
 - [x] 1.1 Assist mode everywhere else (fills, the user submits)
 - [ ] 1.1 Tracks every application with exact resume and answers sent, follow-ups, stages, analytics (incl. tailored vs current response rate)
 - [ ] 1.2 No backend server, no hosted database, no paid services
@@ -57,29 +57,29 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 - [x] 2.2 `AUTO_SUBMIT_HOSTS` is one constant in `shared`
 - [x] 2.2 Single submit function asserts exact hostname match right before clicking and throws otherwise (unit-tested)
-- [ ] 2.2 Test builds may add a local fixture host via a build-time flag; a test asserts production builds exclude it
-- [ ] 2.2 Allowlist hosts verified during development (changes logged in DECISIONS)
+- [x] 2.2 Test builds may add a local fixture host via a build-time flag; a test asserts production builds exclude it
+- [x] 2.2 Allowlist hosts verified during development (changes logged in DECISIONS)
 
 ### 2.3 Never
 
 - [x] 2.3 Never ask for, store, or type job-site passwords; never log in for the user
 - [x] 2.3 Detect logged-out state and show a "please log in" banner; never fill login or sign-up forms
 - [x] 2.3 Never request the `cookies` permission or read cookies
-- [ ] 2.3 Never bypass CAPTCHAs/bot checks; on detection stop, mark "Needs you", notify
+- [x] 2.3 Never bypass CAPTCHAs/bot checks; on detection stop, mark "Needs you", notify
 - [x] 2.3 No human-imitation automation (fake mouse moves, typing delays, fingerprint changes, proxies)
 - [x] 2.3 Never fill email/SMS verification codes; stop and mark "Needs you"
 - [ ] 2.3 Never invent facts on resumes, cover letters, or answers
 - [x] 2.3 AI never decides sensitive answers (work auth, sponsorship, salary/CTC, notice, background check, relocation, attestations, DOB); missing -> stop, ask, save to answer bank
 - [x] 2.3 Never accept terms/consent for the user, except privacy-notice acknowledgement on Auto forms when the opt-in (default OFF) is on
 - [x] 2.3 Never fill hidden or disabled fields
-- [ ] 2.3 Never apply twice to the same job; respect per-company and daily caps
-- [ ] 2.3 Auto-apply OFF by default; enabling requires an explanation dialog and a score threshold
+- [x] 2.3 Never apply twice to the same job; respect per-company and daily caps
+- [x] 2.3 Auto-apply OFF by default; enabling requires an explanation dialog and a score threshold
 
 ### 2.4 Politeness limits
 
-- [ ] 2.4 Pause between automatic submissions: default 90 s, minimum 30 s, configurable
-- [ ] 2.4 Daily automatic-submission cap: default 20, max 50
-- [ ] 2.4 Per-company cap: default 2 per 30 days, configurable
+- [x] 2.4 Pause between automatic submissions: default 90 s, minimum 30 s, configurable
+- [x] 2.4 Daily automatic-submission cap: default 20, max 50
+- [x] 2.4 Per-company cap: default 2 per 30 days, configurable
 - [x] 2.4 Crawler: clear User-Agent with repo URL, per-host concurrency limit, retries with backoff, honors 429 and `Retry-After`
 
 ### 2.5 Untrusted content
@@ -236,8 +236,8 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 9.1 Background service worker (alarms, sync, AI scheduler, matcher, queue, notifications, menus, commands, routing)
 - [x] 9.1 Dashboard full tab with `#/onboarding` opened on first install
 - [x] 9.1 Side panel on Chrome/Edge; Firefox sidebar via per-browser config
-- [ ] 9.1 Popup
-- [ ] 9.1 Auto adapter content scripts (greenhouse, lever, ashby, workable, smartrecruiters)
+- [x] 9.1 Popup
+- [x] 9.1 Auto adapter content scripts (greenhouse, lever, ashby, workable, smartrecruiters)
 - [ ] 9.1 Assist content scripts (naukri, indeed; linkedin and workday under optional permission)
 - [ ] 9.1 Badge content scripts (naukri, indeed; linkedin optional)
 - [ ] 9.1 Generic assist and "save this job" injected on demand via `scripting` + `activeTab`
@@ -257,7 +257,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ### 9.4 Service worker lifecycle
 
-- [ ] 9.4 No important state only in memory; queue and progress persisted in IndexedDB
+- [x] 9.4 No important state only in memory; queue and progress persisted in IndexedDB
 - [ ] 9.4 Alarms: feed-sync (6 h + startup), boards-sync (6 h), queue-tick (1 min while work), daily-digest, followups, github-refresh (weekly), cleanup (daily)
 - [ ] 9.4 Long tasks resumable via stored cursors
 
@@ -377,7 +377,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 14.2 `pickProjects` honors N (2-3), highlight projects count toward N, IDs validated
 - [x] 14.2 Deterministic project-pick fallback (techStack overlap, then recency)
 - [x] 14.2 Preview with "What changed", edit text, swap project, regenerate
-- [ ] 14.2 `ResumeVersion` stored and linked to the application
+- [x] 14.2 `ResumeVersion` stored and linked to the application
 - [x] 14.3 `TailorOutput` structured schema; companies, titles, dates, education, certs, contacts copied from profile
 - [x] 14.4 Validator: no new skills (tagger), no new numbers, no new employers/products/certs (best effort)
 - [x] 14.4 Validator limits: summary 60 words, bullets 30 words, no more bullets than original
@@ -389,8 +389,8 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 14.5 File name `<First>_<Last>_Resume_<Company>.pdf` (sanitized)
 - [x] 14.5 Test renders a PDF and extracts text with pdf.js
 - [x] 14.5 "Generate a clean base resume from my profile" option
-- [ ] 14.6 Validation issues send the application to Review regardless of score
-- [ ] 14.6 First `requireApprovalForFirstTailored` (default 5) tailored resumes need approval
+- [x] 14.6 Validation issues send the application to Review regardless of score
+- [x] 14.6 First `requireApprovalForFirstTailored` (default 5) tailored resumes need approval
 - [ ] 14.7 Naukri disables tailored option with explanation; per-site options per table
 
 ## 15. Cover letters and interview prep
@@ -406,7 +406,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 - [x] 16.1 `resolveMode(url)` returns auto only for exact allowlisted hosts; known Assist hosts; generic otherwise
 - [x] 16.1 `resolveMode` tested with tricky URLs (`jobs.lever.co.evil.com`, query-string tricks, subdomains, uppercase)
-- [ ] 16.2 `SiteAdapter` interface as specified; only Auto adapters implement `findSubmitControl`
+- [x] 16.2 `SiteAdapter` interface as specified; only Auto adapters implement `findSubmitControl`
 - [ ] 16.2 Selectors in one file per adapter; labels/text/ARIA preferred; CONTRIBUTING explains fixing adapters
 - [x] 16.3 Collect visible, enabled controls incl. custom comboboxes, date pickers, file inputs
 - [x] 16.3 Label resolution order (label for, aria-labelledby, aria-label, wrapping label, legend/preceding text, placeholder, name) + normalization
@@ -422,18 +422,18 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 16.4 Attach resume first, wait for idle (1.5 s quiet, 10 s max), then fill and correct pre-filled values
 - [x] 16.4 Re-scan up to 3 passes for conditional questions
 - [x] 16.4 Highlight overlay (green/blue/yellow) with field-source panel and "Undo autofill"
-- [ ] 16.5 Persisted queue state machine (pending -> preparing -> running -> done/needs_you/failed, waiting_pause); max 2 transient retries
-- [ ] 16.5 Eligibility checks (enabled + explanation, allowlisted host, no previous application/dedupe, caps, active hours, threshold/approval, profile basics)
-- [ ] 16.5 Prepare step (description, analyzeJd, resume choice, tailoring, cover letter)
-- [ ] 16.5 Open in background tab without focus; go to known apply URL directly
-- [ ] 16.5 Pre-submit checks (CAPTCHA, verification, required fields, confidence, sensitive sources, consent, dry run, host guard)
-- [ ] 16.5 Submit only through the guarded submit function
-- [ ] 16.5 Confirmation detection (30 s), one re-fill on validation errors, `unconfirmed` otherwise
-- [ ] 16.5 Record answersSent with sources, resume, cover letter, confirmation, events; close tab; batched notification
-- [ ] 16.5 Pause between items via alarm
-- [ ] 16.5 Kill switch in popup and dashboard
-- [ ] 16.5 Auto-pause after 3 consecutive failures or any CAPTCHA, with notification
-- [ ] 16.5 Needs-you items keep prepared data; "Open & finish" reopens and refills
+- [x] 16.5 Persisted queue state machine (pending -> preparing -> running -> done/needs_you/failed, waiting_pause); max 2 transient retries
+- [x] 16.5 Eligibility checks (enabled + explanation, allowlisted host, no previous application/dedupe, caps, active hours, threshold/approval, profile basics)
+- [x] 16.5 Prepare step (description, analyzeJd, resume choice, tailoring, cover letter)
+- [x] 16.5 Open in background tab without focus; go to known apply URL directly
+- [x] 16.5 Pre-submit checks (CAPTCHA, verification, required fields, confidence, sensitive sources, consent, dry run, host guard)
+- [x] 16.5 Submit only through the guarded submit function
+- [x] 16.5 Confirmation detection (30 s), one re-fill on validation errors, `unconfirmed` otherwise
+- [x] 16.5 Record answersSent with sources, resume, cover letter, confirmation, events; close tab; batched notification
+- [x] 16.5 Pause between items via alarm
+- [x] 16.5 Kill switch in popup and dashboard
+- [x] 16.5 Auto-pause after 3 consecutive failures or any CAPTCHA, with notification
+- [x] 16.5 Needs-you items keep prepared data; "Open & finish" reopens and refills
 - [ ] 16.6 Assist side panel: score, reasons, missing skills, resume options, cover letter copy, Autofill + shortcut, saved answers, "Mark as applied"
 - [ ] 16.6 Autofill each new step only on the viewed tab, never clicking forbidden controls
 - [ ] 16.6 Confirmation creates an Assist `Application`; otherwise asks "Did you submit this application?"
@@ -450,9 +450,9 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 17.3 LinkedIn: off by default, optional permission after explanation, badges, job view, Easy Apply steps, external Auto links
 - [ ] 17.4 Workday: optional permission; My Information, My Experience (Add blocks allowed), Application Questions, Voluntary Disclosures, Self Identify (decline by default)
 - [x] 17.5 Generic adapter injected on demand; fills only
-- [ ] 17.6 Auto adapters (Greenhouse both UIs, Lever, Ashby, Workable, SmartRecruiters) with fixtures from real form structure
-- [ ] 17.6 Each Auto adapter detects confirmation and errors
-- [ ] 17.6 Embedded Greenhouse forms use the hosted URL
+- [x] 17.6 Auto adapters (Greenhouse both UIs, Lever, Ashby, Workable, SmartRecruiters) with fixtures from real form structure
+- [x] 17.6 Each Auto adapter detects confirmation and errors
+- [x] 17.6 Embedded Greenhouse forms use the hosted URL
 
 ## 18. User interface
 
@@ -460,8 +460,8 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 18 Loading, empty, error states on every list; error boundaries on every route
 - [x] 18.1 `#/matches` with filters, sort, bulk actions, "AI-score the next 20" with quota, virtualized rows
 - [ ] 18.1 `#/jobs/:id` with sanitized description, match breakdown, reasons, red flags, gaps, same-company info, actions (all but the apply, tailoring, cover letter and interview actions, which come with Phases 6-8)
-- [ ] 18.1 `#/review` approval queue with resume preview, answers (AI highlighted), cover letter, approve/edit/reject, bulk approve
-- [ ] 18.1 `#/needs-you` with "Open & finish" and "Answer & retry"
+- [x] 18.1 `#/review` approval queue with resume preview, answers (AI highlighted), cover letter, approve/edit/reject, bulk approve
+- [x] 18.1 `#/needs-you` with "Open & finish" and "Answer & retry"
 - [ ] 18.1 `#/tracker` Kanban + list, drawer (timeline, resume, answers, cover letter, notes, follow-up, prep), CSV export
 - [x] 18.1 `#/resumes` base, generated base, tailored by job; preview, download, delete, template picker
 - [ ] 18.1 `#/answers` search, edit, delete, mark sensitive, approve pending
@@ -471,7 +471,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 18.1 `#/settings` all sections listed in 18.1
 - [x] 18.1 `#/onboarding`
 - [x] 18.2 Context-aware side panel
-- [ ] 18.3 Popup counts, pause/resume, open dashboard, open side panel
+- [x] 18.3 Popup counts, pause/resume, open dashboard, open side panel
 - [ ] 18.4 Notifications: digest, batched needs-you, follow-ups, auto-apply paused; click opens the right route
 
 ## 19. Tracker and analytics

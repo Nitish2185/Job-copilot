@@ -2,9 +2,25 @@
 
 ## Current phase
 
-**Phase 8 - Auto pipeline** (starting)
+**Phase 9 - Assist adapters** (starting)
 
 ## Done
+
+### Phase 8 - Auto pipeline (accepted 2026-11-02)
+
+- Auto adapters for Greenhouse (both UIs), Lever, Ashby, Workable and SmartRecruiters (form,
+  visible submit control, confirmation, errors, direct apply URL), checked against public forms.
+  Only a CAPTCHA challenge the user can see stops the engine.
+- Rules: eligibility (on and explained, not paused, Auto site, profile and resume, never twice
+  incl. duplicate listings), daily and per-company caps, active hours, approval (every item by
+  default, or below the score), resume choice, tailored-resume approvals, pre-submit checks.
+- The queue: a persisted state machine driven by an alarm, background tabs, fill, checks, dry
+  run, guarded submit, 30 s confirmation with one re-fill, unconfirmed, pauses between items,
+  retries, auto-pause after 3 failures or any CAPTCHA, notifications.
+- Screens: auto-apply settings with the one-time explanation, kill switch, limits and dry run;
+  Review queue; Needs-you page with "Answer & retry" and "Open & finish"; queue buttons; popup.
+- Tests: rules and queueing unit tests; E2E dry run and a test-only full submit on a local
+  fixture; a CI check that release builds never include the test host.
 
 ### Phase 7 - Apply engine core (accepted 2026-11-02)
 
@@ -154,12 +170,12 @@
 
 ## Next
 
-Phase 8: the persisted queue state machine, Greenhouse/Lever/Ashby/Workable/SmartRecruiters
-adapters with fixtures, background-tab orchestration, pre-submit checks, confirmation and error
-detection, Review queue and Needs-you pages, caps, pauses, kill switch, auto-pause, dry run and
-the enable-auto-apply explanation flow. Still open from Phase 7: "Autofill each new step
-automatically" (needs the per-site Assist content scripts of Phase 9), saved-answer suggestions
-in the side panel, and the "Did you submit?" prompt after Assist confirmation.
+Phase 9: Naukri, Indeed, LinkedIn (optional permission) and Workday (optional permission)
+adapters: login detection, save-from-page (JSON-LD, DOM, AI fallback), search-page badges,
+"apply on company site" detection, confirmation detection, "Report a broken page", and
+docs/QA.md with a manual checklist. Also "Autofill each new step automatically", saved-answer
+suggestions in the side panel and the "Did you submit?" prompt. Fixtures need pages saved by
+the owner in `captures/` (see "Waiting on the owner").
 
 ## Waiting on the owner
 
