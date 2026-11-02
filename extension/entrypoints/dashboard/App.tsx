@@ -2,7 +2,7 @@ import { createHashRouter, Navigate, RouterProvider } from "react-router";
 import { Layout } from "./layout/Layout";
 import { CompaniesPage } from "./pages/CompaniesPage";
 import { MatchesPage } from "./pages/MatchesPage";
-import { OnboardingPage } from "./pages/OnboardingPage";
+import { OnboardingPage } from "./onboarding/OnboardingPage";
 import { RouteError } from "./pages/RouteError";
 import { SettingsPage } from "./pages/SettingsPage";
 

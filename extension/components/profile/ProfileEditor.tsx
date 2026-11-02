@@ -82,6 +82,8 @@ export interface ProfileEditorProps {
   /** JSON paths the AI was unsure about. */
   uncertainFields?: readonly string[];
   submitLabel?: string;
+  /** Runs on the checked profile just before it is saved (e.g. to attach the resume file). */
+  beforeSave?: (profile: Profile) => Promise<Profile>;
   onSaved: (profile: Profile) => void;
 }
 
@@ -91,6 +93,7 @@ export function ProfileEditor({
   uncertainFields = [],
   sections,
   submitLabel = "Save profile",
+  beforeSave,
   onSaved,
 }: ProfileEditorProps) {
   const show = (section: EditorSection) => !sections || sections.includes(section);
@@ -113,7 +116,8 @@ export function ProfileEditor({
       return;
     }
     setIssues([]);
-    onSaved(await saveProfile(getDb(), result.profile));
+    const ready = beforeSave ? await beforeSave(result.profile) : result.profile;
+    onSaved(await saveProfile(getDb(), ready));
   });
 
   const field = { register, uncertain };
