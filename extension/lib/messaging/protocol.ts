@@ -5,6 +5,31 @@
  */
 import { CompanySchema, JobStatusSchema } from "@job-copilot/shared";
 import { z } from "zod";
+import { ProjectDescriptionSchema } from "../ai/tasks/describeProject";
+import { ProfileDraftSchema } from "../ai/tasks/extractProfile";
+
+const ProviderIdSchema = z.enum(["gemini", "groq", "openrouter", "ollama", "custom"]);
+const ProviderTargetSchema = z.object({
+  provider: ProviderIdSchema,
+  baseUrl: z.url({ protocol: /^https?$/ }),
+  model: z.string().min(1).max(200),
+});
+
+export const AiStatusSchema = z.object({
+  configured: z.boolean(),
+  provider: ProviderIdSchema,
+  model: z.string(),
+  usage: z.object({
+    requests: z.number().int(),
+    budget: z.number().int(),
+    cacheHits: z.number().int(),
+    errors: z.number().int(),
+    warning: z.boolean(),
+    exhausted: z.boolean(),
+    resumesAt: z.string().optional(),
+  }),
+});
+export type AiStatus = z.infer<typeof AiStatusSchema>;
 
 /** Who may send a message type. */
 export type SenderRule =
@@ -71,6 +96,37 @@ export const MESSAGES = {
       status: JobStatusSchema,
     }),
     response: z.object({ updated: z.number().int().nonnegative() }),
+    sender: extensionOnly,
+  },
+  "ai/status": {
+    request: z.object({}),
+    response: AiStatusSchema,
+    sender: extensionOnly,
+  },
+  "ai/test": {
+    request: ProviderTargetSchema,
+    response: z.object({ ok: z.boolean(), error: z.string().optional() }),
+    sender: extensionOnly,
+  },
+  "ai/listModels": {
+    request: ProviderTargetSchema.omit({ model: true }),
+    response: z.object({ models: z.array(z.string()) }),
+    sender: extensionOnly,
+  },
+  "ai/extractProfile": {
+    request: z.object({ resumeText: z.string().min(1).max(200_000) }),
+    response: z.object({ draft: ProfileDraftSchema, model: z.string() }),
+    sender: extensionOnly,
+  },
+  "ai/describeProject": {
+    request: z.object({
+      name: z.string().min(1),
+      description: z.string().optional(),
+      languages: z.record(z.string(), z.number()),
+      topics: z.array(z.string()),
+      readmeExcerpt: z.string().max(5000),
+    }),
+    response: ProjectDescriptionSchema,
     sender: extensionOnly,
   },
 } satisfies Record<string, MessageDefinition<z.ZodType, z.ZodType>>;

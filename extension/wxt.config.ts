@@ -14,6 +14,21 @@ const ATS_API_HOSTS = [
   "https://apply.workable.com/*",
 ];
 
+/** Default AI provider (the user's own Gemini key) and GitHub project import (spec 9.2). */
+const CORE_API_HOSTS = ["https://generativelanguage.googleapis.com/*", "https://api.github.com/*"];
+
+/**
+ * Requested at runtime only when the user picks the feature, one origin at a time:
+ * other AI providers, a local Ollama, or a custom OpenAI-compatible endpoint.
+ */
+const OPTIONAL_HOSTS = [
+  "https://api.groq.com/*",
+  "https://openrouter.ai/*",
+  "http://localhost/*",
+  "http://127.0.0.1/*",
+  "https://*/*",
+];
+
 /** The shared feed on GitHub Pages. */
 const FEED_HOST = `${new URL(PAGES_BASE_URL).origin}/*`;
 
@@ -33,10 +48,14 @@ export default defineConfig({
       "Free, private job-hunting assistant for developers: finds and ranks jobs, prepares applications, and fills forms.",
     action: { default_title: APP_NAME },
     permissions: ["storage", "unlimitedStorage", "alarms"],
-    host_permissions: [...ATS_API_HOSTS, FEED_HOST, ...E2E_HOSTS],
-    ...(browser === "firefox" && {
-      browser_specific_settings: { gecko: { id: GECKO_ID } },
-    }),
+    host_permissions: [...ATS_API_HOSTS, ...CORE_API_HOSTS, FEED_HOST, ...E2E_HOSTS],
+    // MV2 (Firefox) lists optional hosts under optional_permissions; WXT does not convert them.
+    ...(browser === "firefox"
+      ? {
+          optional_permissions: OPTIONAL_HOSTS,
+          browser_specific_settings: { gecko: { id: GECKO_ID } },
+        }
+      : { optional_host_permissions: OPTIONAL_HOSTS }),
   }),
   vite: () => ({
     plugins: [tailwindcss()],
