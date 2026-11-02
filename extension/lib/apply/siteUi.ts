@@ -131,3 +131,51 @@ export function renderBadge(
   anchor.after(host);
   return host;
 }
+
+export const ACTION_TAG = "job-copilot-action";
+
+/**
+ * A floating Job Copilot button (bottom right). `onClick` returns the text to
+ * show afterwards. Shown once per page.
+ */
+export function showActionButton(
+  doc: Document,
+  label: string,
+  onClick: () => Promise<string>,
+): HTMLElement {
+  const existing = doc.querySelector<HTMLElement>(ACTION_TAG);
+  if (existing) return existing;
+  const host = doc.createElement(ACTION_TAG);
+  const root = host.attachShadow({ mode: "open" });
+  root.innerHTML = `
+    <style>
+      .wrap{position:fixed;right:16px;bottom:16px;z-index:2147483646;display:flex;flex-direction:column;
+        align-items:flex-end;gap:6px;${FONT}}
+      button{border:0;border-radius:999px;padding:8px 14px;background:#1d4ed8;color:#fff;font:inherit;
+        font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgb(0 0 0/.2)}
+      button:disabled{opacity:.7;cursor:default}
+      button:focus-visible{outline:2px solid #1e3a8a;outline-offset:2px}
+      .note{background:#fff;color:#0f172a;border-radius:6px;padding:4px 8px;max-width:280px;
+        box-shadow:0 2px 8px rgb(0 0 0/.15)}
+      .note:empty{display:none}
+    </style>
+    <div class="wrap">
+      <span class="note" role="status"></span>
+      <button type="button"></button>
+    </div>`;
+  const button = root.querySelector("button");
+  const note = root.querySelector(".note");
+  if (button) button.textContent = label;
+  button?.addEventListener("click", () => {
+    button.disabled = true;
+    if (note) note.textContent = "Working…";
+    void onClick()
+      .catch((e: unknown) => (e instanceof Error ? e.message : "Something went wrong."))
+      .then((text) => {
+        if (note) note.textContent = text;
+        button.disabled = false;
+      });
+  });
+  doc.documentElement.append(host);
+  return host;
+}

@@ -86,6 +86,15 @@ const OptionalSiteStateSchema = z.object({
   enabled: z.boolean(),
 });
 
+/** A search-result card's score for its badge. */
+const CardScoreSchema = z.object({
+  final: z.number().optional(),
+  isEstimate: z.boolean().optional(),
+  jobId: z.string().optional(),
+  excluded: z.string().optional(),
+  matched: z.array(z.string()).max(5).optional(),
+});
+
 const CardSchema = z.object({
   title: z.string().max(300),
   company: z.string().max(300),
@@ -369,17 +378,12 @@ export const MESSAGES = {
   },
   "match/quickScores": {
     request: z.object({ cards: z.array(CardSchema).max(100) }),
-    response: z.object({
-      scores: z.array(
-        z.object({
-          final: z.number().optional(),
-          isEstimate: z.boolean().optional(),
-          jobId: z.string().optional(),
-          excluded: z.string().optional(),
-          matched: z.array(z.string()).max(5).optional(),
-        }),
-      ),
-    }),
+    response: z.object({ scores: z.array(CardScoreSchema) }),
+    sender: anyPage,
+  },
+  "match/aiScoreCards": {
+    request: z.object({ cards: z.array(CardSchema).min(1).max(10) }),
+    response: z.object({ scores: z.array(CardScoreSchema), error: z.string().optional() }),
     sender: anyPage,
   },
   "assist/pageConfig": {

@@ -13,9 +13,10 @@ import { sendMessage } from "../messaging/client";
 import type { AssistAdapterId } from "./mode";
 import type { PageJob } from "./adapters/jobFromPage";
 import type { SiteAdapter } from "./adapters/types";
-import { searchCards, type SiteSelectors } from "./adapters/assist";
+import { searchCards, type SearchCard, type SiteSelectors } from "./adapters/assist";
+import { isShown } from "./dom";
 import { ASSIST_LOADED, AUTOFILL_COMMAND, manualAutofill } from "./pageAutofill";
-import { BADGE_TAG, renderBadge, showBanner } from "./siteUi";
+import { renderBadge, showActionButton, showBanner, type BadgeScore } from "./siteUi";
 import {
   DIAGNOSTICS_COMMAND,
   SAVE_JOB_COMMAND,
@@ -40,6 +41,9 @@ const SITE_NAMES: Record<string, string> = {
 export function loggedOutText(adapterId: string): string {
   return `You're logged out of ${SITE_NAMES[adapterId] ?? "this site"}. Please log in, then press Autofill again.`;
 }
+
+/** Spec 13.7: at most 10 cards per click. */
+export const AI_CARDS_PER_CLICK = 10;
 
 const errorText = (e: unknown) => (e instanceof Error ? e.message : String(e));
 
@@ -82,9 +86,11 @@ export function startAssistSite(
     reported: new Set<string>(),
     /** Confirmations already on the page at load (e.g. "Already applied") are not new. */
     confirmedAtLoad: adapter.detectConfirmation(document).confirmed,
-    scored: new WeakSet<HTMLElement>(),
     config: { autofillEachStep: false, badges: false },
   };
+
+  const badges = new Map<HTMLElement, { card: SearchCard; host: HTMLElement; score: BadgeScore }>();
+  const requested = new WeakSet<HTMLElement>();
 
   const autofill = async (resumeChoice: "current" | "tailored") => {
     if (adapter.isLoggedIn?.(document) === false) {
@@ -137,38 +143,63 @@ export function startAssistSite(
     void autofill("current").catch(() => undefined);
   };
 
+  const toCard = ({ title, company, location: where, url }: SearchCard) => ({
+    title: title.slice(0, 300),
+    company: company.slice(0, 300),
+    location: where.slice(0, 300),
+    url,
+  });
+
+  const badge = (card: SearchCard, score: BadgeScore) => {
+    badges.get(card.element)?.host.remove();
+    const host = renderBadge(card.anchor, score, async () => {
+      const saved = await sendMessage("jobs/saveFromPage", {
+        page: {
+          title: card.title,
+          company: card.company || "Unknown",
+          locations: card.location ? [card.location] : [],
+          descriptionHtml: "",
+          url: card.url,
+        },
+      });
+      return Boolean(saved.jobId);
+    });
+    badges.set(card.element, { card, host, score });
+  };
+
+  /** "AI-score the jobs on this page": the next 10 visible cards with only an estimate. */
+  const aiScoreCards = async (): Promise<string> => {
+    const pending = [...badges.values()]
+      .filter((b) => b.score.isEstimate !== false && isShown(b.card.element))
+      .slice(0, AI_CARDS_PER_CLICK);
+    if (pending.length === 0) return "Every job on this page has an AI score.";
+    const { scores, error } = await sendMessage("match/aiScoreCards", {
+      cards: pending.map((b) => toCard(b.card)),
+    });
+    let scored = 0;
+    pending.forEach((b, i) => {
+      const score = scores[i];
+      if (!score) return;
+      if (score.isEstimate === false) scored++;
+      badge(b.card, score);
+    });
+    if (error && scored === 0) return error;
+    return `AI-scored ${String(scored)} job${scored === 1 ? "" : "s"}.${error ? ` ${error}` : ""}`;
+  };
+
   const addBadges = async () => {
     if (!state.config.badges) return;
-    const cards = searchCards(document, adapter.selectors).filter(
-      (c) => !state.scored.has(c.element),
-    );
-    if (cards.length === 0) return;
-    for (const card of cards) state.scored.add(card.element);
-    const batch = cards.slice(0, 100);
-    const { scores } = await sendMessage("match/quickScores", {
-      cards: batch.map(({ title, company, location: where, url }) => ({
-        title: title.slice(0, 300),
-        company: company.slice(0, 300),
-        location: where.slice(0, 300),
-        url,
-      })),
-    });
+    const batch = searchCards(document, adapter.selectors)
+      .filter((c) => !badges.has(c.element) && !requested.has(c.element))
+      .slice(0, 100);
+    if (batch.length === 0) return;
+    for (const card of batch) requested.add(card.element);
+    const { scores } = await sendMessage("match/quickScores", { cards: batch.map(toCard) });
     batch.forEach((card, i) => {
       const score = scores[i];
-      if (!score || card.element.querySelector(BADGE_TAG)) return;
-      renderBadge(card.anchor, score, async () => {
-        const saved = await sendMessage("jobs/saveFromPage", {
-          page: {
-            title: card.title,
-            company: card.company || "Unknown",
-            locations: card.location ? [card.location] : [],
-            descriptionHtml: "",
-            url: card.url,
-          },
-        });
-        return Boolean(saved.jobId);
-      });
+      if (score) badge(card, score);
     });
+    showActionButton(document, "AI-score jobs on this page", aiScoreCards);
   };
 
   let timer: ReturnType<typeof setTimeout> | undefined;

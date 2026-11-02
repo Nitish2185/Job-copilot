@@ -80,6 +80,12 @@ test("Naukri: badges, logged-out banner, save from page and confirmation", async
   await expect(badges.first()).toContainText("Match");
   await expect(badges.first()).toContainText("React");
 
+  // "AI-score the jobs on this page" needs an AI key; without one it says so and adds nothing.
+  const action = search.locator("job-copilot-action");
+  await action.getByRole("button", { name: "AI-score jobs on this page" }).click();
+  await expect(action.getByRole("status")).toHaveText("Add an AI key to enable this");
+  expect(await readAll(dashboard, "jobs")).toHaveLength(0);
+
   // The badge's Save button saves the card without opening the job.
   await badges.first().getByRole("button", { name: "Save" }).click();
   await expect(badges.first().getByRole("button", { name: "Saved" })).toBeVisible();

@@ -202,6 +202,51 @@ export const pageHandlers: Handlers = {
     return { scores };
   },
 
+  // "AI-score the jobs on this page" (spec 13.7): the cards become new jobs, then the
+  // normal scheduler scores them within the daily budget.
+  "match/aiScoreCards": async ({ cards }) => {
+    if (!(await isAiConfigured())) return { scores: [], error: "Add an AI key to enable this" };
+    const db = getDb();
+    const now = new Date();
+    const ids: string[] = [];
+    for (const card of cards) {
+      const job = await jobFromPage(
+        {
+          title: card.title,
+          company: card.company || "Unknown",
+          locations: card.location ? [card.location] : [],
+          descriptionHtml: "",
+          url: card.url,
+        },
+        platformForUrl(card.url),
+        now,
+      );
+      const existing =
+        (await db.jobs.get(job.id)) ??
+        (await db.jobs.where("dedupeKey").equals(job.dedupeKey).first());
+      if (!existing) await db.jobs.put({ ...job, status: "new" });
+      ids.push(existing?.id ?? job.id);
+    }
+    await runPrefilter(false);
+    const result = await runAiScoring(ids.length, "best", "user", ids);
+    const stored = await db.scores.bulkGet(ids);
+    return {
+      scores: ids.map((jobId, i) => {
+        const score = stored[i];
+        return score
+          ? {
+              jobId,
+              final: score.final,
+              isEstimate: score.isEstimate,
+              matched: topSkills(score.prefilter.matchedSkills),
+              ...(score.prefilter.excluded && { excluded: score.prefilter.excluded }),
+            }
+          : { jobId };
+      }),
+      ...(result.error && { error: result.error }),
+    };
+  },
+
   "assist/pageConfig": async ({ site }) => {
     const { assist } = await loadSettings();
     const badges =

@@ -14,7 +14,14 @@ import {
   saveJobFromPage,
   suggestChip,
 } from "@/lib/apply/sitePage";
-import { BADGE_TAG, badgeColor, badgeLabel, renderBadge, showBanner } from "@/lib/apply/siteUi";
+import {
+  BADGE_TAG,
+  badgeColor,
+  badgeLabel,
+  renderBadge,
+  showActionButton,
+  showBanner,
+} from "@/lib/apply/siteUi";
 import { loggedOutText } from "@/lib/apply/assistSite";
 import { diagnosticsText, issueUrlFor } from "@/lib/background/pageHandlers";
 import { emptyProfile } from "@/lib/profile/profile";
@@ -222,5 +229,19 @@ describe("Report a broken page", () => {
     const url = new URL(issueUrlFor(d, text));
     expect(url.pathname).toBe("/Nitish2185/Job-copilot/issues/new");
     expect(url.searchParams.get("body")).toBe(text);
+  });
+});
+
+describe("floating action button", () => {
+  it("shows the result of its action and appears once", async () => {
+    const onClick = vi.fn(() => Promise.resolve("AI-scored 3 jobs."));
+    const host = showActionButton(document, "AI-score jobs on this page", onClick);
+    expect(showActionButton(document, "again", onClick)).toBe(host);
+    host.shadowRoot?.querySelector("button")?.click();
+    await vi.waitFor(() => {
+      expect(host.shadowRoot?.querySelector(".note")?.textContent).toBe("AI-scored 3 jobs.");
+    });
+    expect(onClick).toHaveBeenCalledOnce();
+    host.remove();
   });
 });
