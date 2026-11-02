@@ -3,7 +3,14 @@
  * its request and response and a rule saying who may send it. The background
  * validates both before a handler runs.
  */
-import { CompanySchema, JdAnalysisSchema, JobStatusSchema } from "@job-copilot/shared";
+import {
+  AnswerBankEntrySchema,
+  CompanySchema,
+  JdAnalysisSchema,
+  JobStatusSchema,
+  PreferencesSchema,
+  ProfileSchema,
+} from "@job-copilot/shared";
 import { z } from "zod";
 import { ProjectDescriptionSchema } from "../ai/tasks/describeProject";
 import { ProfileDraftSchema } from "../ai/tasks/extractProfile";
@@ -48,6 +55,49 @@ export interface MessageDefinition<Req extends z.ZodType, Res extends z.ZodType>
 
 const extensionOnly = { kind: "extension" } as const;
 const anyPage = { kind: "any_page" } as const;
+
+const ResumeChoiceSchema = z.enum(["current", "tailored"]);
+
+const FileDataSchema = z.object({
+  name: z.string(),
+  type: z.string(),
+  base64: z.string(),
+});
+
+/** Everything a page needs to fill a form (spec 16.3); built by the background. */
+export const AutofillDataSchema = z.object({
+  profile: ProfileSchema,
+  preferences: PreferencesSchema.optional(),
+  answers: z.array(AnswerBankEntrySchema),
+  allowPrivacyAcknowledgement: z.boolean(),
+  jobId: z.string().optional(),
+  jobCountry: z.string().optional(),
+  coverLetterText: z.string().optional(),
+  resume: FileDataSchema.optional(),
+  coverLetterFile: FileDataSchema.optional(),
+});
+
+export const AutofillReportSchema = z.object({
+  url: z.string(),
+  mode: z.enum(["auto", "assist"]),
+  loginForm: z.boolean(),
+  captcha: z.boolean(),
+  verificationCode: z.boolean(),
+  fields: z
+    .array(
+      z.object({
+        id: z.string(),
+        label: z.string(),
+        key: z.string(),
+        status: z.enum(["filled", "needs_you", "skipped", "error"]),
+        source: z.enum(["profile", "preferences", "answer_bank", "ai", "decline"]).optional(),
+        value: z.string().optional(),
+        note: z.string().optional(),
+      }),
+    )
+    .max(500),
+});
+export type AutofillReportMessage = z.infer<typeof AutofillReportSchema>;
 
 const FieldKindSchema = z.enum([
   "text",
@@ -225,6 +275,36 @@ export const MESSAGES = {
       text: z.string(),
       issues: z.array(z.string()),
       projectIds: z.array(z.string()),
+    }),
+    sender: extensionOnly,
+  },
+  "apply/context": {
+    request: z.object({
+      url: z.string().max(4000),
+      resumeChoice: ResumeChoiceSchema.default("current"),
+    }),
+    response: AutofillDataSchema,
+    sender: anyPage,
+  },
+  "apply/report": {
+    request: z.object({ report: AutofillReportSchema }),
+    response: z.object({ saved: z.boolean() }),
+    sender: anyPage,
+  },
+  "apply/lastReport": {
+    request: z.object({ tabId: z.number().int() }),
+    response: z.object({ report: AutofillReportSchema.optional() }),
+    sender: extensionOnly,
+  },
+  "apply/autofillTab": {
+    request: z.object({
+      tabId: z.number().int().optional(),
+      resumeChoice: ResumeChoiceSchema.default("current"),
+    }),
+    response: z.object({
+      filled: z.number().int(),
+      needsYou: z.number().int(),
+      error: z.string().optional(),
     }),
     sender: extensionOnly,
   },
