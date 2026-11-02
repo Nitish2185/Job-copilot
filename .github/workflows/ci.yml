@@ -47,6 +47,36 @@ jobs:
       - name: Audit dependencies (fails on high or critical only)
         run: pnpm audit --audit-level=high
 
+  e2e:
+    name: End-to-end tests (Chromium with the extension)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium for Playwright
+        run: pnpm --filter @job-copilot/extension exec playwright install --with-deps chromium
+
+      - name: Build the e2e extension and run Playwright (new headless mode)
+        run: pnpm e2e
+
+      - name: Keep traces of failed tests
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-traces
+          path: extension/test-results
+          retention-days: 7
+
   go:
     name: Go vet, test, build
     runs-on: ubuntu-latest

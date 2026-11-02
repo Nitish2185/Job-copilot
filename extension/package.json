@@ -14,7 +14,9 @@
     "zip:firefox": "wxt zip -b firefox",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare",
+    "build:e2e": "cross-env JOB_COPILOT_E2E=1 wxt build",
+    "e2e": "pnpm build:e2e && playwright test"
   },
   "dependencies": {
     "@job-copilot/shared": "workspace:*",
@@ -28,12 +30,15 @@
     "zustand": "5.0.16"
   },
   "devDependencies": {
+    "@playwright/test": "1.64.1",
     "@tailwindcss/vite": "4.3.3",
     "@testing-library/dom": "10.4.2",
     "@testing-library/react": "16.3.3",
+    "@types/node": "24.19.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@wxt-dev/module-react": "1.2.2",
+    "cross-env": "10.1.0",
     "fake-indexeddb": "6.2.7",
     "jsdom": "30.1.3",
     "tailwindcss": "4.3.3",
