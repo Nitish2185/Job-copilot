@@ -3,12 +3,14 @@ import { useEffect, useState, type SyntheticEvent } from "react";
 import { AiSettingsForm } from "@/components/ai/AiSettingsForm";
 import { AiUsage } from "@/components/ai/AiUsage";
 import { Button } from "@/components/ui/Button";
+import { MatchingSettingsForm } from "@/components/matching/MatchingSettingsForm";
 import { Section } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
 import { sendMessage } from "@/lib/messaging/client";
 import { loadSettings, updateSettings } from "@/lib/settings/settings";
+import { useMatchFilters } from "../matchFilters";
 
-/** Settings grow phase by phase: the feed source (spec 13.1) and the AI provider (spec 11). */
+/** Settings grow phase by phase: AI provider (spec 11), matching (spec 12) and the feed (13.1). */
 export function SettingsPage() {
   const [feedUrl, setFeedUrl] = useState("");
   const [status, setStatus] = useState<{ ok: boolean; text: string }>();
@@ -56,6 +58,16 @@ export function SettingsPage() {
       >
         <AiUsage />
         <AiSettingsForm />
+      </Section>
+      <Section
+        title="Matching"
+        description="How jobs are scored and shown. Saving re-ranks every job on this device."
+      >
+        <MatchingSettingsForm
+          onSaved={(threshold) => {
+            useMatchFilters.getState().reset(threshold);
+          }}
+        />
       </Section>
       <section>
         <h2 className="font-medium">Shared job feed</h2>
