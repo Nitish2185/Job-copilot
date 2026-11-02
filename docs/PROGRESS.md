@@ -2,9 +2,29 @@
 
 ## Current phase
 
-**Phase 5 - Matching** (starting)
+**Phase 6 - Resume tailoring and cover letters** (starting)
 
 ## Done
+
+### Phase 5 - Matching (accepted 2026-11-02)
+
+- Local prefilter (spec 12.1): hard filters from the preferences with reasons, and the
+  skills/title/experience score with named weights, tested with fixtures. 10,000 jobs score in
+  about 0.6 s.
+- AI scoring (`scoreJobs`): passing jobs in batches of 10 within the daily scoring budget, short
+  job keys, red flag and score cap for job text aimed at AI. Runs in the background after every
+  sync (up to 50 jobs) and on request.
+- Matches page: scores with "estimate" labels, filters (score, status, mode, platform, country,
+  workplace, posted date, company, salary), sort, bulk save/hide, "AI-score the next 20" with
+  quota, "Learn next" skill gaps; filters kept in a Zustand store.
+- Job detail page: full description fetched on demand from each board and sanitized with
+  DOMPurify, match breakdown, "Score with AI", other jobs and past applications at the company.
+- Re-ranking after profile and preference changes with "Re-score top 50 with AI"; onboarding
+  Done step ranks jobs and AI-scores the top 20; matching settings (thresholds, budgets, rate
+  limits).
+- Tests: 180+ extension unit and component tests; E2E covers ranked matches, AI scores, the job
+  page (description fetched from a routed posting, script removed) and kept filters. E2E tests
+  now block every outside host.
 
 ### Phase 4 - Onboarding and profile (accepted 2026-11-02)
 
@@ -93,11 +113,11 @@
 
 ## Next
 
-Phase 5: local prefilter score, AI batch scoring (`scoreJobs`, batches of 10) with budget and
-quota UI, full Matches page (filters, virtualized list, scores and reasons), Job detail page,
-skill gaps, re-scoring. Also finish two Phase 4 hooks that need scoring: the onboarding Done
-step starts the first scoring run, and a profile change recomputes prefilter scores and offers
-"Re-score top 50 with AI".
+Phase 6: `analyzeJd` (cached per job), `pickProjects` with a fallback, `tailorResume`
+(structured changes only), the validator, two PDF templates with bundled fonts, one-page fitting,
+preview with "What changed" and editing, `ResumeVersion` storage, a generated base resume, and
+cover letters. Job page actions "Apply with a tailored resume" and "Generate cover letter" arrive
+here.
 
 ## Waiting on the owner
 

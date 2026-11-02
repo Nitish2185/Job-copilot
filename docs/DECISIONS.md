@@ -88,6 +88,17 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **Preferred cities and remote preference are asked once, on the job preferences step** (spec lists them in both steps 6 and 7). Relocation and start date stay on the questions step.
 - **Diversity answers are free text with suggestions**; an empty field means "decline to self-identify" and is not stored.
 
+## Matching (Phase 5)
+
+- **Hard filters only exclude what clearly does not fit.** Unknown countries, locations, remote status or job types never exclude a job. A "remote" preference excludes office and hybrid jobs; "hybrid" and "office" preferences exclude nothing on their own. Preferred cities apply only to office and hybrid jobs and are skipped when the user would relocate; city names match their other names from `locations.json` (Bengaluru = Bangalore). Excluded jobs keep a score with the reason and never show on the Matches page.
+- **Prefilter details the spec leaves open:** the 12 counted job skills are the title skills first, then the rest (job skills are stored alphabetically, so "the first 12" alone would be arbitrary); profile skills include the skills they imply (Next.js counts as React); the title match is the best share of a desired role's words found in the title, with spelling variants unified (front-end/frontend, engineer/developer) and 0.5 when no roles are set; more experience than `max + 1` scores 0.5.
+- **AI scoring sends short job keys (j1..j10)**, never real IDs; unknown keys in the answer are ignored. The daily scoring budget counts jobs and is spent after a successful batch. Background scoring takes up to 50 newest passing jobs per sync; "AI-score the next 20" scores the next 20 estimates in the list as the user sees it.
+- **Instruction-like job text is caught by code, not only by the AI.** A pattern check adds the red flag "The job text contains instructions aimed at AI tools", and a flagged job's final score is never above its local score.
+- **AI scores belong to a profile version.** After a profile change the prefilter re-runs and AI scores from the old version are dropped (the job shows an estimate) until the user re-scores; preference changes re-run the prefilter too.
+- **Jobs are ranked only once the profile has skills.** Before that the Matches page shows every job without a score threshold and points to setup.
+- **Descriptions are fetched by the dashboard**, because DOMPurify needs a DOM and the background worker has none. They are stored sanitized and refreshed after 7 days. Greenhouse (`/v1/boards/{token}/jobs/{id}`) and Lever (`/v0/postings/{token}/{id}`) single-job endpoints return the same shape as one list item (verified with GET requests on 2026-11-02); Ashby and Workable boards are cached for an hour per dashboard session.
+- **E2E tests block every outside host** unless a test routes it, so no test can reach a real job site.
+
 ## AI providers (verified against official docs on 2026-11-02)
 
 - **Base URLs:** Gemini `https://generativelanguage.googleapis.com/v1beta/openai/` (supports `/models` and structured JSON output), Groq `https://api.groq.com/openai/v1`, OpenRouter `https://openrouter.ai/api/v1`, Ollama `http://localhost:11434/v1` (ignores the API key but the client must send one).

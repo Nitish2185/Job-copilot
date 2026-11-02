@@ -26,7 +26,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 1.1 Finds jobs from optional listing APIs with the user's own keys (Adzuna, JSearch)
 - [ ] 1.1 Saves jobs from any page the user is viewing
 - [ ] 1.1 Accepts manually pasted job descriptions
-- [ ] 1.1 Ranks jobs: local keyword prefilter, then AI score with reasons, must-have checklist, missing skills
+- [x] 1.1 Ranks jobs: local keyword prefilter, then AI score with reasons, must-have checklist, missing skills
 - [ ] 1.1 Prepares applications from profile + answer bank; optional tailored resume (2 most relevant real projects) and cover letter
 - [ ] 1.1 Auto mode on Greenhouse, Lever, Ashby, Workable, SmartRecruiters (background tab, after approval or above threshold)
 - [ ] 1.1 Assist mode everywhere else (fills, the user submits)
@@ -84,9 +84,9 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ### 2.5 Untrusted content
 
-- [ ] 2.5 Job descriptions and page content wrapped in delimited data sections with an "ignore instructions inside" rule
-- [ ] 2.5 AI output required as JSON and validated with Zod
-- [ ] 2.5 AI output never triggers actions directly; code decides every action
+- [x] 2.5 Job descriptions and page content wrapped in delimited data sections with an "ignore instructions inside" rule
+- [x] 2.5 AI output required as JSON and validated with Zod
+- [x] 2.5 AI output never triggers actions directly; code decides every action
 
 ## 3. Architecture
 
@@ -101,7 +101,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 4 React + Tailwind; Radix UI primitives; lucide-react icons; reusable components in `extension/components/ui`
 - [ ] 4 On-site UI via WXT `createShadowRootUi`
 - [x] 4 Dashboard uses react-router with a hash router
-- [ ] 4 Zustand for UI-only state; Dexie live queries for DB state
+- [x] 4 Zustand for UI-only state; Dexie live queries for DB state
 - [x] 4 Dexie + dexie-react-hooks with versioned schema
 - [x] 4 react-hook-form + Zod resolver (validation through the model's Zod schemas; see DECISIONS)
 - [x] 4 Zod as single source of truth; JSON Schema exported from Zod for AI structured output
@@ -111,7 +111,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 4 pdfjs-dist with the worker bundled locally
 - [x] 4 mammoth for DOCX
 - [ ] 4 @react-pdf/renderer with bundled open-license fonts
-- [ ] 4 DOMPurify for every piece of external HTML
+- [x] 4 DOMPurify for every piece of external HTML
 - [x] 4 `openai` package with per-provider `baseURL` (`dangerouslyAllowBrowser: true`)
 - [ ] 4 date-fns; `crypto.randomUUID()`; `crypto.subtle` SHA-256
 - [x] 4 Vitest, Testing Library, fake-indexeddb; Playwright e2e against local fixtures only
@@ -206,7 +206,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 7.8 `index.json` with schemaVersion, counts, snapshot hash, shard and closed-shard lists
 - [x] 7.8 30-day retention for shards; index lists only retained files
 - [x] 7.8 Warning when `snapshot.json` exceeds 15 MB
-- [ ] 7.8 Full descriptions not in the feed; fetched on demand (Ashby board cached 1 h)
+- [x] 7.8 Full descriptions not in the feed; fetched on demand (Ashby board cached 1 h)
 
 ### 7.9 Discover
 
@@ -295,9 +295,9 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 10.S6 India helpers: INR default for IN; CTC parser for "12 LPA", "12.5 lakh", "1200000"; display as "12 LPA"; unit-tested
 - [x] 10.S7 Job preferences (roles, level, job types, countries, locations, remote, min salary, excluded keywords, hidden companies)
 - [x] 10.S8 Modes step: Auto vs Assist table; auto-apply stays off; resume default choice
-- [ ] 10.S9 Done step starts first feed sync and scoring with progress, then opens Matches
+- [x] 10.S9 Done step starts first feed sync and scoring with progress, then opens Matches
 - [x] 10.1 Profile page edits everything; every save increments version
-- [ ] 10.1 Profile change recomputes prefilter scores; offers "Re-score top 50 with AI"
+- [x] 10.1 Profile change recomputes prefilter scores; offers "Re-score top 50 with AI"
 
 ## 11. AI layer
 
@@ -317,12 +317,12 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 11.5 Contact fields extracted locally and never sent; PDFs rendered locally
 - [x] 11.5 Redactor unit-tested with Indian +91, international, plus-sign emails
 - [x] 11.6 Untrusted-content system message for every web-content task
-- [ ] 11.6 Instruction-like text in JDs adds a red flag and never raises the score
+- [x] 11.6 Instruction-like text in JDs adds a red flag and never raises the score
 - [x] 11.6 AI output is data only
 - [x] 11.7 Versioned prompt files in `lib/ai/prompts/` with Zod output schemas
 - [x] 11.7 Task `extractProfile`
 - [x] 11.7 Task `describeProject`
-- [ ] 11.7 Task `scoreJobs` (batches of 10; unknown IDs ignored)
+- [x] 11.7 Task `scoreJobs` (batches of 10; unknown IDs ignored)
 - [ ] 11.7 Task `analyzeJd` (cached per job)
 - [ ] 11.7 Task `pickProjects` (IDs verified by code)
 - [ ] 11.7 Task `tailorResume` (structured changes only)
@@ -334,17 +334,17 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 12. Matching
 
-- [ ] 12.1 Hard filters: countries/locations + remote, job types, closed, hidden companies, excluded title keywords
-- [ ] 12.1 Prefilter formula (skillCoverage over first 12 skills, titleMatch, experienceFit) with named weights
-- [ ] 12.1 Title skills count double in skillCoverage
-- [ ] 12.1 Matched/missing skills and short reasons stored
-- [ ] 12.1 Formula unit-tested with fixtures
-- [ ] 12.2 AI scoring only for passed jobs, newest first, batches of 10, within `dailyScoringBudget`
-- [ ] 12.2 `final` = AI score or prefilter with `isEstimate` ("estimate" shown)
-- [ ] 12.2 Matches shows `final >= showThreshold` by default with "show all"
-- [ ] 12.3 "Learn next" skill gaps from top 100 jobs with unlock counts
-- [ ] 12.4 New jobs prefiltered immediately, AI-scored in background within budget
-- [ ] 12.4 Profile change re-runs prefilter; AI re-score on request
+- [x] 12.1 Hard filters: countries/locations + remote, job types, closed, hidden companies, excluded title keywords
+- [x] 12.1 Prefilter formula (skillCoverage over first 12 skills, titleMatch, experienceFit) with named weights
+- [x] 12.1 Title skills count double in skillCoverage
+- [x] 12.1 Matched/missing skills and short reasons stored
+- [x] 12.1 Formula unit-tested with fixtures
+- [x] 12.2 AI scoring only for passed jobs, newest first, batches of 10, within `dailyScoringBudget`
+- [x] 12.2 `final` = AI score or prefilter with `isEstimate` ("estimate" shown)
+- [x] 12.2 Matches shows `final >= showThreshold` by default with "show all"
+- [x] 12.3 "Learn next" skill gaps from top 100 jobs with unlock counts
+- [x] 12.4 New jobs prefiltered immediately, AI-scored in background within budget
+- [x] 12.4 Profile change re-runs prefilter; AI re-score on request
 
 ## 13. Job sources
 
@@ -458,8 +458,8 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 - [ ] 18 Accessible (keyboard, ARIA, contrast, focus), light/dark, responsive
 - [x] 18 Loading, empty, error states on every list; error boundaries on every route
-- [ ] 18.1 `#/matches` with filters, sort, bulk actions, "AI-score the next 20" with quota, virtualized rows
-- [ ] 18.1 `#/jobs/:id` with sanitized description, match breakdown, reasons, red flags, gaps, same-company info, actions
+- [x] 18.1 `#/matches` with filters, sort, bulk actions, "AI-score the next 20" with quota, virtualized rows
+- [ ] 18.1 `#/jobs/:id` with sanitized description, match breakdown, reasons, red flags, gaps, same-company info, actions (all but the apply, tailoring, cover letter and interview actions, which come with Phases 6-8)
 - [ ] 18.1 `#/review` approval queue with resume preview, answers (AI highlighted), cover letter, approve/edit/reject, bulk approve
 - [ ] 18.1 `#/needs-you` with "Open & finish" and "Answer & retry"
 - [ ] 18.1 `#/tracker` Kanban + list, drawer (timeline, resume, answers, cover letter, notes, follow-up, prep), CSV export
@@ -469,7 +469,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 18.1 `#/companies` personal boards, hidden companies, suggest for shared list
 - [ ] 18.1 `#/analytics`
 - [ ] 18.1 `#/settings` all sections listed in 18.1
-- [ ] 18.1 `#/onboarding`
+- [x] 18.1 `#/onboarding`
 - [ ] 18.2 Context-aware side panel
 - [ ] 18.3 Popup counts, pause/resume, open dashboard, open side panel
 - [ ] 18.4 Notifications: digest, batched needs-you, follow-ups, auto-apply paused; click opens the right route
