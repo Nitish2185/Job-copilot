@@ -182,6 +182,24 @@ function Description({ job }: { job: Job }) {
   );
 }
 
+function ApplyAutomatically({ jobId }: { jobId: string }) {
+  const [note, setNote] = useState<string>();
+  const queue = async () => {
+    const result = await sendMessage("queue/add", { jobIds: [jobId] });
+    setNote(result.queued > 0 ? "Queued. Check Review for approval." : result.skipped[0]?.reason);
+  };
+  return (
+    <span className="inline-flex flex-col">
+      <Button onClick={() => void queue()}>Apply automatically</Button>
+      {note && (
+        <span role="status" className="mt-1 max-w-xs text-xs text-slate-600 dark:text-slate-400">
+          {note}
+        </span>
+      )}
+    </span>
+  );
+}
+
 /** One job: description, match breakdown and related jobs (spec 18.1 `#/jobs/:id`). */
 export function JobDetailPage() {
   const { id = "" } = useParams();
@@ -237,6 +255,7 @@ export function JobDetailPage() {
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
+          {job.mode === "auto" && <ApplyAutomatically jobId={job.id} />}
           <Link
             to={`/jobs/${encodeURIComponent(job.id)}/resume`}
             className="inline-flex items-center rounded-md border border-blue-600 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-50 dark:text-blue-300 dark:hover:bg-blue-950"

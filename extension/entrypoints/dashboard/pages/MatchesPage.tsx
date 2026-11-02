@@ -88,6 +88,23 @@ export function MatchesPage() {
     overscan: 12,
   });
 
+  const queueSelected = async () => {
+    const ids = [...selected].slice(0, 200);
+    const result = await sendMessage("queue/add", { jobIds: ids });
+    const firstReason = result.skipped[0]?.reason;
+    setMessage(
+      result.queued > 0
+        ? {
+            ok: true,
+            text: `Queued ${String(result.queued)} for auto-apply${
+              result.skipped.length > 0 ? `; ${String(result.skipped.length)} skipped` : ""
+            }.`,
+          }
+        : { ok: false, text: firstReason ?? "Nothing was queued." },
+    );
+    setSelected(new Set());
+  };
+
   const setStatus = async (ids: string[], status: "saved" | "hidden") => {
     for (let i = 0; i < ids.length; i += 1000) {
       await sendMessage("jobs/setStatus", { ids: ids.slice(i, i + 1000), status });
@@ -194,6 +211,7 @@ export function MatchesPage() {
             <span>{String(selected.size)} selected</span>
             <Button onClick={() => void setStatus([...selected], "saved")}>Save</Button>
             <Button onClick={() => void setStatus([...selected], "hidden")}>Hide</Button>
+            <Button onClick={() => void queueSelected()}>Queue for auto-apply</Button>
             <Button
               variant="ghost"
               onClick={() => {

@@ -59,9 +59,5 @@ export default defineBackground(() => {
     void browser.notifications.clear(id);
   });
 
-  // MV3 builds expose `action`; Firefox MV2 builds expose `browserAction`.
-  const action = import.meta.env.MANIFEST_VERSION === 2 ? browser.browserAction : browser.action;
-  action.onClicked.addListener(() => {
-    void openDashboard();
-  });
+  // The toolbar button opens the popup (entrypoints/popup), which links to the dashboard.
 });

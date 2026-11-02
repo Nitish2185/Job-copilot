@@ -64,7 +64,11 @@ function waitForTab(tabId: number): Promise<void> {
 }
 
 export const queueHandlers: Handlers = {
-  "queue/add": ({ jobIds }) => enqueue(jobIds),
+  "queue/add": async ({ jobIds }) => {
+    const result = await enqueue(jobIds);
+    if (result.queued > 0) void tick();
+    return result;
+  },
 
   "queue/approve": async ({ applicationId }) => ({
     ok: await requeue(applicationId, { approved: true }),

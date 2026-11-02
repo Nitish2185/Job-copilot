@@ -1,6 +1,7 @@
 import { FEED_BASE_URL } from "@job-copilot/shared/config";
 import { useEffect, useState, type SyntheticEvent } from "react";
 import { AiSettingsForm } from "@/components/ai/AiSettingsForm";
+import { AutoApplySettings } from "@/components/apply/AutoApplySettings";
 import { AiUsage } from "@/components/ai/AiUsage";
 import { Button } from "@/components/ui/Button";
 import { MatchingSettingsForm } from "@/components/matching/MatchingSettingsForm";
@@ -75,6 +76,12 @@ export function SettingsPage() {
         description="Templates and the base resume are on the Resumes page."
       >
         <CoverLetterSettings />
+      </Section>
+      <Section
+        title="Auto-apply"
+        description="Off until you turn it on. Only on Greenhouse, Lever, Ashby, Workable and SmartRecruiters forms."
+      >
+        <AutoApplySettings />
       </Section>
       <section>
         <h2 className="font-medium">Shared job feed</h2>
