@@ -16,7 +16,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "e2e": "pnpm --filter @job-copilot/extension --if-present e2e",
-    "set-owner": "node scripts/set-owner.mjs"
+    "set-owner": "node scripts/set-owner.mjs",
+    "test:go": "go -C crawler test ./...",
+    "vet:go": "go -C crawler vet ./..."
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

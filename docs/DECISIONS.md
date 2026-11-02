@@ -21,3 +21,5 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **WXT auto-imports are off (`imports: false`).** Every file imports `browser` from `wxt/browser` and helpers from `wxt/utils/*`, so code reads without generated globals and ESLint needs no extra setup.
 - **Firefox builds use Manifest V2, Chrome/Edge MV3.** WXT 0.21's default and recommendation (spec 9.6). Firefox add-on ID is `job-copilot@<owner>.github.io`, derived from `GITHUB_OWNER`.
 - **`web-ext` installed as a dev dependency.** WXT needs it to open a browser on `pnpm dev`; the dev profile lives in `extension/.wxt/chrome-data` (git-ignored) so data survives restarts.
+- **Go race tests (`-race`) run in CI only.** The race detector needs cgo and a C compiler, which this Windows machine does not have; `ubuntu-latest` runners do. Locally `pnpm test:go` runs the same tests without `-race`.
+- **Crawler repo URL and User-Agent live in `crawler/internal/project`.** One Go constant for `set-owner` to rewrite.
