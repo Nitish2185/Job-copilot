@@ -165,6 +165,24 @@ export const MESSAGES = {
     response: z.object({ analysis: JdAnalysisSchema, aiError: z.string().optional() }),
     sender: extensionOnly,
   },
+  "ai/pickProjects": {
+    request: z.object({
+      jobId: z.string().min(1),
+      count: z.number().int().min(1).max(3).optional(),
+    }),
+    response: z.object({
+      picks: z.array(
+        z.object({
+          projectId: z.string(),
+          reason: z.string(),
+          matchedKeywords: z.array(z.string()),
+        }),
+      ),
+      source: z.enum(["ai", "local"]),
+      aiError: z.string().optional(),
+    }),
+    sender: extensionOnly,
+  },
   "ai/describeProject": {
     request: z.object({
       name: z.string().min(1),
