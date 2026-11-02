@@ -48,15 +48,19 @@ export const AUTO_APPLY_LIMITS = {
 } as const;
 
 /**
- * Default Gemini model. The spec asks for a current free "Flash" class model;
- * the exact name is verified against Google's docs in Phase 4.
+ * Default Gemini model: a free-tier Flash-Lite model (verified against
+ * ai.google.dev/gemini-api/docs/models and /pricing on 2026-11-02). Flash-Lite has
+ * the larger quota, so the default daily budget stays inside free limits.
  */
-export const DEFAULT_GEMINI_MODEL = "gemini-flash-latest";
+export const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite";
+
+/** Shown first in the model list; any model the provider lists can be chosen. */
+export const SUGGESTED_GEMINI_MODELS = ["gemini-3.5-flash-lite", "gemini-3.8-flash"] as const;
 
 export const AI_PROVIDER_IDS = ["gemini", "groq", "openrouter", "ollama", "custom"] as const;
 export type AiProviderId = (typeof AI_PROVIDER_IDS)[number];
 
-/** OpenAI-compatible endpoints (spec 11.1). Base URLs are verified in Phase 4. */
+/** OpenAI-compatible endpoints (spec 11.1), verified against each provider's docs on 2026-11-02. */
 export const AI_PROVIDERS: Record<
   AiProviderId,
   { label: string; baseUrl: string; keyUrl: string | null; needsKey: boolean }

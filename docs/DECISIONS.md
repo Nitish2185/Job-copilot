@@ -76,3 +76,10 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **Message replies use `sendResponse` + `return true`** instead of returning a promise from `onMessage`, which works the same in Chrome, Edge and Firefox.
 - **Closing a feed job only changes the status of `new` jobs.** Saved, applied, hidden and queued jobs keep their status and get `closedAt`, so nothing the user did disappears; a job that comes back reopens as `new`.
 - **Feed sync verifies every checksummed file before writing anything from it**, and a mismatch leaves the previous data in place with an error status.
+
+## AI providers (verified against official docs on 2026-11-02)
+
+- **Base URLs:** Gemini `https://generativelanguage.googleapis.com/v1beta/openai/` (supports `/models` and structured JSON output), Groq `https://api.groq.com/openai/v1`, OpenRouter `https://openrouter.ai/api/v1`, Ollama `http://localhost:11434/v1` (ignores the API key but the client must send one).
+- **Default model `gemini-3.5-flash-lite`.** Google recommends 3.5 Flash-Lite or 3.8 Flash for new projects; both are free of charge on the free tier, and Flash-Lite has the larger quota. `gemini-3.8-flash` is offered second.
+- **Free-tier Gemini traffic may be used by Google to improve its products** (pricing page). Onboarding says so, and redaction is on by default.
+- **No OpenRouter attribution headers.** They are optional and would tell OpenRouter which app the user runs.
