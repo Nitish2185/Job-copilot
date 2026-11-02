@@ -69,3 +69,8 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **pnpm's minimum release age policy stays on.** Packages published in the last day are refused; instead of adding exceptions, pin the newest release that is old enough (e.g. `globals` 17.13.0, `@vitejs/plugin-react` 6.1.2). If an install adds `minimumReleaseAgeExclude` to `pnpm-workspace.yaml`, remove it and pick an older version.
 - **The `data` branch is replaced by one fresh commit on every crawl** (force-push from the workflow). `snapshot.json` is ~10 MB and changes every 6 hours; normal commits would add hundreds of MB of history a month. A single-commit branch still carries the state between runs and still counts as repository activity for GitHub's 60-day schedule rule.
 - **Seed list (166 companies) was built by probing candidate board names on each platform, checking that every board belongs to the expected company, and running `validate-companies`** (166 ok). `region` comes from where each company's developer jobs were on 2026-11-02 (countries with 15%+ of its jobs, `REMOTE` at 20%+ remote). 37 companies hire in India and 68 hire remotely; the first live crawl found 9,587 developer jobs (9.5 MB snapshot).
+
+## Extension
+
+- **UI pages read the database with Dexie live queries; every write goes through a background message.** Spec 4 asks for Dexie live queries in the UI and spec 9.5 routes shared-data access through the background; reads stay reactive while writes get one validated, rate-limited path.
+- **Message replies use `sendResponse` + `return true`** instead of returning a promise from `onMessage`, which works the same in Chrome, Edge and Firefox.
