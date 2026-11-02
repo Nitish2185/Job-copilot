@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { RescorePanel } from "@/components/matching/RescorePanel";
 import { AnswerBankEditor } from "@/components/profile/AnswerBankEditor";
 import { PreferencesForm } from "@/components/profile/PreferencesForm";
 import { ProfileEditor } from "@/components/profile/ProfileEditor";
@@ -21,6 +22,8 @@ export function ProfilePage() {
   const preferences = usePreferences(profile?.basics.country);
   const [tab, setTab] = useState<Tab>("profile");
   const [saved, setSaved] = useState<string>();
+  // Counts saves that change matching, so jobs are re-ranked after each one.
+  const [matchingSaves, setMatchingSaves] = useState(0);
   if (!profile || !preferences) return <Loading />;
 
   const tabClass = (t: Tab) =>
@@ -53,6 +56,7 @@ export function ProfilePage() {
             onClick={() => {
               setTab(t);
               setSaved(undefined);
+              setMatchingSaves(0);
             }}
           >
             {label}
@@ -64,6 +68,7 @@ export function ProfilePage() {
           {saved}
         </p>
       )}
+      {matchingSaves > 0 && <RescorePanel key={matchingSaves} />}
       <div role="tabpanel">
         {tab === "profile" && (
           <ProfileEditor
@@ -71,6 +76,7 @@ export function ProfilePage() {
             profile={profile}
             onSaved={(p) => {
               setSaved(`Saved. Profile version ${String(p.version)}.`);
+              setMatchingSaves((n) => n + 1);
             }}
           />
         )}
@@ -80,6 +86,7 @@ export function ProfilePage() {
             currency={currencyForCountry(profile.basics.country)}
             onSaved={() => {
               setSaved("Saved.");
+              setMatchingSaves((n) => n + 1);
             }}
           />
         )}
