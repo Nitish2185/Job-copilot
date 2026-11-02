@@ -33,3 +33,7 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **All timestamps are UTC ISO-8601 with `Z`.** The crawler converts API offsets to UTC; ISO strings sort correctly in IndexedDB indexes and survive JSON export.
 - **Feed `schemaVersion` parses as any positive integer.** The extension compares it with `FEED_SCHEMA_VERSION` and shows "Update the extension" instead of failing to parse.
 - **Schema URLs accept only http(s).** Zod's `z.url()` alone also accepts `javascript:`.
+- **Fields added to the spec's data model:** `Job.alsoListedOn` and `Job.descHash` (de-duplication, 13.8, and feed change detection), `Application.interviewDates`, `contacts` and `dryRun` (tracker 19.1, dry run 16.5), `Preferences.minSalary` (onboarding step 7), `Company.variant` / `SeedCompany.variant` (`"eu"` for Lever EU boards), `ResumeVersion.document` optional (an uploaded base resume keeps only its original file), `Settings.sources.adzuna/jsearch.maxCallsPerDay` (13.3) and `Settings.sources.indeedCountry` (13.6).
+- **Kill-switch and pause state are not settings.** They live in `chrome.storage.local` runtime flags so a pause on one device never syncs to another.
+- **Default Gemini model is `gemini-flash-latest` until verified in Phase 4.** The spec asks for a current free Flash-class model and says to verify names during development.
+- **Settings use Zod `.prefault({})` on each section.** `SettingsSchema.parse({})` yields all defaults, and partial stored settings are filled in on read.

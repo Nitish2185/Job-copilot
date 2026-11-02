@@ -46,3 +46,49 @@ export const AUTO_APPLY_LIMITS = {
   perCompanyCapDefault: 2,
   perCompanyWindowDaysDefault: 30,
 } as const;
+
+/**
+ * Default Gemini model. The spec asks for a current free "Flash" class model;
+ * the exact name is verified against Google's docs in Phase 4.
+ */
+export const DEFAULT_GEMINI_MODEL = "gemini-flash-latest";
+
+export const AI_PROVIDER_IDS = ["gemini", "groq", "openrouter", "ollama", "custom"] as const;
+export type AiProviderId = (typeof AI_PROVIDER_IDS)[number];
+
+/** OpenAI-compatible endpoints (spec 11.1). Base URLs are verified in Phase 4. */
+export const AI_PROVIDERS: Record<
+  AiProviderId,
+  { label: string; baseUrl: string; keyUrl: string | null; needsKey: boolean }
+> = {
+  gemini: {
+    label: "Google Gemini",
+    baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai/",
+    keyUrl: "https://aistudio.google.com/apikey",
+    needsKey: true,
+  },
+  groq: {
+    label: "Groq",
+    baseUrl: "https://api.groq.com/openai/v1",
+    keyUrl: "https://console.groq.com/keys",
+    needsKey: true,
+  },
+  openrouter: {
+    label: "OpenRouter",
+    baseUrl: "https://openrouter.ai/api/v1",
+    keyUrl: "https://openrouter.ai/keys",
+    needsKey: true,
+  },
+  ollama: {
+    label: "Ollama (on this computer)",
+    baseUrl: "http://localhost:11434/v1",
+    keyUrl: null,
+    needsKey: false,
+  },
+  custom: {
+    label: "Custom (OpenAI-compatible)",
+    baseUrl: "",
+    keyUrl: null,
+    needsKey: false,
+  },
+};
