@@ -114,7 +114,11 @@ export const MESSAGES = {
     sender: extensionOnly,
   },
   "ai/extractProfile": {
-    request: z.object({ resumeText: z.string().min(1).max(200_000) }),
+    request: z.object({
+      resumeText: z.string().min(1).max(200_000),
+      /** The name the user confirmed, removed from the text before it is sent. */
+      fullName: z.string().max(200).optional(),
+    }),
     response: z.object({ draft: ProfileDraftSchema, model: z.string() }),
     sender: extensionOnly,
   },

@@ -46,8 +46,11 @@ export const aiHandlers: Handlers = {
     return { models: await client.listModels() };
   },
 
-  "ai/extractProfile": async ({ resumeText }) => {
-    const result = await runTask(await buildRuntime(), extractProfileTask, { resumeText });
+  "ai/extractProfile": async ({ resumeText, fullName }) => {
+    const rt = await buildRuntime();
+    // During onboarding no profile is saved yet, so the confirmed name comes with the request.
+    const identity = fullName?.trim() ? { ...rt.identity, fullName: fullName.trim() } : rt.identity;
+    const result = await runTask({ ...rt, identity }, extractProfileTask, { resumeText });
     return { draft: result.value, model: result.model };
   },
 
