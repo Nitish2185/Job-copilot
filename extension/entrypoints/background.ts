@@ -3,7 +3,12 @@ import { defineBackground } from "wxt/utils/define-background";
 import { ALARMS, scheduleAlarms } from "@/lib/alarms/alarms";
 import { aiHandlers } from "@/lib/background/aiHandlers";
 import { matchHandlers } from "@/lib/background/matchHandlers";
-import { pageHandlers } from "@/lib/background/pageHandlers";
+import {
+  assistSiteHandlers,
+  registerOptionalSiteSync,
+  syncOptionalSites,
+} from "@/lib/background/assistSites";
+import { pageHandlers, registerSaveMenus } from "@/lib/background/pageHandlers";
 import { queueHandlers } from "@/lib/background/queueHandlers";
 import { applyHandlers } from "@/lib/background/applyHandlers";
 import { autofillHandlers, registerAutofillTriggers } from "@/lib/background/autofill";
@@ -24,9 +29,12 @@ export default defineBackground(() => {
     ...autofillHandlers,
     ...queueHandlers,
     ...pageHandlers,
+    ...assistSiteHandlers,
   });
 
   registerAutofillTriggers();
+  registerSaveMenus();
+  registerOptionalSiteSync();
 
   const openDashboard = (hash = "") =>
     browser.tabs.create({ url: browser.runtime.getURL("/dashboard.html") + hash });
@@ -35,6 +43,7 @@ export default defineBackground(() => {
     void (async () => {
       await ensureSettings();
       await scheduleAlarms();
+      await syncOptionalSites().catch(() => undefined);
       if (reason === "install") {
         await updateFlags({ installedAt: new Date().toISOString() });
         await openDashboard("#/onboarding");
@@ -56,7 +65,8 @@ export default defineBackground(() => {
 
   // Notification ids are "jc:<dashboard route>:<time>"; a click opens that page.
   browser.notifications.onClicked.addListener((id) => {
-    const route = id.split(":")[1];
+    // Routes may contain ":" (job IDs), so take everything between the prefix and the time.
+    const route = id.startsWith("jc:") ? id.slice(3, id.lastIndexOf(":")) : "";
     if (route) void openDashboard(`#/${route}`);
     void browser.notifications.clear(id);
   });

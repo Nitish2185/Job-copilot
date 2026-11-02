@@ -6,7 +6,9 @@
  */
 import { browser } from "wxt/browser";
 import { defineContentScript } from "wxt/utils/define-content-script";
+import { GENERIC_ADAPTER } from "@/lib/apply/adapters/assist";
 import { AUTO_ADAPTERS } from "@/lib/apply/adapters/auto";
+import { handleSiteCommand } from "@/lib/apply/assistSite";
 import type { AutofillData } from "@/lib/apply/engine";
 import { submitApplication } from "@/lib/apply/guards";
 import { resolveMode } from "@/lib/apply/mode";
@@ -97,7 +99,12 @@ export default defineContentScript({
           });
           return true;
         default:
-          return undefined;
+          // Save-job and diagnostics: the job is read from the page's schema.org data.
+          return handleSiteCommand(
+            raw as { type?: string },
+            site ? { ...site, readJob: GENERIC_ADAPTER.readJob } : GENERIC_ADAPTER,
+            sendResponse,
+          );
       }
     });
   },

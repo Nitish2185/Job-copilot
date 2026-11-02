@@ -1,5 +1,5 @@
-// Checks a release build (spec 2.2): the local test host used by E2E builds must
-// not be able to receive submissions. Run after `pnpm -C extension build`:
+// Checks a release build (spec 2.1, 2.2): the local test host used by E2E builds must
+// not be able to receive submissions, and no every-site host is required. Run after `pnpm -C extension build`:
 //   node scripts/check-release-build.mjs [extension/.output/chrome-mv3]
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
@@ -16,6 +16,11 @@ const manifest = JSON.parse(readFileSync(join(dir, "manifest.json"), "utf8"));
 for (const host of manifest.host_permissions ?? []) {
   if (host.includes(TEST_HOST) || host.includes("localhost"))
     problems.push(`host_permissions has ${host}`);
+}
+// Every-site access is never required: the generic script runs through activeTab (spec 2.1).
+const BROAD = ["<all_urls>", "*://*/*", "https://*/*", "http://*/*"];
+for (const host of [...(manifest.host_permissions ?? []), ...(manifest.permissions ?? [])]) {
+  if (BROAD.includes(host)) problems.push(`required permissions include ${host}`);
 }
 for (const script of manifest.content_scripts ?? []) {
   for (const match of script.matches ?? []) {

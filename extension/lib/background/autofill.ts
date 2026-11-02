@@ -235,6 +235,16 @@ export function registerAutofillTriggers(): void {
         title: "Autofill this form with Job Copilot",
         contexts: ["page", "editable", "frame"],
       });
+      browser.contextMenus.create({
+        id: "jc-save-job",
+        title: "Save this job to Job Copilot",
+        contexts: ["page"],
+      });
+      browser.contextMenus.create({
+        id: "jc-score-job",
+        title: "Score this job with Job Copilot",
+        contexts: ["page"],
+      });
     });
   });
   browser.contextMenus.onClicked.addListener((info, tab) => {

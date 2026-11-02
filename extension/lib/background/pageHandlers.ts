@@ -3,7 +3,9 @@
  * quick scores for search badges, the AI fallback for unreadable pages, and
  * recording an Assist application the site confirmed.
  */
-import type { JobPlatform } from "@job-copilot/shared";
+import { skillDisplayName, type JobPlatform } from "@job-copilot/shared";
+import { REPO_URL } from "@job-copilot/shared/config";
+import { browser } from "wxt/browser";
 import { isAiConfigured } from "../ai/configured";
 import { runTask } from "../ai/runner";
 import { buildRuntime } from "../ai/runtime";
@@ -16,7 +18,13 @@ import { matchProfile, prefilterJob } from "../matching/prefilter";
 import type { Handlers } from "../messaging/server";
 import { loadPreferences, loadProfile } from "../profile/store";
 import { loadSettings } from "../settings/settings";
-import { comparableUrl, findJobForUrl, lastReport } from "./autofill";
+import {
+  DIAGNOSTICS_COMMAND,
+  SAVE_JOB_COMMAND,
+  type Diagnostics,
+  type SaveResult,
+} from "../apply/sitePage";
+import { GENERIC_SCRIPT, comparableUrl, findJobForUrl, lastReport } from "./autofill";
 import { notify } from "../queue/runner";
 import { runAiScoring, runPrefilter } from "./matchHandlers";
 
@@ -29,6 +37,99 @@ const PLATFORMS: Record<string, JobPlatform> = {
 
 export function platformForUrl(url: string): JobPlatform {
   return PLATFORMS[resolveMode(url).adapterId] ?? "other";
+}
+
+const topSkills = (ids: readonly string[]) => ids.slice(0, 3).map(skillDisplayName);
+
+/** Asks the page script in a tab (injecting the generic one if none runs there). */
+async function askTab(tabId: number, type: string): Promise<unknown> {
+  await browser.scripting.executeScript({ target: { tabId }, files: [GENERIC_SCRIPT] });
+  return browser.tabs.sendMessage(tabId, { type });
+}
+
+async function activeTabId(): Promise<number | undefined> {
+  const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
+  return tab?.id;
+}
+
+/** Markdown for a GitHub issue: the page's shape only, no personal data. */
+export function diagnosticsText(d: Diagnostics): string {
+  const fields = d.fields.length
+    ? d.fields
+        .map((f) => `- ${f.label || "(no label)"} (${f.kind}${f.required ? ", required" : ""})`)
+        .join("\n")
+    : "- none found";
+  return [
+    `**Adapter:** ${d.adapterId}`,
+    `**Page:** ${d.host}${d.path}`,
+    `**Detected page type:** ${d.page}`,
+    `**Logged in:** ${String(d.loggedIn)}`,
+    `**Job details read:** ${d.jobRead ? "yes" : "no"}`,
+    `**Login form:** ${d.loginForm ? "yes" : "no"} · **CAPTCHA:** ${d.captcha ? "yes" : "no"}`,
+    `**Extension version:** ${d.version}`,
+    "",
+    `**Fields (${String(d.fields.length)}):**`,
+    fields,
+    "",
+    "**What went wrong:** <describe it here>",
+  ].join("\n");
+}
+
+/** A prefilled GitHub "new issue" link for a broken page. */
+export function issueUrlFor(d: Diagnostics, text: string): string {
+  const issue = new URL(`${REPO_URL}/issues/new`);
+  issue.searchParams.set("title", `Broken page: ${d.adapterId} ${d.host}${d.path}`);
+  issue.searchParams.set("body", text);
+  return issue.href;
+}
+
+interface SaveFromTabResult {
+  jobId?: string;
+  created?: boolean;
+  title?: string;
+  final?: number;
+  error?: string;
+}
+
+export async function saveFromTab(tabId: number, score: boolean): Promise<SaveFromTabResult> {
+  let saved: SaveResult | undefined;
+  try {
+    saved = (await askTab(tabId, SAVE_JOB_COMMAND)) as SaveResult | undefined;
+  } catch {
+    saved = undefined;
+  }
+  if (!saved) return { error: "Job Copilot cannot read this page." };
+  if ("error" in saved) return { error: saved.error };
+  const result = { jobId: saved.jobId, created: saved.created, title: saved.title };
+  if (!score) return result;
+  await runPrefilter(false);
+  const scored = await runAiScoring(1, "best", "user", [saved.jobId]);
+  const stored = await getDb().scores.get(saved.jobId);
+  return {
+    ...result,
+    ...(stored && { final: stored.final }),
+    ...(scored.error && { error: scored.error }),
+  };
+}
+
+export const SAVE_MENU_ID = "jc-save-job";
+export const SCORE_MENU_ID = "jc-score-job";
+
+/** Right-click "Save this job" and "Score this job" (spec 13.4); the click grants activeTab. */
+export function registerSaveMenus(): void {
+  browser.contextMenus.onClicked.addListener((info, tab) => {
+    const score = info.menuItemId === SCORE_MENU_ID;
+    if ((info.menuItemId !== SAVE_MENU_ID && !score) || tab?.id === undefined) return;
+    void saveFromTab(tab.id, score).then(async (r) => {
+      if (!r.jobId) {
+        await notify("Could not save this job", r.error ?? "No job found on this page.", "matches");
+        return;
+      }
+      const title = r.final !== undefined ? `Match score ${String(r.final)}` : "Job saved";
+      const note = `${r.created ? "" : " (already saved)"}${r.error ? ` · ${r.error}` : ""}`;
+      await notify(title, `${r.title ?? "This job"}${note}`, `jobs/${r.jobId}`);
+    });
+  });
 }
 
 export const pageHandlers: Handlers = {
@@ -81,6 +182,7 @@ export const pageHandlers: Handlers = {
             isEstimate: stored.isEstimate,
             ...(jobId && { jobId }),
             ...(stored.prefilter.excluded && { excluded: stored.prefilter.excluded }),
+            matched: topSkills(stored.prefilter.matchedSkills),
           };
         }
         const result = prefilterJob(
@@ -93,10 +195,38 @@ export const pageHandlers: Handlers = {
           final: result.score,
           isEstimate: true,
           ...(result.excluded && { excluded: result.excluded }),
+          matched: topSkills(result.matchedSkills),
         };
       }),
     );
     return { scores };
+  },
+
+  "assist/pageConfig": async ({ site }) => {
+    const { assist } = await loadSettings();
+    const badges =
+      site === "naukri" || site === "indeed" || site === "linkedin" ? assist.badges[site] : false;
+    return { autofillEachStep: assist.autofillEachStep, badges };
+  },
+
+  "assist/diagnostics": async ({ tabId }) => {
+    try {
+      const d = (await askTab(tabId, DIAGNOSTICS_COMMAND)) as Diagnostics | undefined;
+      if (!d) return { error: "Job Copilot cannot read this page." };
+      const text = diagnosticsText(d);
+      return { text, issueUrl: issueUrlFor(d, text) };
+    } catch {
+      return {
+        error:
+          "Job Copilot cannot read this page. Right-click the page, choose Autofill, then try again.",
+      };
+    }
+  },
+
+  "jobs/saveFromTab": async ({ tabId, score }) => {
+    const id = tabId ?? (await activeTabId());
+    if (id === undefined) return { error: "No tab to read." };
+    return saveFromTab(id, score);
   },
 
   "ai/extractJobFromPage": async ({ url, text }) => {

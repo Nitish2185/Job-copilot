@@ -81,6 +81,11 @@ const PageJobSchema = z.object({
   skills: z.array(z.string().max(80)).max(60).optional(),
 });
 
+const OptionalSiteStateSchema = z.object({
+  id: z.enum(["linkedin", "workday"]),
+  enabled: z.boolean(),
+});
+
 const CardSchema = z.object({
   title: z.string().max(300),
   company: z.string().max(300),
@@ -371,10 +376,46 @@ export const MESSAGES = {
           isEstimate: z.boolean().optional(),
           jobId: z.string().optional(),
           excluded: z.string().optional(),
+          matched: z.array(z.string()).max(5).optional(),
         }),
       ),
     }),
     sender: anyPage,
+  },
+  "assist/pageConfig": {
+    request: z.object({ site: z.enum(["naukri", "indeed", "linkedin", "workday", "generic"]) }),
+    response: z.object({ autofillEachStep: z.boolean(), badges: z.boolean() }),
+    sender: anyPage,
+  },
+  "assist/syncSites": {
+    request: z.object({}),
+    response: z.object({ sites: z.array(OptionalSiteStateSchema) }),
+    sender: extensionOnly,
+  },
+  "assist/disableSite": {
+    request: z.object({ site: z.enum(["linkedin", "workday"]) }),
+    response: z.object({ sites: z.array(OptionalSiteStateSchema) }),
+    sender: extensionOnly,
+  },
+  "assist/diagnostics": {
+    request: z.object({ tabId: z.number().int() }),
+    response: z.object({
+      text: z.string().optional(),
+      issueUrl: z.string().optional(),
+      error: z.string().optional(),
+    }),
+    sender: extensionOnly,
+  },
+  "jobs/saveFromTab": {
+    request: z.object({ tabId: z.number().int().optional(), score: z.boolean().default(false) }),
+    response: z.object({
+      jobId: z.string().optional(),
+      created: z.boolean().optional(),
+      title: z.string().optional(),
+      final: z.number().optional(),
+      error: z.string().optional(),
+    }),
+    sender: extensionOnly,
   },
   "ai/extractJobFromPage": {
     request: z.object({ url: z.string().max(4000), text: z.string().max(100_000) }),
