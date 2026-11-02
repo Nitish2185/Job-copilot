@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { hostnameOf, isAutoSubmitHost, isAutoSubmitUrl } from "./hosts";
+import { hostnameOf, isAutoSubmitHost, isAutoSubmitUrl, modeForUrl } from "./hosts";
 
 describe("isAutoSubmitUrl", () => {
   it.each([
@@ -46,5 +46,13 @@ describe("hostnameOf", () => {
   it("returns the lowercase hostname or null", () => {
     expect(hostnameOf("https://Boards.Greenhouse.io/acme")).toBe("boards.greenhouse.io");
     expect(hostnameOf("nope")).toBeNull();
+  });
+});
+
+describe("modeForUrl", () => {
+  it("is auto only for allowlisted hosts", () => {
+    expect(modeForUrl("https://jobs.lever.co/acme/1/apply")).toBe("auto");
+    expect(modeForUrl("https://www.naukri.com/job-listings-x")).toBe("assist");
+    expect(modeForUrl(undefined)).toBe("assist");
   });
 });

@@ -23,3 +23,8 @@ export function isAutoSubmitUrl(url: string): boolean {
     return false;
   }
 }
+
+/** Auto mode only for allowlisted application hosts; everything else is Assist. */
+export function modeForUrl(url: string | undefined): "auto" | "assist" {
+  return url !== undefined && isAutoSubmitUrl(url) ? "auto" : "assist";
+}
