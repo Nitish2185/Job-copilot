@@ -12,6 +12,7 @@ import { DataControls } from "@/components/data/DataControls";
 import { ListingSources } from "@/components/data/ListingSources";
 import { AppearanceSettings } from "@/components/ui/AppearanceSettings";
 import { DemoDataPanel } from "@/components/ui/DemoDataPanel";
+import { AboutSettings, PrivacySettings, ShortcutSettings } from "@/components/ui/MoreSettings";
 import { Section } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
 import { sendMessage } from "@/lib/messaging/client";
@@ -101,14 +102,23 @@ export function SettingsPage() {
       <Section title="Notifications" description="Clicking a notification opens the right page.">
         <NotificationSettings />
       </Section>
+      <Section title="Privacy">
+        <PrivacySettings />
+      </Section>
       <Section title="Appearance">
         <AppearanceSettings />
+      </Section>
+      <Section title="Keyboard shortcuts">
+        <ShortcutSettings />
       </Section>
       <Section
         title="Your data"
         description="Everything stays in this browser. Back it up, move it, or delete it."
       >
         <DataControls />
+      </Section>
+      <Section title="About">
+        <AboutSettings />
       </Section>
       {import.meta.env.DEV && (
         <Section title="Demo data" description="Development builds only.">

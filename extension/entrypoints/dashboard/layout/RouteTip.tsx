@@ -12,6 +12,8 @@ const TIPS: Record<string, string> = {
   analytics:
     "Charts fill in as you move applications along in the Tracker. Every chart has its numbers in a table below it.",
   profile: "Your scores use these skills and years. Saving the profile re-ranks every job.",
+  answers:
+    "Answers you give while applying are saved here and reused when the same question comes up. Sensitive ones never sync and the AI never answers them.",
   resumes:
     "Tailored resumes appear here per job. You approve each one before it is used, and nothing is added that is not in your profile.",
   companies:

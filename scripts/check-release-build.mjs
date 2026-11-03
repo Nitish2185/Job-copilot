@@ -22,6 +22,15 @@ const BROAD = ["<all_urls>", "*://*/*", "https://*/*", "http://*/*"];
 for (const host of [...(manifest.host_permissions ?? []), ...(manifest.permissions ?? [])]) {
   if (BROAD.includes(host)) problems.push(`required permissions include ${host}`);
 }
+// Never requested (spec 2.3 and PERMISSIONS.md): cookies, blocking web requests, debugger,
+// history, management, tabs.
+const FORBIDDEN = ["cookies", "webRequestBlocking", "debugger", "history", "management", "tabs"];
+for (const permission of [
+  ...(manifest.permissions ?? []),
+  ...(manifest.optional_permissions ?? []),
+]) {
+  if (FORBIDDEN.includes(permission)) problems.push(`permission ${permission} is requested`);
+}
 for (const script of manifest.content_scripts ?? []) {
   for (const match of script.matches ?? []) {
     if (match.includes(TEST_HOST) || match.includes("localhost"))

@@ -62,6 +62,7 @@ const ROUTES = [
   "needs-you",
   "tracker",
   "analytics",
+  "answers",
   "resumes",
   "profile",
   "companies",

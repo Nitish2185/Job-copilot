@@ -45,6 +45,21 @@ export function loggedOutText(adapterId: string): string {
 /** Spec 13.7: at most 10 cards per click. */
 export const AI_CARDS_PER_CLICK = 10;
 
+/**
+ * "Autofill each new step automatically" (spec 2.1, 16.6): only after the user pressed
+ * Autofill in this tab, only with the setting on, only while the tab is visible, and
+ * only for a step not filled yet. It fills; it never clicks.
+ */
+export function canFillNewStep(s: {
+  pressedAutofill: boolean;
+  settingOn: boolean;
+  busy: boolean;
+  tabVisible: boolean;
+  newStep: boolean;
+}): boolean {
+  return s.pressedAutofill && s.settingOn && !s.busy && s.tabVisible && s.newStep;
+}
+
 const errorText = (e: unknown) => (e instanceof Error ? e.message : String(e));
 
 /**
@@ -138,9 +153,14 @@ export function startAssistSite(
   };
 
   const fillNewStep = () => {
-    if (!state.autofilled || !state.config.autofillEachStep || state.filling) return;
-    if (document.visibilityState !== "visible" || !hasNewControls(document)) return;
-    void autofill("current").catch(() => undefined);
+    const ok = canFillNewStep({
+      pressedAutofill: state.autofilled,
+      settingOn: state.config.autofillEachStep,
+      busy: state.filling,
+      tabVisible: document.visibilityState === "visible",
+      newStep: hasNewControls(document),
+    });
+    if (ok) void autofill("current").catch(() => undefined);
   };
 
   const toCard = ({ title, company, location: where, url }: SearchCard) => ({

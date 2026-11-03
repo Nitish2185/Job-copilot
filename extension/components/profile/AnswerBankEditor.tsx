@@ -59,10 +59,22 @@ function AnswerRow({ entry }: { entry: AnswerBankEntry }) {
         </Button>
       </div>
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      <p className="text-xs text-slate-500">
-        {entry.source === "ai_approved" ? "Suggested by AI" : "Your answer"} · used{" "}
-        {String(entry.timesUsed)} time{entry.timesUsed === 1 ? "" : "s"}
-      </p>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+        <span>
+          {entry.source === "ai_approved" ? "Suggested by AI" : "Your answer"} · used{" "}
+          {String(entry.timesUsed)} time{entry.timesUsed === 1 ? "" : "s"}
+        </span>
+        <label className="flex items-center gap-1">
+          <input
+            type="checkbox"
+            checked={entry.sensitive}
+            onChange={(e) =>
+              void getDb().answerBank.update(entry.id, { sensitive: e.target.checked })
+            }
+          />
+          Sensitive (never synced; AI never answers it)
+        </label>
+      </div>
     </li>
   );
 }
@@ -73,6 +85,7 @@ export function AnswerBankEditor() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [sensitive, setSensitive] = useState(false);
+  const [search, setSearch] = useState("");
 
   const add = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -94,19 +107,43 @@ export function AnswerBankEditor() {
       Number(b.status === "pending_approval") - Number(a.status === "pending_approval") ||
       a.question.localeCompare(b.question),
   );
+  const needle = search.trim().toLowerCase();
+  const shown = needle
+    ? sorted.filter(
+        (e) =>
+          e.question.toLowerCase().includes(needle) ||
+          answerToText(e.answer).toLowerCase().includes(needle),
+      )
+    : sorted;
   return (
     <div className="space-y-4">
       <Section
         title="Saved answers"
         description="Answers to application questions, reused when the same question comes up again. AI suggestions are used only after you approve them."
       >
+        {sorted.length > 0 && (
+          <Field id="answer-search" label="Search saved answers">
+            <input
+              id="answer-search"
+              type="search"
+              className={inputClass}
+              value={search}
+              placeholder="Notice period, relocate, why this company..."
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+            />
+          </Field>
+        )}
         {sorted.length === 0 ? (
           <EmptyState title="No saved answers yet">
             Answers you give while applying are saved here.
           </EmptyState>
+        ) : shown.length === 0 ? (
+          <p className="text-sm text-slate-500">No saved answer matches “{search}”.</p>
         ) : (
           <ul className="divide-y divide-slate-200 dark:divide-slate-800">
-            {sorted.map((entry) => (
+            {shown.map((entry) => (
               <AnswerRow key={`${entry.id}:${answerToText(entry.answer)}`} entry={entry} />
             ))}
           </ul>

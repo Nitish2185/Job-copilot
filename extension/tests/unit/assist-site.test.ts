@@ -22,7 +22,7 @@ import {
   showActionButton,
   showBanner,
 } from "@/lib/apply/siteUi";
-import { loggedOutText } from "@/lib/apply/assistSite";
+import { canFillNewStep, loggedOutText } from "@/lib/apply/assistSite";
 import { diagnosticsText, issueUrlFor } from "@/lib/background/pageHandlers";
 import { emptyProfile } from "@/lib/profile/profile";
 import { defaultPreferences } from "@/lib/profile/store";
@@ -243,5 +243,24 @@ describe("floating action button", () => {
     });
     expect(onClick).toHaveBeenCalledOnce();
     host.remove();
+  });
+});
+
+describe("Autofill each new step", () => {
+  const ready = {
+    pressedAutofill: true,
+    settingOn: true,
+    busy: false,
+    tabVisible: true,
+    newStep: true,
+  };
+
+  it("fills a new step only after Autofill, with the setting on, in the visible tab", () => {
+    expect(canFillNewStep(ready)).toBe(true);
+    expect(canFillNewStep({ ...ready, pressedAutofill: false })).toBe(false);
+    expect(canFillNewStep({ ...ready, settingOn: false })).toBe(false);
+    expect(canFillNewStep({ ...ready, tabVisible: false })).toBe(false);
+    expect(canFillNewStep({ ...ready, busy: true })).toBe(false);
+    expect(canFillNewStep({ ...ready, newStep: false })).toBe(false);
   });
 });
