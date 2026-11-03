@@ -135,7 +135,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 6 Settings schema with all defaults from section 6
 - [x] 6 Secrets (AI keys, GitHub token, Adzuna, JSearch) only in `chrome.storage.local`; never synced, logged, or exported unless "include API keys" is ticked
 - [x] 6 Dexie tables and indexes as listed (jobs: status, platform, firstSeenAt, company.token, dedupeKey, mode; scores: final; applications: jobId, stage, submittedAt)
-- [ ] 6 Settings in `chrome.storage.sync`; answer bank mirror chunked under quota (~100 KB total, ~8 KB/item), else local-only with an export/import notice
+- [x] 6 Settings in `chrome.storage.sync`; answer bank mirror chunked under quota (~100 KB total, ~8 KB/item), else local-only with an export/import notice
 - [x] 6 Dexie schema versions with migrations that never lose data; migrations tested
 
 ## 7. Go crawler
@@ -467,28 +467,28 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 18.1 `#/answers` search, edit, delete, mark sensitive, approve pending
 - [ ] 18.1 `#/profile` all sections, projects with toggles and GitHub sync, preferences
 - [ ] 18.1 `#/companies` personal boards, hidden companies, suggest for shared list
-- [ ] 18.1 `#/analytics`
+- [x] 18.1 `#/analytics`
 - [ ] 18.1 `#/settings` all sections listed in 18.1
 - [x] 18.1 `#/onboarding`
 - [x] 18.2 Context-aware side panel
 - [x] 18.3 Popup counts, pause/resume, open dashboard, open side panel
-- [ ] 18.4 Notifications: digest, batched needs-you, follow-ups, auto-apply paused; click opens the right route
+- [x] 18.4 Notifications: digest, batched needs-you, follow-ups, auto-apply paused; click opens the right route
 
 ## 19. Tracker and analytics
 
-- [ ] 19.1 Applications start at `applied`; stage changes are timestamped events
-- [ ] 19.1 Notes, interview dates, contacts per application
-- [ ] 19.2 Follow-up reminder after `followUpDays`; "Mark as ghosted?" after `ghostedAfterDays`
-- [ ] 19.2 Optional AI follow-up email draft (copy only; never sends email)
-- [ ] 19.3 Applications per week by mode; response rate by platform, resume type, score bucket; funnel; skill gaps; AI usage; empty states
+- [x] 19.1 Applications start at `applied`; stage changes are timestamped events
+- [x] 19.1 Notes, interview dates, contacts per application
+- [x] 19.2 Follow-up reminder after `followUpDays`; "Mark as ghosted?" after `ghostedAfterDays`
+- [x] 19.2 Optional AI follow-up email draft (copy only; never sends email)
+- [x] 19.3 Applications per week by mode; response rate by platform, resume type, score bucket; funnel; skill gaps; AI usage; empty states
 
 ## 20. Backup and data control
 
-- [ ] 20 Export to `jobcopilot-backup-YYYY-MM-DD.json` with files as base64; keys only when ticked
-- [ ] 20 Import with schema-version check and migration; Merge or Replace
-- [ ] 20 Sync settings and answer-bank mirror within quota; secrets never sync
-- [ ] 20 "Delete everything" requires typing DELETE; clears all storage
-- [ ] 20 Retention: prune closed jobs > 60 days unless saved/applied; prune expired AI cache daily
+- [x] 20 Export to `jobcopilot-backup-YYYY-MM-DD.json` with files as base64; keys only when ticked
+- [x] 20 Import with schema-version check and migration; Merge or Replace
+- [x] 20 Sync settings and answer-bank mirror within quota; secrets never sync
+- [x] 20 "Delete everything" requires typing DELETE; clears all storage
+- [x] 20 Retention: prune closed jobs > 60 days unless saved/applied; prune expired AI cache daily
 
 ## 21. Security and privacy
 
@@ -535,11 +535,11 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 24 Phase 3 - Data layer and feed sync accepted
 - [ ] 24 Phase 4 - Onboarding and profile accepted
 - [ ] 24 Phase 5 - Matching accepted
-- [ ] 24 Phase 6 - Resume tailoring and cover letters accepted
+- [x] 24 Phase 6 - Resume tailoring and cover letters accepted
 - [ ] 24 Phase 7 - Apply engine core accepted
 - [ ] 24 Phase 8 - Auto pipeline accepted
 - [x] 24 Phase 9 - Assist adapters accepted
-- [ ] 24 Phase 10 - Tracker, notifications, analytics, data control accepted
+- [x] 24 Phase 10 - Tracker, notifications, analytics, data control accepted
 - [ ] 24 Phase 11 - Polish and release accepted
 - [ ] 24 "Load demo data" button in development builds
 

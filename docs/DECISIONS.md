@@ -137,6 +137,19 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **Badges are plain open Shadow DOM elements** like the autofill panel (no React on job sites). They hold nothing secret, and tests can read them. The badge's Save button stops the click from opening the job.
 - **"Report a broken page" is a prefilled GitHub issue**: adapter, host, path with IDs replaced, page type, field labels, kinds and required flags, version. It never includes values, the query string or page text.
 
+## Tracker, analytics and data (Phase 10)
+
+- **The tracker shows sent applications only** (submitted or unconfirmed). Stopped, queued and dry-run items stay in Review and Needs-you.
+- **Stage changes are events** (`stage`, "applied -> interview"); notes, dates and contacts are the user's own edits and add no event. Analytics count an application at the furthest stage it ever reached, so an interview that ended in a rejection still counts as an interview.
+- **"No reply" replaces "Follow up"** on a card once the ghosted suggestion applies. Follow-up reminders are sent once per application (`follow_up_reminded` event).
+- **Batched alerts reuse one notification ID per page** (`jc:needs-you:batch`), so a new alert replaces the last one with the current count. Notification routes may contain ":" (job IDs), so the click handler takes everything between the prefix and the last ":".
+- **Charts use one validated colour pair** (Assist blue, Auto orange) with separate light and dark steps, one hue for single-series bars, one axis per chart, and the numbers in a table under each chart.
+- **AI usage history** (90 days) lives in `storage.local` next to today's counters; it is not exported.
+- **Backups leave out the AI cache** (only a cache) and API keys unless ticked. Merge means the backup's copy wins for records with the same ID; log entries are appended.
+- **"Delete everything" keeps site permissions** (LinkedIn, Workday, AI hosts): they are browser grants, not data, and Settings still shows them.
+- **The sync mirror holds only active, non-sensitive answers.** Pay, notice period, disability and similar answers stay on the device, like API keys. It is written only when the answers change, and pulled on startup and when another browser updates it.
+- **Demo data** (development builds) uses "demo:" IDs and never touches the user's records or AI usage.
+
 ## AI providers (verified against official docs on 2026-11-02)
 
 - **Base URLs:** Gemini `https://generativelanguage.googleapis.com/v1beta/openai/` (supports `/models` and structured JSON output), Groq `https://api.groq.com/openai/v1`, OpenRouter `https://openrouter.ai/api/v1`, Ollama `http://localhost:11434/v1` (ignores the API key but the client must send one).

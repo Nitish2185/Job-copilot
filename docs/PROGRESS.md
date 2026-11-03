@@ -2,9 +2,26 @@
 
 ## Current phase
 
-**Phase 10 - Tracker, notifications, analytics, data control** (starting)
+**Phase 11 - Polish and release** (starting)
 
 ## Done
+
+### Phase 10 - Tracker, notifications, analytics, data control (accepted 2026-11-03)
+
+- Tracker: Kanban board (drag and drop by mouse or keyboard) and list view, application drawer
+  (stage, follow-up and ghosted suggestions, follow-up date, interviews, contacts, notes, resume
+  PDF, cover letter, answers sent, timeline), CSV export, AI follow-up email draft (copy only).
+- Notifications: daily digest at the chosen hour, follow-up reminders (once each), Needs-you and
+  Review alerts batched per page and honouring the setting; Settings > Notifications.
+- Analytics: applications per week by mode, reply rate by platform, resume type and score, the
+  funnel, skills to learn next, AI usage per day (a new 90-day history); tables under every
+  chart; checked in light and dark on demo data ("Load demo data" in development builds).
+- Your data: export (files as base64, keys only when ticked), import (version check, merge or
+  replace), delete everything (type DELETE), daily retention (old closed jobs, expired AI cache).
+- Saved answers sync between browsers through a chunked `storage.sync` mirror (non-sensitive
+  answers only), with a notice when they do not fit.
+- Tests: tracker, notifications, analytics, demo data, backup, retention, mirror; E2E drag and
+  drop on the board.
 
 ### Phase 9 - Assist adapters (accepted 2026-11-03)
 
@@ -191,9 +208,9 @@
 
 ## Next
 
-Phase 10: tracker (Kanban and list views, application drawer), follow-ups and ghosted
-suggestions, daily digest and alerts, analytics charts on seeded demo data,
-export/import/delete, and the sync mirror.
+Phase 11: interview prep, Adzuna and JSearch behind optional permissions, search links, dark
+mode toggle and accessibility pass, a 10,000-job performance check, empty states and tips, the
+website, `release.yml`, `PUBLISHING.md`, the final README, and the Firefox build check.
 
 ## Waiting on the owner
 
