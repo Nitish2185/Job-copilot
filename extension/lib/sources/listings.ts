@@ -25,6 +25,7 @@ import { z } from "zod";
 import { resolveMode } from "../apply/mode";
 import type { JobCopilotDB } from "../db/db";
 import { textToHtml } from "../jobs/description";
+import { storeOrMerge } from "../jobs/merge";
 
 export const ADZUNA_ORIGIN = "https://api.adzuna.com/*";
 export const JSEARCH_ORIGIN = "https://jsearch.p.rapidapi.com/*";
@@ -274,16 +275,9 @@ export async function syncListings(
   }
 
   await deps.saveCalls(calls);
-  const existing = new Set((await deps.db.jobs.toCollection().primaryKeys()).map(String));
-  const keysSeen = new Set((await deps.db.jobs.orderBy("dedupeKey").uniqueKeys()).map(String));
-  const fresh: Job[] = [];
+  // Listings already saved (from another source) are merged in, not added twice.
   for (const job of found) {
-    if (existing.has(job.id) || keysSeen.has(job.dedupeKey)) continue;
-    existing.add(job.id);
-    keysSeen.add(job.dedupeKey);
-    fresh.push(job);
+    if ((await storeOrMerge(deps.db, job)).created) result.added++;
   }
-  if (fresh.length) await deps.db.jobs.bulkPut(fresh);
-  result.added = fresh.length;
   return result;
 }

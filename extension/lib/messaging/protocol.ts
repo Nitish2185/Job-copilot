@@ -392,6 +392,20 @@ export const MESSAGES = {
     }),
     sender: anyPage,
   },
+  "jobs/addManual": {
+    request: z.object({
+      title: z.string().trim().min(1).max(300),
+      company: z.string().trim().min(1).max(300),
+      location: z.string().trim().max(300).optional(),
+      url: z
+        .url({ protocol: /^https?$/ })
+        .max(4000)
+        .optional(),
+      text: z.string().trim().min(20).max(100_000),
+    }),
+    response: z.object({ jobId: z.string(), created: z.boolean() }),
+    sender: extensionOnly,
+  },
   "jobs/scoreOne": {
     request: z.object({ jobId: z.string().min(1) }),
     response: z.object({

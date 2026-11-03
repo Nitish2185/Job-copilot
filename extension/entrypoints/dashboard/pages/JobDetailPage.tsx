@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router";
 import { ScoreBadge } from "@/components/matching/ScoreBadge";
 import { CoverLetterPanel } from "@/components/resume/CoverLetterPanel";
 import { InterviewPrepPanel } from "@/components/tracker/InterviewPrepPanel";
+import { PLATFORM_LABELS } from "@/lib/analytics/analytics";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Field";
@@ -255,6 +256,24 @@ export function JobDetailPage() {
             </Badge>
             {job.status !== "new" && <Badge tone="amber">{job.status}</Badge>}
           </div>
+          {job.alsoListedOn && job.alsoListedOn.length > 0 && (
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              Also listed on{" "}
+              {job.alsoListedOn.map((l, i) => (
+                <span key={l.url}>
+                  {i > 0 && ", "}
+                  <a
+                    href={l.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-700 underline dark:text-blue-400"
+                  >
+                    {PLATFORM_LABELS[l.platform] ?? l.platform}
+                  </a>
+                </span>
+              ))}
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap gap-2">
           {job.mode === "auto" && <ApplyAutomatically jobId={job.id} />}

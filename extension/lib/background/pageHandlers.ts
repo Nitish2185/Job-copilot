@@ -3,7 +3,7 @@
  * quick scores for search badges, the AI fallback for unreadable pages, and
  * recording an Assist application the site confirmed.
  */
-import { skillDisplayName, type JobPlatform } from "@job-copilot/shared";
+import { sha256Hex, skillDisplayName, type JobPlatform } from "@job-copilot/shared";
 import { REPO_URL } from "@job-copilot/shared/config";
 import { browser } from "wxt/browser";
 import { isAiConfigured } from "../ai/configured";
@@ -13,7 +13,9 @@ import { extractJobFromPageTask } from "../ai/tasks/extractJobFromPage";
 import { recordAssistApplication } from "../apply/applications";
 import { resolveMode } from "../apply/mode";
 import { getDb } from "../db/db";
+import { textToHtml } from "../jobs/description";
 import { jobFromCard, jobFromPage } from "../jobs/fromPage";
+import { storeOrMerge } from "../jobs/merge";
 import { matchProfile, prefilterJob } from "../matching/prefilter";
 import type { Handlers } from "../messaging/server";
 import { loadPreferences, loadProfile } from "../profile/store";
@@ -135,19 +137,42 @@ export function registerSaveMenus(): void {
 export const pageHandlers: Handlers = {
   "jobs/saveFromPage": async ({ page }) => {
     const db = getDb();
-    const job = await jobFromPage(page, platformForUrl(page.url), new Date());
-    const existing =
-      (await db.jobs.get(job.id)) ??
-      (await db.jobs.where("dedupeKey").equals(job.dedupeKey).first());
-    if (existing) {
-      if (existing.status === "new" || existing.status === "hidden") {
-        await db.jobs.update(existing.id, { status: "saved" });
-      }
-      return { jobId: existing.id, created: false, mode: existing.mode };
+    const stored = await storeOrMerge(
+      db,
+      await jobFromPage(page, platformForUrl(page.url), new Date()),
+    );
+    const { job } = stored;
+    if (!stored.created && (job.status === "new" || job.status === "hidden")) {
+      await db.jobs.update(job.id, { status: "saved" });
     }
-    await db.jobs.put(job);
     await runPrefilter(false);
-    return { jobId: job.id, created: true, mode: job.mode };
+    return { jobId: job.id, created: stored.created, mode: job.mode };
+  },
+
+  // "Add job manually" (spec 13.5): pasted text plus optional URL, company and title.
+  "jobs/addManual": async ({ title, company, location, url, text }) => {
+    const db = getDb();
+    const now = new Date();
+    const job = await jobFromPage(
+      {
+        title,
+        company,
+        locations: location ? [location] : [],
+        descriptionHtml: textToHtml(text),
+        url: url ?? "",
+      },
+      url ? platformForUrl(url) : "other",
+      now,
+    );
+    const id = url
+      ? job.id
+      : `manual:${(await sha256Hex(`${company}|${title}|${text.slice(0, 2000)}`)).slice(0, 32)}`;
+    const stored = await storeOrMerge(db, { ...job, id, source: "pasted" });
+    if (!stored.created && stored.job.status !== "applied") {
+      await db.jobs.update(stored.job.id, { status: "saved" });
+    }
+    await runPrefilter(false);
+    return { jobId: stored.job.id, created: stored.created };
   },
 
   "jobs/scoreOne": async ({ jobId }) => {
@@ -221,11 +246,7 @@ export const pageHandlers: Handlers = {
         platformForUrl(card.url),
         now,
       );
-      const existing =
-        (await db.jobs.get(job.id)) ??
-        (await db.jobs.where("dedupeKey").equals(job.dedupeKey).first());
-      if (!existing) await db.jobs.put({ ...job, status: "new" });
-      ids.push(existing?.id ?? job.id);
+      ids.push((await storeOrMerge(db, { ...job, status: "new" })).job.id);
     }
     await runPrefilter(false);
     const result = await runAiScoring(ids.length, "best", "user", ids);

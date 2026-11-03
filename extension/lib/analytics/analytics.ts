@@ -106,7 +106,7 @@ function rates(
     : list.sort((a, b) => b.sent - a.sent || a.label.localeCompare(b.label));
 }
 
-const PLATFORM_LABELS: Record<string, string> = {
+export const PLATFORM_LABELS: Record<string, string> = {
   greenhouse: "Greenhouse",
   lever: "Lever",
   ashby: "Ashby",
@@ -116,6 +116,8 @@ const PLATFORM_LABELS: Record<string, string> = {
   indeed: "Indeed",
   linkedin: "LinkedIn",
   workday: "Workday",
+  adzuna: "Adzuna",
+  jsearch: "JSearch",
   other: "Other sites",
 };
 

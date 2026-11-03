@@ -21,6 +21,7 @@ import { useProfile, useScoringQuota } from "../hooks";
 import { useMatchFilters } from "../matchFilters";
 import { FeedStatusBar } from "./FeedStatusBar";
 import { MatchFiltersBar } from "./matches/MatchFiltersBar";
+import { AddJobDialog } from "./matches/AddJobDialog";
 import { SearchLinks } from "./matches/SearchLinks";
 import { SkillGapsPanel } from "./matches/SkillGapsPanel";
 
@@ -206,7 +207,10 @@ export function MatchesPage() {
             reset(showThreshold);
           }}
         />
-        <SearchLinks />
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <SearchLinks />
+          <AddJobDialog />
+        </div>
         <SkillGapsPanel gaps={gaps} top={GAP_TOP} />
         {selected.size > 0 && (
           <div className="flex items-center gap-2 rounded-md bg-slate-100 px-3 py-2 text-sm dark:bg-slate-900">
