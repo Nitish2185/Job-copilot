@@ -9,6 +9,7 @@ import { MatchingSettingsForm } from "@/components/matching/MatchingSettingsForm
 import { CoverLetterSettings } from "@/components/resume/CoverLetterSettings";
 import { NotificationSettings } from "@/components/tracker/NotificationSettings";
 import { DataControls } from "@/components/data/DataControls";
+import { AppearanceSettings } from "@/components/ui/AppearanceSettings";
 import { DemoDataPanel } from "@/components/ui/DemoDataPanel";
 import { Section } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
@@ -95,6 +96,9 @@ export function SettingsPage() {
       </Section>
       <Section title="Notifications" description="Clicking a notification opens the right page.">
         <NotificationSettings />
+      </Section>
+      <Section title="Appearance">
+        <AppearanceSettings />
       </Section>
       <Section
         title="Your data"

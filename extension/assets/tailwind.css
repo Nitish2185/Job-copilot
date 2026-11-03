@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark mode follows Settings > Appearance (lib/ui/theme.ts sets data-theme on <html>). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* Chart tokens (analytics). Validated categorical pair: Assist = slot 1, Auto = slot 2. */
 :root {
   --viz-series-1: #2a78d6;
