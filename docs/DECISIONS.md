@@ -150,6 +150,18 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **The sync mirror holds only active, non-sensitive answers.** Pay, notice period, disability and similar answers stay on the device, like API keys. It is written only when the answers change, and pulled on startup and when another browser updates it.
 - **Demo data** (development builds) uses "demo:" IDs and never touches the user's records or AI usage.
 
+## Polish and release (Phase 11)
+
+- **Firefox data consent:** the manifest declares no required data collection and optional _personally identifying information_ and _website content_, sent only to the AI provider the user picks. Consent is asked in the same prompt as the provider's address (one user gesture) and AI calls refuse to run without it. This needs Firefox 140+ (the 2025 ESR) and Firefox for Android 142+.
+- **Environment flags in code use `import.meta.env.BROWSER === "firefox"`**, not `FIREFOX`: in tests the flags are strings, and `"false"` is truthy.
+- **Reproducible builds:** Tailwind scans only `entrypoints/`, `components/` and `lib/`, and the sources zip is an allowlist of the workspace. A rebuild from the sources zip in a clean folder is byte-identical (checked on 2026-11-03).
+- **Contrast is fixed in one place** (`assets/tailwind.css`): muted and coloured text steps one shade where it would fall under 4.5:1 in either theme. The axe check (WCAG 2.1 A/AA) runs on every page in light and dark in E2E.
+- **Listing APIs use only parameters confirmed in public docs** (Adzuna `what`, `where`, `results_per_page`; JSearch `query`, `page`, `num_pages`), because their full references need an account.
+- **Duplicates merge into the saved job** (earliest first-seen date, every URL, the Auto apply link wins and is never downgraded) instead of being skipped.
+- **No date-fns:** the built-in `Intl` formatting covers every date shown.
+- **Tips live in the dashboard layout** (one per page, dismissed per browser in `localStorage`), so pages stay unchanged.
+- **Layout deviations from the planned tree:** one Assist site script for all four sites (badges included) instead of separate badge scripts; one `SELECTORS` map per adapter kind; `lib/matching` instead of `lib/matcher`; `lib/backup` and `lib/sync` for data control.
+
 ## AI providers (verified against official docs on 2026-11-02)
 
 - **Base URLs:** Gemini `https://generativelanguage.googleapis.com/v1beta/openai/` (supports `/models` and structured JSON output), Groq `https://api.groq.com/openai/v1`, OpenRouter `https://openrouter.ai/api/v1`, Ollama `http://localhost:11434/v1` (ignores the API key but the client must send one).

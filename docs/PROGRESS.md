@@ -2,9 +2,23 @@
 
 ## Current phase
 
-**Phase 11 - Polish and release** (starting)
+All phases are done. What remains needs the repository owner (see "Waiting on the owner").
 
 ## Done
+
+### Phase 11 - Polish and release (accepted 2026-11-03)
+
+- Interview prep on the job page and in the tracker; Adzuna and JSearch behind optional
+  permissions; Naukri, Indeed and LinkedIn search links; "Add job manually"; duplicate listings
+  merged ("Also listed on ...").
+- Light, dark and system themes; an axe accessibility check (WCAG 2.1 A/AA) on every page in both
+  themes; a tip on every page; the Answers page; Settings for privacy, shortcuts and About.
+- Performance with 10,000 jobs: sync and rank 2.6 s; search, sort and clearing under 50 ms.
+- Firefox: data consent declared, checked on Firefox 159, Mozilla's linter in CI (0 errors).
+- The website (Home, Install, Gemini key, FAQ, Privacy, Feed status), `release.yml` with
+  checksums, reproducible sources zip (`docs/BUILDING.md`), `docs/PUBLISHING.md`, final README.
+- `docs/REQUIREMENTS.md`: every item ticked or deferred with a reason, and each section 2 rule
+  linked to its tests.
 
 ### Phase 10 - Tracker, notifications, analytics, data control (accepted 2026-11-03)
 
@@ -208,23 +222,26 @@
 
 ## Next
 
-Phase 11: interview prep, Adzuna and JSearch behind optional permissions, search links, dark
-mode toggle and accessibility pass, a 10,000-job performance check, empty states and tips, the
-website, `release.yml`, `PUBLISHING.md`, the final README, and the Firefox build check.
+Nothing planned. Possible follow-ups: confirm the Indeed apply flow and Workday "Add" buttons on
+real pages (`docs/QA.md`), real screenshots for the website and README, store submissions.
 
 ## Waiting on the owner
 
-- Turn on GitHub Pages (Settings > Pages > Source: GitHub Actions) and run the "Crawl jobs"
-  workflow once from the Actions tab. Until then the scheduled crawl fails at the deploy step.
+- Turn on GitHub Pages (Settings > Pages > Source: GitHub Actions), allow workflows to write
+  (Settings > Actions > General > Read and write permissions), and run the "Crawl jobs" workflow
+  once from the Actions tab. Until then the scheduled crawl fails at the deploy step.
+- Load the extension, complete onboarding with a Gemini key, and try `docs/QA.md` on the real
+  sites with your own accounts.
+- When ready: push a `v<version>` tag for a release, then submit to Edge Add-ons and Firefox
+  Add-ons (`docs/PUBLISHING.md`).
 
 ## Known issues
 
 - Assist selectors are not yet confirmed on logged-in pages; the owner can run `docs/QA.md` and
   save pages into `captures/` where something is off. Indeed's apply flow and Workday's "Add"
   buttons for more work-history blocks are not verified or automated yet (17.2, 17.4).
-
-- Firefox build warns that new add-ons must declare `data_collection_permissions`. Decide the
-  declaration with the store listing in Phase 11.
+- Mozilla's linter shows 24 warnings, all from bundled libraries (Zod's eval check, PDF.js
+  workers) or static badge templates; explained in `docs/PUBLISHING.md`.
 - Go race tests only run in CI (no C compiler on this machine).
 - A local crawl from this machine once failed Bosch's 50-page SmartRecruiters listing on a DNS
   hiccup; the crawler kept its previous jobs as designed.

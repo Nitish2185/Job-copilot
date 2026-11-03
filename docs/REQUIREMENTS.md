@@ -8,43 +8,43 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 - [x] 0.1 All three spec parts saved verbatim in `docs/spec/`
 - [x] 0.2 `docs/REQUIREMENTS.md` created before writing code
-- [ ] 0.3 `docs/PROGRESS.md` kept current (phase, done, next, known issues)
-- [ ] 0.4 `docs/DECISIONS.md` records every open choice with a one-line reason
-- [ ] 0.5 Work in phases; run checks and update docs at the end of each phase (commit per feature, push to `main` - see DECISIONS)
-- [ ] 0.6 Library versions checked against current docs and pinned exactly in `package.json` and `go.mod`
+- [x] 0.3 `docs/PROGRESS.md` kept current (phase, done, next, known issues)
+- [x] 0.4 `docs/DECISIONS.md` records every open choice with a one-line reason
+- [x] 0.5 Work in phases; run checks and update docs at the end of each phase (commit per feature, push to `main` - see DECISIONS)
+- [x] 0.6 Library versions checked against current docs and pinned exactly in `package.json` and `go.mod`
 - [ ] 0.6 Real GET request made for every external API before writing its parser; trimmed response saved as a fixture
-- [ ] 0.7 No real job application submitted during development; form fillers tested only on local fixtures
-- [ ] 0.8 TypeScript `strict`, no `any` except at validated boundaries, ESLint + Prettier clean
-- [ ] 0.9 Cross-platform scripts only (Node scripts or `cross-env`, no bash-only npm scripts)
+- [x] 0.7 No real job application submitted during development; form fillers tested only on local fixtures
+- [x] 0.8 TypeScript `strict`, no `any` except at validated boundaries, ESLint + Prettier clean
+- [x] 0.9 Cross-platform scripts only (Node scripts or `cross-env`, no bash-only npm scripts)
 - [x] 0.9 Prerequisites checked in Phase 0 (Node 22+, pnpm, Go latest stable, Git)
 
 ## 1. What we are building
 
 - [x] 1 App name lives in one constant (`APP_NAME`) so it is easy to rename
 - [x] 1.1 Finds jobs from the shared feed (Greenhouse, Lever, Ashby, SmartRecruiters, Workable if verified)
-- [ ] 1.1 Finds jobs from the user's own company list (fetched directly by the extension)
-- [ ] 1.1 Finds jobs from optional listing APIs with the user's own keys (Adzuna, JSearch)
-- [ ] 1.1 Saves jobs from any page the user is viewing
-- [ ] 1.1 Accepts manually pasted job descriptions
+- [x] 1.1 Finds jobs from the user's own company list (fetched directly by the extension)
+- [x] 1.1 Finds jobs from optional listing APIs with the user's own keys (Adzuna, JSearch)
+- [x] 1.1 Saves jobs from any page the user is viewing
+- [x] 1.1 Accepts manually pasted job descriptions
 - [x] 1.1 Ranks jobs: local keyword prefilter, then AI score with reasons, must-have checklist, missing skills
-- [ ] 1.1 Prepares applications from profile + answer bank; optional tailored resume (2 most relevant real projects) and cover letter
+- [x] 1.1 Prepares applications from profile + answer bank; optional tailored resume (2 most relevant real projects) and cover letter
 - [x] 1.1 Auto mode on Greenhouse, Lever, Ashby, Workable, SmartRecruiters (background tab, after approval or above threshold)
 - [x] 1.1 Assist mode everywhere else (fills, the user submits)
-- [ ] 1.1 Tracks every application with exact resume and answers sent, follow-ups, stages, analytics (incl. tailored vs current response rate)
-- [ ] 1.2 No backend server, no hosted database, no paid services
+- [x] 1.1 Tracks every application with exact resume and answers sent, follow-ups, stages, analytics (incl. tailored vs current response rate)
+- [x] 1.2 No backend server, no hosted database, no paid services
 - [x] 1.2 Shared feed is static JSON on GitHub Pages built by a scheduled workflow
 - [x] 1.2 BYOK: Gemini default; Groq, OpenRouter, Ollama, any OpenAI-compatible endpoint; keys stay on device
-- [ ] 1.2 All user data local (IndexedDB + `chrome.storage`); only AI requests and applications leave the device
-- [ ] 1.2 Works without an AI key (keyword matching, profile autofill, tracking, base resume); AI features show "Add an AI key to enable this"
-- [ ] 1.2 First-class India support (Naukri, Indeed India, CTC in LPA, notice period) while working globally
+- [x] 1.2 All user data local (IndexedDB + `chrome.storage`); only AI requests and applications leave the device
+- [x] 1.2 Works without an AI key (keyword matching, profile autofill, tracking, base resume); AI features show "Add an AI key to enable this"
+- [x] 1.2 First-class India support (Naukri, Indeed India, CTC in LPA, notice period) while working globally
 
 ## 2. Non-negotiable rules
 
 ### 2.1 Assist-only sites never submit
 
-- [ ] 2.1 Assist list covers Naukri, Indeed, LinkedIn, Wellfound, Glassdoor, Foundit, Instahyre, Hirist, Cutshort, Workday, iCIMS, Taleo/Oracle, SuccessFactors, and every non-allowlisted site
-- [ ] 2.1 Fill only on a page the user opened, only on Autofill button/shortcut or "Autofill each new step automatically" (default ON)
-- [ ] 2.1 Auto-step setting fills only the visible tab; never clicks or navigates
+- [x] 2.1 Assist list covers Naukri, Indeed, LinkedIn, Wellfound, Glassdoor, Foundit, Instahyre, Hirist, Cutshort, Workday, iCIMS, Taleo/Oracle, SuccessFactors, and every non-allowlisted site
+- [x] 2.1 Fill only on a page the user opened, only on Autofill button/shortcut or "Autofill each new step automatically" (default ON)
+- [x] 2.1 Auto-step setting fills only the visible tab; never clicks or navigates
 - [x] 2.1 Allowed interactions limited to setting control values, opening comboboxes, attaching files, "Add another" section buttons
 - [x] 2.1 `isNavigationOrSubmitControl(element)` guard implemented
 - [x] 2.1 Every programmatic click goes through one `safeClick()` that refuses forbidden elements on Assist sites
@@ -68,7 +68,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 2.3 Never bypass CAPTCHAs/bot checks; on detection stop, mark "Needs you", notify
 - [x] 2.3 No human-imitation automation (fake mouse moves, typing delays, fingerprint changes, proxies)
 - [x] 2.3 Never fill email/SMS verification codes; stop and mark "Needs you"
-- [ ] 2.3 Never invent facts on resumes, cover letters, or answers
+- [x] 2.3 Never invent facts on resumes, cover letters, or answers
 - [x] 2.3 AI never decides sensitive answers (work auth, sponsorship, salary/CTC, notice, background check, relocation, attestations, DOB); missing -> stop, ask, save to answer bank
 - [x] 2.3 Never accept terms/consent for the user, except privacy-notice acknowledgement on Auto forms when the opt-in (default OFF) is on
 - [x] 2.3 Never fill hidden or disabled fields
@@ -88,17 +88,43 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 2.5 AI output required as JSON and validated with Zod
 - [x] 2.5 AI output never triggers actions directly; code decides every action
 
+### Rules and the tests that cover them
+
+| Rule                                                                        | Covered by                                                                                                                    |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| 2.1 Assist list (every non-allowlisted site is Assist)                      | `extension/tests/unit/apply-mode.test.ts`                                                                                     |
+| 2.1 Fill only on Autofill / "each new step", visible tab only               | `extension/tests/unit/assist-site.test.ts` (Autofill each new step), `extension/tests/e2e/autofill.spec.ts`                   |
+| 2.1 Allowed interactions, `isNavigationOrSubmitControl`, single `safeClick` | `extension/tests/unit/apply-guards.test.ts`, `extension/tests/unit/apply-fill.test.ts`                                        |
+| 2.1 Never clicks submit/next on Assist sites                                | `extension/tests/e2e/autofill.spec.ts`, `extension/tests/e2e/assist-sites.spec.ts`                                            |
+| 2.1 No requests to Assist sites; badges from loaded cards only              | `extension/tests/unit/assist-site.test.ts`, `extension/tests/e2e/assist-sites.spec.ts` (all outside hosts blocked)            |
+| 2.2 Exact-hostname submit guard                                             | `extension/tests/unit/apply-guards.test.ts`                                                                                   |
+| 2.2 Release builds exclude the test host and every-site access              | `scripts/check-release-build.mjs` (CI and release)                                                                            |
+| 2.3 Passwords and login forms never filled                                  | `extension/tests/unit/apply-discover.test.ts`, `extension/tests/unit/apply-engine.test.ts`                                    |
+| 2.3 Logged-out banner                                                       | `extension/tests/unit/assist-site.test.ts`, `extension/tests/e2e/assist-sites.spec.ts`                                        |
+| 2.3 No `cookies` (or other forbidden) permission                            | `scripts/check-release-build.mjs`                                                                                             |
+| 2.3 CAPTCHA stops and goes to Needs you                                     | `extension/tests/unit/apply-engine.test.ts`, `extension/tests/unit/apply-adapters.test.ts`                                    |
+| 2.3 Verification codes never filled                                         | `extension/tests/unit/apply-engine.test.ts`                                                                                   |
+| 2.3 Never invent facts                                                      | `extension/tests/unit/tailor-validate.test.ts`, `cover-letter.test.ts`, `interview-prep.test.tsx`, `follow-up-email.test.tsx` |
+| 2.3 AI never decides sensitive answers                                      | `extension/tests/unit/apply-resolve.test.ts`, `extension/tests/unit/apply-answer.test.ts`                                     |
+| 2.3 Never accepts consent (except the opt-in privacy notice)                | `extension/tests/unit/apply-resolve.test.ts`                                                                                  |
+| 2.3 Hidden and disabled fields never filled                                 | `extension/tests/unit/apply-discover.test.ts`                                                                                 |
+| 2.3 Never applies twice; caps                                               | `extension/tests/unit/apply-applications.test.ts`, `queue-enqueue.test.ts`, `queue-rules.test.ts`                             |
+| 2.3 Auto-apply off by default; dry run in development                       | `shared/src/schemas/model.test.ts`                                                                                            |
+| 2.4 Pause and daily/company caps                                            | `extension/tests/unit/queue-rules.test.ts`, `shared/src/schemas/model.test.ts`                                                |
+| 2.4 Crawler User-Agent, retries, 429 and `Retry-After`                      | `crawler/internal/httpx/client_test.go`                                                                                       |
+| 2.5 Untrusted content delimited; JSON validated; AI never acts              | `extension/tests/unit/ai-tasks.test.ts`, `extension/tests/unit/ai.test.ts`                                                    |
+
 ## 3. Architecture
 
 - [x] 3 GitHub Actions cron (every 6 h) runs the crawler, commits state to the `data` branch, deploys Pages (site + `/feed/*.json`)
-- [ ] 3 Extension background handles feed sync, personal boards, listing APIs, matcher, AI scheduler, apply queue, notifications
-- [ ] 3 No server of ours anywhere
+- [x] 3 Extension background handles feed sync, personal boards, listing APIs, matcher, AI scheduler, apply queue, notifications
+- [x] 3 No server of ours anywhere
 
 ## 4. Tech stack
 
-- [ ] 4 pnpm workspaces with `extension`, `site`, `shared`; Go module in `crawler/`
-- [ ] 4 WXT + TypeScript strict; builds Chrome/Edge MV3 and Firefox; uses WXT `browser` wrapper
-- [ ] 4 React + Tailwind; Radix UI primitives; lucide-react icons; reusable components in `extension/components/ui`
+- [x] 4 pnpm workspaces with `extension`, `site`, `shared`; Go module in `crawler/`
+- [x] 4 WXT + TypeScript strict; builds Chrome/Edge MV3 and Firefox; uses WXT `browser` wrapper
+- [x] 4 React + Tailwind; Radix UI primitives; lucide-react icons; reusable components in `extension/components/ui`
 - [x] 4 On-site UI via WXT `createShadowRootUi` (a plain Shadow DOM overlay; see DECISIONS)
 - [x] 4 Dashboard uses react-router with a hash router
 - [x] 4 Zustand for UI-only state; Dexie live queries for DB state
@@ -106,8 +132,8 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 4 react-hook-form + Zod resolver (validation through the model's Zod schemas; see DECISIONS)
 - [x] 4 Zod as single source of truth; JSON Schema exported from Zod for AI structured output
 - [x] 4 @tanstack/react-virtual for lists (10,000+ jobs)
-- [ ] 4 @dnd-kit for the Kanban board
-- [ ] 4 Recharts for analytics
+- [x] 4 @dnd-kit for the Kanban board
+- [x] 4 Recharts for analytics
 - [x] 4 pdfjs-dist with the worker bundled locally
 - [x] 4 mammoth for DOCX
 - [x] 4 @react-pdf/renderer with bundled open-license fonts
@@ -117,16 +143,16 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 4 Vitest, Testing Library, fake-indexeddb; Playwright e2e against local fixtures only
 - [x] 4 ESLint (typescript-eslint) + Prettier
 - [x] 4 Go crawler uses only stdlib + `x/sync` (errgroup, semaphore); no web frameworks
-- [ ] 4 Site: Vite + React on GitHub Pages
-- [ ] 4 CI/CD workflows: `ci.yml`, `crawl.yml`, `release.yml`
+- [x] 4 Site: Vite + React on GitHub Pages
+- [x] 4 CI/CD workflows: `ci.yml`, `crawl.yml`, `release.yml`
 - [x] 4 MIT license
-- [ ] 4 No Express, MongoDB, servers, paid APIs, Selenium, or production Puppeteer
+- [x] 4 No Express, MongoDB, servers, paid APIs, Selenium, or production Puppeteer
 
 ## 5. Repository structure
 
-- [ ] 5 Repository layout follows section 5 (deviations logged in DECISIONS)
-- [ ] 5 Root scripts: dev, build, test, lint, typecheck, e2e
-- [ ] 5 Docs: README, LICENSE, CONTRIBUTING, ARCHITECTURE, PERMISSIONS, PUBLISHING, QA
+- [x] 5 Repository layout follows section 5 (deviations logged in DECISIONS)
+- [x] 5 Root scripts: dev, build, test, lint, typecheck, e2e
+- [x] 5 Docs: README, LICENSE, CONTRIBUTING, ARCHITECTURE, PERMISSIONS, PUBLISHING, QA
 
 ## 6. Data model
 
@@ -227,39 +253,39 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 8 `FeedJob` and `FeedIndex` Zod schemas in `shared/src/schemas/feed.ts`
 - [x] 8 Go structs mirror the schema with matching JSON tags
 - [x] 8 `applyUrl` must be on an `AUTO_SUBMIT_HOSTS` host
-- [ ] 8 Contract changes bump `schemaVersion`; extension shows "Update the extension to keep receiving jobs" for unknown versions
+- [x] 8 Contract changes bump `schemaVersion`; extension shows "Update the extension to keep receiving jobs" for unknown versions
 
 ## 9. Extension structure
 
 ### 9.1 Entrypoints
 
-- [ ] 9.1 Background service worker (alarms, sync, AI scheduler, matcher, queue, notifications, menus, commands, routing)
+- [x] 9.1 Background service worker (alarms, sync, AI scheduler, matcher, queue, notifications, menus, commands, routing)
 - [x] 9.1 Dashboard full tab with `#/onboarding` opened on first install
 - [x] 9.1 Side panel on Chrome/Edge; Firefox sidebar via per-browser config
 - [x] 9.1 Popup
 - [x] 9.1 Auto adapter content scripts (greenhouse, lever, ashby, workable, smartrecruiters)
 - [x] 9.1 Assist content scripts (naukri, indeed; linkedin and workday under optional permission)
-- [ ] 9.1 Badge content scripts (naukri, indeed; linkedin optional)
-- [ ] 9.1 Generic assist and "save this job" injected on demand via `scripting` + `activeTab`
+- [x] 9.1 Badge content scripts (naukri, indeed; linkedin optional)
+- [x] 9.1 Generic assist and "save this job" injected on demand via `scripting` + `activeTab`
 
 ### 9.2 Permissions
 
 - [x] 9.2 `docs/PERMISSIONS.md` justifies every permission
-- [ ] 9.2 Permissions: storage, unlimitedStorage, alarms, notifications, scripting, activeTab, contextMenus, sidePanel (Chrome/Edge); `tabs` only with a logged reason
-- [ ] 9.2 Required hosts: Auto hosts, ATS API hosts, feed origin, api.github.com, Gemini API, Naukri, Indeed
-- [ ] 9.2 Optional hosts requested at runtime with explanation: LinkedIn, Workday, other AI providers, Ollama, custom URL, Adzuna, JSearch
+- [x] 9.2 Permissions: storage, unlimitedStorage, alarms, notifications, scripting, activeTab, contextMenus, sidePanel (Chrome/Edge); `tabs` only with a logged reason
+- [x] 9.2 Required hosts: Auto hosts, ATS API hosts, feed origin, api.github.com, Gemini API, Naukri, Indeed
+- [x] 9.2 Optional hosts requested at runtime with explanation: LinkedIn, Workday, other AI providers, Ollama, custom URL, Adzuna, JSearch
 - [x] 9.2 Never cookies, blocking webRequest, debugger, history, management, or required `<all_urls>`
 
 ### 9.3 Commands and menus
 
 - [x] 9.3 Commands `autofill` (Alt+Shift+F) and `toggle-side-panel` (Alt+Shift+J); current shortcut shown in UI
-- [ ] 9.3 Context menu: "Save this job to Job Copilot", "Score this job", "Autofill this form"
+- [x] 9.3 Context menu: "Save this job to Job Copilot", "Score this job", "Autofill this form"
 
 ### 9.4 Service worker lifecycle
 
 - [x] 9.4 No important state only in memory; queue and progress persisted in IndexedDB
-- [ ] 9.4 Alarms: feed-sync (6 h + startup), boards-sync (6 h), queue-tick (1 min while work), daily-digest, followups, github-refresh (weekly), cleanup (daily)
-- [ ] 9.4 Long tasks resumable via stored cursors
+- [x] 9.4 Alarms: feed-sync (6 h + startup), boards-sync (6 h), queue-tick (1 min while work), daily-digest, followups, github-refresh (weekly), cleanup (daily)
+- [x] 9.4 Long tasks resumable via stored cursors
 
 ### 9.5 Messaging
 
@@ -269,9 +295,9 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ### 9.6 Cross-browser
 
-- [ ] 9.6 Chrome MV3, Edge (same build), Firefox per WXT recommendation
+- [x] 9.6 Chrome MV3, Edge (same build), Firefox per WXT recommendation
 - [x] 9.6 Side panel/sidebar differences handled in one place
-- [ ] 9.6 Firefox build tested manually in Phase 11; unsupported items documented
+- [x] 9.6 Firefox build tested manually in Phase 11; unsupported items documented
 - [x] 9.6 No remote code, no `eval`; pdf.js worker and fonts bundled
 
 ## 10. Onboarding and profile
@@ -314,7 +340,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 11.4 Cache key SHA-256(taskId + promptVersion + model + canonical JSON input)
 - [x] 11.4 TTLs: profile/project never; JD analysis 30 d; scoring 30 d; answers 90 d
 - [x] 11.5 Redaction of email, phone, address, DOB, full name before sending (default on)
-- [ ] 11.5 Contact fields extracted locally and never sent; PDFs rendered locally
+- [x] 11.5 Contact fields extracted locally and never sent; PDFs rendered locally
 - [x] 11.5 Redactor unit-tested with Indian +91, international, plus-sign emails
 - [x] 11.6 Untrusted-content system message for every web-content task
 - [x] 11.6 Instruction-like text in JDs adds a red flag and never raises the score
@@ -327,9 +353,9 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 11.7 Task `pickProjects` (IDs verified by code)
 - [x] 11.7 Task `tailorResume` (structured changes only)
 - [x] 11.7 Task `writeCoverLetter` (150-250 words)
-- [ ] 11.7 Task `answerQuestion` (blocked for sensitive categories before calling)
-- [ ] 11.7 Task `extractJobFromPage`
-- [ ] 11.7 Task `interviewPrep` (Phase 11 stretch)
+- [x] 11.7 Task `answerQuestion` (blocked for sensitive categories before calling)
+- [x] 11.7 Task `extractJobFromPage`
+- [x] 11.7 Task `interviewPrep` (Phase 11 stretch)
 - [x] 11.8 Token budgets: JD 6000/1500 chars, README 2000, project descriptions 400, whitespace stripped, never full HTML
 
 ## 12. Matching
@@ -356,23 +382,23 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 13.2 "Add company" by URL via shared `detect.ts`; clear message when unsupported
 - [x] 13.2 Personal boards fetched every 6 h with a TS port of the normalizer (same golden cases)
 - [x] 13.2 "Suggest for the shared list" opens a pre-filled GitHub issue URL
-- [ ] 13.3 Adzuna (verified endpoint) and JSearch (verified endpoint), off by default, with daily call limits
-- [ ] 13.3 Listing results normalized into Job; mode from apply URL host
+- [x] 13.3 Adzuna (verified endpoint) and JSearch (verified endpoint), off by default, with daily call limits
+- [x] 13.3 Listing results normalized into Job; mode from apply URL host
 - [x] 13.4 Save from page: JSON-LD `JobPosting`, then adapter `readJob()`, then AI `extractJobFromPage` or prefilled form
 - [x] 13.4 "Apply on company site" link stored as `externalApplyUrl`; Auto-eligible when its host is allowlisted
-- [ ] 13.5 "Add job manually" (paste description + optional URL, company, title)
-- [ ] 13.6 Search links for Naukri, Indeed (country subdomain), LinkedIn opened only on click (formats verified)
+- [x] 13.5 "Add job manually" (paste description + optional URL, company, title)
+- [x] 13.6 Search links for Naukri, Indeed (country subdomain), LinkedIn opened only on click (formats verified)
 - [x] 13.7 Badges read cards already on the page; local prefilter only
 - [x] 13.7 Optional "AI-score the jobs on this page" (max 10 per click) via scheduler
 - [x] 13.7 Shadow DOM badge with score, color, top skills, Save button
 - [x] 13.7 `MutationObserver` for new cards; never fetches pages or clicks
 - [x] 13.8 `dedupeKey` = normalized company | title | primary location
-- [ ] 13.8 Merge keeps earliest firstSeenAt, all URLs, prefers Auto-eligible apply URL
-- [ ] 13.8 "Also listed on ..." shown on merged jobs
+- [x] 13.8 Merge keeps earliest firstSeenAt, all URLs, prefers Auto-eligible apply URL
+- [x] 13.8 "Also listed on ..." shown on merged jobs
 
 ## 14. Resume
 
-- [ ] 14.1 Two choices everywhere: "Apply with my resume" / "Apply with a resume made for this job"; default from `resumeDefault`
+- [x] 14.1 Two choices everywhere: "Apply with my resume" / "Apply with a resume made for this job"; default from `resumeDefault`
 - [x] 14.2 Tailoring pipeline: analyze, pick, tailor, validate, render, preview, save
 - [x] 14.2 `pickProjects` honors N (2-3), highlight projects count toward N, IDs validated
 - [x] 14.2 Deterministic project-pick fallback (techStack overlap, then recency)
@@ -391,7 +417,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 14.5 "Generate a clean base resume from my profile" option
 - [x] 14.6 Validation issues send the application to Review regardless of score
 - [x] 14.6 First `requireApprovalForFirstTailored` (default 5) tailored resumes need approval
-- [ ] 14.7 Naukri disables tailored option with explanation; per-site options per table
+- [x] 14.7 Naukri disables tailored option with explanation; per-site options per table
 
 ## 15. Cover letters and interview prep
 
@@ -399,15 +425,15 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 15.1 150-250 words, addressed to hiring team, mentions picked projects and met requirements
 - [x] 15.1 Same validator as resumes
 - [x] 15.1 PDF rendering when a file is required
-- [ ] 15.1 Saved as `CoverLetter`, editable, copy button in Assist
-- [ ] 15.2 "Prepare for interview" (questions, talking points, skills, questions to ask), saved with the application
+- [x] 15.1 Saved as `CoverLetter`, editable, copy button in Assist
+- [x] 15.2 "Prepare for interview" (questions, talking points, skills, questions to ask), saved with the application
 
 ## 16. Apply engine
 
 - [x] 16.1 `resolveMode(url)` returns auto only for exact allowlisted hosts; known Assist hosts; generic otherwise
 - [x] 16.1 `resolveMode` tested with tricky URLs (`jobs.lever.co.evil.com`, query-string tricks, subdomains, uppercase)
 - [x] 16.2 `SiteAdapter` interface as specified; only Auto adapters implement `findSubmitControl`
-- [ ] 16.2 Selectors in one file per adapter; labels/text/ARIA preferred; CONTRIBUTING explains fixing adapters
+- [x] 16.2 Selectors in one file per adapter; labels/text/ARIA preferred; CONTRIBUTING explains fixing adapters (one `SELECTORS` map per adapter kind; see DECISIONS)
 - [x] 16.3 Collect visible, enabled controls incl. custom comboboxes, date pickers, file inputs
 - [x] 16.3 Label resolution order (label for, aria-labelledby, aria-label, wrapping label, legend/preceding text, placeholder, name) + normalization
 - [x] 16.3 Rule-table classifier in `lib/apply/fields/rules.ts` with all canonical keys
@@ -456,19 +482,19 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 18. User interface
 
-- [ ] 18 Accessible (keyboard, ARIA, contrast, focus), light/dark, responsive
+- [x] 18 Accessible (keyboard, ARIA, contrast, focus), light/dark, responsive
 - [x] 18 Loading, empty, error states on every list; error boundaries on every route
 - [x] 18.1 `#/matches` with filters, sort, bulk actions, "AI-score the next 20" with quota, virtualized rows
-- [ ] 18.1 `#/jobs/:id` with sanitized description, match breakdown, reasons, red flags, gaps, same-company info, actions (all but the apply, tailoring, cover letter and interview actions, which come with Phases 6-8)
+- [x] 18.1 `#/jobs/:id` with sanitized description, match breakdown, reasons, red flags, gaps, same-company info, actions (all but the apply, tailoring, cover letter and interview actions, which come with Phases 6-8)
 - [x] 18.1 `#/review` approval queue with resume preview, answers (AI highlighted), cover letter, approve/edit/reject, bulk approve
 - [x] 18.1 `#/needs-you` with "Open & finish" and "Answer & retry"
-- [ ] 18.1 `#/tracker` Kanban + list, drawer (timeline, resume, answers, cover letter, notes, follow-up, prep), CSV export
+- [x] 18.1 `#/tracker` Kanban + list, drawer (timeline, resume, answers, cover letter, notes, follow-up, prep), CSV export
 - [x] 18.1 `#/resumes` base, generated base, tailored by job; preview, download, delete, template picker
-- [ ] 18.1 `#/answers` search, edit, delete, mark sensitive, approve pending
-- [ ] 18.1 `#/profile` all sections, projects with toggles and GitHub sync, preferences
-- [ ] 18.1 `#/companies` personal boards, hidden companies, suggest for shared list
+- [x] 18.1 `#/answers` search, edit, delete, mark sensitive, approve pending
+- [x] 18.1 `#/profile` all sections, projects with toggles and GitHub sync, preferences
+- [x] 18.1 `#/companies` personal boards, hidden companies, suggest for shared list
 - [x] 18.1 `#/analytics`
-- [ ] 18.1 `#/settings` all sections listed in 18.1
+- [x] 18.1 `#/settings` all sections listed in 18.1
 - [x] 18.1 `#/onboarding`
 - [x] 18.2 Context-aware side panel
 - [x] 18.3 Popup counts, pause/resume, open dashboard, open side panel
@@ -492,39 +518,39 @@ Anything not done at the end moves to **Deferred** with a reason.
 
 ## 21. Security and privacy
 
-- [ ] 21 Secrets masked in UI, never logged or in error reports
-- [ ] 21 DOMPurify on all external HTML
-- [ ] 21 No remote code, no `eval`, strict CSP
-- [ ] 21 Content scripts in isolated world; no profile data to page scripts or `postMessage`
-- [ ] 21 Background validates messages and senders
-- [ ] 21 No analytics or telemetry
-- [ ] 21 Privacy policy page on the website
-- [ ] 21 Dependencies pinned, lockfile committed, `pnpm audit` in CI (warn on low)
+- [x] 21 Secrets masked in UI, never logged or in error reports
+- [x] 21 DOMPurify on all external HTML
+- [x] 21 No remote code, no `eval`, strict CSP
+- [x] 21 Content scripts in isolated world; no profile data to page scripts or `postMessage`
+- [x] 21 Background validates messages and senders
+- [x] 21 No analytics or telemetry
+- [x] 21 Privacy policy page on the website
+- [x] 21 Dependencies pinned, lockfile committed, `pnpm audit` in CI (warn on low)
 
 ## 22. Testing
 
-- [ ] 22.1 `shared` unit tests (schemas, tagger, parsers, normalizers, detection, Go golden parse)
-- [ ] 22.1 Extension unit tests for every item listed in 22.1
-- [ ] 22.1 AI task tests with a fake OpenAI-compatible client (repair retry, validation failure, 429, fallback)
-- [ ] 22.1 Component tests (onboarding steps, matches filters, review queue, auto-apply enable flow)
-- [ ] 22.2 E2E onboarding with fictional resume and mocked AI
+- [x] 22.1 `shared` unit tests (schemas, tagger, parsers, normalizers, detection, Go golden parse)
+- [x] 22.1 Extension unit tests for every item listed in 22.1
+- [x] 22.1 AI task tests with a fake OpenAI-compatible client (repair retry, validation failure, 429, fallback)
+- [x] 22.1 Component tests (onboarding steps, matches filters, review queue, auto-apply enable flow)
+- [x] 22.2 E2E onboarding with fictional resume and mocked AI
 - [x] 22.2 E2E feed sync against a local fixture feed server
 - [ ] 22.2 E2E autofill on Greenhouse, Lever, Ashby fixtures
 - [ ] 22.2 E2E Assist fixtures (Naukri, Indeed) prove no submit/next/continue/send click
-- [ ] 22.2 E2E Auto dry run + full submit on test-only fixture host with recorded Application
-- [ ] 22.2 Production build excludes the fixture host
-- [ ] 22.3 Go tests (fixtures, golden cases, diff, golden output, vet, race; live behind tag)
-- [ ] 22.4 Tests never contact real job sites, submit, or use real personal data
+- [x] 22.2 E2E Auto dry run + full submit on test-only fixture host with recorded Application
+- [x] 22.2 Production build excludes the fixture host
+- [x] 22.3 Go tests (fixtures, golden cases, diff, golden output, vet, race; live behind tag)
+- [x] 22.4 Tests never contact real job sites, submit, or use real personal data
 - [x] 22.4 CI runs unit, Go, builds, and e2e (new headless or virtual display)
 
 ## 23. CI/CD and distribution
 
-- [ ] 23.1 `ci.yml`: frozen install, lint, typecheck, unit, Chrome + Firefox builds, Go vet/test/build, e2e, pnpm + Go caching
+- [x] 23.1 `ci.yml`: frozen install, lint, typecheck, unit, Chrome + Firefox builds, Go vet/test/build, e2e, pnpm + Go caching
 - [x] 23.2 `crawl.yml`: 6-hourly + manual, permissions, concurrency group, data branch (orphan if missing), crawl, commit data, site build with `/feed`, Pages deploy, run summary
-- [ ] 23.3 `release.yml`: on `v*` tags, Chrome/Edge + Firefox zips + sources zip, release with SHA-256 checksums and notes
-- [ ] 23.4 `docs/PUBLISHING.md` (Edge, AMO with sources, Chrome load-unpacked, optional Chrome Web Store, listing text, screenshots, justifications, privacy URL)
-- [ ] 23.5 Site pages: Home, Install, Get a free Gemini key, Privacy Policy, FAQ, Feed status
-- [ ] 23.6 User-only steps documented in README and final message
+- [x] 23.3 `release.yml`: on `v*` tags, Chrome/Edge + Firefox zips + sources zip, release with SHA-256 checksums and notes
+- [x] 23.4 `docs/PUBLISHING.md` (Edge, AMO with sources, Chrome load-unpacked, optional Chrome Web Store, listing text, screenshots, justifications, privacy URL)
+- [x] 23.5 Site pages: Home, Install, Get a free Gemini key, Privacy Policy, FAQ, Feed status
+- [x] 23.6 User-only steps documented in README and final message
 - [x] 23.6 `pnpm run set-owner` script updates every owner placeholder
 
 ## 24. Phases
@@ -533,35 +559,46 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 24 Phase 1 - Shared foundations accepted
 - [x] 24 Phase 2 - Go crawler accepted
 - [x] 24 Phase 3 - Data layer and feed sync accepted
-- [ ] 24 Phase 4 - Onboarding and profile accepted
-- [ ] 24 Phase 5 - Matching accepted
+- [x] 24 Phase 4 - Onboarding and profile accepted
+- [x] 24 Phase 5 - Matching accepted
 - [x] 24 Phase 6 - Resume tailoring and cover letters accepted
-- [ ] 24 Phase 7 - Apply engine core accepted
-- [ ] 24 Phase 8 - Auto pipeline accepted
+- [x] 24 Phase 7 - Apply engine core accepted
+- [x] 24 Phase 8 - Auto pipeline accepted
 - [x] 24 Phase 9 - Assist adapters accepted
 - [x] 24 Phase 10 - Tracker, notifications, analytics, data control accepted
-- [ ] 24 Phase 11 - Polish and release accepted
-- [ ] 24 "Load demo data" button in development builds
+- [x] 24 Phase 11 - Polish and release accepted
+- [x] 24 "Load demo data" button in development builds
 
 ## 25. Definition of done
 
-- [ ] 25 CI green; no TypeScript errors; lint clean
-- [ ] 25 Every section 2 rule implemented in code with its covering test listed here
-- [ ] 25 Chrome/Edge and Firefox builds work
-- [ ] 25 Works fully without an AI key
-- [ ] 25 All docs complete; CONTRIBUTING covers adding a company, a skill, a site adapter, fixing an adapter
-- [ ] 25 Final message: what was built, how to run, manual steps from 23.6, known limitations
+- [x] 25 CI green; no TypeScript errors; lint clean
+- [x] 25 Every section 2 rule implemented in code with its covering test listed here
+- [x] 25 Chrome/Edge and Firefox builds work
+- [x] 25 Works fully without an AI key
+- [x] 25 All docs complete; CONTRIBUTING covers adding a company, a skill, a site adapter, fixing an adapter
+- [x] 25 Final message: what was built, how to run, manual steps from 23.6, known limitations
 
 ## 26. Out of scope (must stay absent)
 
-- [ ] 26 No auto-submit or submit/next/continue clicks on Assist sites
-- [ ] 26 No background searching or scraping of job boards
-- [ ] 26 No email reading
-- [ ] 26 No job-site passwords or account creation
-- [ ] 26 No server, backend, hosted database, or paid service
-- [ ] 26 No CAPTCHA solving or bot-detection workarounds
-- [ ] 26 No mobile app
+- [x] 26 No auto-submit or submit/next/continue clicks on Assist sites
+- [x] 26 No background searching or scraping of job boards
+- [x] 26 No email reading
+- [x] 26 No job-site passwords or account creation
+- [x] 26 No server, backend, hosted database, or paid service
+- [x] 26 No CAPTCHA solving or bot-detection workarounds
+- [x] 26 No mobile app
 
 ## Deferred
 
 _None yet._
+
+## Deferred
+
+| Item                                            | Why                                                                                                                                                                                                     |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0.6 Real GET for every external API             | Done for every job board, the feed and the AI providers. Adzuna and JSearch need personal keys, so their parsers follow the public docs and are tolerant of missing fields (`lib/sources/listings.ts`). |
+| 4 date-fns                                      | Not needed: dates are formatted with the built-in `Intl` API, one dependency fewer.                                                                                                                     |
+| 17.2 Indeed Apply steps "verified flow"         | Indeed blocks automated reading and needs a signed-in account. Each step is filled by the generic engine; the owner can confirm with `docs/QA.md`.                                                      |
+| 17.4 Workday "Add" for more work-history blocks | Workday forms differ per company and need the user's account. Fields are filled; adding extra experience blocks is left to the user until real pages are captured.                                      |
+| 22.2 E2E autofill on Lever and Ashby fixtures   | Lever and Ashby forms are covered by unit tests on fixtures from their public forms; E2E covers a generic form and Greenhouse.                                                                          |
+| 22.2 E2E Indeed Assist fixture                  | Naukri has an E2E fixture; Indeed is covered by adapter unit tests.                                                                                                                                     |
