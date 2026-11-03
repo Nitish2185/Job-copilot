@@ -66,6 +66,34 @@ describe("currencyForCountry", () => {
   it("defaults CTC fields to the user's currency", () => {
     expect(currencyForCountry("IN")).toBe("INR");
     expect(currencyForCountry("de")).toBe("EUR");
-    expect(currencyForCountry("")).toBe("USD");
+    expect(currencyForCountry("US")).toBe("USD");
+    expect(currencyForCountry("")).toBe("INR");
+  });
+});
+
+describe("CTC currency choice", () => {
+  it("reads amounts in the chosen currency, whatever the country default is", () => {
+    const values = { ...preferencesToForm(defaultPreferences("US")), ctcCurrency: "INR" };
+    const result = formToPreferences(
+      { ...values, currentCtc: "12 LPA", expectedCtcMin: "18 lakh" },
+      "USD",
+    );
+    expect(result.ok && result.preferences.currentCtc).toMatchObject({
+      amount: 1_200_000,
+      currency: "INR",
+    });
+    expect(result.ok && result.preferences.expectedCtc).toMatchObject({
+      min: 1_800_000,
+      currency: "INR",
+    });
+  });
+
+  it("remembers the saved currency when the form opens again", () => {
+    const prefs = {
+      ...defaultPreferences("IN"),
+      currentCtc: { amount: 1_200_000, currency: "INR", period: "year" as const },
+    };
+    expect(preferencesToForm(prefs).ctcCurrency).toBe("INR");
+    expect(preferencesToForm(defaultPreferences("IN")).ctcCurrency).toBe("");
   });
 });

@@ -7,6 +7,7 @@ import { Field, Section, inputClass } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
 import { getDb } from "@/lib/db/db";
 import {
+  CTC_CURRENCIES,
   formToPreferences,
   preferencesToForm,
   type PreferencesFormValues,
@@ -76,7 +77,7 @@ function Select({
   name: Name;
   label: string;
   hint?: string;
-  options: [value: string, label: string][];
+  options: readonly (readonly [value: string, label: string])[];
   register: UseFormRegister<PreferencesFormValues>;
 }) {
   const id = fieldId(name);
@@ -149,16 +150,19 @@ export function PreferencesForm({
   submitLabel = "Save",
   onSaved,
 }: PreferencesFormProps) {
+  const initial = preferencesToForm(preferences);
   const { register, control, handleSubmit, formState } = useForm<PreferencesFormValues>({
-    defaultValues: preferencesToForm(preferences),
+    defaultValues: { ...initial, ctcCurrency: initial.ctcCurrency || currency },
   });
   const auth = useFieldArray({ control, name: "workAuthorization" });
   const [issues, setIssues] = useState<string[]>([]);
   const servingNotice = useWatch({ control, name: "servingNotice" });
-  const amountHint =
-    currency === "INR"
-      ? 'Write "12 LPA", "12.5 lakh" or "1200000".'
-      : `Yearly amount in ${currency}, e.g. "120000" or "120k".`;
+  const ctcCurrency = useWatch({ control, name: "ctcCurrency" }) || currency;
+  const inr = ctcCurrency === "INR";
+  const amountHint = inr
+    ? 'Yearly, in rupees: "12 LPA", "12.5 lakh" or "1200000".'
+    : `Yearly amount in ${ctcCurrency}, e.g. "120000" or "120k".`;
+  const amountExample = inr ? "e.g. 12 LPA" : "e.g. 120000";
 
   const submit = handleSubmit(async (values) => {
     const result = formToPreferences(values, currency);
@@ -251,15 +255,33 @@ export function PreferencesForm({
             title="Salary"
             description="Fills current and expected CTC fields. Choose whether to share them automatically."
           >
+            <Select
+              name="ctcCurrency"
+              label="Currency"
+              options={CTC_CURRENCIES}
+              register={register}
+            />
             <div className="grid gap-3 sm:grid-cols-3">
-              <Text name="currentCtc" label="Current CTC" hint={amountHint} register={register} />
-              <Text name="expectedCtcMin" label="Expected CTC" register={register} />
+              <Text
+                name="currentCtc"
+                label="Current CTC"
+                placeholder={amountExample}
+                register={register}
+              />
+              <Text
+                name="expectedCtcMin"
+                label="Expected CTC"
+                placeholder={inr ? "e.g. 18 LPA" : "e.g. 150000"}
+                register={register}
+              />
               <Text
                 name="expectedCtcMax"
                 label="Expected CTC, maximum (optional)"
+                placeholder={inr ? "e.g. 22 LPA" : "e.g. 170000"}
                 register={register}
               />
             </div>
+            <p className="-mt-2 text-sm text-stone-600 dark:text-stone-400">{amountHint}</p>
             <Select
               name="salaryDisclosure"
               label="When a form asks about salary"
@@ -362,7 +384,8 @@ export function PreferencesForm({
             />
             <Text
               name="minSalary"
-              label="Minimum salary (optional)"
+              label={`Minimum salary (optional, ${ctcCurrency})`}
+              placeholder={amountExample}
               hint={amountHint}
               register={register}
             />

@@ -13,6 +13,8 @@ export interface PreferencesFormValues {
   noticeNegotiable: boolean;
   servingNotice: boolean;
   lastWorkingDay: string;
+  /** Currency of the CTC and salary fields (INR by default). */
+  ctcCurrency: string;
   currentCtc: string;
   expectedCtcMin: string;
   expectedCtcMax: string;
@@ -60,6 +62,7 @@ export function preferencesToForm(p: Preferences): PreferencesFormValues {
     noticeNegotiable: p.noticeNegotiable,
     servingNotice: p.servingNotice !== undefined,
     lastWorkingDay: p.servingNotice?.lastWorkingDay ?? "",
+    ctcCurrency: p.currentCtc?.currency ?? p.expectedCtc?.currency ?? p.minSalary?.currency ?? "",
     currentCtc: p.currentCtc ? formatCtc(p.currentCtc) : "",
     expectedCtcMin: p.expectedCtc
       ? formatCtc({
@@ -104,12 +107,16 @@ export function preferencesToForm(p: Preferences): PreferencesFormValues {
 export type PreferencesResult =
   { ok: true; preferences: Preferences } | { ok: false; issues: string[] };
 
-/** Builds preferences from the form. `currency` is the default for CTC fields (INR for India). */
+/**
+ * Builds preferences from the form. Amounts use the currency chosen in the form, else
+ * `currency` (the default for the user's country, INR for India).
+ */
 export function formToPreferences(v: PreferencesFormValues, currency: string): PreferencesResult {
   const issues: string[] = [];
+  const chosen = v.ctcCurrency.trim() || currency;
   const ctc = (label: string, text: string) => {
     if (text.trim() === "") return undefined;
-    const parsed = parseCtc(text, currency);
+    const parsed = parseCtc(text, chosen);
     if (!parsed) issues.push(`${label}: write an amount such as "12 LPA" or "1200000"`);
     return parsed ?? undefined;
   };
@@ -189,9 +196,22 @@ const COUNTRY_CURRENCY: Record<string, string> = {
   AE: "AED",
 };
 
-/** The currency CTC fields default to for the user's country (INR for India). */
+/** Currencies offered for CTC fields, Indian rupee first. */
+export const CTC_CURRENCIES: readonly (readonly [string, string])[] = [
+  ["INR", "₹ Indian rupee (INR)"],
+  ["USD", "$ US dollar (USD)"],
+  ["EUR", "€ Euro (EUR)"],
+  ["GBP", "£ British pound (GBP)"],
+  ["CAD", "Canadian dollar (CAD)"],
+  ["AUD", "Australian dollar (AUD)"],
+  ["SGD", "Singapore dollar (SGD)"],
+  ["AED", "UAE dirham (AED)"],
+];
+
+/** The currency CTC fields default to for the user's country: INR for India or no country. */
 export function currencyForCountry(countryCode: string): string {
   const code = countryCode.trim().toUpperCase();
+  if (code === "") return "INR";
   if (EURO_COUNTRIES.has(code)) return "EUR";
   return COUNTRY_CURRENCY[code] ?? "USD";
 }
