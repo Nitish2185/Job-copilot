@@ -1,4 +1,4 @@
-import type { ApplicationStage, Contact } from "@job-copilot/shared";
+import type { Application, ApplicationStage, Contact } from "@job-copilot/shared";
 import { useLiveQuery } from "dexie-react-hooks";
 import { Dialog } from "radix-ui";
 import { useState, type ReactNode, type SyntheticEvent } from "react";
@@ -181,8 +181,8 @@ export function ApplicationDrawer({
   followUpDays: number;
   ghostedAfterDays: number;
   onClose: () => void;
-  /** More panels for the application (follow-up email draft). */
-  extra?: (appId: string) => ReactNode;
+  /** More panels for the application (follow-up email, interview prep). */
+  extra?: (app: Application) => ReactNode;
 }) {
   const data = useLiveQuery(async () => {
     if (!appId) return null;
@@ -309,7 +309,7 @@ export function ApplicationDrawer({
                   </div>
                 </div>
               )}
-              {extra?.(app.id)}
+              {extra?.(app)}
 
               <Block title="Follow-up date">
                 <div className="flex items-center gap-2">

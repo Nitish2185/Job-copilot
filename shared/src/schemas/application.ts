@@ -56,6 +56,17 @@ export const ContactSchema = z.object({
 });
 export type Contact = z.infer<typeof ContactSchema>;
 
+/** Interview preparation (spec 15.2), saved with the application. */
+export const InterviewPrepSchema = z.object({
+  technical: z.array(z.string()),
+  behavioral: z.array(z.string()),
+  talkingPoints: z.array(z.object({ project: z.string(), points: z.array(z.string()) })),
+  brushUp: z.array(z.string()),
+  askThem: z.array(z.string()),
+  generatedAt: IsoDateTimeSchema,
+});
+export type InterviewPrep = z.infer<typeof InterviewPrepSchema>;
+
 export const ApplicationSchema = z.object({
   id: z.string().min(1),
   jobId: z.string().min(1),
@@ -81,6 +92,7 @@ export const ApplicationSchema = z.object({
   /** Tracker extras (spec 19.1). */
   interviewDates: z.array(IsoDateTimeSchema).optional(),
   contacts: z.array(ContactSchema).optional(),
+  interviewPrep: InterviewPrepSchema.optional(),
   /** True when this run stopped before submitting because dry run was on. */
   dryRun: z.boolean().optional(),
   /** Questions the user still has to answer before this application can continue. */

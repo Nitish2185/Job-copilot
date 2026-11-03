@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { ScoreBadge } from "@/components/matching/ScoreBadge";
 import { CoverLetterPanel } from "@/components/resume/CoverLetterPanel";
+import { InterviewPrepPanel } from "@/components/tracker/InterviewPrepPanel";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Field";
@@ -232,6 +233,7 @@ export function JobDetailPage() {
       </div>
     );
   }
+  const ownPrep = data.applications.find((a) => a.jobId === job.id)?.interviewPrep;
   const setStatus = (status: "saved" | "hidden") =>
     void sendMessage("jobs/setStatus", { ids: [job.id], status });
 
@@ -300,6 +302,15 @@ export function JobDetailPage() {
           {profile && (
             <Section title="Cover letter">
               <CoverLetterPanel job={job} profile={profile} />
+            </Section>
+          )}
+          {profile && (
+            <Section title="Interview">
+              <InterviewPrepPanel
+                key={job.id}
+                jobId={job.id}
+                {...(ownPrep && { saved: ownPrep })}
+              />
             </Section>
           )}
           <Section title={`More at ${job.company.name}`}>

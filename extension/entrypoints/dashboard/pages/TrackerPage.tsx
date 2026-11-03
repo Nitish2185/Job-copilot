@@ -7,6 +7,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { useEffect, useState } from "react";
 import { ApplicationDrawer } from "@/components/tracker/ApplicationDrawer";
 import { FollowUpEmail } from "@/components/tracker/FollowUpEmail";
+import { InterviewPrepPanel } from "@/components/tracker/InterviewPrepPanel";
 import { TrackerBoard } from "@/components/tracker/TrackerBoard";
 import { TrackerList } from "@/components/tracker/TrackerList";
 import { Button } from "@/components/ui/Button";
@@ -126,7 +127,16 @@ export function TrackerPage() {
         onClose={() => {
           setOpen(undefined);
         }}
-        extra={(id) => <FollowUpEmail applicationId={id} />}
+        extra={(app) => (
+          <>
+            <FollowUpEmail key={`email-${app.id}`} applicationId={app.id} />
+            <InterviewPrepPanel
+              key={`prep-${app.id}`}
+              jobId={app.jobId}
+              {...(app.interviewPrep && { saved: app.interviewPrep })}
+            />
+          </>
+        )}
       />
     </div>
   );

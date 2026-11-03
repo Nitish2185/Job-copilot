@@ -6,6 +6,7 @@
 import {
   AnswerBankEntrySchema,
   CompanySchema,
+  InterviewPrepSchema,
   JdAnalysisSchema,
   JobStatusSchema,
   PreferencesSchema,
@@ -317,6 +318,11 @@ export const MESSAGES = {
   "data/deleteEverything": {
     request: z.object({ confirm: z.literal("DELETE") }),
     response: z.object({ deleted: z.boolean() }),
+    sender: extensionOnly,
+  },
+  "ai/interviewPrep": {
+    request: z.object({ jobId: z.string().min(1) }),
+    response: z.object({ prep: InterviewPrepSchema, applicationId: z.string().optional() }),
     sender: extensionOnly,
   },
   "ai/followUpEmail": {
