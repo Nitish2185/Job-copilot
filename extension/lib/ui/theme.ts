@@ -18,10 +18,10 @@ export function applyTheme(root: HTMLElement, theme: "light" | "dark"): void {
   root.style.colorScheme = theme;
 }
 
-/** Applies the system theme at once (no flash), then the saved choice, and follows changes. */
+/** Applies the default (light) at once, then the saved choice, and follows changes. */
 export function startTheme(doc: Document = document): void {
   const media = doc.defaultView?.matchMedia("(prefers-color-scheme: dark)");
-  let choice: ThemeChoice = "system";
+  let choice: ThemeChoice = "light";
   const update = () => {
     applyTheme(doc.documentElement, resolveTheme(choice, media?.matches ?? false));
   };

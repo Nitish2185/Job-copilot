@@ -15,12 +15,7 @@ import { getDb } from "@/lib/db/db";
 import { downloadBlob } from "@/lib/files/open";
 import { sendMessage } from "@/lib/messaging/client";
 import { loadMirrorMeta, type MirrorMeta } from "@/lib/sync/answerMirror";
-import {
-  loadSecrets,
-  loadSettings,
-  updateSecrets,
-  updateSettings,
-} from "@/lib/settings/settings";
+import { loadSecrets, loadSettings, updateSecrets, updateSettings } from "@/lib/settings/settings";
 
 type Note = { ok: boolean; text: string } | undefined;
 
@@ -54,7 +49,7 @@ function ExportBackup() {
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-medium">Export</h3>
-      <p className="text-sm text-slate-600 dark:text-slate-400">
+      <p className="text-sm text-stone-600 dark:text-stone-400">
         One file with your profile, jobs, applications, resumes, answers and settings.
       </p>
       <label className="flex items-center gap-2 text-sm">
@@ -126,7 +121,7 @@ function ImportBackup() {
         <input type="file" accept="application/json,.json" onChange={(e) => void choose(e)} />
       </label>
       {backup && (
-        <div className="space-y-2 rounded-md border border-slate-200 p-3 text-sm dark:border-slate-800">
+        <div className="space-y-2 rounded-md border border-stone-200 p-3 text-sm dark:border-stone-800">
           <p>
             {fileName}: exported {new Date(backup.exportedAt).toLocaleString()}.
           </p>
@@ -143,9 +138,8 @@ function ImportBackup() {
               />
               <span>
                 Merge
-                <span className="block text-xs text-slate-500">
-                  Add the backup to what is here. Records in both are replaced by the backup’s
-                  copy.
+                <span className="block text-xs text-stone-500">
+                  Add the backup to what is here. Records in both are replaced by the backup’s copy.
                 </span>
               </span>
             </label>
@@ -160,7 +154,7 @@ function ImportBackup() {
               />
               <span>
                 Replace
-                <span className="block text-xs text-slate-500">
+                <span className="block text-xs text-stone-500">
                   Remove everything here first, then restore the backup.
                 </span>
               </span>
@@ -204,9 +198,9 @@ function DeleteEverything() {
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-medium">Delete everything</h3>
-      <p className="text-sm text-slate-600 dark:text-slate-400">
-        Removes all Job Copilot data from this browser: profile, jobs, applications, files,
-        settings and keys. Export first if you may want it back.
+      <p className="text-sm text-stone-600 dark:text-stone-400">
+        Removes all Job Copilot data from this browser: profile, jobs, applications, files, settings
+        and keys. Export first if you may want it back.
       </p>
       <Dialog.Root
         open={open}
@@ -220,7 +214,7 @@ function DeleteEverything() {
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/40" />
-          <Dialog.Content className="fixed top-1/2 left-1/2 w-[min(28rem,92vw)] -translate-x-1/2 -translate-y-1/2 space-y-3 rounded-lg bg-white p-5 text-sm shadow-xl dark:bg-slate-900">
+          <Dialog.Content className="fixed top-1/2 left-1/2 w-[min(28rem,92vw)] -translate-x-1/2 -translate-y-1/2 space-y-3 rounded-lg bg-white p-5 text-sm shadow-xl dark:bg-stone-900">
             <Dialog.Title className="text-lg font-semibold">Delete everything?</Dialog.Title>
             <Dialog.Description>
               This cannot be undone. Type <strong>DELETE</strong> to confirm.
@@ -262,7 +256,7 @@ function SyncStatus() {
       stay on this device; use Export and Import to move them.
     </p>
   ) : (
-    <p className="text-sm text-slate-600 dark:text-slate-400">
+    <p className="text-sm text-stone-600 dark:text-stone-400">
       Settings and {String(meta.count)} saved answers sync to browsers signed in to the same
       account. Pay, notice period and other sensitive answers, and API keys, never sync.
     </p>

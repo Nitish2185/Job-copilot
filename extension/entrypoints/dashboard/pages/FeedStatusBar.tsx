@@ -34,13 +34,13 @@ export function FeedStatusBar() {
 
   const status = state?.status ?? "never";
   return (
-    <div className="flex flex-wrap items-center gap-3 border-b border-slate-200 px-6 py-3 text-sm dark:border-slate-800">
+    <div className="flex flex-wrap items-center gap-3 border-b border-stone-200 px-6 py-3 text-sm dark:border-stone-800">
       {status === "update_required" ? (
         <span role="alert" className="font-medium text-amber-800 dark:text-amber-300">
           Update the extension to keep receiving jobs.
         </span>
       ) : (
-        <span className="text-slate-600 dark:text-slate-400">
+        <span className="text-stone-600 dark:text-stone-400">
           Shared feed: last synced {timeAgo(state?.lastSyncAt)}
           {state?.totalOpenJobs !== undefined &&
             ` · ${state.totalOpenJobs.toLocaleString()} open jobs`}

@@ -7,6 +7,7 @@ import { localDate } from "@/lib/ai/scheduler";
 import { getDb } from "@/lib/db/db";
 import { sendMessage } from "@/lib/messaging/client";
 import type { MessageResponse } from "@/lib/messaging/protocol";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { loadSettings } from "@/lib/settings/settings";
 
 function open(hash: string): void {
@@ -54,20 +55,20 @@ export function Popup() {
   ];
 
   return (
-    <main className="w-72 space-y-3 bg-white p-3 text-sm text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-      <h1 className="font-semibold">Job Copilot</h1>
+    <main className="w-80 space-y-4 bg-stone-50 p-4 text-sm text-stone-900 dark:bg-stone-950 dark:text-stone-100">
+      <BrandMark as="h1" />
       <ul className="grid grid-cols-2 gap-2">
         {counts.map(([label, value, hash]) => (
           <li key={label}>
             <button
               type="button"
-              className="w-full rounded-md border border-slate-200 p-2 text-left hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-900"
+              className="w-full rounded-xl border border-stone-200 bg-white p-3 text-left shadow-xs hover:border-brand-300 hover:bg-brand-50 dark:border-stone-800 dark:bg-stone-900 dark:hover:bg-stone-800"
               onClick={() => {
                 open(hash);
               }}
             >
-              <span className="block text-lg font-semibold">{value ?? "–"}</span>
-              <span className="text-xs text-slate-500">{label}</span>
+              <span className="block text-xl font-semibold">{value ?? "–"}</span>
+              <span className="text-sm text-stone-600 dark:text-stone-400">{label}</span>
             </button>
           </li>
         ))}

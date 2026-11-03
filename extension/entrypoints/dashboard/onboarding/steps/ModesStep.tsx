@@ -43,7 +43,7 @@ export function ModesStep({ next, back }: StepProps) {
       <table className="w-full border-collapse text-left">
         <caption className="sr-only">How Job Copilot applies on each site</caption>
         <thead>
-          <tr className="border-b border-slate-200 dark:border-slate-800">
+          <tr className="border-b border-stone-200 dark:border-stone-800">
             <th scope="col" className="py-2 pr-3">
               Sites
             </th>
@@ -57,7 +57,7 @@ export function ModesStep({ next, back }: StepProps) {
         </thead>
         <tbody>
           {SITES.map(([site, mode, what]) => (
-            <tr key={site} className="border-b border-slate-100 dark:border-slate-900">
+            <tr key={site} className="border-b border-stone-100 dark:border-stone-900">
               <td className="py-2 pr-3">{site}</td>
               <td className="py-2 pr-3 font-medium">{mode}</td>
               <td className="py-2">{what}</td>

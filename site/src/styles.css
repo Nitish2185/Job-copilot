@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+/* Same palette as the extension: warm neutrals and one calm teal accent (AA with white). */
+@theme {
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #0d9488;
+  --color-brand-600: #0f766e;
+  --color-brand-700: #115e59;
+  --color-brand-800: #134e4a;
+  --color-brand-900: #0f3f3c;
+  --color-brand-950: #042f2e;
+
+  --font-sans:
+    "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
+    sans-serif;
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :focus-visible {
+      outline-color: var(--color-brand-300);
+    }
+  }
+}

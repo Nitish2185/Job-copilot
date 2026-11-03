@@ -245,14 +245,14 @@ export function AiSettingsForm({ onSaved }: { onSaved?: (ok: boolean) => void })
   return (
     <div className="space-y-4">
       {main.provider === "gemini" && keyUrl && (
-        <ol className="list-decimal space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-400">
+        <ol className="list-decimal space-y-1 pl-5 text-sm text-stone-600 dark:text-stone-400">
           <li>
             Open{" "}
             <a
               href={keyUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-blue-700 underline dark:text-blue-400"
+              className="text-brand-700 underline dark:text-brand-400"
             >
               Google AI Studio
             </a>{" "}

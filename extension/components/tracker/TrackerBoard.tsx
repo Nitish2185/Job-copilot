@@ -38,12 +38,12 @@ function Card({
     <li
       ref={setNodeRef}
       style={style}
-      className={`flex items-start gap-1 rounded-md border border-slate-200 bg-white p-2 text-sm shadow-sm dark:border-slate-700 dark:bg-slate-900 ${isDragging ? "relative z-10 opacity-80 shadow-lg" : ""}`}
+      className={`flex items-start gap-1 rounded-md border border-stone-200 bg-white p-2 text-sm shadow-sm dark:border-stone-700 dark:bg-stone-900 ${isDragging ? "relative z-10 opacity-80 shadow-lg" : ""}`}
       data-testid="tracker-card"
     >
       <button
         type="button"
-        className="mt-0.5 cursor-grab rounded p-0.5 text-slate-400 hover:text-slate-700 focus-visible:outline-2 focus-visible:outline-blue-600"
+        className="mt-0.5 cursor-grab rounded p-0.5 text-stone-400 hover:text-stone-700 focus-visible:outline-2 focus-visible:outline-brand-600"
         aria-label={`Move ${rowTitle(row)}`}
         {...attributes}
         {...listeners}
@@ -52,13 +52,13 @@ function Card({
       </button>
       <button
         type="button"
-        className="min-w-0 flex-1 text-left focus-visible:outline-2 focus-visible:outline-blue-600"
+        className="min-w-0 flex-1 text-left focus-visible:outline-2 focus-visible:outline-brand-600"
         onClick={() => {
           onOpen(row.app.id);
         }}
       >
         <span className="block truncate font-medium">{row.job?.title ?? "Job"}</span>
-        <span className="block truncate text-xs text-slate-500">{row.job?.company.name}</span>
+        <span className="block truncate text-xs text-stone-500">{row.job?.company.name}</span>
         <span className="mt-1 flex flex-wrap gap-1">
           <Badge>{formatDay(row.app.submittedAt)}</Badge>
           {row.app.mode === "auto" && <Badge tone="blue">Auto</Badge>}
@@ -89,11 +89,11 @@ function Column({
     <section
       ref={setNodeRef}
       aria-label={STAGE_LABELS[stage]}
-      className={`flex w-60 shrink-0 flex-col rounded-lg p-2 ${isOver ? "bg-blue-50 ring-2 ring-blue-400 dark:bg-blue-950" : "bg-slate-50 dark:bg-slate-900/50"}`}
+      className={`flex w-60 shrink-0 flex-col rounded-lg p-2 ${isOver ? "bg-brand-50 ring-2 ring-brand-400 dark:bg-brand-950" : "bg-stone-100/70 dark:bg-stone-900/60"}`}
     >
       <h2 className="mb-2 flex items-center justify-between px-1 text-sm font-semibold">
         {STAGE_LABELS[stage]}
-        <span className="text-xs font-normal text-slate-500">{rows.length}</span>
+        <span className="text-xs font-normal text-stone-500">{rows.length}</span>
       </h2>
       <ul className="min-h-16 space-y-2">
         {rows.map((row) => (

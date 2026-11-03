@@ -8,16 +8,78 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /*
+ * Design tokens. One calm accent ("brand", a teal) on warm neutrals ("stone").
+ * The scale is shifted so brand-600 (buttons, links) passes WCAG AA with white text
+ * (5.5:1) and on white (5.5:1); brand-50/100 are the light tints.
+ */
+@theme {
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #0d9488;
+  --color-brand-600: #0f766e;
+  --color-brand-700: #115e59;
+  --color-brand-800: #134e4a;
+  --color-brand-900: #0f3f3c;
+  --color-brand-950: #042f2e;
+
+  /* Small text is never tiny: 13px instead of 12px. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.25rem;
+
+  --font-sans:
+    "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
+    sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-color: var(--color-stone-50);
+    color: var(--color-stone-900);
+  }
+  [data-theme="dark"] body {
+    background-color: var(--color-stone-950);
+    color: var(--color-stone-100);
+  }
+  /* One visible focus ring everywhere, for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+  [data-theme="dark"] :focus-visible {
+    outline-color: var(--color-brand-300);
+  }
+  ::selection {
+    background-color: var(--color-brand-100);
+    color: var(--color-stone-900);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/*
  * Text contrast (WCAG AA, 4.5:1) on every surface in both themes: muted and coloured
  * text steps one shade towards the background's opposite where it would fall short,
  * including text that has no dark: variant of its own.
  */
-:root:not([data-theme="dark"]) .text-slate-400 {
-  color: var(--color-slate-500);
+:root:not([data-theme="dark"]) .text-stone-400 {
+  color: var(--color-stone-500);
 }
 :root[data-theme="dark"] {
-  .text-slate-500 {
-    color: var(--color-slate-400);
+  .text-stone-500 {
+    color: var(--color-stone-400);
   }
   .text-amber-700,
   .text-amber-800,
@@ -28,10 +90,15 @@
   .text-green-800 {
     color: var(--color-green-400);
   }
-  .text-blue-700,
-  .text-blue-800,
-  .text-blue-900 {
-    color: var(--color-blue-400);
+  .text-brand-600,
+  .text-brand-700,
+  .text-brand-800,
+  .text-brand-900 {
+    color: var(--color-brand-300);
+  }
+  .text-sky-700,
+  .text-sky-800 {
+    color: var(--color-sky-300);
   }
   .text-red-700,
   .text-red-800 {
@@ -44,29 +111,19 @@
   --viz-series-1: #2a78d6;
   --viz-series-2: #eb6834;
   --viz-surface: #ffffff;
-  --viz-ink: #0b0b0b;
-  --viz-ink-2: #52514e;
-  --viz-muted: #898781;
-  --viz-grid: #e1e0d9;
-  --viz-axis: #c3c2b7;
-}
-@media (prefers-color-scheme: dark) {
-  :root:where(:not([data-theme="light"])) {
-    --viz-series-1: #3987e5;
-    --viz-series-2: #d95926;
-    --viz-surface: #020617;
-    --viz-ink: #f0efec;
-    --viz-ink-2: #c3c2b7;
-    --viz-grid: #2c2c2a;
-    --viz-axis: #383835;
-  }
+  --viz-ink: #1c1917;
+  --viz-ink-2: #57534e;
+  --viz-muted: #78716c;
+  --viz-grid: #e7e5e4;
+  --viz-axis: #d6d3d1;
 }
 :root[data-theme="dark"] {
   --viz-series-1: #3987e5;
   --viz-series-2: #d95926;
-  --viz-surface: #020617;
-  --viz-ink: #f0efec;
-  --viz-ink-2: #c3c2b7;
-  --viz-grid: #2c2c2a;
-  --viz-axis: #383835;
+  --viz-surface: #1c1917;
+  --viz-ink: #f5f5f4;
+  --viz-ink-2: #d6d3d1;
+  --viz-muted: #a8a29e;
+  --viz-grid: #292524;
+  --viz-axis: #44403c;
 }

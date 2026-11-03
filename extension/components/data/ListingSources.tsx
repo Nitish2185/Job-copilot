@@ -94,9 +94,9 @@ export function ListingSources() {
 
   return (
     <div className="space-y-5">
-      <p className="text-sm text-slate-600 dark:text-slate-400">
-        Optional job search APIs with your own free keys. Job Copilot searches your desired roles
-        a few times a day, within the daily limits below. Keys stay on this device.
+      <p className="text-sm text-stone-600 dark:text-stone-400">
+        Optional job search APIs with your own free keys. Job Copilot searches your desired roles a
+        few times a day, within the daily limits below. Keys stay on this device.
       </p>
 
       <div className="space-y-2">
@@ -147,7 +147,10 @@ export function ListingSources() {
               onChange={(e) => {
                 setSources({
                   ...sources,
-                  adzuna: { ...sources.adzuna, maxCallsPerDay: Number.parseInt(e.target.value, 10) },
+                  adzuna: {
+                    ...sources.adzuna,
+                    maxCallsPerDay: Number.parseInt(e.target.value, 10),
+                  },
                 });
               }}
               onBlur={() => void saveLimits({ adzuna: sources.adzuna })}

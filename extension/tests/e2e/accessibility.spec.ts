@@ -100,12 +100,20 @@ for (const scheme of ["light", "dark"] as const) {
       scores,
       applications,
     });
+    // Light is the default theme; the dark run picks Dark in Settings > Appearance.
+    await page.evaluate(async (theme) => {
+      const { chrome } = globalThis as unknown as {
+        chrome: { storage: { sync: { set: (v: unknown) => Promise<void> } } };
+      };
+      await chrome.storage.sync.set({ settings: { ui: { theme } } });
+    }, scheme);
     const found: Record<string, unknown[]> = {};
     for (const route of ROUTES) {
       await page.goto(`${base}/dashboard.html#/${route}`);
       await page.reload();
       await page.waitForLoadState("networkidle");
       await page.waitForTimeout(400);
+      await expect(page.locator("html")).toHaveAttribute("data-theme", scheme);
       const v = await violations(page);
       if (v.length) found[route] = v;
     }

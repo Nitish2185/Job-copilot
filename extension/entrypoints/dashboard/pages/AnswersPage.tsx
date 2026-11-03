@@ -4,7 +4,7 @@ import { AnswerBankEditor } from "@/components/profile/AnswerBankEditor";
 export function AnswersPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-4 p-6">
-      <h1 className="text-xl font-semibold">Saved answers</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Saved answers</h1>
       <AnswerBankEditor />
     </div>
   );

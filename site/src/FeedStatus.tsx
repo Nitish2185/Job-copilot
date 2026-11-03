@@ -54,33 +54,33 @@ export function FeedStatus() {
   return (
     <>
       <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Job feed status</h1>
-      <p className="mt-3 leading-relaxed text-slate-700 dark:text-slate-300">
+      <p className="mt-3 leading-relaxed text-stone-700 dark:text-stone-300">
         The shared feed is rebuilt every few hours from public company job boards. The extension
         downloads it from here.
       </p>
-      <section className="mt-8 rounded-lg border border-slate-200 p-6 dark:border-slate-800">
-        {state.kind === "loading" && <p className="text-slate-500">Loading...</p>}
+      <section className="mt-8 rounded-lg border border-stone-200 p-6 dark:border-stone-800">
+        {state.kind === "loading" && <p className="text-stone-500">Loading...</p>}
         {state.kind === "error" && (
-          <p className="text-slate-500">The feed is not published yet ({state.message}).</p>
+          <p className="text-stone-500">The feed is not published yet ({state.message}).</p>
         )}
         {state.kind === "ready" && (
           <dl className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-4">
             <div>
-              <dt className="text-sm text-slate-500">Open jobs</dt>
+              <dt className="text-sm text-stone-500">Open jobs</dt>
               <dd className="text-2xl font-semibold">
                 {state.index.totalOpenJobs.toLocaleString()}
               </dd>
             </div>
             <div>
-              <dt className="text-sm text-slate-500">Companies</dt>
+              <dt className="text-sm text-stone-500">Companies</dt>
               <dd className="text-2xl font-semibold">{state.index.companyCount}</dd>
             </div>
             <div>
-              <dt className="text-sm text-slate-500">Not working</dt>
+              <dt className="text-sm text-stone-500">Not working</dt>
               <dd className="text-2xl font-semibold">{failing.length}</dd>
             </div>
             <div>
-              <dt className="text-sm text-slate-500">Last update</dt>
+              <dt className="text-sm text-stone-500">Last update</dt>
               <dd className="font-medium">{new Date(state.index.generatedAt).toLocaleString()}</dd>
             </div>
           </dl>
@@ -90,7 +90,7 @@ export function FeedStatus() {
         <section className="mt-8">
           <h2 className="text-xl font-semibold">Boards that need attention</h2>
           <table className="mt-3 w-full text-left text-sm">
-            <thead className="text-slate-500">
+            <thead className="text-stone-500">
               <tr>
                 <th className="py-2 pr-3 font-medium">Company</th>
                 <th className="py-2 pr-3 font-medium">Platform</th>
@@ -102,7 +102,7 @@ export function FeedStatus() {
               {failing.map((c) => (
                 <tr
                   key={`${c.platform}:${c.token}`}
-                  className="border-t border-slate-200 dark:border-slate-800"
+                  className="border-t border-stone-200 dark:border-stone-800"
                 >
                   <td className="py-2 pr-3">{c.name}</td>
                   <td className="py-2 pr-3">{c.platform}</td>

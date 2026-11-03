@@ -162,6 +162,13 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **Tips live in the dashboard layout** (one per page, dismissed per browser in `localStorage`), so pages stay unchanged.
 - **Layout deviations from the planned tree:** one Assist site script for all four sites (badges included) instead of separate badge scripts; one `SELECTORS` map per adapter kind; `lib/matching` instead of `lib/matcher`; `lib/backup` and `lib/sync` for data control.
 
+## Visual design (2026-11-03)
+
+- **Simple and light by request:** warm off-white pages (`stone-50`), white cards with soft borders and shadows, and one calm accent: `brand`, a teal scale defined in `assets/tailwind.css`. Neutral classes use Tailwind's `stone`; nothing uses `slate` or `blue` any more. AI-written content keeps its own sky tone, so it never looks like the accent.
+- **Light is the default theme**; dark and "same as my system" stay in Settings > Appearance.
+- **Accessibility built into the primitives:** buttons and inputs are at least 40 px tall, small text is 13 px, one visible focus ring everywhere, a skip link, reduced motion respected, and the brand shade used for buttons and links passes 4.5:1 both ways. The axe check runs on every page in both themes and asserts the theme it checks.
+- **The sidebar groups pages** (Find and apply, Track, You) with icons and shows how many applications wait in Review and Needs you.
+
 ## AI providers (verified against official docs on 2026-11-02)
 
 - **Base URLs:** Gemini `https://generativelanguage.googleapis.com/v1beta/openai/` (supports `/models` and structured JSON output), Groq `https://api.groq.com/openai/v1`, OpenRouter `https://openrouter.ai/api/v1`, Ollama `http://localhost:11434/v1` (ignores the API key but the client must send one).

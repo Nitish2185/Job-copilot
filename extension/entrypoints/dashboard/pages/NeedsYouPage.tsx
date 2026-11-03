@@ -52,7 +52,7 @@ function Item({ app, job }: { app: Application; job?: Job }) {
 
   return (
     <li
-      className="space-y-2 rounded-md border border-slate-200 p-3 text-sm dark:border-slate-800"
+      className="space-y-2 rounded-md border border-stone-200 p-3 text-sm dark:border-stone-800"
       data-testid="needs-you-item"
     >
       <div className="flex flex-wrap items-start justify-between gap-2">
@@ -88,7 +88,7 @@ function Item({ app, job }: { app: Application; job?: Job }) {
           {pending.map((p) => (
             <label key={p.question} className="block">
               <span className="font-medium">{p.question}</span>
-              {p.note && <span className="block text-xs text-slate-500">{p.note}</span>}
+              {p.note && <span className="block text-xs text-stone-500">{p.note}</span>}
               <input
                 className={inputClass}
                 value={answers[p.question] ?? ""}
@@ -101,7 +101,7 @@ function Item({ app, job }: { app: Application; job?: Job }) {
           <Button variant="primary" disabled={busy} onClick={() => void retry()}>
             Answer &amp; retry
           </Button>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Your answers are saved to your saved answers and reused next time.
           </p>
         </div>
@@ -126,7 +126,7 @@ export function NeedsYouPage() {
   if (!rows) return <Loading />;
   return (
     <div className="mx-auto max-w-4xl space-y-4 p-6">
-      <h1 className="text-xl font-semibold">Needs you</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Needs you</h1>
       {rows.length === 0 ? (
         <EmptyState title="Nothing needs you">
           Applications that stopped for a reason appear here.

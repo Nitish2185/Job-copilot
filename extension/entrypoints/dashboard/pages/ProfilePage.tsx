@@ -29,18 +29,18 @@ export function ProfilePage() {
   const tabClass = (t: Tab) =>
     `rounded-md px-3 py-1.5 text-sm ${
       tab === t
-        ? "bg-blue-50 font-medium text-blue-800 dark:bg-blue-950 dark:text-blue-200"
-        : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-900"
+        ? "bg-brand-50 font-medium text-brand-800 dark:bg-brand-950 dark:text-brand-200"
+        : "text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-900"
     }`;
 
   return (
     <div className="mx-auto max-w-4xl space-y-4 p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h1 className="text-xl font-semibold">Profile</h1>
-        <p className="text-xs text-slate-500">
+        <h1 className="text-2xl font-semibold tracking-tight">Profile</h1>
+        <p className="text-xs text-stone-500">
           Version {String(profile.version)}
           {profile.baseResume && ` · Resume: ${profile.baseResume.fileName}`} ·{" "}
-          <Link to="/onboarding" className="text-blue-700 underline dark:text-blue-400">
+          <Link to="/onboarding" className="text-brand-700 underline dark:text-brand-400">
             Run setup again
           </Link>
         </p>

@@ -64,8 +64,8 @@ function Contacts({ appId, contacts }: { appId: string; contacts: Contact[] }) {
             <li key={`${c.name}-${String(i)}`} className="flex items-center justify-between gap-2">
               <span>
                 {c.name}
-                {c.role && <span className="text-slate-500"> · {c.role}</span>}
-                {c.email && <span className="block text-xs text-slate-500">{c.email}</span>}
+                {c.role && <span className="text-stone-500"> · {c.role}</span>}
+                {c.email && <span className="block text-xs text-stone-500">{c.email}</span>}
               </span>
               <Button
                 variant="ghost"
@@ -214,7 +214,7 @@ export function ApplicationDrawer({
     >
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/30" />
-        <Dialog.Content className="fixed inset-y-0 right-0 w-[min(32rem,100vw)] space-y-5 overflow-y-auto bg-white p-5 text-sm shadow-xl dark:bg-slate-900">
+        <Dialog.Content className="fixed inset-y-0 right-0 w-[min(32rem,100vw)] space-y-5 overflow-y-auto bg-white p-5 text-sm shadow-xl dark:bg-stone-900">
           {app ? (
             <>
               <div className="flex items-start justify-between gap-3">
@@ -222,7 +222,7 @@ export function ApplicationDrawer({
                   <Dialog.Title className="text-lg font-semibold">
                     {data.job?.title ?? "Application"}
                   </Dialog.Title>
-                  <Dialog.Description className="text-slate-600 dark:text-slate-400">
+                  <Dialog.Description className="text-stone-600 dark:text-stone-400">
                     {data.job?.company.name}
                     {app.submittedAt && ` · applied ${when(app.submittedAt)}`}
                   </Dialog.Description>
@@ -232,7 +232,7 @@ export function ApplicationDrawer({
                     </Badge>
                     {data.job && (
                       <a
-                        className="text-xs text-blue-700 underline dark:text-blue-400"
+                        className="text-xs text-brand-700 underline dark:text-brand-400"
                         href={`#/jobs/${encodeURIComponent(data.job.id)}`}
                       >
                         Job details
@@ -240,7 +240,7 @@ export function ApplicationDrawer({
                     )}
                     {data.job?.url && (
                       <a
-                        className="text-xs text-blue-700 underline dark:text-blue-400"
+                        className="text-xs text-brand-700 underline dark:text-brand-400"
                         href={data.job.url}
                         target="_blank"
                         rel="noreferrer"
@@ -258,7 +258,7 @@ export function ApplicationDrawer({
               </div>
 
               <label className="block">
-                <span className="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400">
+                <span className="mb-1 block text-xs font-medium text-stone-600 dark:text-stone-400">
                   Stage
                 </span>
                 <select
@@ -290,7 +290,7 @@ export function ApplicationDrawer({
               {suggestGhosted(app, ghostedAfterDays, now) && (
                 <div
                   role="status"
-                  className="space-y-2 rounded-md bg-slate-100 p-3 dark:bg-slate-800"
+                  className="space-y-2 rounded-md bg-stone-100 p-3 dark:bg-stone-800"
                 >
                   <p>
                     No reply for {String(ghostedAfterDays)} days or more. Mark this application as
@@ -368,7 +368,7 @@ export function ApplicationDrawer({
 
               {data.letter && (
                 <Block title="Cover letter">
-                  <p className="max-h-40 overflow-auto rounded border border-slate-200 p-2 text-xs whitespace-pre-wrap dark:border-slate-800">
+                  <p className="max-h-40 overflow-auto rounded border border-stone-200 p-2 text-xs whitespace-pre-wrap dark:border-stone-800">
                     {data.letter.text}
                   </p>
                 </Block>
@@ -376,12 +376,12 @@ export function ApplicationDrawer({
 
               <Block title={`Answers sent (${String(app.answersSent.length)})`}>
                 {app.answersSent.length === 0 ? (
-                  <p className="text-slate-500">No answers were recorded.</p>
+                  <p className="text-stone-500">No answers were recorded.</p>
                 ) : (
                   <dl className="space-y-1">
                     {app.answersSent.map((a, i) => (
                       <div key={`${a.question}-${String(i)}`}>
-                        <dt className="text-xs text-slate-500">
+                        <dt className="text-xs text-stone-500">
                           {a.question}
                           {a.source === "ai" && " (AI)"}
                         </dt>
@@ -393,14 +393,14 @@ export function ApplicationDrawer({
               </Block>
 
               <Block title="Timeline">
-                <ol className="space-y-1 border-l border-slate-200 pl-3 dark:border-slate-700">
+                <ol className="space-y-1 border-l border-stone-200 pl-3 dark:border-stone-700">
                   {[...app.events].reverse().map((e, i) => (
                     <li key={`${e.at}-${String(i)}`}>
-                      <span className="text-xs text-slate-500">{when(e.at)}</span>
+                      <span className="text-xs text-stone-500">{when(e.at)}</span>
                       <span className="block">
                         {EVENT_LABELS[e.type] ?? e.type}
                         {e.detail && (
-                          <span className="text-slate-500">
+                          <span className="text-stone-500">
                             {" "}
                             · {e.type === "stage" ? stageChange(e.detail) : e.detail}
                           </span>

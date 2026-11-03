@@ -8,7 +8,7 @@ function List({ title, items }: { title: string; items: string[] }) {
   if (items.length === 0) return null;
   return (
     <div>
-      <h4 className="text-xs font-semibold tracking-wide text-slate-500 uppercase">{title}</h4>
+      <h4 className="text-xs font-semibold tracking-wide text-stone-500 uppercase">{title}</h4>
       <ul className="mt-1 list-disc space-y-1 pl-5">
         {items.map((item) => (
           <li key={item}>{item}</li>

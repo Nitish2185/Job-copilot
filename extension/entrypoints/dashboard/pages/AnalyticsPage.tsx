@@ -45,10 +45,10 @@ async function loadAnalytics() {
 
 function Stat({ label, value, note }: { label: string; value: string; note?: string }) {
   return (
-    <div className="rounded-lg border border-slate-200 p-4 dark:border-slate-800">
-      <p className="text-sm text-slate-600 dark:text-slate-400">{label}</p>
+    <div className="rounded-lg border border-stone-200 p-4 dark:border-stone-800">
+      <p className="text-sm text-stone-600 dark:text-stone-400">{label}</p>
       <p className="mt-1 text-2xl font-semibold">{value}</p>
-      {note && <p className="mt-0.5 text-xs text-slate-500">{note}</p>}
+      {note && <p className="mt-0.5 text-xs text-stone-500">{note}</p>}
     </div>
   );
 }
@@ -63,9 +63,9 @@ export function AnalyticsPage() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">
-      <h1 className="text-xl font-semibold">Analytics</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Analytics</h1>
       {sent.length === 0 && (
-        <p className="rounded-md bg-slate-50 p-3 text-sm text-slate-600 dark:bg-slate-900 dark:text-slate-400">
+        <p className="rounded-md bg-stone-50 p-3 text-sm text-stone-600 dark:bg-stone-900 dark:text-stone-400">
           Charts fill in as you apply and move applications along in the Tracker. Skills to learn
           next and AI usage work already.
         </p>
@@ -101,15 +101,15 @@ export function AnalyticsPage() {
       </div>
       <div className="grid gap-6 lg:grid-cols-2">
         <section
-          className="rounded-lg border border-slate-200 p-4 dark:border-slate-800"
+          className="rounded-lg border border-stone-200 p-4 dark:border-stone-800"
           aria-label="Learn next"
         >
           <h2 className="font-semibold">Learn next</h2>
-          <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
+          <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-400">
             Skills your best 100 matches ask for that your profile does not list.
           </p>
           {data.gaps.length === 0 ? (
-            <p className="mt-4 text-sm text-slate-500">
+            <p className="mt-4 text-sm text-stone-500">
               No gaps found yet. This fills in once jobs are scored.
             </p>
           ) : (
@@ -117,10 +117,10 @@ export function AnalyticsPage() {
               {data.gaps.map((gap, i) => (
                 <li key={gap.skill} className="flex justify-between gap-3">
                   <span>
-                    <span className="mr-2 text-slate-400 tabular-nums">{i + 1}.</span>
+                    <span className="mr-2 text-stone-400 tabular-nums">{i + 1}.</span>
                     {skillDisplayName(gap.skill)}
                   </span>
-                  <span className="text-slate-500 tabular-nums">
+                  <span className="text-stone-500 tabular-nums">
                     {gap.jobs} job{gap.jobs === 1 ? "" : "s"}
                   </span>
                 </li>

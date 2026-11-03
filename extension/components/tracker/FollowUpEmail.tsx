@@ -70,7 +70,7 @@ export function FollowUpEmail({ applicationId }: { applicationId: string }) {
             >
               {copied ? "Copied" : "Copy email"}
             </Button>
-            <span className="text-xs text-slate-500">Send it from your own email.</span>
+            <span className="text-xs text-stone-500">Send it from your own email.</span>
           </div>
         </div>
       )}

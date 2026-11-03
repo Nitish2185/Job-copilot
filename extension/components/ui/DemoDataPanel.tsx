@@ -8,7 +8,7 @@ export function DemoDataPanel() {
   const [note, setNote] = useState<string>();
   return (
     <div className="space-y-2 text-sm">
-      <p className="text-slate-600 dark:text-slate-400">
+      <p className="text-stone-600 dark:text-stone-400">
         Adds 60 fictional jobs and 34 applications (IDs start with “demo:”). Your own data is not
         changed, and “Remove demo data” deletes only these.
       </p>

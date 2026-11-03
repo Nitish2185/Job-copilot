@@ -54,7 +54,7 @@ describe("SettingsSchema", () => {
       ghostedAfterDays: 30,
     });
     expect(s.privacy).toEqual({ redactContactInfo: true });
-    expect(s.ui).toEqual({ theme: "system" });
+    expect(s.ui).toEqual({ theme: "light" });
   });
 
   it("keeps auto-apply off by default", () => {

@@ -20,7 +20,7 @@ export function TrackerList({
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left text-sm" data-testid="tracker-list">
-        <thead className="border-b border-slate-200 text-xs text-slate-500 dark:border-slate-800">
+        <thead className="border-b border-stone-200 text-xs text-stone-500 dark:border-stone-800">
           <tr>
             <th className="py-2 pr-3 font-medium">Job</th>
             <th className="py-2 pr-3 font-medium">Stage</th>
@@ -33,17 +33,17 @@ export function TrackerList({
           {rows.map((row) => {
             const title = `${row.job?.title ?? "Job"} at ${row.job?.company.name ?? ""}`;
             return (
-              <tr key={row.app.id} className="border-b border-slate-100 dark:border-slate-800">
+              <tr key={row.app.id} className="border-b border-stone-100 dark:border-stone-800">
                 <td className="py-2 pr-3">
                   <button
                     type="button"
-                    className="text-left hover:underline focus-visible:outline-2 focus-visible:outline-blue-600"
+                    className="text-left hover:underline focus-visible:outline-2 focus-visible:outline-brand-600"
                     onClick={() => {
                       onOpen(row.app.id);
                     }}
                   >
                     <span className="block font-medium">{row.job?.title ?? "Job"}</span>
-                    <span className="block text-xs text-slate-500">{row.job?.company.name}</span>
+                    <span className="block text-xs text-stone-500">{row.job?.company.name}</span>
                   </button>
                   <span className="mt-1 flex flex-wrap gap-1">
                     {row.app.mode === "auto" && <Badge tone="blue">Auto</Badge>}
@@ -57,7 +57,7 @@ export function TrackerList({
                 <td className="py-2 pr-3">
                   <select
                     aria-label={`Stage of ${title}`}
-                    className="rounded border border-slate-300 bg-white px-1.5 py-1 dark:border-slate-700 dark:bg-slate-900"
+                    className="rounded border border-stone-300 bg-white px-1.5 py-1 dark:border-stone-700 dark:bg-stone-900"
                     value={row.app.stage}
                     onChange={(e) => {
                       onMove(row.app.id, e.target.value as ApplicationStage);
@@ -76,7 +76,7 @@ export function TrackerList({
                     ? formatDay(followUpDate(row.app, followUpDays)?.toISOString())
                     : ""}
                 </td>
-                <td className="max-w-64 truncate py-2 text-slate-600 dark:text-slate-400">
+                <td className="max-w-64 truncate py-2 text-stone-600 dark:text-stone-400">
                   {row.app.notes}
                 </td>
               </tr>

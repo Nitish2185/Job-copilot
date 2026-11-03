@@ -11,7 +11,7 @@ export function PreferencesStep({ next, back, part }: StepProps & { part: "ask-o
   if (!profile || !preferences) return <Loading />;
   return (
     <div className="space-y-4">
-      <p className="text-sm text-slate-600 dark:text-slate-400">
+      <p className="text-sm text-stone-600 dark:text-stone-400">
         {part === "ask-once"
           ? "Application forms ask these again and again. Answer once and Job Copilot reuses your answers. Every field can be changed later in your profile."
           : "Tell Job Copilot which jobs to show you. Jobs that do not fit are hidden or scored lower."}

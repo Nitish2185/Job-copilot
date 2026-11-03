@@ -57,7 +57,7 @@ export function OnboardingPage() {
   return (
     <div className="mx-auto max-w-4xl p-6 sm:p-8">
       <nav aria-label="Setup steps" className="mb-6">
-        <ol className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
+        <ol className="flex flex-wrap gap-2 text-sm">
           {STEPS.map((s, i) => (
             <li key={s.title}>
               <button
@@ -67,10 +67,12 @@ export function OnboardingPage() {
                 onClick={() => {
                   go(i);
                 }}
-                className={`rounded px-1 py-0.5 ${
+                className={`rounded-full px-3 py-1 ${
                   i === step
-                    ? "font-semibold text-blue-700 dark:text-blue-300"
-                    : "text-slate-600 enabled:hover:underline disabled:text-slate-400 dark:text-slate-400"
+                    ? "bg-brand-600 font-semibold text-white"
+                    : i < reached || i < step
+                      ? "bg-brand-50 text-brand-800 enabled:hover:bg-brand-100 dark:bg-brand-950 dark:text-brand-200"
+                      : "bg-stone-100 text-stone-600 disabled:cursor-not-allowed dark:bg-stone-800 dark:text-stone-400"
                 }`}
               >
                 {String(i + 1)}. {s.title}
@@ -79,15 +81,17 @@ export function OnboardingPage() {
           ))}
         </ol>
       </nav>
-      <h1 className="mb-4 text-2xl font-semibold">{current.title}</h1>
-      <current.Component
-        next={() => {
-          go(Math.min(step + 1, STEPS.length - 1));
-        }}
-        back={() => {
-          go(Math.max(step - 1, 0));
-        }}
-      />
+      <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8 dark:border-stone-800 dark:bg-stone-900">
+        <h1 className="mb-4 text-2xl font-semibold">{current.title}</h1>
+        <current.Component
+          next={() => {
+            go(Math.min(step + 1, STEPS.length - 1));
+          }}
+          back={() => {
+            go(Math.max(step - 1, 0));
+          }}
+        />
+      </div>
     </div>
   );
 }

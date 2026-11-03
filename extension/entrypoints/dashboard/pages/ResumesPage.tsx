@@ -96,7 +96,7 @@ export function ResumesPage() {
 
   return (
     <div className="mx-auto max-w-4xl space-y-4 p-6">
-      <h1 className="text-xl font-semibold">Resumes</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Resumes</h1>
       {message &&
         (message.ok ? (
           <p role="status" className="text-sm text-green-700 dark:text-green-400">
@@ -171,7 +171,7 @@ export function ResumesPage() {
           </label>
           <select
             id="resume-template"
-            className="rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm dark:border-slate-700 dark:bg-slate-900"
+            className="rounded-md border border-stone-300 bg-white px-2 py-1.5 text-sm dark:border-stone-700 dark:bg-stone-900"
             value={settings.template}
             onChange={(e) => void choose({ template: e.target.value as ResumeTemplate })}
           >
@@ -191,7 +191,7 @@ export function ResumesPage() {
           </EmptyState>
         ) : (
           <ul
-            className="divide-y divide-slate-200 dark:divide-slate-800"
+            className="divide-y divide-stone-200 dark:divide-stone-800"
             data-testid="tailored-list"
           >
             {data.tailored.map((v) => {
@@ -209,7 +209,7 @@ export function ResumesPage() {
                     ) : (
                       <span className="font-medium">A job that is no longer saved</span>
                     )}
-                    <span className="ml-2 text-slate-500">{formatDate(v.createdAt)}</span>
+                    <span className="ml-2 text-stone-500">{formatDate(v.createdAt)}</span>
                   </div>
                   {v.validation.passed ? (
                     <Badge tone="green">Checked</Badge>

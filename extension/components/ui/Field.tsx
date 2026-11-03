@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
+/** Inputs, selects and text areas share one look: 40 px tall, rounded, clear border. */
 export const inputClass =
-  "w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm dark:border-slate-700 dark:bg-slate-900 focus-visible:outline-2 focus-visible:outline-blue-600";
+  "w-full min-h-10 rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 shadow-xs placeholder:text-stone-500 hover:border-stone-400 disabled:cursor-not-allowed disabled:bg-stone-100 disabled:text-stone-500 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:placeholder:text-stone-400";
 
 /** A labelled form control. `highlight` marks a value the AI was unsure about. */
 export function Field({
@@ -21,24 +22,27 @@ export function Field({
 }) {
   return (
     <div
-      className={`${className} ${highlight ? "rounded-md bg-amber-50 p-1.5 ring-2 ring-amber-400 dark:bg-amber-950" : ""}`}
+      className={`${className} ${highlight ? "rounded-lg bg-amber-50 p-2 ring-2 ring-amber-300 dark:bg-amber-950" : ""}`}
       data-uncertain={highlight || undefined}
     >
       <label
         htmlFor={id}
-        className="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400"
+        className="mb-1.5 block text-sm font-medium text-stone-700 dark:text-stone-300"
       >
         {label}
         {highlight && (
-          <span className="ml-1 text-amber-700 dark:text-amber-300">(please check)</span>
+          <span className="ml-1 font-normal text-amber-800 dark:text-amber-300">
+            (please check)
+          </span>
         )}
       </label>
       {children}
-      {hint && <p className="mt-1 text-xs text-slate-500">{hint}</p>}
+      {hint && <p className="mt-1.5 text-xs text-stone-500">{hint}</p>}
     </div>
   );
 }
 
+/** A white card with a title: the building block of every page. */
 export function Section({
   title,
   description,
@@ -49,12 +53,12 @@ export function Section({
   children: ReactNode;
 }) {
   return (
-    <section className="rounded-lg border border-slate-200 p-4 dark:border-slate-800">
-      <h2 className="font-semibold">{title}</h2>
+    <section className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm dark:border-stone-800 dark:bg-stone-900">
+      <h2 className="text-base font-semibold text-stone-900 dark:text-stone-100">{title}</h2>
       {description && (
-        <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">{description}</p>
+        <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{description}</p>
       )}
-      <div className="mt-3 space-y-3">{children}</div>
+      <div className="mt-4 space-y-4">{children}</div>
     </section>
   );
 }

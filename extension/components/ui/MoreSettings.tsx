@@ -26,7 +26,7 @@ export function PrivacySettings() {
       />
       <span>
         Remove my name, email, phone number and links before sending anything to the AI
-        <span className="block text-xs text-slate-500">
+        <span className="block text-xs text-stone-500">
           Recommended. Resumes and cover letters are still made with your details, on this device.
         </span>
       </span>
@@ -65,7 +65,7 @@ export function ShortcutSettings() {
         {commands.map((c) => (
           <div key={c.name} className="contents">
             <dt>
-              <kbd className="rounded border border-slate-300 px-1.5 py-0.5 font-mono text-xs dark:border-slate-700">
+              <kbd className="rounded border border-stone-300 px-1.5 py-0.5 font-mono text-xs dark:border-stone-700">
                 {c.shortcut || "Not set"}
               </kbd>
             </dt>
@@ -84,7 +84,7 @@ const LIBRARIES =
 /** Version, links and licenses. */
 export function AboutSettings() {
   const version = browser.runtime.getManifest().version;
-  const link = "text-blue-700 underline dark:text-blue-400";
+  const link = "text-brand-700 underline dark:text-brand-400";
   return (
     <div className="space-y-2 text-sm">
       <p>Job Copilot {version}. Free and open source under the MIT License.</p>
@@ -120,7 +120,7 @@ export function AboutSettings() {
           </a>
         </li>
       </ul>
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-stone-500">
         Built with {LIBRARIES} (each under its own open-source license, listed in the source code).
         Resume PDFs use the Lato font under the SIL Open Font License (
         <a

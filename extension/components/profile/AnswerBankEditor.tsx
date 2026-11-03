@@ -59,7 +59,7 @@ function AnswerRow({ entry }: { entry: AnswerBankEntry }) {
         </Button>
       </div>
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-stone-500">
         <span>
           {entry.source === "ai_approved" ? "Suggested by AI" : "Your answer"} · used{" "}
           {String(entry.timesUsed)} time{entry.timesUsed === 1 ? "" : "s"}
@@ -140,9 +140,9 @@ export function AnswerBankEditor() {
             Answers you give while applying are saved here.
           </EmptyState>
         ) : shown.length === 0 ? (
-          <p className="text-sm text-slate-500">No saved answer matches “{search}”.</p>
+          <p className="text-sm text-stone-500">No saved answer matches “{search}”.</p>
         ) : (
-          <ul className="divide-y divide-slate-200 dark:divide-slate-800">
+          <ul className="divide-y divide-stone-200 dark:divide-stone-800">
             {shown.map((entry) => (
               <AnswerRow key={`${entry.id}:${answerToText(entry.answer)}`} entry={entry} />
             ))}

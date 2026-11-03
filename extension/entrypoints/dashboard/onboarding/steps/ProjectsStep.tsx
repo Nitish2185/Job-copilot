@@ -10,7 +10,7 @@ export function ProjectsStep({ next, back }: StepProps) {
   if (!profile) return <Loading />;
   return (
     <div className="space-y-4">
-      <p className="text-sm text-slate-600 dark:text-slate-400">
+      <p className="text-sm text-stone-600 dark:text-stone-400">
         Add work that is not on GitHub: company, freelance or private projects. Use “Add project” at
         the bottom of the list.
       </p>

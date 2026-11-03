@@ -36,7 +36,7 @@ function ReviewItem({
   };
   return (
     <li
-      className="space-y-2 rounded-md border border-slate-200 p-3 dark:border-slate-800"
+      className="space-y-2 rounded-md border border-stone-200 p-3 dark:border-stone-800"
       data-testid="review-item"
     >
       <div className="flex flex-wrap items-start gap-3">
@@ -78,7 +78,7 @@ function ReviewItem({
             {" "}
             <Link
               to={`/jobs/${encodeURIComponent(job.id)}/resume`}
-              className="text-blue-700 underline"
+              className="text-brand-700 underline"
             >
               Make it first
             </Link>
@@ -94,7 +94,7 @@ function ReviewItem({
             {app.answersSent.map((a) => (
               <li
                 key={`${a.question}:${String(a.answer)}`}
-                className={a.source === "ai" ? "rounded bg-blue-50 px-1 dark:bg-blue-950" : ""}
+                className={a.source === "ai" ? "rounded bg-brand-50 px-1 dark:bg-brand-950" : ""}
               >
                 <span className="font-medium">{a.question}:</span>{" "}
                 {Array.isArray(a.answer) ? a.answer.join(", ") : String(a.answer)}{" "}
@@ -150,7 +150,7 @@ export function ReviewPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-4 p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Review</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Review</h1>
         {selected.size > 0 && (
           <Button variant="primary" onClick={() => void approveSelected()}>
             Approve {String(selected.size)}

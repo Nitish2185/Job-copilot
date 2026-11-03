@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 /** Back button plus the step's own actions. */
 export function StepFooter({ back, children }: { back?: () => void; children?: ReactNode }) {
   return (
-    <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-slate-200 pt-4 dark:border-slate-800">
+    <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-stone-200 pt-4 dark:border-stone-800">
       {back && (
         <Button variant="ghost" onClick={back}>
           Back

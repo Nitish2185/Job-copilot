@@ -34,13 +34,13 @@ describe("theme", () => {
     expect(document.documentElement.style.colorScheme).toBe("dark");
   });
 
-  it("starts from the system theme, then follows the saved choice", async () => {
+  it("starts light, then follows the saved choice", async () => {
     mockMedia(true);
     startTheme();
-    expect(document.documentElement.dataset.theme).toBe("dark");
-    await updateSettings({ ui: { theme: "light" } });
+    expect(document.documentElement.dataset.theme).toBe("light");
+    await updateSettings({ ui: { theme: "system" } });
     await vi.waitFor(() => {
-      expect(document.documentElement.dataset.theme).toBe("light");
+      expect(document.documentElement.dataset.theme).toBe("dark");
     });
   });
 });

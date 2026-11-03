@@ -88,7 +88,7 @@ export function SubmittedPrompt({
   };
   return (
     <div
-      className="space-y-2 rounded-md border border-slate-200 p-3 text-sm dark:border-slate-800"
+      className="space-y-2 rounded-md border border-stone-200 p-3 text-sm dark:border-stone-800"
       aria-label="Did you submit?"
       role="group"
     >
@@ -145,7 +145,7 @@ export function SavedAnswers() {
         onChange={(e) => {
           setFilter(e.target.value);
         }}
-        className="mt-2 w-full rounded-md border border-slate-300 bg-white px-2 py-1 text-sm dark:border-slate-700 dark:bg-slate-900"
+        className="mt-2 w-full rounded-md border border-stone-300 bg-white px-2 py-1 text-sm dark:border-stone-700 dark:bg-stone-900"
       />
       <ul className="mt-2 space-y-2">
         {shown.map((a) => {
@@ -153,7 +153,7 @@ export function SavedAnswers() {
           return (
             <li key={a.id} className="flex items-start justify-between gap-2">
               <span className="min-w-0">
-                <span className="block text-xs text-slate-500">{a.question}</span>
+                <span className="block text-xs text-stone-500">{a.question}</span>
                 <span className="block break-words">{text}</span>
               </span>
               <CopyButton text={text} label={`Copy answer to ${a.question}`} />
@@ -186,7 +186,7 @@ export function AutoViaPlatform({ job }: { job: Job }) {
   return (
     <div className="space-y-2 text-sm">
       {confirming ? (
-        <div className="space-y-2 rounded-md border border-slate-200 p-3 dark:border-slate-800">
+        <div className="space-y-2 rounded-md border border-stone-200 p-3 dark:border-stone-800">
           <p>
             This adds the employer’s {platform} form to your auto-apply queue. Nothing is clicked or
             sent on this site.
@@ -238,7 +238,7 @@ export function ReportBrokenPage({ tabId }: { tabId: number }) {
     <div className="space-y-1">
       <button
         type="button"
-        className="text-xs text-slate-500 underline"
+        className="text-xs text-stone-500 underline"
         onClick={() => void report()}
       >
         Report a broken page

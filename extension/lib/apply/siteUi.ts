@@ -151,10 +151,10 @@ export function showActionButton(
     <style>
       .wrap{position:fixed;right:16px;bottom:16px;z-index:2147483646;display:flex;flex-direction:column;
         align-items:flex-end;gap:6px;${FONT}}
-      button{border:0;border-radius:999px;padding:8px 14px;background:#1d4ed8;color:#fff;font:inherit;
+      button{border:0;border-radius:999px;padding:8px 14px;background:#0f766e;color:#fff;font:inherit;
         font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgb(0 0 0/.2)}
       button:disabled{opacity:.7;cursor:default}
-      button:focus-visible{outline:2px solid #1e3a8a;outline-offset:2px}
+      button:focus-visible{outline:2px solid #115e59;outline-offset:2px}
       .note{background:#fff;color:#0f172a;border-radius:6px;padding:4px 8px;max-width:280px;
         box-shadow:0 2px 8px rgb(0 0 0/.15)}
       .note:empty{display:none}

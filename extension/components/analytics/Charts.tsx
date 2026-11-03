@@ -58,26 +58,26 @@ export function ChartCard({
 }) {
   return (
     <section
-      className="rounded-lg border border-slate-200 p-4 dark:border-slate-800"
+      className="rounded-lg border border-stone-200 p-4 dark:border-stone-800"
       aria-label={title}
     >
       <h2 className="font-semibold">{title}</h2>
       {description && (
-        <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">{description}</p>
+        <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-400">{description}</p>
       )}
       {empty ? (
-        <p className="mt-6 mb-4 text-sm text-slate-500">{empty}</p>
+        <p className="mt-6 mb-4 text-sm text-stone-500">{empty}</p>
       ) : (
         <>
           <div className="mt-3 h-56" aria-hidden>
             {children}
           </div>
           <details className="mt-2 text-sm">
-            <summary className="cursor-pointer text-slate-600 dark:text-slate-400">
+            <summary className="cursor-pointer text-stone-600 dark:text-stone-400">
               Show the numbers
             </summary>
             <table className="mt-2 w-full text-left tabular-nums">
-              <thead className="text-xs text-slate-500">
+              <thead className="text-xs text-stone-500">
                 <tr>
                   {table.head.map((h) => (
                     <th key={h} className="py-1 pr-3 font-medium">
@@ -90,7 +90,7 @@ export function ChartCard({
                 {table.rows.map((row) => (
                   <tr
                     key={String(row[0])}
-                    className="border-t border-slate-100 dark:border-slate-800"
+                    className="border-t border-stone-100 dark:border-stone-800"
                   >
                     {row.map((cell, i) => (
                       <td key={`${String(row[0])}-${String(i)}`} className="py-1 pr-3">

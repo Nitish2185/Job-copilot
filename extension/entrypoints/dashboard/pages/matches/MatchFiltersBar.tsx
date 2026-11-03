@@ -2,9 +2,9 @@ import { JOB_PLATFORMS } from "@job-copilot/shared";
 import type { MatchFilters, MatchSort, StatusFilter } from "@/lib/matching/matchList";
 
 const selectClass =
-  "rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm dark:border-slate-700 dark:bg-slate-900";
+  "rounded-md border border-stone-300 bg-white px-2 py-1.5 text-sm dark:border-stone-700 dark:bg-stone-900";
 const inputClass =
-  "rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm dark:border-slate-700 dark:bg-slate-900";
+  "rounded-md border border-stone-300 bg-white px-3 py-1.5 text-sm dark:border-stone-700 dark:bg-stone-900";
 
 function Labeled({
   id,
@@ -17,7 +17,7 @@ function Labeled({
 }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <label htmlFor={id} className="text-xs text-slate-500">
+      <label htmlFor={id} className="text-xs text-stone-500">
         {label}
       </label>
       {children}
@@ -114,7 +114,7 @@ export function MatchFiltersBar({
         </Labeled>
       </div>
       <details>
-        <summary className="cursor-pointer text-sm text-slate-600 dark:text-slate-400">
+        <summary className="cursor-pointer text-sm text-stone-600 dark:text-stone-400">
           More filters
         </summary>
         <div className="mt-2 flex flex-wrap items-end gap-3">
@@ -222,7 +222,7 @@ export function MatchFiltersBar({
           <button
             type="button"
             onClick={onReset}
-            className="pb-1.5 text-sm text-blue-700 underline dark:text-blue-400"
+            className="pb-1.5 text-sm text-brand-700 underline dark:text-brand-400"
           >
             Reset filters
           </button>

@@ -36,9 +36,9 @@ function RepoRow({
         <span className="font-medium">{repo.name}</span> {repo.isFork && <Badge>Fork</Badge>}{" "}
         {repo.archived && <Badge>Archived</Badge>}
         {repo.description && (
-          <span className="block text-slate-600 dark:text-slate-400">{repo.description}</span>
+          <span className="block text-stone-600 dark:text-stone-400">{repo.description}</span>
         )}
-        <span className="block text-xs text-slate-500">
+        <span className="block text-xs text-stone-500">
           {[
             repo.language,
             `${String(repo.stars)} stars`,
@@ -150,7 +150,7 @@ export function GithubStep({ next, back }: StepProps) {
   if (review) {
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600 dark:text-slate-400">
+        <p className="text-sm text-stone-600 dark:text-stone-400">
           Check each project. Untick “Real project” for practice or tutorial repos, and tick “Always
           include” for your best work.
         </p>
@@ -214,7 +214,7 @@ export function GithubStep({ next, back }: StepProps) {
           </Button>
         )}
         {remaining !== undefined && (
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-stone-500">
             {String(remaining)} GitHub requests left this hour
           </span>
         )}
@@ -224,7 +224,7 @@ export function GithubStep({ next, back }: StepProps) {
         <p className="text-sm">No public repositories found for this user.</p>
       )}
       {repos && repos.length > 0 && (
-        <ul className="divide-y divide-slate-200 rounded-md border border-slate-200 px-3 dark:divide-slate-800 dark:border-slate-800">
+        <ul className="divide-y divide-stone-200 rounded-md border border-stone-200 px-3 dark:divide-stone-800 dark:border-stone-800">
           {repos.map((repo) => (
             <RepoRow
               key={repo.fullName}

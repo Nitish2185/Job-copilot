@@ -4,9 +4,9 @@ import { loadSettings, updateSettings } from "@/lib/settings/settings";
 import type { ThemeChoice } from "@/lib/ui/theme";
 
 const CHOICES: [ThemeChoice, string][] = [
-  ["system", "Same as my system"],
   ["light", "Light"],
   ["dark", "Dark"],
+  ["system", "Same as my system"],
 ];
 
 /** Light, dark or system theme for the dashboard, side panel and popup. */

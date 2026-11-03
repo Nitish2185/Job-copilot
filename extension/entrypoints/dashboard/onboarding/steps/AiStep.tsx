@@ -10,7 +10,7 @@ export function AiStep({ next, back }: StepProps) {
   const [tested, setTested] = useState(false);
   return (
     <div className="space-y-4">
-      <p className="text-sm text-slate-600 dark:text-slate-400">
+      <p className="text-sm text-stone-600 dark:text-stone-400">
         AI reads your resume, describes your projects and scores jobs. It is optional: without it
         you fill in your profile by hand and jobs are matched by skills only.
       </p>

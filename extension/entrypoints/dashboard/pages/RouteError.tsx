@@ -16,7 +16,7 @@ export function RouteError() {
       </ErrorMessage>
       <Link
         to="/matches"
-        className="mt-4 inline-block text-sm text-blue-700 underline dark:text-blue-400"
+        className="mt-4 inline-block text-sm text-brand-700 underline dark:text-brand-400"
       >
         Back to jobs
       </Link>

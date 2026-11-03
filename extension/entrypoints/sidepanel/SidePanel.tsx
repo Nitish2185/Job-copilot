@@ -15,6 +15,7 @@ import { ErrorMessage } from "@/components/ui/States";
 import { getDb } from "@/lib/db/db";
 import { sendMessage } from "@/lib/messaging/client";
 import type { AutofillReportMessage, MessageResponse } from "@/lib/messaging/protocol";
+import { BrandMark } from "@/components/ui/BrandMark";
 import {
   AutoViaPlatform,
   CopyButton,
@@ -121,12 +122,15 @@ function JobCard({
   };
 
   return (
-    <section className="space-y-3" aria-label="This job">
+    <section
+      className="space-y-3 rounded-xl border border-stone-200 bg-white p-4 shadow-sm dark:border-stone-800 dark:bg-stone-900"
+      aria-label="This job"
+    >
       <div className="flex items-start gap-3">
         <ScoreBadge score={score} />
         <div className="min-w-0">
           <h2 className="font-semibold">{job.title}</h2>
-          <p className="text-sm text-slate-600 dark:text-slate-400">{job.company.name}</p>
+          <p className="text-sm text-stone-600 dark:text-stone-400">{job.company.name}</p>
         </div>
       </div>
       {reasons.length > 0 && (
@@ -169,14 +173,14 @@ function JobCard({
           Apply with a resume made for this job
         </label>
         {naukri ? (
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-stone-500">
             Tailored resume isn’t available on Naukri: it applies with your Naukri profile resume.
           </p>
         ) : (
           !hasTailored && (
             <button
               type="button"
-              className="text-xs text-blue-700 underline"
+              className="text-xs text-brand-700 underline"
               onClick={() => {
                 openDashboard(`#/jobs/${encodeURIComponent(job.id)}/resume`);
               }}
@@ -194,7 +198,7 @@ function JobCard({
             <span className="font-medium">Cover letter</span>
             <CopyButton text={letter.text} label="Copy cover letter" />
           </div>
-          <p className="max-h-32 overflow-auto whitespace-pre-wrap rounded border border-slate-200 p-2 text-xs dark:border-slate-800">
+          <p className="max-h-32 overflow-auto whitespace-pre-wrap rounded border border-stone-200 p-2 text-xs dark:border-stone-800">
             {letter.text}
           </p>
         </div>
@@ -253,7 +257,7 @@ function AutofillButton({
         {busy ? "Filling..." : "Autofill"}
       </Button>
       {shortcut && (
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-stone-500">
           Shortcut: {shortcut}. You review and press the site’s buttons yourself.
         </p>
       )}
@@ -280,9 +284,12 @@ function Overview() {
     return { open, needsYou };
   }, []);
   return (
-    <section className="space-y-3" aria-label="Today">
-      <h2 className="font-semibold">Top matches</h2>
-      {data?.open.length === 0 && <p className="text-sm text-slate-500">No ranked jobs yet.</p>}
+    <section
+      className="space-y-3 rounded-xl border border-stone-200 bg-white p-4 shadow-sm dark:border-stone-800 dark:bg-stone-900"
+      aria-label="Today"
+    >
+      <h2 className="text-base font-semibold">Top matches</h2>
+      {data?.open.length === 0 && <p className="text-sm text-stone-500">No ranked jobs yet.</p>}
       <ul className="space-y-2">
         {data?.open.map(({ job, score }) =>
           job ? (
@@ -296,7 +303,7 @@ function Overview() {
                 }}
               >
                 <span className="block truncate font-medium">{job.title}</span>
-                <span className="block truncate text-xs text-slate-500">{job.company.name}</span>
+                <span className="block truncate text-xs text-stone-500">{job.company.name}</span>
               </button>
             </li>
           ) : null,
@@ -367,8 +374,8 @@ export function SidePanel() {
   }, [refresh]);
 
   return (
-    <main className="min-h-screen space-y-5 bg-white p-4 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-      <h1 className="text-lg font-semibold">Job Copilot</h1>
+    <main className="min-h-screen space-y-4 bg-stone-50 p-4 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
+      <BrandMark as="h1" />
       {tabId !== undefined && info?.jobId ? (
         <JobCard
           jobId={info.jobId}
@@ -378,8 +385,11 @@ export function SidePanel() {
         />
       ) : (
         tabId !== undefined && (
-          <section className="space-y-2 text-sm" aria-label="This page">
-            <p className="text-slate-600 dark:text-slate-400">
+          <section
+            className="space-y-3 text-sm rounded-xl border border-stone-200 bg-white p-4 shadow-sm dark:border-stone-800 dark:bg-stone-900"
+            aria-label="This page"
+          >
+            <p className="text-stone-600 dark:text-stone-400">
               {info?.url
                 ? "This page is not a job saved in Job Copilot."
                 : "Job Copilot can read this page after you press Autofill on it."}

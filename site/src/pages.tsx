@@ -14,12 +14,12 @@ function H2({ children, id }: { children: ReactNode; id?: string }) {
 }
 
 function P({ children }: { children: ReactNode }) {
-  return <p className="mt-3 leading-relaxed text-slate-700 dark:text-slate-300">{children}</p>;
+  return <p className="mt-3 leading-relaxed text-stone-700 dark:text-stone-300">{children}</p>;
 }
 
 function Steps({ children }: { children: ReactNode }) {
   return (
-    <ol className="mt-3 list-decimal space-y-2 pl-6 text-slate-700 dark:text-slate-300">
+    <ol className="mt-3 list-decimal space-y-2 pl-6 text-stone-700 dark:text-stone-300">
       {children}
     </ol>
   );
@@ -27,13 +27,13 @@ function Steps({ children }: { children: ReactNode }) {
 
 function Bullets({ children }: { children: ReactNode }) {
   return (
-    <ul className="mt-3 list-disc space-y-2 pl-6 text-slate-700 dark:text-slate-300">{children}</ul>
+    <ul className="mt-3 list-disc space-y-2 pl-6 text-stone-700 dark:text-stone-300">{children}</ul>
   );
 }
 
 function Code({ children }: { children: ReactNode }) {
   return (
-    <code className="rounded bg-slate-100 px-1.5 py-0.5 text-sm dark:bg-slate-800">{children}</code>
+    <code className="rounded bg-stone-100 px-1.5 py-0.5 text-sm dark:bg-stone-800">{children}</code>
   );
 }
 
@@ -42,7 +42,7 @@ function A({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a
       href={href}
-      className="font-medium text-blue-700 underline dark:text-blue-400"
+      className="font-medium text-brand-700 underline dark:text-brand-400"
       {...(external && { target: "_blank", rel: "noreferrer" })}
     >
       {children}
@@ -55,7 +55,7 @@ function Placeholder({ label }: { label: string }) {
     <div
       role="img"
       aria-label={`${label} (screenshot coming soon)`}
-      className="flex aspect-video items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-900"
+      className="flex aspect-video items-center justify-center rounded-lg border border-dashed border-stone-300 bg-stone-50 text-sm text-stone-500 dark:border-stone-700 dark:bg-stone-900"
     >
       {label}: screenshot coming soon
     </div>
@@ -77,13 +77,13 @@ export function HomePage() {
       <div className="mt-6 flex flex-wrap gap-3">
         <a
           href="#/install"
-          className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+          className="rounded-md bg-brand-600 px-4 py-2 font-medium text-white hover:bg-brand-700"
         >
           Install {APP_NAME}
         </a>
         <a
           href={REPO_URL}
-          className="rounded-md border border-slate-300 px-4 py-2 font-medium hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900"
+          className="rounded-md border border-stone-300 px-4 py-2 font-medium hover:bg-stone-50 dark:border-stone-700 dark:hover:bg-stone-900"
         >
           View the source
         </a>
@@ -117,7 +117,7 @@ export function HomePage() {
 
       <H2>Two ways to apply: Auto and Assist</H2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-lg border border-slate-200 p-5 dark:border-slate-800">
+        <div className="rounded-lg border border-stone-200 p-5 dark:border-stone-800">
           <h3 className="font-semibold">Assist (everywhere)</h3>
           <P>
             On Naukri, Indeed, LinkedIn, Workday and every other site, {APP_NAME} only fills the
@@ -125,7 +125,7 @@ export function HomePage() {
             those buttons for you.
           </P>
         </div>
-        <div className="rounded-lg border border-slate-200 p-5 dark:border-slate-800">
+        <div className="rounded-lg border border-stone-200 p-5 dark:border-stone-800">
           <h3 className="font-semibold">Auto (opt-in, a few sites only)</h3>
           <P>
             On the public application forms of {AUTO_SITES}, you can let {APP_NAME} apply for you.
@@ -330,7 +330,7 @@ export function FaqPage() {
         {items.map(([q, a]) => (
           <div key={q}>
             <dt className="text-lg font-semibold">{q}</dt>
-            <dd className="mt-2 leading-relaxed text-slate-700 dark:text-slate-300">{a}</dd>
+            <dd className="mt-2 leading-relaxed text-stone-700 dark:text-stone-300">{a}</dd>
           </div>
         ))}
       </dl>

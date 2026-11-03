@@ -50,8 +50,8 @@ export function CompaniesPage() {
 
   return (
     <div className="mx-auto max-w-4xl p-6">
-      <h1 className="text-xl font-semibold">Companies</h1>
-      <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+      <h1 className="text-2xl font-semibold tracking-tight">Companies</h1>
+      <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
         Add companies you want to follow. Paste a careers or job link from Greenhouse, Lever, Ashby,
         SmartRecruiters or Workable; their jobs are checked every 6 hours.
       </p>
@@ -69,7 +69,7 @@ export function CompaniesPage() {
             setUrl(e.target.value);
           }}
           placeholder="https://jobs.lever.co/company"
-          className="flex-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm dark:border-slate-700 dark:bg-slate-900"
+          className="flex-1 rounded-md border border-stone-300 bg-white px-3 py-1.5 text-sm dark:border-stone-700 dark:bg-stone-900"
         />
         <Button type="submit" variant="primary" disabled={adding}>
           {adding ? "Adding..." : "Add company"}
@@ -94,12 +94,12 @@ export function CompaniesPage() {
             Jobs from the shared feed already cover many companies. Add others here.
           </EmptyState>
         ) : (
-          <ul className="divide-y divide-slate-200 rounded-lg border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+          <ul className="divide-y divide-stone-200 rounded-lg border border-stone-200 dark:divide-stone-800 dark:border-stone-800">
             {companies.map((c) => (
               <li key={c.id} className="flex items-center gap-3 p-3" data-testid="company-row">
                 <div className="min-w-0 flex-1">
                   <p className="font-medium">{c.name}</p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-stone-500">
                     {PLATFORM_NAMES[c.platform] ?? c.platform} · {c.token}
                     {c.lastFetchedAt && ` · checked ${new Date(c.lastFetchedAt).toLocaleString()}`}
                   </p>
@@ -136,7 +136,7 @@ export function CompaniesPage() {
                   href={suggestionUrl(c)}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sm text-blue-700 underline dark:text-blue-400"
+                  className="text-sm text-brand-700 underline dark:text-brand-400"
                 >
                   Suggest for the shared list
                 </a>

@@ -26,7 +26,7 @@ import { AddJobDialog } from "./matches/AddJobDialog";
 import { SearchLinks } from "./matches/SearchLinks";
 import { SkillGapsPanel } from "./matches/SkillGapsPanel";
 
-const ROW_HEIGHT = 92;
+const ROW_HEIGHT = 112;
 const AI_BATCH = 20;
 const GAP_TOP = 100;
 
@@ -154,15 +154,15 @@ export function MatchesPage() {
       <FeedStatusBar />
       <div className="space-y-3 px-6 py-4">
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="mr-2 text-xl font-semibold">Jobs</h1>
+          <h1 className="mr-2 text-2xl font-semibold tracking-tight">Jobs</h1>
           {jobs && (
-            <span className="text-sm text-slate-500" aria-live="polite" data-testid="job-count">
+            <span className="text-sm text-stone-500" aria-live="polite" data-testid="job-count">
               {visible.length.toLocaleString()} jobs
             </span>
           )}
           <div className="ml-auto flex items-center gap-2">
             {quota && (
-              <span className="text-xs text-slate-500" data-testid="ai-quota">
+              <span className="text-xs text-stone-500" data-testid="ai-quota">
                 {quota.aiConfigured
                   ? `${String(quota.remaining)} of ${String(quota.budget)} AI scores left today`
                   : "Add an AI key in Settings to score jobs with AI"}
@@ -183,7 +183,7 @@ export function MatchesPage() {
           </div>
         </div>
         {profile && !ranked && (
-          <p className="rounded-md bg-blue-50 p-3 text-sm text-blue-900 dark:bg-blue-950 dark:text-blue-200">
+          <p className="rounded-md bg-brand-50 p-3 text-sm text-brand-900 dark:bg-brand-950 dark:text-brand-200">
             Jobs are not ranked yet.{" "}
             <Link to="/onboarding" className="font-medium underline">
               Set up your profile
@@ -218,7 +218,7 @@ export function MatchesPage() {
         </div>
         <SkillGapsPanel gaps={gaps} top={GAP_TOP} />
         {selected.size > 0 && (
-          <div className="flex items-center gap-2 rounded-md bg-slate-100 px-3 py-2 text-sm dark:bg-slate-900">
+          <div className="flex items-center gap-2 rounded-md bg-stone-100 px-3 py-2 text-sm dark:bg-stone-900">
             <span>{String(selected.size)} selected</span>
             <Button onClick={() => void setStatus([...selected], "saved")}>Save</Button>
             <Button onClick={() => void setStatus([...selected], "hidden")}>Hide</Button>
@@ -253,7 +253,7 @@ export function MatchesPage() {
           className="min-h-0 flex-1 overflow-auto px-6 pb-6"
           data-testid="job-list"
         >
-          <label className="flex items-center gap-2 border-b border-slate-200 pb-2 text-xs text-slate-500 dark:border-slate-800">
+          <label className="flex items-center gap-2 px-1 pb-3 text-sm text-stone-600 dark:text-stone-400">
             <input
               type="checkbox"
               checked={allSelected}
@@ -280,13 +280,13 @@ export function MatchesPage() {
                   key={job.id}
                   role="listitem"
                   data-testid="job-row"
-                  className="absolute right-0 left-0 border-b border-slate-200 py-3 dark:border-slate-800"
+                  className="absolute right-0 left-0"
                   style={{ height: ROW_HEIGHT, transform: `translateY(${String(item.start)}px)` }}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex h-[calc(100%-0.5rem)] items-start gap-4 rounded-xl border border-stone-200 bg-white px-4 py-3 shadow-xs transition-colors hover:border-stone-300 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-700">
                     <input
                       type="checkbox"
-                      className="mt-1.5"
+                      className="mt-4 size-4 accent-brand-600"
                       aria-label={`Select ${job.title}`}
                       checked={selected.has(job.id)}
                       onChange={() => {
@@ -299,15 +299,15 @@ export function MatchesPage() {
                     <div className="min-w-0 flex-1">
                       <Link
                         to={`/jobs/${encodeURIComponent(job.id)}`}
-                        className="block truncate font-medium hover:underline"
+                        className="block truncate text-base font-semibold text-stone-900 hover:text-brand-700 hover:underline dark:text-stone-100 dark:hover:text-brand-300"
                       >
                         {job.title}
                       </Link>
-                      <p className="truncate text-sm text-slate-600 dark:text-slate-400">
+                      <p className="truncate text-sm text-stone-600 dark:text-stone-400">
                         {job.company.name} · {job.locations[0] ?? "Location not listed"}
                         {job.remote === "remote" && " · Remote"}
                       </p>
-                      <p className="mt-1 flex gap-1 truncate">
+                      <p className="mt-1.5 flex gap-1.5 truncate">
                         {skills.slice(0, 5).map((s) => (
                           <Badge
                             key={s}
@@ -323,7 +323,7 @@ export function MatchesPage() {
                         {job.mode === "auto" ? "Auto" : "Assist"}
                       </Badge>
                       {job.status === "saved" && <Badge tone="amber">Saved</Badge>}
-                      <span className="w-14 text-right text-xs text-slate-500">
+                      <span className="w-14 text-right text-xs text-stone-500">
                         {postedLabel(postedAt(job))}
                       </span>
                       <Button

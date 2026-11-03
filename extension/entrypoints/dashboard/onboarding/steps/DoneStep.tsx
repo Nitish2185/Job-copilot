@@ -71,7 +71,7 @@ export function DoneStep({ back }: StepProps) {
             value={phase}
             aria-label="Setting up your matches"
           />
-          <p className="mt-1 text-slate-500">{PHASES[phase]}</p>
+          <p className="mt-1 text-stone-500">{PHASES[phase]}</p>
         </div>
       )}
       {summary && (

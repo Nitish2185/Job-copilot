@@ -40,7 +40,7 @@ export function App() {
   }, [route]);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
       <a
         href="#/"
         onClick={(e) => {
@@ -48,13 +48,19 @@ export function App() {
           e.preventDefault();
           document.getElementById("main")?.focus();
         }}
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-slate-900"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-stone-900"
       >
         Skip to content
       </a>
-      <header className="border-b border-slate-200 dark:border-slate-800">
+      <header className="border-b border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900">
         <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
-          <a href="#/" className="text-lg font-semibold tracking-tight">
+          <a href="#/" className="flex items-center gap-2.5 text-lg font-semibold tracking-tight">
+            <span
+              aria-hidden
+              className="flex size-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white"
+            >
+              JC
+            </span>
             {APP_NAME}
           </a>
           <nav aria-label="Main">
@@ -64,7 +70,7 @@ export function App() {
                   <a
                     href={`#/${r.path}`}
                     aria-current={r.path === route?.path ? "page" : undefined}
-                    className="text-slate-600 hover:text-slate-900 aria-[current=page]:font-semibold aria-[current=page]:text-slate-900 dark:text-slate-400 dark:hover:text-white dark:aria-[current=page]:text-white"
+                    className="text-stone-600 hover:text-stone-900 aria-[current=page]:font-semibold aria-[current=page]:text-stone-900 dark:text-stone-400 dark:hover:text-white dark:aria-[current=page]:text-white"
                   >
                     {r.label}
                   </a>
@@ -77,8 +83,8 @@ export function App() {
       <main id="main" tabIndex={-1} className="outline-none mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <Page />
       </main>
-      <footer className="border-t border-slate-200 dark:border-slate-800">
-        <div className="mx-auto flex max-w-4xl flex-wrap justify-between gap-2 px-4 py-6 text-sm text-slate-500 sm:px-6">
+      <footer className="border-t border-stone-200 dark:border-stone-800">
+        <div className="mx-auto flex max-w-4xl flex-wrap justify-between gap-2 px-4 py-6 text-sm text-stone-500 sm:px-6">
           <span>{APP_NAME} is free and open source (MIT).</span>
           <a className="underline" href={REPO_URL}>
             Source code on GitHub

@@ -29,7 +29,7 @@ function EnableDialog({ onEnabled }: { onEnabled: () => void }) {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/40" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[90vh] w-[min(36rem,92vw)] -translate-x-1/2 -translate-y-1/2 space-y-3 overflow-auto rounded-lg bg-white p-5 text-sm shadow-xl dark:bg-slate-900">
+        <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[90vh] w-[min(36rem,92vw)] -translate-x-1/2 -translate-y-1/2 space-y-3 overflow-auto rounded-lg bg-white p-5 text-sm shadow-xl dark:bg-stone-900">
           <Dialog.Title className="text-lg font-semibold">
             Before you turn on auto-apply
           </Dialog.Title>
@@ -176,7 +176,7 @@ export function AutoApplySettings() {
               : "Auto-apply is on."}
         </span>
         {status.enabled && (
-          <span className="text-slate-500">
+          <span className="text-stone-500">
             {String(status.sentToday)} of {String(status.dailyCap)} sent today ·{" "}
             {String(status.pending)} queued · {String(status.review)} to review ·{" "}
             {String(status.needsYou)} need you

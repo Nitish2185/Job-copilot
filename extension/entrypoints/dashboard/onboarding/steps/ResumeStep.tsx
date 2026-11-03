@@ -60,7 +60,7 @@ function ContactsFound({ contacts }: { contacts: ExtractedContacts }) {
       <p className="font-medium">
         Found on your resume (kept on this device, never sent to the AI):
       </p>
-      <ul className="mt-1 list-disc pl-5 text-slate-600 dark:text-slate-400">
+      <ul className="mt-1 list-disc pl-5 text-stone-600 dark:text-stone-400">
         {items.map((item) => (
           <li key={item}>{item}</li>
         ))}
@@ -244,14 +244,14 @@ export function ResumeStep({ next, back }: StepProps) {
   );
   return (
     <div className="space-y-4">
-      <p className="text-sm text-slate-600 dark:text-slate-400">
+      <p className="text-sm text-stone-600 dark:text-stone-400">
         Check every section and fix anything that is wrong. Nothing is used until you confirm.
       </p>
       {current.sideBySide && text ? (
         <div className="grid gap-4 lg:grid-cols-2">
           <section aria-label="Resume text" className="lg:sticky lg:top-4 lg:self-start">
             <h2 className="mb-2 text-sm font-medium">Text from your resume</h2>
-            <pre className="max-h-[80vh] overflow-auto rounded-md border border-slate-200 bg-white p-3 text-xs whitespace-pre-wrap dark:border-slate-800 dark:bg-slate-900">
+            <pre className="max-h-[80vh] overflow-auto rounded-md border border-stone-200 bg-white p-3 text-xs whitespace-pre-wrap dark:border-stone-800 dark:bg-stone-900">
               {text}
             </pre>
           </section>

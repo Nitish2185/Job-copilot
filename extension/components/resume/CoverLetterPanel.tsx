@@ -55,7 +55,7 @@ function Editor({ letter, job, profile }: { letter: CoverLetter; job: Job; profi
         }}
       />
       <p
-        className={`text-xs ${words < COVER_LETTER_WORDS.min || words > COVER_LETTER_WORDS.max ? "text-amber-700" : "text-slate-500"}`}
+        className={`text-xs ${words < COVER_LETTER_WORDS.min || words > COVER_LETTER_WORDS.max ? "text-amber-700" : "text-stone-500"}`}
       >
         {String(words)} words
       </p>

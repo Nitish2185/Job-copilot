@@ -20,7 +20,7 @@ export function AiUsage() {
       <p>
         {status.configured ? `Using ${status.model}.` : "AI is not set up. AI features are off."}
       </p>
-      <p className="text-slate-600 dark:text-slate-400">
+      <p className="text-stone-600 dark:text-stone-400">
         Today: {String(usage.requests)} of {String(usage.budget)} requests,{" "}
         {String(usage.cacheHits)} answered from the cache, {String(usage.errors)} errors.
       </p>

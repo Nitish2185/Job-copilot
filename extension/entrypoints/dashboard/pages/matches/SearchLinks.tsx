@@ -31,14 +31,14 @@ export function SearchLinks() {
   const full = { ...input, indeedCountry: country };
   return (
     <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-      <span className="text-slate-600 dark:text-slate-400">Search “{searchQuery(full)}” on</span>
+      <span className="text-stone-600 dark:text-stone-400">Search “{searchQuery(full)}” on</span>
       {searchLinks(full).map((link) => (
         <a
           key={link.site}
           href={link.url}
           target="_blank"
           rel="noreferrer"
-          className="font-medium text-blue-700 underline dark:text-blue-400"
+          className="font-medium text-brand-700 underline dark:text-brand-400"
         >
           {link.site}
         </a>

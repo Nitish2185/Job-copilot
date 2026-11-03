@@ -225,7 +225,7 @@ export function ProfileEditor({
           {experience.fields.map((item, i) => (
             <div
               key={item.id}
-              className="space-y-2 rounded-md border border-slate-200 p-3 dark:border-slate-800"
+              className="space-y-2 rounded-md border border-stone-200 p-3 dark:border-stone-800"
             >
               <div className="grid gap-2 sm:grid-cols-2">
                 <TextField name={`experience.${String(i)}.title`} label="Job title" {...field} />
@@ -290,7 +290,7 @@ export function ProfileEditor({
           {projects.fields.map((item, i) => (
             <div
               key={item.id}
-              className="space-y-2 rounded-md border border-slate-200 p-3 dark:border-slate-800"
+              className="space-y-2 rounded-md border border-stone-200 p-3 dark:border-stone-800"
               data-testid="project-row"
             >
               <div className="grid gap-2 sm:grid-cols-2">
@@ -359,7 +359,7 @@ export function ProfileEditor({
           {education.fields.map((item, i) => (
             <div
               key={item.id}
-              className="grid gap-2 rounded-md border border-slate-200 p-3 sm:grid-cols-3 dark:border-slate-800"
+              className="grid gap-2 rounded-md border border-stone-200 p-3 sm:grid-cols-3 dark:border-stone-800"
             >
               <TextField
                 name={`education.${String(i)}.institution`}
@@ -479,7 +479,7 @@ export function ProfileEditor({
           </ul>
         </ErrorMessage>
       )}
-      <div className="sticky bottom-0 bg-slate-50 py-3 dark:bg-slate-950">
+      <div className="sticky bottom-0 bg-stone-50 py-3 dark:bg-stone-950">
         <Button type="submit" variant="primary" disabled={formState.isSubmitting}>
           {formState.isSubmitting ? "Saving..." : submitLabel}
         </Button>

@@ -255,7 +255,7 @@ export function TailorPage() {
     <div className="mx-auto max-w-7xl space-y-4 p-6">
       <Link
         to={`/jobs/${encodeURIComponent(job.id)}`}
-        className="text-sm text-blue-700 underline dark:text-blue-400"
+        className="text-sm text-brand-700 underline dark:text-brand-400"
       >
         ← Back to the job
       </Link>
@@ -269,7 +269,7 @@ export function TailorPage() {
           </label>
           <select
             id="template"
-            className="rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm dark:border-slate-700 dark:bg-slate-900"
+            className="rounded-md border border-stone-300 bg-white px-2 py-1.5 text-sm dark:border-stone-700 dark:bg-stone-900"
             value={template}
             onChange={(e) => {
               const t = e.target.value as ResumeTemplate;
@@ -309,7 +309,7 @@ export function TailorPage() {
             <a
               href={pdfUrl}
               download={fileName}
-              className="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium dark:border-slate-700"
+              className="rounded-md border border-stone-300 px-3 py-1.5 text-sm font-medium dark:border-stone-700"
             >
               Download PDF
             </a>
@@ -326,7 +326,7 @@ export function TailorPage() {
       )}
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {tailored.source === "local" && (
-        <p className="rounded-md bg-blue-50 p-3 text-sm text-blue-900 dark:bg-blue-950 dark:text-blue-200">
+        <p className="rounded-md bg-brand-50 p-3 text-sm text-brand-900 dark:bg-brand-950 dark:text-brand-200">
           {tailored.aiError
             ? `The AI could not tailor this resume (${tailored.aiError}). `
             : "Made without AI: "}
@@ -335,14 +335,14 @@ export function TailorPage() {
       )}
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="min-h-[70vh] rounded-md border border-slate-200 dark:border-slate-800">
+        <div className="min-h-[70vh] rounded-md border border-stone-200 dark:border-stone-800">
           {pdfUrl ? (
             <iframe title="Resume preview" src={pdfUrl} className="h-[80vh] w-full rounded-md" />
           ) : (
             <Loading label={progress} />
           )}
           {fit && (
-            <p className="p-2 text-xs text-slate-500" data-testid="fit-info">
+            <p className="p-2 text-xs text-stone-500" data-testid="fit-info">
               {String(fit.pages)} page{fit.pages === 1 ? "" : "s"}, {String(fit.fontSize)} pt
             </p>
           )}
@@ -377,7 +377,7 @@ export function TailorPage() {
             </Field>
             {tailored.content.summaryChanged && (
               <details className="text-sm">
-                <summary className="cursor-pointer text-slate-600 dark:text-slate-400">
+                <summary className="cursor-pointer text-stone-600 dark:text-stone-400">
                   Your original summary
                 </summary>
                 <p className="mt-1">{profile.summary}</p>
@@ -422,7 +422,7 @@ export function TailorPage() {
             ))}
             {fit && fit.dropped.length > 0 && (
               <details className="text-sm">
-                <summary className="cursor-pointer text-slate-600 dark:text-slate-400">
+                <summary className="cursor-pointer text-stone-600 dark:text-stone-400">
                   {String(fit.dropped.length)} older bullet{fit.dropped.length === 1 ? "" : "s"}{" "}
                   left out to fit one page
                 </summary>
@@ -444,14 +444,14 @@ export function TailorPage() {
               return (
                 <div
                   key={p.projectId}
-                  className="space-y-2 rounded-md border border-slate-200 p-2 dark:border-slate-800"
+                  className="space-y-2 rounded-md border border-stone-200 p-2 dark:border-stone-800"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <p className="text-sm font-medium">{p.name}</p>
                     {others.length > 0 && (
                       <select
                         aria-label={`Swap ${p.name}`}
-                        className="rounded-md border border-slate-300 bg-white px-2 py-1 text-xs dark:border-slate-700 dark:bg-slate-900"
+                        className="rounded-md border border-stone-300 bg-white px-2 py-1 text-xs dark:border-stone-700 dark:bg-stone-900"
                         value=""
                         onChange={(e) => {
                           swap(pi, e.target.value);
@@ -467,7 +467,7 @@ export function TailorPage() {
                     )}
                   </div>
                   {pick && (
-                    <p className="text-xs text-slate-600 dark:text-slate-400">
+                    <p className="text-xs text-stone-600 dark:text-stone-400">
                       Why: {pick.reason}
                       {pick.matchedKeywords.length > 0 && ` (${pick.matchedKeywords.join(", ")})`}
                     </p>
@@ -494,7 +494,7 @@ export function TailorPage() {
                     );
                   })}
                   {projectsById.get(p.projectId)?.links.repo && (
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-stone-500">
                       {projectsById.get(p.projectId)?.links.repo}
                     </p>
                   )}

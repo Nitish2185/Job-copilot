@@ -49,7 +49,7 @@ export function RescorePanel() {
   };
 
   return (
-    <div className="space-y-2 rounded-md border border-slate-200 p-3 text-sm dark:border-slate-800">
+    <div className="space-y-2 rounded-md border border-stone-200 p-3 text-sm dark:border-stone-800">
       <p>
         {ranked === "running"
           ? "Re-ranking your jobs..."
@@ -60,7 +60,7 @@ export function RescorePanel() {
           <Button onClick={() => void rescore()} disabled={busy || ai.remaining === 0}>
             {busy ? "Scoring..." : `Re-score top ${String(RESCORE_TOP)} with AI`}
           </Button>
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-stone-500">
             {String(ai.remaining)} AI scores left today
           </span>
         </div>

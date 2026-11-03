@@ -25,7 +25,7 @@ const FIT_TEXT: Record<AiScore["experienceFit"], string> = {
 };
 
 function Checklist({ items }: { items: AiScore["mustHave"] }) {
-  if (items.length === 0) return <p className="text-sm text-slate-500">None listed.</p>;
+  if (items.length === 0) return <p className="text-sm text-stone-500">None listed.</p>;
   return (
     <ul className="space-y-1 text-sm">
       {items.map((item) => (
@@ -50,7 +50,7 @@ function fitText(value: boolean | null, yes: string, no: string): string {
 function Breakdown({ job, score }: { job: Job; score: JobScore | undefined }) {
   const [scoring, setScoring] = useState(false);
   const [error, setError] = useState<string>();
-  if (!score) return <p className="text-sm text-slate-500">This job has not been scored yet.</p>;
+  if (!score) return <p className="text-sm text-stone-500">This job has not been scored yet.</p>;
   const { prefilter, ai } = score;
 
   const scoreWithAi = async () => {
@@ -111,11 +111,11 @@ function Breakdown({ job, score }: { job: Job; score: JobScore | undefined }) {
             </div>
           </div>
           <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
-            <dt className="text-slate-500">Experience</dt>
+            <dt className="text-stone-500">Experience</dt>
             <dd>{FIT_TEXT[ai.experienceFit]}</dd>
-            <dt className="text-slate-500">Location</dt>
+            <dt className="text-stone-500">Location</dt>
             <dd>{fitText(ai.locationFit, "Fits your preferences", "Does not fit")}</dd>
-            <dt className="text-slate-500">Salary</dt>
+            <dt className="text-stone-500">Salary</dt>
             <dd>{fitText(ai.salaryFit, "Fits your expectations", "Below your expectations")}</dd>
           </dl>
         </>
@@ -168,7 +168,7 @@ function Description({ job }: { job: Job }) {
   if (job.description) {
     return (
       <div
-        className="prose-sm max-w-none space-y-2 text-sm leading-relaxed [&_h1]:font-semibold [&_h2]:font-semibold [&_h3]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_a]:text-blue-700 [&_a]:underline"
+        className="prose-sm max-w-none space-y-2 text-sm leading-relaxed [&_h1]:font-semibold [&_h2]:font-semibold [&_h3]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_a]:text-brand-700 [&_a]:underline"
         data-testid="job-description"
         // Sanitized with DOMPurify when stored and again here.
         dangerouslySetInnerHTML={{ __html: sanitizeHtml(job.description.html) }}
@@ -178,7 +178,7 @@ function Description({ job }: { job: Job }) {
   if (loading) return <Loading label="Loading the full description..." />;
   return (
     <div className="space-y-2 text-sm">
-      {error && <p className="text-slate-500">{error} Showing the short version.</p>}
+      {error && <p className="text-stone-500">{error} Showing the short version.</p>}
       <p>{job.snippet}</p>
     </div>
   );
@@ -194,7 +194,7 @@ function ApplyAutomatically({ jobId }: { jobId: string }) {
     <span className="inline-flex flex-col">
       <Button onClick={() => void queue()}>Apply automatically</Button>
       {note && (
-        <span role="status" className="mt-1 max-w-xs text-xs text-slate-600 dark:text-slate-400">
+        <span role="status" className="mt-1 max-w-xs text-xs text-stone-600 dark:text-stone-400">
           {note}
         </span>
       )}
@@ -240,13 +240,13 @@ export function JobDetailPage() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-4 p-6">
-      <Link to="/matches" className="text-sm text-blue-700 underline dark:text-blue-400">
+      <Link to="/matches" className="text-sm text-brand-700 underline dark:text-brand-400">
         ← Back to jobs
       </Link>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold">{job.title}</h1>
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-stone-600 dark:text-stone-400">
             {job.company.name} · {job.locations.join("; ") || "Location not listed"}
             {job.remote === "remote" && " · Remote"}
           </p>
@@ -254,10 +254,12 @@ export function JobDetailPage() {
             <Badge tone={job.mode === "auto" ? "green" : "blue"}>
               {job.mode === "auto" ? "Auto" : "Assist"}
             </Badge>
-            {job.status !== "new" && <Badge tone="amber">{job.status}</Badge>}
+            {job.status !== "new" && (
+              <Badge tone="amber">{job.status.charAt(0).toUpperCase() + job.status.slice(1)}</Badge>
+            )}
           </div>
           {job.alsoListedOn && job.alsoListedOn.length > 0 && (
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
               Also listed on{" "}
               {job.alsoListedOn.map((l, i) => (
                 <span key={l.url}>
@@ -266,7 +268,7 @@ export function JobDetailPage() {
                     href={l.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-blue-700 underline dark:text-blue-400"
+                    className="text-brand-700 underline dark:text-brand-400"
                   >
                     {PLATFORM_LABELS[l.platform] ?? l.platform}
                   </a>
@@ -279,7 +281,7 @@ export function JobDetailPage() {
           {job.mode === "auto" && <ApplyAutomatically jobId={job.id} />}
           <Link
             to={`/jobs/${encodeURIComponent(job.id)}/resume`}
-            className="inline-flex items-center rounded-md border border-blue-600 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-50 dark:text-blue-300 dark:hover:bg-blue-950"
+            className="inline-flex items-center rounded-md border border-brand-600 px-3 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50 dark:text-brand-300 dark:hover:bg-brand-950"
           >
             Make a resume for this job
           </Link>
@@ -288,7 +290,7 @@ export function JobDetailPage() {
               href={job.url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700"
+              className="inline-flex items-center gap-1 rounded-md bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700"
             >
               Open job page <ExternalLink className="size-4" aria-hidden />
             </a>
@@ -345,7 +347,7 @@ export function JobDetailPage() {
                   <li key={other.id}>
                     <Link
                       to={`/jobs/${encodeURIComponent(other.id)}`}
-                      className="text-blue-700 underline dark:text-blue-400"
+                      className="text-brand-700 underline dark:text-brand-400"
                     >
                       {other.title}
                     </Link>
@@ -353,7 +355,7 @@ export function JobDetailPage() {
                 ))}
               </ul>
             ) : (
-              <p className="text-sm text-slate-500">No other open jobs here.</p>
+              <p className="text-sm text-stone-500">No other open jobs here.</p>
             )}
           </Section>
         </div>

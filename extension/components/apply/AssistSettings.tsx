@@ -42,7 +42,7 @@ function Toggle({
       />
       <label htmlFor={id} className="text-sm">
         {label}
-        {hint && <span className="block text-xs text-slate-500">{hint}</span>}
+        {hint && <span className="block text-xs text-stone-500">{hint}</span>}
       </label>
     </div>
   );
@@ -81,11 +81,11 @@ function OptionalSite({
   };
 
   return (
-    <div className="rounded-md border border-slate-200 p-3 dark:border-slate-800">
+    <div className="rounded-md border border-stone-200 p-3 dark:border-stone-800">
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm">
           <span className="font-medium">{site.name}</span>{" "}
-          <span className="text-slate-500">{enabled ? "· On" : "· Off"}</span>
+          <span className="text-stone-500">{enabled ? "· On" : "· Off"}</span>
         </p>
         {enabled ? (
           <Button
@@ -111,8 +111,8 @@ function OptionalSite({
       </div>
       {explaining && !enabled && (
         <div className="mt-2 space-y-2">
-          <p className="text-sm text-slate-600 dark:text-slate-400">{site.explanation}</p>
-          <p className="text-xs text-slate-500">
+          <p className="text-sm text-stone-600 dark:text-stone-400">{site.explanation}</p>
+          <p className="text-xs text-stone-500">
             Your browser will ask to let Job Copilot read and change {site.name} pages. Nothing is
             ever submitted for you there.
           </p>

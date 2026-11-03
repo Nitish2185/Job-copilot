@@ -60,7 +60,7 @@ export function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-6 p-6">
-      <h1 className="text-xl font-semibold">Settings</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
       <Section
         title="AI provider"
         description="Your key is stored only on this device and is never synced or exported."
@@ -128,7 +128,7 @@ export function SettingsPage() {
       <section>
         <h2 className="font-medium">Shared job feed</h2>
         <form onSubmit={(e) => void save(e)} className="mt-2 space-y-2">
-          <label htmlFor="feed-url" className="block text-sm text-slate-600 dark:text-slate-400">
+          <label htmlFor="feed-url" className="block text-sm text-stone-600 dark:text-stone-400">
             Feed address (default {FEED_BASE_URL})
           </label>
           <div className="flex gap-2">
@@ -138,7 +138,7 @@ export function SettingsPage() {
               onChange={(e) => {
                 setFeedUrl(e.target.value);
               }}
-              className="flex-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm dark:border-slate-700 dark:bg-slate-900"
+              className="flex-1 rounded-md border border-stone-300 bg-white px-3 py-1.5 text-sm dark:border-stone-700 dark:bg-stone-900"
             />
             <Button type="submit" variant="primary">
               Save and sync

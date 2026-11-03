@@ -19,14 +19,14 @@ export function Tip({ id, children }: { id: string; children: ReactNode }) {
   return (
     <aside
       aria-label="Tip"
-      className="flex items-start gap-2 rounded-md bg-blue-50 px-3 py-2 text-sm text-blue-900 dark:bg-blue-950 dark:text-blue-200"
+      className="flex items-start gap-2 rounded-md bg-brand-50 px-3 py-2 text-sm text-brand-900 dark:bg-brand-950 dark:text-brand-200"
     >
       <Lightbulb className="mt-0.5 size-4 shrink-0" aria-hidden />
       <p className="flex-1">{children}</p>
       <button
         type="button"
         aria-label="Dismiss tip"
-        className="rounded p-0.5 hover:bg-blue-100 focus-visible:outline-2 focus-visible:outline-blue-600 dark:hover:bg-blue-900"
+        className="rounded p-0.5 hover:bg-brand-100 focus-visible:outline-2 focus-visible:outline-brand-600 dark:hover:bg-brand-900"
         onClick={() => {
           setHidden(true);
           try {

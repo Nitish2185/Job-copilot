@@ -85,7 +85,7 @@ export function showOverlay(doc: Document, report: AutofillReport, onUndo: () =>
       .warn { background: #fef3c7; color: #78350f; padding: 8px 12px; margin: 0; }
       footer { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid #eee; }
       button { font: inherit; padding: 5px 10px; border-radius: 6px; border: 1px solid #bbb; background: #f8f8f8; cursor: pointer; }
-      button:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+      button:focus-visible { outline: 2px solid #0f766e; outline-offset: 2px; }
     </style>
     <section class="panel" role="region" aria-label="Job Copilot autofill">
       <header><h2></h2><button type="button" data-action="close" aria-label="Close">✕</button></header>

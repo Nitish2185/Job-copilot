@@ -145,7 +145,8 @@ export const SettingsSchema = z.object({
 
   ui: z
     .object({
-      theme: z.enum(["system", "light", "dark"]).default("system"),
+      // Light by default; dark and "follow the system" are choices in Settings > Appearance.
+      theme: z.enum(["system", "light", "dark"]).default("light"),
     })
     .prefault({}),
 });

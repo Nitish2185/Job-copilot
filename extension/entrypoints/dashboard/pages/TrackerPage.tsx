@@ -74,12 +74,12 @@ export function TrackerPage() {
   return (
     <div className="space-y-4 p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-xl font-semibold">Tracker</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Tracker</h1>
         <div className="flex items-center gap-2">
           <div
             role="group"
             aria-label="View"
-            className="flex rounded-md border border-slate-300 dark:border-slate-700"
+            className="flex rounded-md border border-stone-300 dark:border-stone-700"
           >
             {(["board", "list"] as const).map((v) => (
               <button
@@ -89,7 +89,7 @@ export function TrackerPage() {
                 onClick={() => {
                   choose(v);
                 }}
-                className={`px-3 py-1.5 text-sm first:rounded-l-md last:rounded-r-md focus-visible:outline-2 focus-visible:outline-blue-600 ${view === v ? "bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900" : ""}`}
+                className={`px-3 py-1.5 text-sm first:rounded-l-md last:rounded-r-md focus-visible:outline-2 focus-visible:outline-brand-600 ${view === v ? "bg-brand-600 text-white" : "bg-white hover:bg-stone-50 dark:bg-stone-900 dark:hover:bg-stone-800"}`}
               >
                 {v === "board" ? "Board" : "List"}
               </button>

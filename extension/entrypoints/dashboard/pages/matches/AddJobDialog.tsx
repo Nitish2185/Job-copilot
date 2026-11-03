@@ -80,9 +80,9 @@ export function AddJobDialog() {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/40" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[90vh] w-[min(36rem,92vw)] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-lg bg-white p-5 text-sm shadow-xl dark:bg-slate-900">
+        <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[90vh] w-[min(36rem,92vw)] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-lg bg-white p-5 text-sm shadow-xl dark:bg-stone-900">
           <Dialog.Title className="text-lg font-semibold">Add a job</Dialog.Title>
-          <Dialog.Description className="mt-1 text-slate-600 dark:text-slate-400">
+          <Dialog.Description className="mt-1 text-stone-600 dark:text-stone-400">
             Paste a job from an email, a message or any website. It is saved and scored like the
             others.
           </Dialog.Description>
