@@ -20,6 +20,12 @@ import { QUEUE_ALARM, scheduleNext, tick } from "@/lib/queue/runner";
 import { runRetention } from "@/lib/backup/retention";
 import { dataHandlers } from "@/lib/background/dataHandlers";
 import { getDb } from "@/lib/db/db";
+import {
+  MIRROR_META_KEY,
+  pullAnswerMirror,
+  pushAnswerMirror,
+  syncAnswerMirror,
+} from "@/lib/sync/answerMirror";
 import { runNotificationChecks } from "@/lib/notifications/notifications";
 import { ensureSettings, loadSettings, updateFlags } from "@/lib/settings/settings";
 
@@ -51,6 +57,7 @@ export default defineBackground(() => {
       await ensureSettings();
       await scheduleAlarms();
       await syncOptionalSites().catch(() => undefined);
+      await syncAnswerMirror(getDb()).catch(() => undefined);
       if (reason === "install") {
         await updateFlags({ installedAt: new Date().toISOString() });
         await openDashboard("#/onboarding");
@@ -59,7 +66,14 @@ export default defineBackground(() => {
     })();
   });
 
+  // Answers saved in another browser on the same account arrive through sync.
+  browser.storage.onChanged.addListener((changes, area) => {
+    if (area === "sync" && MIRROR_META_KEY in changes)
+      void pullAnswerMirror(getDb()).catch(() => undefined);
+  });
+
   browser.runtime.onStartup.addListener(() => {
+    void syncAnswerMirror(getDb()).catch(() => undefined);
     void scheduleAlarms().then(() => runFeedSync());
     void scheduleNext();
   });
@@ -69,8 +83,10 @@ export default defineBackground(() => {
     if (alarm.name === ALARMS.boardsSync) void runBoardsSync();
     if (alarm.name === QUEUE_ALARM) void tick();
     if (alarm.name === ALARMS.maintenance) void runRetention(getDb());
-    if (alarm.name === ALARMS.notifications)
+    if (alarm.name === ALARMS.notifications) {
       void loadSettings().then((s) => runNotificationChecks(getDb(), s));
+      void pushAnswerMirror(getDb()).catch(() => undefined);
+    }
   });
 
   // Notification ids are "jc:<dashboard route>:<time>"; a click opens that page.

@@ -1,5 +1,5 @@
 import { Dialog } from "radix-ui";
-import { useState, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { browser } from "wxt/browser";
 import { Button } from "@/components/ui/Button";
 import { inputClass } from "@/components/ui/Field";
@@ -14,6 +14,7 @@ import {
 import { getDb } from "@/lib/db/db";
 import { downloadBlob } from "@/lib/files/open";
 import { sendMessage } from "@/lib/messaging/client";
+import { loadMirrorMeta, type MirrorMeta } from "@/lib/sync/answerMirror";
 import {
   loadSecrets,
   loadSettings,
@@ -248,10 +249,31 @@ function DeleteEverything() {
   );
 }
 
+/** Where saved answers sync, and a notice when there are too many to sync (spec 6). */
+function SyncStatus() {
+  const [meta, setMeta] = useState<MirrorMeta>();
+  useEffect(() => {
+    void loadMirrorMeta().then(setMeta);
+  }, []);
+  if (!meta) return null;
+  return meta.tooLarge ? (
+    <p className="rounded-md bg-amber-50 p-3 text-sm text-amber-900 dark:bg-amber-950 dark:text-amber-200">
+      Your saved answers are too many to sync between browsers ({String(meta.count)} answers). They
+      stay on this device; use Export and Import to move them.
+    </p>
+  ) : (
+    <p className="text-sm text-slate-600 dark:text-slate-400">
+      Settings and {String(meta.count)} saved answers sync to browsers signed in to the same
+      account. Pay, notice period and other sensitive answers, and API keys, never sync.
+    </p>
+  );
+}
+
 /** Export, import and delete (spec 20). */
 export function DataControls() {
   return (
     <div className="space-y-6">
+      <SyncStatus />
       <ExportBackup />
       <ImportBackup />
       <DeleteEverything />
