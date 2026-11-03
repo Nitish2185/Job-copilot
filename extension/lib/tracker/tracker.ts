@@ -109,11 +109,15 @@ export const CSV_COLUMNS = [
 
 /** The tracker as CSV (spec 18.1). */
 export function trackerCsv(
-  rows: readonly { app: Application; job: Job | undefined }[],
+  rows: readonly {
+    app: Application;
+    job: Job | undefined;
+    resume?: { name?: string; tailored: boolean };
+  }[],
   followUpDays: number,
 ): string {
   const lines = [CSV_COLUMNS.join(",")];
-  for (const { app, job } of rows) {
+  for (const { app, job, resume } of rows) {
     const followUp = followUpDate(app, followUpDays);
     lines.push(
       [
@@ -123,7 +127,7 @@ export function trackerCsv(
         app.mode,
         job?.platform ?? "",
         app.submittedAt?.slice(0, 10) ?? "",
-        app.resumeChoice,
+        resume?.name ?? (app.resumeChoice === "tailored" ? "Tailored resume" : "My resume"),
         followUp ? iso(followUp).slice(0, 10) : "",
         job?.url ?? "",
         app.notes,

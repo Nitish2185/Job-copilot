@@ -10,7 +10,7 @@ import { browser } from "wxt/browser";
 import { AUTO_ADAPTERS } from "../apply/adapters/auto";
 import type { AutofillReport } from "../apply/engine";
 import { resolveMode } from "../apply/mode";
-import { autofillContext } from "../background/autofill";
+import { autofillContext, resumeUsed } from "../background/autofill";
 import { coverLetterFor } from "../background/tailorHandlers";
 import { getDb } from "../db/db";
 import { isAiConfigured } from "../ai/configured";
@@ -382,6 +382,7 @@ async function runItem(item: QueueItem, settings: Settings): Promise<void> {
   try {
     // 4. Fill.
     const choice = resumeVersionId ? "tailored" : "current";
+    const sentFileId = (await resumeUsed(job.id, choice)).fileId;
     const fill = async () => {
       await waitForLoad(tabId);
       const data = await autofillContext(url, choice);
@@ -430,6 +431,7 @@ async function runItem(item: QueueItem, settings: Settings): Promise<void> {
           dryRun: true,
           answersSent: answersFrom(report),
           ...(resumeVersionId && { resumeVersionId }),
+          ...(sentFileId && { resumeFileId: sentFileId }),
         },
         "needs_you",
       );
@@ -464,6 +466,8 @@ async function runItem(item: QueueItem, settings: Settings): Promise<void> {
             answersSent: answersFrom(report),
             resumeChoice: choice,
             ...(resumeVersionId && { resumeVersionId }),
+            ...(sentFileId && { resumeFileId: sentFileId }),
+            ...(sentFileId && { resumeFileId: sentFileId }),
             ...(letter && { coverLetterId: letter.id }),
             ...(status.confirmation.text && { confirmationText: status.confirmation.text }),
             pendingQuestions: [],
@@ -514,6 +518,7 @@ async function runItem(item: QueueItem, settings: Settings): Promise<void> {
           submittedAt: iso(new Date()),
           answersSent: answersFrom(report),
           ...(resumeVersionId && { resumeVersionId }),
+          ...(sentFileId && { resumeFileId: sentFileId }),
         },
         "applied",
       );

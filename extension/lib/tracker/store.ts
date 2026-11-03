@@ -3,18 +3,41 @@ import type { Application, ApplicationStage, Job } from "@job-copilot/shared";
 import type { JobCopilotDB } from "../db/db";
 import { addEvent, isTracked, moveStage } from "./tracker";
 
+export interface SentResume {
+  /** The stored file, when Job Copilot kept it. */
+  fileId?: string;
+  /** Its file name, e.g. "Aarav_Mehta_Backend_Acme.pdf". */
+  name?: string;
+  tailored: boolean;
+}
+
 export interface TrackerRow {
   app: Application;
   job: Job | undefined;
+  resume: SentResume;
 }
 
-/** Sent applications with their jobs, newest first. */
+/** The resume an application was sent with: its own record, else its tailored version. */
+export async function sentResume(db: JobCopilotDB, app: Application): Promise<SentResume> {
+  const version = app.resumeVersionId
+    ? await db.resumeVersions.get(app.resumeVersionId)
+    : undefined;
+  const fileId = app.resumeFileId ?? version?.fileId;
+  const file = fileId ? await db.files.get(fileId) : undefined;
+  return {
+    tailored: app.resumeChoice === "tailored",
+    ...(file && { fileId: file.id, name: file.name }),
+  };
+}
+
+/** Sent applications with their jobs and resumes, newest first. */
 export async function trackerRows(db: JobCopilotDB): Promise<TrackerRow[]> {
   const apps = (await db.applications.toArray())
     .filter(isTracked)
     .sort((a, b) => (b.submittedAt ?? "").localeCompare(a.submittedAt ?? ""));
   const jobs = await db.jobs.bulkGet(apps.map((a) => a.jobId));
-  return apps.map((app, i) => ({ app, job: jobs[i] }));
+  const resumes = await Promise.all(apps.map((app) => sentResume(db, app)));
+  return apps.map((app, i) => ({ app, job: jobs[i], resume: resumes[i] ?? { tailored: false } }));
 }
 
 async function change(

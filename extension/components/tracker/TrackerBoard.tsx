@@ -62,6 +62,7 @@ function Card({
         <span className="mt-1 flex flex-wrap gap-1">
           <Badge>{formatDay(row.app.submittedAt)}</Badge>
           {row.app.mode === "auto" && <Badge tone="blue">Auto</Badge>}
+          {row.resume.tailored && <Badge tone="brand">Tailored resume</Badge>}
           {flags.map((f) => (
             <Badge key={f} tone="amber">
               {f}

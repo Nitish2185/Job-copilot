@@ -1,7 +1,9 @@
 import type { Job } from "@job-copilot/shared";
 import { beforeEach, describe, expect, it } from "vitest";
 import { recordAssistApplication } from "@/lib/apply/applications";
-import { comparableUrl } from "@/lib/background/autofill";
+import { comparableUrl, lastResumeUsed, saveResumeUsed } from "@/lib/background/autofill";
+import { saveBaseResume } from "@/lib/profile/store";
+import { emptyProfile } from "@/lib/profile/profile";
 import { JobCopilotDB } from "@/lib/db/db";
 
 const job = (id: string, dedupeKey = "acme|engineer|pune"): Job => ({
@@ -35,7 +37,7 @@ describe("recordAssistApplication", () => {
     await db.jobs.put(j);
     const { application, created } = await recordAssistApplication(db, {
       job: j,
-      resumeChoice: "current",
+      resume: { choice: "tailored", fileId: "tailored-file", versionId: "v1" },
       report: {
         url: j.applyUrl,
         mode: "assist",
@@ -64,7 +66,14 @@ describe("recordAssistApplication", () => {
       },
     });
     expect(created).toBe(true);
-    expect(application).toMatchObject({ mode: "assist", status: "submitted", stage: "applied" });
+    expect(application).toMatchObject({
+      mode: "assist",
+      status: "submitted",
+      stage: "applied",
+      resumeChoice: "tailored",
+      resumeVersionId: "v1",
+      resumeFileId: "tailored-file",
+    });
     expect(application.answersSent).toEqual([
       { question: "First name", answer: "Aarav", source: "profile" },
       { question: "Why us?", answer: "Great team", source: "ai" },
@@ -76,13 +85,13 @@ describe("recordAssistApplication", () => {
     const a = job("1");
     const b = job("2"); // same company, title and place on another board
     await db.jobs.bulkPut([a, b]);
-    await recordAssistApplication(db, { job: a, resumeChoice: "current" });
-    expect((await recordAssistApplication(db, { job: a, resumeChoice: "current" })).created).toBe(
-      false,
-    );
-    expect((await recordAssistApplication(db, { job: b, resumeChoice: "current" })).created).toBe(
-      false,
-    );
+    await recordAssistApplication(db, { job: a, resume: { choice: "current" } });
+    expect(
+      (await recordAssistApplication(db, { job: a, resume: { choice: "current" } })).created,
+    ).toBe(false);
+    expect(
+      (await recordAssistApplication(db, { job: b, resume: { choice: "current" } })).created,
+    ).toBe(false);
     expect(await db.applications.count()).toBe(1);
   });
 });
@@ -96,5 +105,33 @@ describe("comparableUrl", () => {
       "jobs.ashbyhq.com/acme/9",
     );
     expect(comparableUrl("https://JOBS.LEVER.CO/acme/123/")).toBe("jobs.lever.co/acme/123");
+  });
+});
+
+describe("the resume each application was sent with", () => {
+  it("keeps an old resume while an application still points at it", async () => {
+    const now = new Date("2026-11-03T12:00:00Z");
+    const file = (name: string) => ({ name, type: "application/pdf", blob: new Blob([name]) });
+    let profile = await saveBaseResume(db, file("old.pdf"), "old", emptyProfile(now), now);
+    const oldId = profile.baseResume?.fileId ?? "";
+    const j = job("1");
+    await db.jobs.put(j);
+    await recordAssistApplication(db, { job: j, resume: { choice: "current", fileId: oldId } });
+
+    profile = await saveBaseResume(db, file("new.pdf"), "new", profile, now);
+    expect((await db.files.get(oldId))?.name).toBe("old.pdf");
+
+    // A resume no application used is replaced as before.
+    const unusedId = profile.baseResume?.fileId ?? "";
+    await saveBaseResume(db, file("newer.pdf"), "newer", profile, now);
+    expect(await db.files.get(unusedId)).toBeUndefined();
+  });
+
+  it("remembers which resume Autofill attached in each tab", async () => {
+    await saveResumeUsed(7, { choice: "tailored", fileId: "f1", versionId: "v1" });
+    await saveResumeUsed(8, { choice: "current", fileId: "f2" });
+    expect(await lastResumeUsed(7)).toEqual({ choice: "tailored", fileId: "f1", versionId: "v1" });
+    expect((await lastResumeUsed(8))?.fileId).toBe("f2");
+    expect(await lastResumeUsed(9)).toBeUndefined();
   });
 });

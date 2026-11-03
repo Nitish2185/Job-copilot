@@ -26,7 +26,14 @@ import {
   type Diagnostics,
   type SaveResult,
 } from "../apply/sitePage";
-import { GENERIC_SCRIPT, comparableUrl, findJobForUrl, lastReport } from "./autofill";
+import {
+  GENERIC_SCRIPT,
+  comparableUrl,
+  findJobForUrl,
+  lastReport,
+  lastResumeUsed,
+  resumeUsed,
+} from "./autofill";
 import { notify } from "../queue/runner";
 import { runAiScoring, runPrefilter } from "./matchHandlers";
 
@@ -316,10 +323,14 @@ export const pageHandlers: Handlers = {
     if (!job) return { created: false };
     const tabId = sender.tab?.id;
     const report = tabId === undefined ? undefined : await lastReport(tabId);
+    // The resume Autofill attached in this tab (tailored or not), else the base resume.
+    const used =
+      (tabId === undefined ? undefined : await lastResumeUsed(tabId)) ??
+      (await resumeUsed(job.id, "current"));
     const { created } = await recordAssistApplication(getDb(), {
       job,
       ...(report && { report }),
-      resumeChoice: "current",
+      resume: used,
     });
     if (created)
       await notify("Application recorded", `${job.title} at ${job.company.name}`, "matches");

@@ -75,6 +75,8 @@ export const ApplicationSchema = z.object({
   stage: ApplicationStageSchema,
   resumeChoice: z.enum(["current", "tailored"]),
   resumeVersionId: z.string().optional(),
+  /** The exact resume file sent (in the files table), so it can be opened later. */
+  resumeFileId: z.string().optional(),
   coverLetterId: z.string().optional(),
   answersSent: z.array(
     z.object({

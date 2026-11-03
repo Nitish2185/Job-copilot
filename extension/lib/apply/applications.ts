@@ -5,6 +5,7 @@
  */
 import type { Application, Job } from "@job-copilot/shared";
 import type { JobCopilotDB } from "../db/db";
+import type { ResumeUsed } from "../background/autofill";
 import type { AutofillReportMessage } from "../messaging/protocol";
 
 const iso = (date: Date) => date.toISOString().replace(/\.\d{3}Z$/, "Z");
@@ -33,8 +34,8 @@ export async function recordAssistApplication(
   input: {
     job: Job;
     report?: AutofillReportMessage;
-    resumeChoice: "current" | "tailored";
-    resumeVersionId?: string;
+    /** The resume sent: which choice, and the exact file. */
+    resume: ResumeUsed;
     coverLetterId?: string;
   },
   now = new Date(),
@@ -48,8 +49,9 @@ export async function recordAssistApplication(
     mode: "assist",
     status: "submitted",
     stage: "applied",
-    resumeChoice: input.resumeChoice,
-    ...(input.resumeVersionId && { resumeVersionId: input.resumeVersionId }),
+    resumeChoice: input.resume.choice,
+    ...(input.resume.versionId && { resumeVersionId: input.resume.versionId }),
+    ...(input.resume.fileId && { resumeFileId: input.resume.fileId }),
     ...(input.coverLetterId && { coverLetterId: input.coverLetterId }),
     answersSent: (input.report?.fields ?? [])
       .filter((f) => f.status === "filled" && f.value !== undefined)

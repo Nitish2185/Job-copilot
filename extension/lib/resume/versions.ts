@@ -65,7 +65,9 @@ export async function saveResumeVersion(
 export async function deleteResumeVersion(db: JobCopilotDB, id: string): Promise<boolean> {
   const version = await db.resumeVersions.get(id);
   if (!version) return false;
-  const used = await db.applications.filter((a) => a.resumeVersionId === id).count();
+  const used = await db.applications
+    .filter((a) => a.resumeVersionId === id || a.resumeFileId === version.fileId)
+    .count();
   if (used > 0) return false;
   await db.transaction("rw", db.files, db.resumeVersions, async () => {
     await db.files.delete(version.fileId);

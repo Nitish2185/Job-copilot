@@ -89,7 +89,26 @@ describe("CSV export", () => {
       "Company,Title,Stage,Mode,Platform,Submitted,Resume,Follow-up,Job URL,Notes",
     );
     expect(row).toBe(
-      `Acme,'=HYPERLINK(evil),Applied,assist,lever,2026-10-01,current,2026-10-08,https://jobs.lever.co/acme/1,"Called ""Priya"", said, wait"`,
+      `Acme,'=HYPERLINK(evil),Applied,assist,lever,2026-10-01,My resume,2026-10-08,https://jobs.lever.co/acme/1,"Called ""Priya"", said, wait"`,
     );
+  });
+});
+
+describe("CSV export of the resume sent", () => {
+  it("names the exact file, or says which kind when no copy was kept", () => {
+    const csv = trackerCsv(
+      [
+        {
+          app: app({ resumeChoice: "tailored" }),
+          job: sampleJob(),
+          resume: { name: "Aarav_Backend_Acme.pdf", tailored: true },
+        },
+        { app: app({ id: "a2" }), job: sampleJob(), resume: { tailored: false } },
+      ],
+      7,
+    );
+    const [, first, second] = csv.split("\r\n");
+    expect(first).toContain(",Aarav_Backend_Acme.pdf,");
+    expect(second).toContain(",My resume,");
   });
 });

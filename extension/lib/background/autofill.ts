@@ -56,24 +56,32 @@ async function fileData(fileId: string | undefined): Promise<FileData | undefine
   return file ? blobToFileData(file.blob, file.name) : undefined;
 }
 
+export interface ResumeUsed {
+  /** "tailored" only when a resume made for this job is really attached. */
+  choice: "current" | "tailored";
+  fileId?: string;
+  versionId?: string;
+}
+
 /** The resume to attach: the job's tailored one when chosen, else the chosen base resume. */
-async function resumeFileId(
+export async function resumeUsed(
   jobId: string | undefined,
   choice: "current" | "tailored",
-): Promise<string | undefined> {
+): Promise<ResumeUsed> {
   const db = getDb();
   if (choice === "tailored" && jobId) {
     const tailored = (await db.resumeVersions.where("jobId").equals(jobId).toArray())
       .filter((v) => v.kind === "tailored")
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0];
-    if (tailored) return tailored.fileId;
+    if (tailored) return { choice: "tailored", fileId: tailored.fileId, versionId: tailored.id };
   }
   const [settings, profile] = await Promise.all([loadSettings(), loadProfile(db)]);
   if (settings.tailoring.baseResume === "generated") {
     const generated = await db.resumeVersions.where("kind").equals("base_generated").first();
-    if (generated) return generated.fileId;
+    if (generated) return { choice: "current", fileId: generated.fileId, versionId: generated.id };
   }
-  return profile.baseResume?.fileId;
+  const fileId = profile.baseResume?.fileId;
+  return { choice: "current", ...(fileId && { fileId }) };
 }
 
 export async function autofillContext(
@@ -93,7 +101,7 @@ export async function autofillContext(
         b.createdAt.localeCompare(a.createdAt),
       )[0]
     : undefined;
-  const resume = await fileData(await resumeFileId(job?.id, choice));
+  const resume = await fileData((await resumeUsed(job?.id, choice)).fileId);
   const preferences = stored ? (({ id: _id, ...rest }) => rest)(stored) : undefined;
   return {
     profile,
@@ -130,6 +138,21 @@ export async function lastReport(tabId: number): Promise<AutofillReportMessage |
   return (await loadReports())[String(tabId)];
 }
 
+const RESUMES_KEY = "autofillResumes";
+
+/** Remembers which resume Autofill attached in a tab, for the application it leads to. */
+export async function saveResumeUsed(tabId: number, used: ResumeUsed): Promise<void> {
+  const stored: unknown = (await sessionArea().get(RESUMES_KEY))[RESUMES_KEY];
+  const all = (stored ?? {}) as Record<string, ResumeUsed>;
+  all[String(tabId)] = used;
+  await sessionArea().set({ [RESUMES_KEY]: all });
+}
+
+export async function lastResumeUsed(tabId: number): Promise<ResumeUsed | undefined> {
+  const stored: unknown = (await sessionArea().get(RESUMES_KEY))[RESUMES_KEY];
+  return ((stored ?? {}) as Record<string, ResumeUsed>)[String(tabId)];
+}
+
 /** Injects the generic Assist script (it ignores repeat injections) and runs autofill. */
 export async function injectAndRun(
   tabId: number,
@@ -162,7 +185,15 @@ async function activeTabId(): Promise<number | undefined> {
 }
 
 export const autofillHandlers: Handlers = {
-  "apply/context": ({ url, resumeChoice }) => autofillContext(url, resumeChoice),
+  "apply/context": async ({ url, resumeChoice }, sender) => {
+    const data = await autofillContext(url, resumeChoice);
+    const tabId = sender.tab?.id;
+    if (tabId !== undefined) {
+      const job = await findJobForUrl(url);
+      await saveResumeUsed(tabId, await resumeUsed(job?.id, resumeChoice));
+    }
+    return data;
+  },
   "apply/report": async ({ report }, sender) => {
     const tabId = sender.tab?.id;
     if (tabId === undefined) return { saved: false };
@@ -191,18 +222,13 @@ export const autofillHandlers: Handlers = {
       return { created: false, error: "This page is not a job saved in Job Copilot yet." };
     }
     const db = getDb();
-    const tailored =
-      resumeChoice === "tailored"
-        ? (await db.resumeVersions.where("jobId").equals(job.id).toArray())
-            .filter((v) => v.kind === "tailored")
-            .sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0]
-        : undefined;
+    // The resume Autofill really attached in this tab, else the one chosen in the panel.
+    const used = (await lastResumeUsed(tabId)) ?? (await resumeUsed(job.id, resumeChoice));
     const letter = await db.coverLetters.where("jobId").equals(job.id).first();
     const { created } = await recordAssistApplication(db, {
       job,
       ...(report && { report }),
-      resumeChoice,
-      ...(tailored && { resumeVersionId: tailored.id }),
+      resume: used,
       ...(letter && { coverLetterId: letter.id }),
     });
     return created ? { created } : { created, error: "You already applied to this job." };

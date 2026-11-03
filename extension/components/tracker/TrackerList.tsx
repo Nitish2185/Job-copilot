@@ -1,6 +1,7 @@
 import type { ApplicationStage } from "@job-copilot/shared";
 import { Badge } from "@/components/ui/Badge";
 import type { TrackerRow } from "@/lib/tracker/store";
+import { openStoredFile } from "@/lib/files/open";
 import { STAGES, STAGE_LABELS, followUpDate, formatDay } from "@/lib/tracker/tracker";
 
 /** The tracker as a table (spec 18.1); the stage changes from the row's menu. */
@@ -26,6 +27,7 @@ export function TrackerList({
             <th className="py-2 pr-3 font-medium">Stage</th>
             <th className="py-2 pr-3 font-medium">Applied</th>
             <th className="py-2 pr-3 font-medium">Follow-up</th>
+            <th className="py-2 pr-3 font-medium">Resume sent</th>
             <th className="py-2 font-medium">Notes</th>
           </tr>
         </thead>
@@ -75,6 +77,22 @@ export function TrackerList({
                   {row.app.stage === "applied"
                     ? formatDay(followUpDate(row.app, followUpDays)?.toISOString())
                     : ""}
+                </td>
+                <td className="max-w-56 py-2 pr-3">
+                  {row.resume.fileId ? (
+                    <button
+                      type="button"
+                      className="truncate text-left text-brand-700 underline dark:text-brand-300"
+                      title={row.resume.name}
+                      onClick={() => void openStoredFile(row.resume.fileId ?? "", "preview")}
+                    >
+                      {row.resume.name}
+                    </button>
+                  ) : (
+                    <span className="text-stone-600 dark:text-stone-400">
+                      {row.resume.tailored ? "Made for this job" : "Your resume"}
+                    </span>
+                  )}
                 </td>
                 <td className="max-w-64 truncate py-2 text-stone-600 dark:text-stone-400">
                   {row.app.notes}

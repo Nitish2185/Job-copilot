@@ -78,7 +78,12 @@ export async function saveBaseResume(
     blob: file.blob,
     createdAt: at,
   });
-  if (profile.baseResume) await db.files.delete(profile.baseResume.fileId);
+  // The old resume stays while an application still points at it (so you can see what was sent).
+  if (profile.baseResume) {
+    const oldId = profile.baseResume.fileId;
+    const sentWith = await db.applications.filter((a) => a.resumeFileId === oldId).count();
+    if (sentWith === 0) await db.files.delete(oldId);
+  }
   return {
     ...profile,
     baseResume: {

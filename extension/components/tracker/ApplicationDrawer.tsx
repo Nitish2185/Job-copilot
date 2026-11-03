@@ -8,7 +8,7 @@ import { inputClass } from "@/components/ui/Field";
 import { answerToText } from "@/lib/answers/answerBank";
 import { getDb } from "@/lib/db/db";
 import { openStoredFile } from "@/lib/files/open";
-import { recordEvent, setStage, updateDetails } from "@/lib/tracker/store";
+import { recordEvent, sentResume, setStage, updateDetails } from "@/lib/tracker/store";
 import {
   STAGES,
   STAGE_LABELS,
@@ -189,20 +189,18 @@ export function ApplicationDrawer({
     const db = getDb();
     const app = await db.applications.get(appId);
     if (!app) return null;
-    const [job, version, letter, profile] = await Promise.all([
+    const [job, resume, letter] = await Promise.all([
       db.jobs.get(app.jobId),
-      app.resumeVersionId ? db.resumeVersions.get(app.resumeVersionId) : undefined,
+      sentResume(db, app),
       app.coverLetterId ? db.coverLetters.get(app.coverLetterId) : undefined,
-      db.profile.get("me"),
     ]);
-    return { app, job, version, letter, baseResume: profile?.baseResume };
+    return { app, job, resume, letter };
   }, [appId]);
   const [notes, setNotes] = useState<{ id: string; text: string }>();
 
   const now = new Date();
   const app = data?.app;
   const noteText = notes && notes.id === appId ? notes.text : (app?.notes ?? "");
-  const resumeFileId = data?.version?.fileId ?? data?.baseResume?.fileId;
   const due = app ? followUpDate(app, followUpDays) : undefined;
 
   return (
@@ -355,14 +353,35 @@ export function ApplicationDrawer({
                 />
               </Block>
 
-              <Block title="Resume">
-                <p>
-                  {app.resumeChoice === "tailored" ? "A resume made for this job" : "Your resume"}
+              <Block title="Resume sent">
+                <p className="flex flex-wrap items-center gap-2">
+                  <span className="font-medium break-all">
+                    {data.resume.name ??
+                      (data.resume.tailored ? "A resume made for this job" : "Your resume")}
+                  </span>
+                  <Badge tone={data.resume.tailored ? "brand" : "neutral"}>
+                    {data.resume.tailored ? "Made for this job" : "Your resume"}
+                  </Badge>
                 </p>
-                {resumeFileId && (
-                  <Button onClick={() => void openStoredFile(resumeFileId, "preview")}>
-                    Open the PDF
-                  </Button>
+                {data.resume.fileId ? (
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => void openStoredFile(data.resume.fileId ?? "", "preview")}
+                    >
+                      Open the PDF
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => void openStoredFile(data.resume.fileId ?? "", "download")}
+                    >
+                      Download
+                    </Button>
+                  </div>
+                ) : (
+                  <p className="text-stone-600 dark:text-stone-400">
+                    Job Copilot did not keep a copy of this file (it was recorded before copies were
+                    kept, or the file was deleted).
+                  </p>
                 )}
               </Block>
 
