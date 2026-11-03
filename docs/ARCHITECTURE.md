@@ -43,5 +43,12 @@ Job Copilot has no server. Three pieces work together:
   and caching are global and every message is validated.
 - **Web content and AI output are untrusted data.** Code decides every action.
 
-This document grows as each phase lands. Decisions and their reasons are in
-[DECISIONS.md](DECISIONS.md).
+- **Assist sites are never submitted to.** Their scripts fill, highlight and read; one guarded
+  click function refuses anything that submits, advances or navigates there.
+- **Permissions stay narrow.** Required hosts are a fixed list (CI fails if every-site access
+  appears); LinkedIn, Workday, other AI providers and listing APIs are optional and requested
+  when the user turns them on.
+
+Decisions and their reasons are in [DECISIONS.md](DECISIONS.md). Releasing and store listings are
+in [PUBLISHING.md](PUBLISHING.md); rebuilding from source in [BUILDING.md](BUILDING.md); manual
+checks on real job sites in [QA.md](QA.md).
