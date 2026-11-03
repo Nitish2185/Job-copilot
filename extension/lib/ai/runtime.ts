@@ -4,6 +4,7 @@ import { browser } from "wxt/browser";
 import { z } from "zod";
 import { getDb } from "../db/db";
 import { loadSecrets, loadSettings } from "../settings/settings";
+import { AiConsentError, hasAiDataConsent } from "./dataConsent";
 import { createChatClient } from "./providers";
 import type { AiRuntime } from "./runner";
 import { AiScheduler, type Usage, type UsageStore } from "./scheduler";
@@ -51,6 +52,7 @@ export function getScheduler(ai: Settings["ai"]): AiScheduler {
 }
 
 export async function buildRuntime(): Promise<AiRuntime> {
+  if (!(await hasAiDataConsent())) throw new AiConsentError();
   const [settings, secrets, profile] = await Promise.all([
     loadSettings(),
     loadSecrets(),

@@ -12,6 +12,7 @@ import { Field, inputClass } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
 import { hostPattern } from "@/lib/ai/hostPattern";
 import { sendMessage } from "@/lib/messaging/client";
+import { aiPermissionRequest } from "@/lib/ai/dataConsent";
 import { loadSecrets, loadSettings, saveAiProvider, updateSecrets } from "@/lib/settings/settings";
 
 interface ProviderDraft {
@@ -38,7 +39,8 @@ async function ensureHostPermission(baseUrls: string[]): Promise<string | null> 
   if (origins.some((o) => o === null))
     return "Enter the provider's address, such as https://example.com/v1.";
   try {
-    const granted = await browser.permissions.request({ origins: origins as string[] });
+    // On Firefox this also asks to share data with the provider (built-in data consent).
+    const granted = await browser.permissions.request(aiPermissionRequest(origins as string[]));
     return granted ? null : "Permission to reach this provider was not granted.";
   } catch {
     return "This browser did not allow access to that address.";

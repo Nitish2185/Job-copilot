@@ -105,7 +105,21 @@ export default defineConfig({
     ...(browser === "firefox"
       ? {
           optional_permissions: OPTIONAL_HOSTS,
-          browser_specific_settings: { gecko: { id: GECKO_ID } },
+          browser_specific_settings: {
+            gecko: {
+              id: GECKO_ID,
+              // Built-in data consent needs Firefox 140 (the 2025 ESR) or later.
+              strict_min_version: "140.0",
+              // Nothing is sent by default; the optional AI features send profile text
+              // and page text to the provider the user picks (lib/ai/dataConsent.ts).
+              data_collection_permissions: {
+                required: ["none"],
+                optional: ["personallyIdentifyingInfo", "websiteContent"],
+              },
+            },
+            // Firefox for Android has the data consent from 142.
+            gecko_android: { strict_min_version: "142.0" },
+          },
           content_security_policy: EXTENSION_CSP,
         }
       : {

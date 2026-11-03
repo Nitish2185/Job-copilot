@@ -49,6 +49,9 @@ jobs:
           node scripts/check-release-build.mjs extension/.output/chrome-mv3
           node scripts/check-release-build.mjs extension/.output/firefox-mv2
 
+      - name: Mozilla add-on linter on the Firefox build (fails on errors)
+        run: npx --yes web-ext@10.8.0 lint --source-dir extension/.output/firefox-mv2
+
       - name: Audit dependencies (fails on high or critical only)
         run: pnpm audit --audit-level=high
 
