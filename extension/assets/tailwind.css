@@ -1,1 +1,33 @@
 @import "tailwindcss";
+
+/* Chart tokens (analytics). Validated categorical pair: Assist = slot 1, Auto = slot 2. */
+:root {
+  --viz-series-1: #2a78d6;
+  --viz-series-2: #eb6834;
+  --viz-surface: #ffffff;
+  --viz-ink: #0b0b0b;
+  --viz-ink-2: #52514e;
+  --viz-muted: #898781;
+  --viz-grid: #e1e0d9;
+  --viz-axis: #c3c2b7;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    --viz-series-1: #3987e5;
+    --viz-series-2: #d95926;
+    --viz-surface: #020617;
+    --viz-ink: #f0efec;
+    --viz-ink-2: #c3c2b7;
+    --viz-grid: #2c2c2a;
+    --viz-axis: #383835;
+  }
+}
+:root[data-theme="dark"] {
+  --viz-series-1: #3987e5;
+  --viz-series-2: #d95926;
+  --viz-surface: #020617;
+  --viz-ink: #f0efec;
+  --viz-ink-2: #c3c2b7;
+  --viz-grid: #2c2c2a;
+  --viz-axis: #383835;
+}

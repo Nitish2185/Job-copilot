@@ -56,8 +56,9 @@ describe("TrackerPage", () => {
     render(<TrackerPage />);
     const applied = await screen.findByRole("region", { name: "Applied" });
     expect(within(applied).getByText("Backend Engineer")).toBeTruthy();
-    expect(within(applied).getByText("Follow up")).toBeTruthy();
+    // 40 days without a reply: the ghosted suggestion replaces the follow-up flag.
     expect(within(applied).getByText("No reply")).toBeTruthy();
+    expect(within(applied).queryByText("Follow up")).toBeNull();
     const interview = screen.getByRole("region", { name: "Interview" });
     expect(within(interview).getByText("Globex")).toBeTruthy();
     // The stopped (needs-you) application is not on the tracker.

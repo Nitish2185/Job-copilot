@@ -1,5 +1,6 @@
 import { createHashRouter, Navigate, RouterProvider } from "react-router";
 import { Layout } from "./layout/Layout";
+import { AnalyticsPage } from "./pages/AnalyticsPage";
 import { CompaniesPage } from "./pages/CompaniesPage";
 import { JobDetailPage } from "./pages/JobDetailPage";
 import { NeedsYouPage } from "./pages/NeedsYouPage";
@@ -26,6 +27,7 @@ const router = createHashRouter([
       { path: "review", element: <ReviewPage />, errorElement: <RouteError /> },
       { path: "needs-you", element: <NeedsYouPage />, errorElement: <RouteError /> },
       { path: "tracker", element: <TrackerPage />, errorElement: <RouteError /> },
+      { path: "analytics", element: <AnalyticsPage />, errorElement: <RouteError /> },
       { path: "resumes", element: <ResumesPage />, errorElement: <RouteError /> },
       { path: "profile", element: <ProfilePage />, errorElement: <RouteError /> },
       { path: "companies", element: <CompaniesPage />, errorElement: <RouteError /> },

@@ -43,10 +43,13 @@ export function TrackerPage() {
   const followUpDays = notifications?.followUpDays ?? 7;
   const ghostedAfterDays = notifications?.ghostedAfterDays ?? 30;
   const now = new Date();
-  const flagsFor = (row: TrackerRow) => [
-    ...(followUpDue(row.app, followUpDays, now) ? ["Follow up"] : []),
-    ...(suggestGhosted(row.app, ghostedAfterDays, now) ? ["No reply"] : []),
-  ];
+  // "No reply" (the ghosted suggestion) supersedes the follow-up reminder.
+  const flagsFor = (row: TrackerRow) =>
+    suggestGhosted(row.app, ghostedAfterDays, now)
+      ? ["No reply"]
+      : followUpDue(row.app, followUpDays, now)
+        ? ["Follow up"]
+        : [];
   const move = (id: string, stage: ApplicationStage) => {
     void setStage(getDb(), id, stage);
   };

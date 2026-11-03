@@ -7,6 +7,7 @@ import { loadSecrets, loadSettings } from "../settings/settings";
 import { createChatClient } from "./providers";
 import type { AiRuntime } from "./runner";
 import { AiScheduler, type Usage, type UsageStore } from "./scheduler";
+import { USAGE_HISTORY_KEY, loadUsageHistory, withDay } from "./usageHistory";
 
 const USAGE_KEY = "aiUsage";
 
@@ -25,7 +26,10 @@ export const storageUsageStore: UsageStore = {
     return parsed.success ? parsed.data : undefined;
   },
   async save(usage: Usage): Promise<void> {
-    await browser.storage.local.set({ [USAGE_KEY]: usage });
+    await browser.storage.local.set({
+      [USAGE_KEY]: usage,
+      [USAGE_HISTORY_KEY]: withDay(await loadUsageHistory(), usage),
+    });
   },
 };
 

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { MatchingSettingsForm } from "@/components/matching/MatchingSettingsForm";
 import { CoverLetterSettings } from "@/components/resume/CoverLetterSettings";
 import { NotificationSettings } from "@/components/tracker/NotificationSettings";
+import { DemoDataPanel } from "@/components/ui/DemoDataPanel";
 import { Section } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
 import { sendMessage } from "@/lib/messaging/client";
@@ -94,6 +95,11 @@ export function SettingsPage() {
       <Section title="Notifications" description="Clicking a notification opens the right page.">
         <NotificationSettings />
       </Section>
+      {import.meta.env.DEV && (
+        <Section title="Demo data" description="Development builds only.">
+          <DemoDataPanel />
+        </Section>
+      )}
       <section>
         <h2 className="font-medium">Shared job feed</h2>
         <form onSubmit={(e) => void save(e)} className="mt-2 space-y-2">
