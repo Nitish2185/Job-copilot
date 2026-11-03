@@ -7,6 +7,7 @@ import { ScoreBadge } from "@/components/matching/ScoreBadge";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { EmptyState, ErrorMessage, Loading } from "@/components/ui/States";
+import { Tip } from "@/components/ui/Tip";
 import { getDb } from "@/lib/db/db";
 import {
   filterMatches,
@@ -207,6 +208,10 @@ export function MatchesPage() {
             reset(showThreshold);
           }}
         />
+        <Tip id="matches">
+          Open any job to see why it fits. On an application form, press Alt+Shift+F to fill it; you
+          always review before anything is sent.
+        </Tip>
         <div className="flex flex-wrap items-center justify-between gap-2">
           <SearchLinks />
           <AddJobDialog />

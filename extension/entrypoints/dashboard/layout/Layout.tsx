@@ -1,5 +1,6 @@
 import { APP_NAME } from "@job-copilot/shared/config";
 import { NavLink, Outlet } from "react-router";
+import { RouteTip } from "./RouteTip";
 
 const NAV = [
   { to: "/matches", label: "Jobs" },
@@ -41,6 +42,7 @@ export function Layout() {
         </ul>
       </nav>
       <main className="min-w-0 flex-1">
+        <RouteTip />
         <Outlet />
       </main>
     </div>
