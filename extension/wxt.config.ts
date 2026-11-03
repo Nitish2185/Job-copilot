@@ -170,5 +170,8 @@ export default defineConfig({
   vite: () => ({
     plugins: [tailwindcss()],
     define: { "import.meta.env.JOB_COPILOT_E2E": JSON.stringify(E2E) },
+    // `pnpm dev`: extension pages load their code from this local server, and Vite only
+    // answers localhost origins by default. Allow the extension's own pages too.
+    server: { cors: { origin: [/^chrome-extension:\/\//, /^moz-extension:\/\//] } },
   }),
 });
