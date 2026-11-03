@@ -1,7 +1,8 @@
 import { Dialog } from "radix-ui";
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { browser } from "wxt/browser";
 import { Button } from "@/components/ui/Button";
+import { FileDrop } from "@/components/ui/FileDrop";
 import { inputClass } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
 import {
@@ -76,11 +77,9 @@ function ImportBackup() {
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState<Note>();
 
-  const choose = async (e: ChangeEvent<HTMLInputElement>) => {
+  const choose = async (file: File) => {
     setNote(undefined);
     setBackup(undefined);
-    const file = e.target.files?.[0];
-    if (!file) return;
     setFileName(file.name);
     try {
       setBackup(readBackup(await file.text()));
@@ -116,10 +115,15 @@ function ImportBackup() {
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-medium">Import</h3>
-      <label className="block text-sm">
-        <span className="sr-only">Backup file</span>
-        <input type="file" accept="application/json,.json" onChange={(e) => void choose(e)} />
-      </label>
+      <FileDrop
+        id="backup-file"
+        label="Backup file"
+        title="Drag and drop a backup file here"
+        hint="A jobcopilot-backup-….json file exported from Job Copilot"
+        accept="application/json,.json"
+        extensions={[".json"]}
+        onFile={(file) => void choose(file)}
+      />
       {backup && (
         <div className="space-y-2 rounded-md border border-stone-200 p-3 text-sm dark:border-stone-800">
           <p>

@@ -2,6 +2,7 @@ import type { Profile } from "@job-copilot/shared";
 import { useState } from "react";
 import { ProfileEditor } from "@/components/profile/ProfileEditor";
 import { Button } from "@/components/ui/Button";
+import { FileDrop } from "@/components/ui/FileDrop";
 import { Field, inputClass } from "@/components/ui/Field";
 import { ErrorMessage, Loading } from "@/components/ui/States";
 import { extractContacts, type ExtractedContacts } from "@/lib/ai/redact";
@@ -148,18 +149,20 @@ export function ResumeStep({ next, back }: StepProps) {
   if (current.kind === "upload") {
     return (
       <div className="space-y-4">
-        <Field id="resume-file" label="Your resume (PDF or DOCX, up to 5 MB)">
-          <input
-            id="resume-file"
-            type="file"
-            accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            className="block text-sm"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) void onFile(file);
-            }}
-          />
-        </Field>
+        <p className="text-sm text-stone-600 dark:text-stone-400">
+          Job Copilot reads your resume on this device to fill in your profile. You check everything
+          before it is used.
+        </p>
+        <FileDrop
+          id="resume-file"
+          label="Your resume (PDF or DOCX, up to 5 MB)"
+          title="Drag and drop your resume here"
+          hint="PDF or Word (.docx), up to 5 MB"
+          accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          extensions={[".pdf", ".docx"]}
+          maxBytes={5 * 1_048_576}
+          onFile={(file) => void onFile(file)}
+        />
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <StepFooter back={back}>
           <Button
