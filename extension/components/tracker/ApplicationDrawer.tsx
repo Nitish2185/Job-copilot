@@ -185,10 +185,10 @@ export function ApplicationDrawer({
   extra?: (appId: string) => ReactNode;
 }) {
   const data = useLiveQuery(async () => {
-    if (!appId) return undefined;
+    if (!appId) return null;
     const db = getDb();
     const app = await db.applications.get(appId);
-    if (!app) return undefined;
+    if (!app) return null;
     const [job, version, letter, profile] = await Promise.all([
       db.jobs.get(app.jobId),
       app.resumeVersionId ? db.resumeVersions.get(app.resumeVersionId) : undefined,
@@ -412,7 +412,9 @@ export function ApplicationDrawer({
               </Block>
             </>
           ) : (
-            <Dialog.Title className="text-lg font-semibold">Application not found</Dialog.Title>
+            <Dialog.Title className="text-lg font-semibold">
+              {data === null ? "Application not found" : "Loading..."}
+            </Dialog.Title>
           )}
         </Dialog.Content>
       </Dialog.Portal>

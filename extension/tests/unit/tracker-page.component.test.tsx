@@ -71,7 +71,7 @@ describe("TrackerPage", () => {
     const applied = await screen.findByRole("region", { name: "Applied" });
     await user.click(within(applied).getByText("Backend Engineer"));
     const drawer = await screen.findByRole("dialog");
-    expect(within(drawer).getByText("30 days")).toBeTruthy();
+    expect(await within(drawer).findByText("30 days")).toBeTruthy();
     await user.selectOptions(within(drawer).getByLabelText("Stage"), "screening");
     await vi.waitFor(async () => {
       const saved = await getDb().applications.get("a1");
@@ -98,7 +98,7 @@ describe("TrackerPage", () => {
     const applied = await screen.findByRole("region", { name: "Applied" });
     await user.click(within(applied).getByText("Backend Engineer"));
     const drawer = await screen.findByRole("dialog");
-    await user.type(within(drawer).getByLabelText("Notes"), "Recruiter said two weeks");
+    await user.type(await within(drawer).findByLabelText("Notes"), "Recruiter said two weeks");
     await user.type(within(drawer).getByLabelText("Contact name"), "Priya Rao");
     await user.type(within(drawer).getByLabelText("Contact role"), "Recruiter");
     await user.click(within(drawer).getByRole("button", { name: "Add contact" }));
