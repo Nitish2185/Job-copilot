@@ -118,6 +118,12 @@ describe("TrackerPage", () => {
     await vi.waitFor(async () => {
       expect((await getDb().applications.get("a2"))?.stage).toBe("offer");
     });
+    // Export what the page shows, once it shows the change.
+    await vi.waitFor(() => {
+      expect(
+        screen.getByLabelText<HTMLSelectElement>("Stage of Backend Engineer at Globex").value,
+      ).toBe("offer");
+    });
     await user.click(screen.getByRole("button", { name: "Export CSV" }));
     expect(download).toHaveBeenCalledOnce();
     const [blob, name] = download.mock.calls[0] as [Blob, string];
