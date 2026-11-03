@@ -54,6 +54,7 @@ export const ContactSchema = z.object({
   email: z.string().optional(),
   role: z.string().optional(),
 });
+export type Contact = z.infer<typeof ContactSchema>;
 
 export const ApplicationSchema = z.object({
   id: z.string().min(1),

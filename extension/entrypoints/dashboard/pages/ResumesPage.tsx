@@ -11,26 +11,9 @@ import { baseProjects, buildResumeDocument, resumeFileName } from "@/lib/resume/
 import { makeResumePdf } from "@/lib/resume/make";
 import { RESUME_TEMPLATES, type ResumeTemplate } from "@/lib/resume/pdf/setup";
 import { deleteResumeVersion, saveResumeVersion } from "@/lib/resume/versions";
+import { openStoredFile } from "@/lib/files/open";
 import { loadSettings, updateSettings } from "@/lib/settings/settings";
 import { useProfile } from "../hooks";
-
-/** Downloads a stored file, or opens it in a new tab to preview it. */
-async function openFile(fileId: string, mode: "download" | "preview"): Promise<void> {
-  const file = await getDb().files.get(fileId);
-  if (!file) return;
-  const url = URL.createObjectURL(file.blob);
-  if (mode === "preview") {
-    window.open(url, "_blank", "noopener");
-  } else {
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = file.name;
-    a.click();
-  }
-  setTimeout(() => {
-    URL.revokeObjectURL(url);
-  }, 60_000);
-}
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString(undefined, {
@@ -145,7 +128,8 @@ export function ResumesPage() {
               <Button
                 variant="ghost"
                 onClick={() => {
-                  if (profile.baseResume) void openFile(profile.baseResume.fileId, "download");
+                  if (profile.baseResume)
+                    void openStoredFile(profile.baseResume.fileId, "download");
                 }}
               >
                 Download
@@ -166,7 +150,7 @@ export function ResumesPage() {
               <Button
                 variant="ghost"
                 onClick={() => {
-                  if (data.generated) void openFile(data.generated.fileId, "download");
+                  if (data.generated) void openStoredFile(data.generated.fileId, "download");
                 }}
               >
                 Download
@@ -234,10 +218,10 @@ export function ResumesPage() {
                       {`${String(v.validation.issues.length)} change${v.validation.issues.length === 1 ? "" : "s"} kept as before`}
                     </Badge>
                   )}
-                  <Button variant="ghost" onClick={() => void openFile(v.fileId, "preview")}>
+                  <Button variant="ghost" onClick={() => void openStoredFile(v.fileId, "preview")}>
                     Preview
                   </Button>
-                  <Button variant="ghost" onClick={() => void openFile(v.fileId, "download")}>
+                  <Button variant="ghost" onClick={() => void openStoredFile(v.fileId, "download")}>
                     Download
                   </Button>
                   <Button variant="ghost" onClick={() => void remove(v)}>

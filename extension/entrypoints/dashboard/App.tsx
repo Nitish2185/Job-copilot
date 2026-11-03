@@ -11,6 +11,7 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { OnboardingPage } from "./onboarding/OnboardingPage";
 import { RouteError } from "./pages/RouteError";
 import { SettingsPage } from "./pages/SettingsPage";
+import { TrackerPage } from "./pages/TrackerPage";
 
 /** Extension pages need hash routing (spec 4). Every route has an error boundary. */
 const router = createHashRouter([
@@ -24,6 +25,7 @@ const router = createHashRouter([
       { path: "jobs/:id/resume", element: <TailorPage />, errorElement: <RouteError /> },
       { path: "review", element: <ReviewPage />, errorElement: <RouteError /> },
       { path: "needs-you", element: <NeedsYouPage />, errorElement: <RouteError /> },
+      { path: "tracker", element: <TrackerPage />, errorElement: <RouteError /> },
       { path: "resumes", element: <ResumesPage />, errorElement: <RouteError /> },
       { path: "profile", element: <ProfilePage />, errorElement: <RouteError /> },
       { path: "companies", element: <CompaniesPage />, errorElement: <RouteError /> },
