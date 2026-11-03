@@ -227,9 +227,9 @@ real pages (`docs/QA.md`), real screenshots for the website and README, store su
 
 ## Waiting on the owner
 
-- Turn on GitHub Pages (Settings > Pages > Source: GitHub Actions), allow workflows to write
-  (Settings > Actions > General > Read and write permissions), and run the "Crawl jobs" workflow
-  once from the Actions tab. Until then the scheduled crawl fails at the deploy step.
+GitHub Pages and the crawl are live since 2026-11-03 (first run: 11,319 open jobs from 166
+companies at https://nitish2185.github.io/Job-copilot/feed/).
+
 - Load the extension, complete onboarding with a Gemini key, and try `docs/QA.md` on the real
   sites with your own accounts.
 - When ready: push a `v<version>` tag for a release, then submit to Edge Add-ons and Firefox
