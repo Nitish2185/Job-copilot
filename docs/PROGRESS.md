@@ -2,9 +2,30 @@
 
 ## Current phase
 
-**Phase 9 - Assist adapters** (starting)
+**Phase 10 - Tracker, notifications, analytics, data control** (starting)
 
 ## Done
+
+### Phase 9 - Assist adapters (accepted 2026-11-03)
+
+- Naukri, Indeed, LinkedIn and Workday adapters (login detection, job reading from schema.org
+  data or the page, search cards, confirmation, errors, "apply on company site" links) and the
+  generic adapter. Built from public page structure; `docs/QA.md` lists the checks on the real
+  sites.
+- Site script: Autofill with a logged-out banner, "Autofill each new step" (visible tab only,
+  after a manual Autofill), confirmation records the application, search badges with Save, the
+  "AI-score jobs on this page" button (10 per click), Naukri chat chips highlighted and never
+  clicked.
+- LinkedIn and Workday behind optional permissions, from a new Settings > Assist sites section,
+  which also sets each-step autofill and badges per site.
+- Save from page (adapter, then schema.org data, then the AI) from the right-click menu, badges
+  and the side panel; "Score this job"; "Report a broken page" without personal data.
+- Side panel: "Save this job", "Did you submit?", saved answers with copy buttons, "Apply
+  automatically via <platform>" for company-site links to Auto forms.
+- Fix: the generic script's every-site match no longer becomes a required host permission; CI
+  checks Chrome and Firefox release builds for it.
+- Tests: unit tests for adapters, badges, banner, chips, diagnostics and settings; E2E on
+  Naukri-shaped fixture pages served under the real hostname (nothing reaches Naukri).
 
 ### Phase 8 - Auto pipeline (accepted 2026-11-02)
 
@@ -170,12 +191,9 @@
 
 ## Next
 
-Phase 9: Naukri, Indeed, LinkedIn (optional permission) and Workday (optional permission)
-adapters: login detection, save-from-page (JSON-LD, DOM, AI fallback), search-page badges,
-"apply on company site" detection, confirmation detection, "Report a broken page", and
-docs/QA.md with a manual checklist. Also "Autofill each new step automatically", saved-answer
-suggestions in the side panel and the "Did you submit?" prompt. Fixtures need pages saved by
-the owner in `captures/` (see "Waiting on the owner").
+Phase 10: tracker (Kanban and list views, application drawer), follow-ups and ghosted
+suggestions, daily digest and alerts, analytics charts on seeded demo data,
+export/import/delete, and the sync mirror.
 
 ## Waiting on the owner
 
@@ -183,6 +201,10 @@ the owner in `captures/` (see "Waiting on the owner").
   workflow once from the Actions tab. Until then the scheduled crawl fails at the deploy step.
 
 ## Known issues
+
+- Assist selectors are not yet confirmed on logged-in pages; the owner can run `docs/QA.md` and
+  save pages into `captures/` where something is off. Indeed's apply flow and Workday's "Add"
+  buttons for more work-history blocks are not verified or automated yet (17.2, 17.4).
 
 - Firefox build warns that new add-ons must declare `data_collection_permissions`. Decide the
   declaration with the store listing in Phase 11.

@@ -64,7 +64,37 @@ similar titles, or titles that name a known skill).
    **not** count as the skill.
 3. Run `pnpm test` and `pnpm test:go`: the TypeScript and Go taggers must both pass.
 
-### Coming with later phases
+### Fix a broken site adapter
 
-- **Add a site adapter** - coming with the apply engine.
-- **Fix a broken adapter** - coming with the apply engine.
+Job sites change their markup. Every site's selectors are in one place:
+
+- Assist sites (Naukri, Indeed, LinkedIn, Workday): the `SELECTORS` map in
+  `extension/lib/apply/adapters/assist.ts`.
+- Auto sites (Greenhouse, Lever, Ashby, Workable, SmartRecruiters): the `SELECTORS` map in
+  `extension/lib/apply/adapters/auto.ts`.
+
+1. Get the page: a "Report a broken page" issue lists the page type and the fields Job Copilot
+   found. For the markup, save the page with Ctrl+S into `captures/<site>/` (git-ignored: saved
+   pages hold personal data and are never committed).
+2. Prefer stable hooks in this order: `data-*` attributes and ARIA roles or labels, ids, visible
+   text, and class names last (sites rename classes often). Partial class matches such as
+   `[class*='jd-header-title']` survive build hashes.
+3. Add a small fixture to the adapter's tests (`extension/tests/unit/assist-adapters.test.ts` or
+   `apply-adapters.test.ts`) with only the structure that matters, using fictional names and
+   values. Never paste a real page with personal data into a test.
+4. Run `pnpm test`, then try the real site with `docs/QA.md`.
+
+### Add a site adapter
+
+1. Decide the mode. Only hosts in `AUTO_SUBMIT_HOSTS` (`shared/src/config.ts`) may ever be Auto;
+   adding one is a deliberate change that needs a public, stable application form. Everything
+   else is Assist.
+2. Map the hostname to the adapter in `extension/lib/apply/mode.ts` and add a test for
+   look-alike hosts in `apply-mode.test.ts`.
+3. Add a `SELECTORS` entry and the adapter in `assist.ts` (or `auto.ts`). Assist adapters never
+   implement `findSubmitControl`.
+4. To run on the site, add its origin either to the Assist site script's matches and the
+   required hosts in `wxt.config.ts` (and explain it in `docs/PERMISSIONS.md`), or, for a site
+   most users do not need, as an optional site in `extension/lib/apply/optionalSites.ts` (with
+   its origins in `OPTIONAL_HOSTS` in `wxt.config.ts`).
+5. Add fixture tests and a section to `docs/QA.md`.

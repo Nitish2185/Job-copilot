@@ -51,7 +51,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 2.1 Guard unit-tested with many real button labels and structures
 - [x] 2.1 Never opens the next job, never loops through results, never works in background tabs on Assist sites
 - [x] 2.1 No network requests to Assist sites (no scraping, hidden fetches, internal APIs); DOM of loaded pages only
-- [ ] 2.1 Search-page badges computed only from what the page already loaded
+- [x] 2.1 Search-page badges computed only from what the page already loaded
 
 ### 2.2 Auto allowlist
 
@@ -238,7 +238,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 9.1 Side panel on Chrome/Edge; Firefox sidebar via per-browser config
 - [x] 9.1 Popup
 - [x] 9.1 Auto adapter content scripts (greenhouse, lever, ashby, workable, smartrecruiters)
-- [ ] 9.1 Assist content scripts (naukri, indeed; linkedin and workday under optional permission)
+- [x] 9.1 Assist content scripts (naukri, indeed; linkedin and workday under optional permission)
 - [ ] 9.1 Badge content scripts (naukri, indeed; linkedin optional)
 - [ ] 9.1 Generic assist and "save this job" injected on demand via `scripting` + `activeTab`
 
@@ -358,14 +358,14 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 13.2 "Suggest for the shared list" opens a pre-filled GitHub issue URL
 - [ ] 13.3 Adzuna (verified endpoint) and JSearch (verified endpoint), off by default, with daily call limits
 - [ ] 13.3 Listing results normalized into Job; mode from apply URL host
-- [ ] 13.4 Save from page: JSON-LD `JobPosting`, then adapter `readJob()`, then AI `extractJobFromPage` or prefilled form
-- [ ] 13.4 "Apply on company site" link stored as `externalApplyUrl`; Auto-eligible when its host is allowlisted
+- [x] 13.4 Save from page: JSON-LD `JobPosting`, then adapter `readJob()`, then AI `extractJobFromPage` or prefilled form
+- [x] 13.4 "Apply on company site" link stored as `externalApplyUrl`; Auto-eligible when its host is allowlisted
 - [ ] 13.5 "Add job manually" (paste description + optional URL, company, title)
 - [ ] 13.6 Search links for Naukri, Indeed (country subdomain), LinkedIn opened only on click (formats verified)
-- [ ] 13.7 Badges read cards already on the page; local prefilter only
-- [ ] 13.7 Optional "AI-score the jobs on this page" (max 10 per click) via scheduler
-- [ ] 13.7 Shadow DOM badge with score, color, top skills, Save button
-- [ ] 13.7 `MutationObserver` for new cards; never fetches pages or clicks
+- [x] 13.7 Badges read cards already on the page; local prefilter only
+- [x] 13.7 Optional "AI-score the jobs on this page" (max 10 per click) via scheduler
+- [x] 13.7 Shadow DOM badge with score, color, top skills, Save button
+- [x] 13.7 `MutationObserver` for new cards; never fetches pages or clicks
 - [x] 13.8 `dedupeKey` = normalized company | title | primary location
 - [ ] 13.8 Merge keeps earliest firstSeenAt, all URLs, prefers Auto-eligible apply URL
 - [ ] 13.8 "Also listed on ..." shown on merged jobs
@@ -434,20 +434,20 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [x] 16.5 Kill switch in popup and dashboard
 - [x] 16.5 Auto-pause after 3 consecutive failures or any CAPTCHA, with notification
 - [x] 16.5 Needs-you items keep prepared data; "Open & finish" reopens and refills
-- [ ] 16.6 Assist side panel: score, reasons, missing skills, resume options, cover letter copy, Autofill + shortcut, saved answers, "Mark as applied"
-- [ ] 16.6 Autofill each new step only on the viewed tab, never clicking forbidden controls
-- [ ] 16.6 Confirmation creates an Assist `Application`; otherwise asks "Did you submit this application?"
+- [x] 16.6 Assist side panel: score, reasons, missing skills, resume options, cover letter copy, Autofill + shortcut, saved answers, "Mark as applied"
+- [x] 16.6 Autofill each new step only on the viewed tab, never clicking forbidden controls
+- [x] 16.6 Confirmation creates an Assist `Application`; otherwise asks "Did you submit this application?"
 - [x] 16.6 Logged-out banner; never fills login forms
 
 ## 17. Site adapters
 
-- [ ] 17 "Report a broken page" copies diagnostics without personal data
-- [ ] 17.1 Naukri: badges, job page reading, save, side panel
-- [ ] 17.1 Naukri chatbot: fill free text, highlight (never click) option chips; user presses send
-- [ ] 17.1 Naukri "Apply on company site" -> offer Auto via ATS when allowlisted (queues only the ATS URL)
-- [ ] 17.1 Naukri LPA formatting and login detection
+- [x] 17 "Report a broken page" copies diagnostics without personal data
+- [x] 17.1 Naukri: badges, job page reading, save, side panel
+- [x] 17.1 Naukri chatbot: fill free text, highlight (never click) option chips; user presses send
+- [x] 17.1 Naukri "Apply on company site" -> offer Auto via ATS when allowlisted (queues only the ATS URL)
+- [x] 17.1 Naukri LPA formatting and login detection
 - [ ] 17.2 Indeed: badges, job details, Indeed Apply steps (verified flow), resume attach, country subdomains, company-site links, login detection
-- [ ] 17.3 LinkedIn: off by default, optional permission after explanation, badges, job view, Easy Apply steps, external Auto links
+- [x] 17.3 LinkedIn: off by default, optional permission after explanation, badges, job view, Easy Apply steps, external Auto links
 - [ ] 17.4 Workday: optional permission; My Information, My Experience (Add blocks allowed), Application Questions, Voluntary Disclosures, Self Identify (decline by default)
 - [x] 17.5 Generic adapter injected on demand; fills only
 - [x] 17.6 Auto adapters (Greenhouse both UIs, Lever, Ashby, Workable, SmartRecruiters) with fixtures from real form structure
@@ -538,7 +538,7 @@ Anything not done at the end moves to **Deferred** with a reason.
 - [ ] 24 Phase 6 - Resume tailoring and cover letters accepted
 - [ ] 24 Phase 7 - Apply engine core accepted
 - [ ] 24 Phase 8 - Auto pipeline accepted
-- [ ] 24 Phase 9 - Assist adapters accepted
+- [x] 24 Phase 9 - Assist adapters accepted
 - [ ] 24 Phase 10 - Tracker, notifications, analytics, data control accepted
 - [ ] 24 Phase 11 - Polish and release accepted
 - [ ] 24 "Load demo data" button in development builds

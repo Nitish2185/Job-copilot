@@ -124,6 +124,19 @@ Choices the spec leaves open, or where the owner overrode the spec. Newest at th
 - **The toolbar button opens a popup** (counts, kill switch, links) instead of the dashboard.
 - **E2E builds treat `127.0.0.1/<adapter>/...` as that Auto site** (build flag), and CI checks that release builds contain no trace of that host.
 
+## Assist sites (Phase 9)
+
+- **One site script for all four Assist sites**, not one per site and a separate badge script: `lib/apply/assistSite.ts` holds the behaviour and two thin entry scripts start it. One is static for Naukri and Indeed; the other is registered at runtime for LinkedIn and Workday while their optional permission is granted (`permissions.onAdded/onRemoved` keep it in sync).
+- **Built from public page structure.** No saved logged-in pages were available, so selectors follow each site's public markup (Naukri renders in the browser; Indeed blocks automated requests). `docs/QA.md` is the checklist for confirming them on the real sites; fixes go in one `SELECTORS` map.
+- **Every-site access is never required.** WXT adds the matches of runtime-registered scripts to the required hosts, which had put `https://*/*` there since Phase 7. The build now keeps only the declared hosts, and the release check fails CI if every-site access appears again.
+- **Page scripts never read settings storage.** They ask the background (`assist/pageConfig`), so the AI key in `storage.local` stays with extension pages.
+- **"Autofill each new step" starts only after the user pressed Autofill in that tab**, runs only while the tab is visible, and fills only controls it has not seen. It never clicks.
+- **A confirmation already on the page when it loads (Naukri's "Already applied") is not a new application.** Only one that appears later records one; records stay one per job.
+- **Chat chips use only the profile and saved answers** (no AI) to pick a suggestion, and the chip is outlined, never clicked.
+- **"AI-score the jobs on this page" adds those cards as new jobs** so they are scored by the normal scheduler and budget and show up in Matches. Without an AI key it adds nothing.
+- **Badges are plain open Shadow DOM elements** like the autofill panel (no React on job sites). They hold nothing secret, and tests can read them. The badge's Save button stops the click from opening the job.
+- **"Report a broken page" is a prefilled GitHub issue**: adapter, host, path with IDs replaced, page type, field labels, kinds and required flags, version. It never includes values, the query string or page text.
+
 ## AI providers (verified against official docs on 2026-11-02)
 
 - **Base URLs:** Gemini `https://generativelanguage.googleapis.com/v1beta/openai/` (supports `/models` and structured JSON output), Groq `https://api.groq.com/openai/v1`, OpenRouter `https://openrouter.ai/api/v1`, Ollama `http://localhost:11434/v1` (ignores the API key but the client must send one).
