@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/Button";
-import { ErrorMessage } from "@/components/ui/States";
+import { FeedNotice } from "@/components/matching/FeedNotice";
 import { sendMessage } from "@/lib/messaging/client";
 import { StepFooter, type StepProps } from "../StepFooter";
 
@@ -74,7 +74,7 @@ export function DoneStep({ back }: StepProps) {
           <p className="mt-1 text-stone-500">{PHASES[phase]}</p>
         </div>
       )}
-      {summary && (
+      {summary && !(error && summary.passed === 0) && (
         <p role="status" className="text-green-700 dark:text-green-400">
           {summary.openJobs !== undefined
             ? `${summary.openJobs.toLocaleString()} open jobs ready. `
@@ -88,11 +88,7 @@ export function DoneStep({ back }: StepProps) {
           AI scoring stopped early: {summary.aiError}. Jobs show estimates until they are scored.
         </p>
       )}
-      {error && (
-        <ErrorMessage>
-          {error} Job Copilot will try again in the background; you can look at your matches later.
-        </ErrorMessage>
-      )}
+      {error && <FeedNotice error={error} />}
       <StepFooter back={back}>
         <Button
           variant="primary"

@@ -14,6 +14,11 @@ import {
 } from "@job-copilot/shared";
 import type { FeedState, JobCopilotDB } from "../db/db";
 import type { FeedSyncResult } from "../messaging/protocol";
+
+/** The feed address answers 404: the shared job list has not been published there yet. */
+export const FEED_NOT_PUBLISHED = "The shared job list is not online yet.";
+export const FEED_UNREACHABLE =
+  "Could not reach the shared job list. Check your internet connection.";
 import { closeJobs, feedJobToJob, upsertJobs } from "./jobs";
 
 export interface FeedSyncDeps {
@@ -80,6 +85,7 @@ export async function syncFeed(
       await save({});
       return { status: "unchanged", added: 0, closed: 0, totalOpenJobs: state.totalOpenJobs };
     }
+    if (res.status === 404) throw new FeedError(FEED_NOT_PUBLISHED);
     if (!res.ok) throw new FeedError(`Could not download index.json (HTTP ${String(res.status)})`);
     const index = FeedIndexSchema.parse(await res.json());
 
@@ -161,7 +167,13 @@ export async function syncFeed(
     });
     return { status, added, closed, totalOpenJobs: index.totalOpenJobs };
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
+    // fetch() rejects with a TypeError when the network is down or the host is unreachable.
+    const message =
+      error instanceof TypeError && /fetch/i.test(error.message)
+        ? FEED_UNREACHABLE
+        : error instanceof Error
+          ? error.message
+          : String(error);
     await save({ status: "error", error: message });
     return { status: "error", added: 0, closed: 0, error: message };
   }

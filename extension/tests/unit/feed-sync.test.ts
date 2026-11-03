@@ -1,7 +1,7 @@
 import { sha256Hex, type FeedIndex, type FeedJob } from "@job-copilot/shared";
 import { beforeEach, describe, expect, it } from "vitest";
 import { JobCopilotDB } from "@/lib/db/db";
-import { syncFeed, type FeedSyncDeps } from "@/lib/feed/sync";
+import { FEED_NOT_PUBLISHED, FEED_UNREACHABLE, syncFeed, type FeedSyncDeps } from "@/lib/feed/sync";
 import { sampleFeedJob } from "./helpers";
 
 const BASE = "https://example.test/feed/";
@@ -256,5 +256,24 @@ describe("syncFeed", () => {
     });
     expect(result.status).toBe("snapshot");
     expect((await db.jobs.get("lever:acme:1"))?.status).toBe("closed");
+  });
+});
+
+describe("when the shared job list is missing or unreachable", () => {
+  it("says the list is not online yet on a 404", async () => {
+    const result = await syncFeed({
+      ...deps,
+      fetch: () => Promise.resolve(new Response("not found", { status: 404 })),
+    });
+    expect(result).toMatchObject({ status: "error", error: FEED_NOT_PUBLISHED });
+    expect((await db.feedState.get("feed"))?.error).toBe(FEED_NOT_PUBLISHED);
+  });
+
+  it("asks to check the connection when the network fails", async () => {
+    const result = await syncFeed({
+      ...deps,
+      fetch: () => Promise.reject(new TypeError("Failed to fetch")),
+    });
+    expect(result).toMatchObject({ status: "error", error: FEED_UNREACHABLE });
   });
 });

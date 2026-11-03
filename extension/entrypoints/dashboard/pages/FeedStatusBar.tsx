@@ -2,6 +2,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { getDb } from "@/lib/db/db";
+import { FEED_NOT_PUBLISHED } from "@/lib/feed/sync";
 import { sendMessage } from "@/lib/messaging/client";
 
 function timeAgo(iso: string | undefined): string {
@@ -47,8 +48,10 @@ export function FeedStatusBar() {
         </span>
       )}
       {(error ?? (status === "error" ? state?.error : undefined)) && (
-        <span role="alert" className="text-red-700 dark:text-red-400">
-          {error ?? state?.error}
+        <span role="status" className="font-medium text-amber-800 dark:text-amber-300">
+          {(error ?? state?.error) === FEED_NOT_PUBLISHED
+            ? "The shared job list is not online yet. Add companies or paste jobs meanwhile."
+            : (error ?? state?.error)}
         </span>
       )}
       <Button onClick={() => void sync()} disabled={busy} className="ml-auto">
