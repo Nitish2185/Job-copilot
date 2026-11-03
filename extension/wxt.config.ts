@@ -127,6 +127,27 @@ export default defineConfig({
           content_security_policy: { extension_pages: EXTENSION_CSP },
         }),
   }),
+  zip: {
+    artifactTemplate: "job-copilot-{{version}}-{{browser}}.zip",
+    sourcesTemplate: "job-copilot-{{version}}-sources.zip",
+    // Firefox reviewers rebuild from the whole workspace (the extension uses `shared`).
+    // An allowlist, so private folders (prompt/, captures/, agent tooling) never ship.
+    sourcesRoot: "..",
+    includeSources: [
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "tsconfig.base.json",
+      "README.md",
+      "LICENSE",
+      "docs/BUILDING.md",
+      "scripts/**",
+      "shared/**",
+      "site/**",
+      "extension/**",
+    ],
+    excludeSources: ["extension/.output/**", "extension/test-results/**", "**/node_modules/**"],
+  },
   hooks: {
     "build:manifestGenerated": (_wxt, manifest) => {
       // WXT adds the matches of runtime-registered scripts (the generic Autofill script

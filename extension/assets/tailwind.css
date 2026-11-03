@@ -1,4 +1,8 @@
-@import "tailwindcss";
+/* Scan only the extension's own sources, so a build from the sources zip is identical. */
+@import "tailwindcss" source(none);
+@source "../entrypoints";
+@source "../components";
+@source "../lib";
 
 /* Dark mode follows Settings > Appearance (lib/ui/theme.ts sets data-theme on <html>). */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));

@@ -1,0 +1,76 @@
+name: Release
+
+# Push a tag such as v1.0.0 (matching extension/package.json "version") to publish
+# the Chrome/Edge zip, the Firefox zip and the sources zip Firefox reviewers need,
+# with SHA-256 checksums and generated release notes.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and publish the release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: The tag matches the extension version
+        run: |
+          version="$(node -p "require('./extension/package.json').version")"
+          if [ "v${version}" != "${GITHUB_REF_NAME}" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match extension/package.json version ${version}."
+            exit 1
+          fi
+
+      - name: Check before releasing
+        run: |
+          pnpm lint
+          pnpm typecheck
+          pnpm test
+
+      - name: Build the zips
+        run: |
+          pnpm --filter @job-copilot/extension zip
+          pnpm --filter @job-copilot/extension zip:firefox
+
+      - name: Release builds never include the test host or every-site access
+        run: |
+          node scripts/check-release-build.mjs extension/.output/chrome-mv3
+          node scripts/check-release-build.mjs extension/.output/firefox-mv2
+
+      - name: Mozilla add-on linter (fails on errors)
+        run: npx --yes web-ext@10.8.0 lint --source-dir extension/.output/firefox-mv2
+
+      - name: Checksums
+        working-directory: extension/.output
+        run: |
+          sha256sum job-copilot-*.zip > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Publish the GitHub release
+        working-directory: extension/.output
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" job-copilot-*.zip SHA256SUMS.txt \
+            --repo "${GITHUB_REPOSITORY}" \
+            --title "Job Copilot ${GITHUB_REF_NAME}" \
+            --generate-notes \
+            --verify-tag
