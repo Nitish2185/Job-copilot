@@ -26,6 +26,9 @@ const OPTIONAL_HOSTS = [
   "https://www.linkedin.com/*",
   "https://*.myworkdayjobs.com/*",
   "https://*.myworkdaysite.com/*",
+  // Listing APIs with the user's own keys (Settings > Job sources).
+  "https://api.adzuna.com/*",
+  "https://jsearch.p.rapidapi.com/*",
   "https://api.groq.com/*",
   "https://openrouter.ai/*",
   "http://localhost/*",

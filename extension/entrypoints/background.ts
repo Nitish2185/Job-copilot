@@ -19,6 +19,7 @@ import { registerMessageHandlers } from "@/lib/messaging/server";
 import { QUEUE_ALARM, scheduleNext, tick } from "@/lib/queue/runner";
 import { runRetention } from "@/lib/backup/retention";
 import { dataHandlers } from "@/lib/background/dataHandlers";
+import { listingHandlers, runListingSync } from "@/lib/background/listingHandlers";
 import { getDb } from "@/lib/db/db";
 import {
   MIRROR_META_KEY,
@@ -43,6 +44,7 @@ export default defineBackground(() => {
     ...assistSiteHandlers,
     ...trackerHandlers,
     ...dataHandlers,
+    ...listingHandlers,
   });
 
   registerAutofillTriggers();
@@ -80,7 +82,10 @@ export default defineBackground(() => {
 
   browser.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === ALARMS.feedSync) void runFeedSync();
-    if (alarm.name === ALARMS.boardsSync) void runBoardsSync();
+    if (alarm.name === ALARMS.boardsSync) {
+      void runBoardsSync();
+      void runListingSync().catch(() => undefined);
+    }
     if (alarm.name === QUEUE_ALARM) void tick();
     if (alarm.name === ALARMS.maintenance) void runRetention(getDb());
     if (alarm.name === ALARMS.notifications) {

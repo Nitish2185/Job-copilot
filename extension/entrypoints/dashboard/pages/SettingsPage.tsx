@@ -9,6 +9,7 @@ import { MatchingSettingsForm } from "@/components/matching/MatchingSettingsForm
 import { CoverLetterSettings } from "@/components/resume/CoverLetterSettings";
 import { NotificationSettings } from "@/components/tracker/NotificationSettings";
 import { DataControls } from "@/components/data/DataControls";
+import { ListingSources } from "@/components/data/ListingSources";
 import { AppearanceSettings } from "@/components/ui/AppearanceSettings";
 import { DemoDataPanel } from "@/components/ui/DemoDataPanel";
 import { Section } from "@/components/ui/Field";
@@ -93,6 +94,9 @@ export function SettingsPage() {
         description="Naukri, Indeed, LinkedIn, Workday and any other form: Job Copilot fills, you review and submit."
       >
         <AssistSettings />
+      </Section>
+      <Section title="Job search APIs" description="Adzuna and JSearch, off by default.">
+        <ListingSources />
       </Section>
       <Section title="Notifications" description="Clicking a notification opens the right page.">
         <NotificationSettings />

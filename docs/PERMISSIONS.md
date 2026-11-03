@@ -21,6 +21,7 @@ Every permission the extension requests and why. Store reviewers read this; keep
 | `https://api.github.com/*`                                                                                                                                                                                                                                         | Import the user's public GitHub projects (repo list, languages, README of ticked repos).                                                                                                                                                                                                                                                                                 |
 | `https://www.naukri.com/*`, `https://*.indeed.com/*`                                                                                                                                                                                                               | Assist sites: read the job page the user opened, show match badges on search results the page already loaded, show a "logged out" banner, fill forms when the user presses Autofill (and each new step afterwards when that setting is on), and notice the site's "application sent" message. Never submits, never clicks the site's buttons, never fetches other pages. |
 | Optional: `https://www.linkedin.com/*`, `https://*.myworkdayjobs.com/*`, `https://*.myworkdaysite.com/*`                                                                                                                                                           | Off by default. Requested only when the user enables LinkedIn or Workday under Settings > Assist sites, after an explanation; the same Assist script is then registered for that site only. Removing the permission unregisters it.                                                                                                                                      |
+| Optional: `https://api.adzuna.com/*`, `https://jsearch.p.rapidapi.com/*`                                                                                                                                                                                           | Requested only when the user turns on Adzuna or JSearch in Settings > Job search APIs (with their own keys); removed again when they turn it off. Used for a few searches a day of the user's desired roles, within the daily limit they set.                                                                                                                            |
 | Optional: `https://api.groq.com/*`, `https://openrouter.ai/*`, `http://localhost/*`, `http://127.0.0.1/*`, `https://*/*`                                                                                                                                           | Requested at runtime, one origin at a time, only when the user picks Groq, OpenRouter, a local Ollama or a custom AI endpoint. Firefox lists them under `optional_permissions`.                                                                                                                                                                                          |
 
 Opening the dashboard on install and from the toolbar button (`tabs.create`) needs no permission.
@@ -30,15 +31,6 @@ strips the every-site match WXT would otherwise add to the required hosts, and
 appears as a required permission.
 End-to-end test builds (`JOB_COPILOT_E2E=1`) add `http://localhost/*` and `http://127.0.0.1/*` for local
 fixture servers; release builds never include them.
-
-## Planned
-
-These will be added as the features that need them land. Each row moves to the table above
-when it ships.
-
-| Permission / host         | Why                                                                                 |
-| ------------------------- | ----------------------------------------------------------------------------------- |
-| Optional: Adzuna, JSearch | Requested at runtime only when the user turns the feature on, after an explanation. |
 
 ## Never requested
 

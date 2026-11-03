@@ -320,6 +320,15 @@ export const MESSAGES = {
     response: z.object({ deleted: z.boolean() }),
     sender: extensionOnly,
   },
+  "listings/sync": {
+    request: z.object({}),
+    response: z.object({
+      calls: z.number().int(),
+      added: z.number().int(),
+      errors: z.array(z.string()),
+    }),
+    sender: extensionOnly,
+  },
   "ai/interviewPrep": {
     request: z.object({ jobId: z.string().min(1) }),
     response: z.object({ prep: InterviewPrepSchema, applicationId: z.string().optional() }),
