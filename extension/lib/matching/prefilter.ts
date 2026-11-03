@@ -37,14 +37,46 @@ export interface MatchProfile {
   skills: ReadonlySet<string>;
   totalYears: number;
   desiredRoles: readonly string[];
+  /** Jobs asking for more than totalYears + this are hidden (Settings > Matching). */
+  maxExtraYears: number;
 }
 
-export function matchProfile(profile: Profile, preferences: Preferences): MatchProfile {
+export const SHOW_ALL_EXPERIENCE = 50;
+
+export function matchProfile(
+  profile: Profile,
+  preferences: Preferences,
+  maxExtraYears = 1,
+): MatchProfile {
   return {
     skills: withImpliedSkills(profile.skills.map((s) => s.id)),
     totalYears: profile.totalExperienceMonths / 12,
     desiredRoles: preferences.desiredRoles,
+    // Before a profile exists (no skills, no experience), nothing is hidden for experience.
+    maxExtraYears:
+      profile.skills.length === 0 && profile.totalExperienceMonths === 0
+        ? SHOW_ALL_EXPERIENCE
+        : maxExtraYears,
   };
+}
+
+/** "7 months", "1 year", "3 years 4 months". */
+export function experienceText(totalYears: number): string {
+  const months = Math.round(totalYears * 12);
+  if (months < 12) return months === 1 ? "1 month" : `${String(months)} months`;
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  const y = years === 1 ? "1 year" : `${String(years)} years`;
+  return rest === 0 ? y : `${y} ${String(rest)} month${rest === 1 ? "" : "s"}`;
+}
+
+/** Hidden when the job's minimum is more than `maxExtraYears` beyond the user's experience. */
+export function tooSenior(
+  job: Pick<Job, "experienceMin">,
+  me: Pick<MatchProfile, "totalYears" | "maxExtraYears">,
+): boolean {
+  if (job.experienceMin === undefined || me.maxExtraYears >= SHOW_ALL_EXPERIENCE) return false;
+  return job.experienceMin > me.totalYears + me.maxExtraYears;
 }
 
 // ---------------------------------------------------------------- hard filters
@@ -215,21 +247,20 @@ export function prefilterJob(
   if (matched.length > 0) reasons.push(`Matches ${names(matched)}`);
   if (missing.length > 0) reasons.push(`Missing ${names(missing)}`);
   if (title === 1 && me.desiredRoles.length > 0) reasons.push("Title matches a role you want");
+  const asks = yearsText(job.experienceMin, job.experienceMax);
+  const have = experienceText(me.totalYears);
   if (job.experienceMin !== undefined || job.experienceMax !== undefined) {
-    const years = Math.floor(me.totalYears);
     if (experience === EXPERIENCE_FIT.fit) {
-      reasons.push(
-        `Asks for ${yearsText(job.experienceMin, job.experienceMax)}; you have ${String(years)}`,
-      );
+      reasons.push(`Asks for ${asks}; you have ${have}`);
     } else if (experience < EXPERIENCE_FIT.fit) {
-      const what = me.totalYears < (job.experienceMin ?? 0) ? "fewer" : "more";
-      reasons.push(
-        `Asks for ${yearsText(job.experienceMin, job.experienceMax)}; you have ${what} (${String(years)})`,
-      );
+      const what = me.totalYears < (job.experienceMin ?? 0) ? "less" : "more";
+      reasons.push(`Asks for ${asks}; you have ${what} (${have})`);
     }
   }
 
-  const excluded = exclusionReason(job, preferences);
+  const excluded =
+    exclusionReason(job, preferences) ??
+    (tooSenior(job, me) ? `Needs ${asks}; you have ${have}` : undefined);
   return {
     score,
     matchedSkills: matched,

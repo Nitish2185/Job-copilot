@@ -18,7 +18,7 @@ describe("SettingsSchema", () => {
       dailyRequestBudget: 300,
       dailyScoringBudget: 150,
     });
-    expect(s.matching).toEqual({ minPrefilterScore: 40, showThreshold: 60 });
+    expect(s.matching).toEqual({ minPrefilterScore: 40, showThreshold: 60, maxExtraYears: 1 });
     expect(s.autoApply).toMatchObject({
       enabled: false,
       explanationAccepted: false,

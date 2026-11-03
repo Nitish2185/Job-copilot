@@ -200,7 +200,7 @@ export const pageHandlers: Handlers = {
       loadSettings(),
     ]);
     if (profile.skills.length === 0) return { scores: cards.map(() => ({})) };
-    const me = matchProfile(profile, preferences);
+    const me = matchProfile(profile, preferences, settings.matching.maxExtraYears);
     const now = new Date();
     const saved = new Map<string, string>();
     for (const job of await db.jobs.toArray()) saved.set(comparableUrl(job.url), job.id);

@@ -13,6 +13,16 @@ interface Values {
   dailyRequestBudget: string;
 }
 
+/** How much more experience a job may ask for than you have (Settings > Matching). */
+const EXPERIENCE_CHOICES: [string, string][] = [
+  ["0", "Only jobs within my experience"],
+  ["1", "Up to 1 year more than I have (recommended)"],
+  ["2", "Up to 2 years more"],
+  ["3", "Up to 3 years more"],
+  ["5", "Up to 5 years more"],
+  ["50", "Show all jobs"],
+];
+
 const FIELDS: { key: keyof Values; label: string; hint: string; min: number; max: number }[] = [
   {
     key: "showThreshold",
@@ -54,6 +64,7 @@ const FIELDS: { key: keyof Values; label: string; hint: string; min: number; max
 /** Matching thresholds and AI limits (spec 18.1 Settings). Saving re-ranks every job. */
 export function MatchingSettingsForm({ onSaved }: { onSaved?: (showThreshold: number) => void }) {
   const [values, setValues] = useState<Values>();
+  const [extraYears, setExtraYears] = useState("1");
   const [status, setStatus] = useState<{ ok: boolean; text: string }>();
 
   useEffect(() => {
@@ -65,6 +76,7 @@ export function MatchingSettingsForm({ onSaved }: { onSaved?: (showThreshold: nu
         requestsPerMinute: String(s.ai.requestsPerMinute),
         dailyRequestBudget: String(s.ai.dailyRequestBudget),
       });
+      setExtraYears(String(s.matching.maxExtraYears));
     });
   }, []);
   if (!values) return null;
@@ -86,7 +98,11 @@ export function MatchingSettingsForm({ onSaved }: { onSaved?: (showThreshold: nu
     const n = (key: keyof Values) => numbers[key] ?? 0;
     try {
       await updateSettings({
-        matching: { showThreshold: n("showThreshold"), minPrefilterScore: n("minPrefilterScore") },
+        matching: {
+          showThreshold: n("showThreshold"),
+          minPrefilterScore: n("minPrefilterScore"),
+          maxExtraYears: Number(extraYears),
+        },
         ai: {
           dailyScoringBudget: n("dailyScoringBudget"),
           requestsPerMinute: n("requestsPerMinute"),
@@ -111,6 +127,26 @@ export function MatchingSettingsForm({ onSaved }: { onSaved?: (showThreshold: nu
       className="space-y-3"
       aria-label="Matching settings"
     >
+      <Field
+        id="matching-experience"
+        label="Jobs by experience"
+        hint="Jobs that ask for more experience than this are hidden. Jobs that do not say are always shown."
+      >
+        <select
+          id="matching-experience"
+          className={inputClass}
+          value={extraYears}
+          onChange={(e) => {
+            setExtraYears(e.target.value);
+          }}
+        >
+          {EXPERIENCE_CHOICES.map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </Field>
       <div className="grid gap-3 sm:grid-cols-2">
         {FIELDS.map((f) => (
           <Field key={f.key} id={`matching-${f.key}`} label={f.label} hint={f.hint}>

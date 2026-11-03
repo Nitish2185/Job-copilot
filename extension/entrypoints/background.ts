@@ -9,6 +9,7 @@ import {
   syncOptionalSites,
 } from "@/lib/background/assistSites";
 import { pageHandlers, registerSaveMenus } from "@/lib/background/pageHandlers";
+import { runPrefilter } from "@/lib/background/matchHandlers";
 import { queueHandlers } from "@/lib/background/queueHandlers";
 import { applyHandlers } from "@/lib/background/applyHandlers";
 import { autofillHandlers, registerAutofillTriggers } from "@/lib/background/autofill";
@@ -64,6 +65,8 @@ export default defineBackground(() => {
         await updateFlags({ installedAt: new Date().toISOString() });
         await openDashboard("#/onboarding");
       }
+      // After an update, re-rank every job: matching rules may have changed.
+      if (reason === "update") await runPrefilter(true).catch(() => undefined);
       await runFeedSync();
     })();
   });

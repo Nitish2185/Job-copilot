@@ -52,7 +52,11 @@ export async function prefilterJobs(
   now: Date,
   options: { onlyMissing?: boolean } = {},
 ): Promise<{ scored: number; passed: number }> {
-  const me = matchProfile(inputs.profile, inputs.preferences);
+  const me = matchProfile(
+    inputs.profile,
+    inputs.preferences,
+    inputs.settings.matching.maxExtraYears,
+  );
   const minScore = inputs.settings.matching.minPrefilterScore;
   const version = inputs.profile.version;
   const existing = new Map((await db.scores.toArray()).map((s) => [s.jobId, s]));

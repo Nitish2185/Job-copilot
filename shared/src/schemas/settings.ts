@@ -40,6 +40,11 @@ export const SettingsSchema = z.object({
     .object({
       minPrefilterScore: Score100.default(40),
       showThreshold: Score100.default(60),
+      /**
+       * Hide jobs that ask for more than this many years beyond the user's experience
+       * (0 = no more than I have; 50 = show all).
+       */
+      maxExtraYears: z.number().int().min(0).max(50).default(1),
     })
     .prefault({}),
 
