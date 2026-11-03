@@ -6,6 +6,8 @@ export const ALARMS = {
   boardsSync: "boards-sync",
   /** Hourly: the daily digest (at the chosen hour) and follow-up reminders. */
   notifications: "notifications",
+  /** Daily: prune old closed jobs and expired AI cache entries. */
+  maintenance: "maintenance",
 } as const;
 export type AlarmName = (typeof ALARMS)[keyof typeof ALARMS];
 
@@ -15,6 +17,7 @@ const SCHEDULE: Record<AlarmName, { periodInMinutes: number; delayInMinutes: num
   [ALARMS.feedSync]: { periodInMinutes: SIX_HOURS, delayInMinutes: 1 },
   [ALARMS.boardsSync]: { periodInMinutes: SIX_HOURS, delayInMinutes: 5 },
   [ALARMS.notifications]: { periodInMinutes: 60, delayInMinutes: 2 },
+  [ALARMS.maintenance]: { periodInMinutes: 24 * 60, delayInMinutes: 10 },
 };
 
 /** Creates missing alarms; existing ones keep their timing. */

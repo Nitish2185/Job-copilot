@@ -314,6 +314,11 @@ export const MESSAGES = {
     }),
     sender: extensionOnly,
   },
+  "data/deleteEverything": {
+    request: z.object({ confirm: z.literal("DELETE") }),
+    response: z.object({ deleted: z.boolean() }),
+    sender: extensionOnly,
+  },
   "ai/followUpEmail": {
     request: z.object({ applicationId: z.string().min(1) }),
     response: z.object({ subject: z.string(), body: z.string(), issues: z.array(z.string()) }),

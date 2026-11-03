@@ -106,3 +106,9 @@ export function getDb(): JobCopilotDB {
   instance ??= new JobCopilotDB();
   return instance;
 }
+
+/** Forgets the open database (after "Delete everything"), so the next use creates it again. */
+export function resetDb(): void {
+  instance?.close();
+  instance = undefined;
+}

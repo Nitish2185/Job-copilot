@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { MatchingSettingsForm } from "@/components/matching/MatchingSettingsForm";
 import { CoverLetterSettings } from "@/components/resume/CoverLetterSettings";
 import { NotificationSettings } from "@/components/tracker/NotificationSettings";
+import { DataControls } from "@/components/data/DataControls";
 import { DemoDataPanel } from "@/components/ui/DemoDataPanel";
 import { Section } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
@@ -94,6 +95,12 @@ export function SettingsPage() {
       </Section>
       <Section title="Notifications" description="Clicking a notification opens the right page.">
         <NotificationSettings />
+      </Section>
+      <Section
+        title="Your data"
+        description="Everything stays in this browser. Back it up, move it, or delete it."
+      >
+        <DataControls />
       </Section>
       {import.meta.env.DEV && (
         <Section title="Demo data" description="Development builds only.">

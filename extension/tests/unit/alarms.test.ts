@@ -8,11 +8,12 @@ describe("scheduleAlarms", () => {
     await scheduleAlarms();
     const alarms = await fakeBrowser.alarms.getAll();
     expect(alarms.map((a) => a.name).sort()).toEqual(
-      [ALARMS.boardsSync, ALARMS.feedSync, ALARMS.notifications].sort(),
+      [ALARMS.boardsSync, ALARMS.feedSync, ALARMS.notifications, ALARMS.maintenance].sort(),
     );
     const period = (name: string) => alarms.find((a) => a.name === name)?.periodInMinutes;
     expect(period(ALARMS.feedSync)).toBe(360);
     expect(period(ALARMS.boardsSync)).toBe(360);
     expect(period(ALARMS.notifications)).toBe(60);
+    expect(period(ALARMS.maintenance)).toBe(1440);
   });
 });

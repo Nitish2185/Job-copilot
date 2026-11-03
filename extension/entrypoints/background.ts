@@ -17,6 +17,8 @@ import { trackerHandlers } from "@/lib/background/trackerHandlers";
 import { handlers, runBoardsSync, runFeedSync } from "@/lib/background/tasks";
 import { registerMessageHandlers } from "@/lib/messaging/server";
 import { QUEUE_ALARM, scheduleNext, tick } from "@/lib/queue/runner";
+import { runRetention } from "@/lib/backup/retention";
+import { dataHandlers } from "@/lib/background/dataHandlers";
 import { getDb } from "@/lib/db/db";
 import { runNotificationChecks } from "@/lib/notifications/notifications";
 import { ensureSettings, loadSettings, updateFlags } from "@/lib/settings/settings";
@@ -34,6 +36,7 @@ export default defineBackground(() => {
     ...pageHandlers,
     ...assistSiteHandlers,
     ...trackerHandlers,
+    ...dataHandlers,
   });
 
   registerAutofillTriggers();
@@ -65,6 +68,7 @@ export default defineBackground(() => {
     if (alarm.name === ALARMS.feedSync) void runFeedSync();
     if (alarm.name === ALARMS.boardsSync) void runBoardsSync();
     if (alarm.name === QUEUE_ALARM) void tick();
+    if (alarm.name === ALARMS.maintenance) void runRetention(getDb());
     if (alarm.name === ALARMS.notifications)
       void loadSettings().then((s) => runNotificationChecks(getDb(), s));
   });
