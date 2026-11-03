@@ -243,7 +243,11 @@ export function MatchesPage() {
           </EmptyState>
         </div>
       ) : (
-        <div ref={scrollRef} className="min-h-0 flex-1 overflow-auto px-6 pb-6">
+        <div
+          ref={scrollRef}
+          className="min-h-0 flex-1 overflow-auto px-6 pb-6"
+          data-testid="job-list"
+        >
           <label className="flex items-center gap-2 border-b border-slate-200 pb-2 text-xs text-slate-500 dark:border-slate-800">
             <input
               type="checkbox"
