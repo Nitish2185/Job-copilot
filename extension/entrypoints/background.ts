@@ -13,6 +13,7 @@ import { queueHandlers } from "@/lib/background/queueHandlers";
 import { applyHandlers } from "@/lib/background/applyHandlers";
 import { autofillHandlers, registerAutofillTriggers } from "@/lib/background/autofill";
 import { tailorHandlers } from "@/lib/background/tailorHandlers";
+import { trackerHandlers } from "@/lib/background/trackerHandlers";
 import { handlers, runBoardsSync, runFeedSync } from "@/lib/background/tasks";
 import { registerMessageHandlers } from "@/lib/messaging/server";
 import { QUEUE_ALARM, scheduleNext, tick } from "@/lib/queue/runner";
@@ -32,6 +33,7 @@ export default defineBackground(() => {
     ...queueHandlers,
     ...pageHandlers,
     ...assistSiteHandlers,
+    ...trackerHandlers,
   });
 
   registerAutofillTriggers();

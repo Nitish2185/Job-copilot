@@ -314,6 +314,11 @@ export const MESSAGES = {
     }),
     sender: extensionOnly,
   },
+  "ai/followUpEmail": {
+    request: z.object({ applicationId: z.string().min(1) }),
+    response: z.object({ subject: z.string(), body: z.string(), issues: z.array(z.string()) }),
+    sender: extensionOnly,
+  },
   "ai/writeCoverLetter": {
     request: z.object({ jobId: z.string().min(1) }),
     response: z.object({

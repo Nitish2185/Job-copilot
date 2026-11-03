@@ -6,6 +6,7 @@ import type { ApplicationStage, Settings } from "@job-copilot/shared";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useEffect, useState } from "react";
 import { ApplicationDrawer } from "@/components/tracker/ApplicationDrawer";
+import { FollowUpEmail } from "@/components/tracker/FollowUpEmail";
 import { TrackerBoard } from "@/components/tracker/TrackerBoard";
 import { TrackerList } from "@/components/tracker/TrackerList";
 import { Button } from "@/components/ui/Button";
@@ -122,6 +123,7 @@ export function TrackerPage() {
         onClose={() => {
           setOpen(undefined);
         }}
+        extra={(id) => <FollowUpEmail applicationId={id} />}
       />
     </div>
   );
