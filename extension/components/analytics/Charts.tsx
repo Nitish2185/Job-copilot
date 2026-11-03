@@ -122,7 +122,11 @@ export function WeeklyChart({ weeks }: { weeks: WeekCount[] }) {
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={weeks} margin={{ top: 8, right: 8, bottom: 0, left: -16 }}>
+        <BarChart
+          accessibilityLayer={false}
+          data={weeks}
+          margin={{ top: 8, right: 8, bottom: 0, left: -16 }}
+        >
           <CartesianGrid vertical={false} stroke="var(--viz-grid)" />
           <XAxis dataKey="week" tickFormatter={dayLabel} {...AXIS} tickLine={false} />
           <YAxis allowDecimals={false} {...AXIS} tickLine={false} axisLine={false} />
@@ -185,7 +189,12 @@ export function RateChart({
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} layout="vertical" margin={{ top: 0, right: 64, bottom: 0, left: 8 }}>
+        <BarChart
+          accessibilityLayer={false}
+          data={data}
+          layout="vertical"
+          margin={{ top: 0, right: 64, bottom: 0, left: 8 }}
+        >
           <CartesianGrid horizontal={false} stroke="var(--viz-grid)" />
           <XAxis
             type="number"
@@ -231,7 +240,12 @@ export function FunnelChart({ steps }: { steps: FunnelStep[] }) {
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} layout="vertical" margin={{ top: 0, right: 64, bottom: 0, left: 8 }}>
+        <BarChart
+          accessibilityLayer={false}
+          data={data}
+          layout="vertical"
+          margin={{ top: 0, right: 64, bottom: 0, left: 8 }}
+        >
           <CartesianGrid horizontal={false} stroke="var(--viz-grid)" />
           <XAxis type="number" allowDecimals={false} {...AXIS} tickLine={false} />
           <YAxis type="category" dataKey="label" width={80} {...AXIS} tickLine={false} />
@@ -261,7 +275,11 @@ export function UsageChart({ days }: { days: UsageDay[] }) {
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={days} margin={{ top: 8, right: 8, bottom: 0, left: -16 }}>
+        <BarChart
+          accessibilityLayer={false}
+          data={days}
+          margin={{ top: 8, right: 8, bottom: 0, left: -16 }}
+        >
           <CartesianGrid vertical={false} stroke="var(--viz-grid)" />
           <XAxis
             dataKey="date"

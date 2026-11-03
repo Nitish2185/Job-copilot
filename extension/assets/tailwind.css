@@ -3,6 +3,38 @@
 /* Dark mode follows Settings > Appearance (lib/ui/theme.ts sets data-theme on <html>). */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/*
+ * Text contrast (WCAG AA, 4.5:1) on every surface in both themes: muted and coloured
+ * text steps one shade towards the background's opposite where it would fall short,
+ * including text that has no dark: variant of its own.
+ */
+:root:not([data-theme="dark"]) .text-slate-400 {
+  color: var(--color-slate-500);
+}
+:root[data-theme="dark"] {
+  .text-slate-500 {
+    color: var(--color-slate-400);
+  }
+  .text-amber-700,
+  .text-amber-800,
+  .text-amber-900 {
+    color: var(--color-amber-300);
+  }
+  .text-green-700,
+  .text-green-800 {
+    color: var(--color-green-400);
+  }
+  .text-blue-700,
+  .text-blue-800,
+  .text-blue-900 {
+    color: var(--color-blue-400);
+  }
+  .text-red-700,
+  .text-red-800 {
+    color: var(--color-red-400);
+  }
+}
+
 /* Chart tokens (analytics). Validated categorical pair: Assist = slot 1, Auto = slot 2. */
 :root {
   --viz-series-1: #2a78d6;
