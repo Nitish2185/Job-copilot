@@ -16,7 +16,9 @@ import { tailorHandlers } from "@/lib/background/tailorHandlers";
 import { handlers, runBoardsSync, runFeedSync } from "@/lib/background/tasks";
 import { registerMessageHandlers } from "@/lib/messaging/server";
 import { QUEUE_ALARM, scheduleNext, tick } from "@/lib/queue/runner";
-import { ensureSettings, updateFlags } from "@/lib/settings/settings";
+import { getDb } from "@/lib/db/db";
+import { runNotificationChecks } from "@/lib/notifications/notifications";
+import { ensureSettings, loadSettings, updateFlags } from "@/lib/settings/settings";
 
 export default defineBackground(() => {
   // Listeners are registered synchronously so a woken service worker sees every event.
@@ -61,6 +63,8 @@ export default defineBackground(() => {
     if (alarm.name === ALARMS.feedSync) void runFeedSync();
     if (alarm.name === ALARMS.boardsSync) void runBoardsSync();
     if (alarm.name === QUEUE_ALARM) void tick();
+    if (alarm.name === ALARMS.notifications)
+      void loadSettings().then((s) => runNotificationChecks(getDb(), s));
   });
 
   // Notification ids are "jc:<dashboard route>:<time>"; a click opens that page.

@@ -106,6 +106,9 @@ export const FlagsSchema = z.object({
   onboardingStep: z.number().int().nonnegative().optional(),
   /** Auto-apply failures in a row; three pause auto-apply (spec 16.5). */
   autoApplyFailures: z.number().int().nonnegative().optional(),
+  /** The daily digest went out on this day (`Date.toDateString()`), covering jobs since `lastDigestAt`. */
+  lastDigestDay: z.string().optional(),
+  lastDigestAt: z.string().optional(),
 });
 export type Flags = z.infer<typeof FlagsSchema>;
 

@@ -17,6 +17,7 @@ import { isAiConfigured } from "../ai/configured";
 import { ensureDescription, textToHtml } from "../jobs/description";
 import { htmlToText } from "@job-copilot/shared";
 import type { AutofillReportMessage } from "../messaging/protocol";
+import { alertNeedsYou } from "../notifications/notifications";
 import { loadProfile } from "../profile/store";
 import { saveCoverLetter } from "../resume/coverLetter";
 import { loadFlags, loadSettings, updateFlags } from "../settings/settings";
@@ -265,12 +266,11 @@ async function needsYou(
     "needs_you",
   );
   await event(item.applicationId, "needs_you", detail);
-  await notify(
-    reason === "approval_required"
-      ? "An application is ready for review"
-      : "An application needs you",
-    detail,
+  await alertNeedsYou(
+    getDb(),
+    await loadSettings(),
     reason === "approval_required" ? "review" : "needs-you",
+    detail,
   );
 }
 

@@ -4,6 +4,8 @@ import { browser } from "wxt/browser";
 export const ALARMS = {
   feedSync: "feed-sync",
   boardsSync: "boards-sync",
+  /** Hourly: the daily digest (at the chosen hour) and follow-up reminders. */
+  notifications: "notifications",
 } as const;
 export type AlarmName = (typeof ALARMS)[keyof typeof ALARMS];
 
@@ -12,6 +14,7 @@ const SIX_HOURS = 6 * 60;
 const SCHEDULE: Record<AlarmName, { periodInMinutes: number; delayInMinutes: number }> = {
   [ALARMS.feedSync]: { periodInMinutes: SIX_HOURS, delayInMinutes: 1 },
   [ALARMS.boardsSync]: { periodInMinutes: SIX_HOURS, delayInMinutes: 5 },
+  [ALARMS.notifications]: { periodInMinutes: 60, delayInMinutes: 2 },
 };
 
 /** Creates missing alarms; existing ones keep their timing. */

@@ -7,6 +7,7 @@ import { AiUsage } from "@/components/ai/AiUsage";
 import { Button } from "@/components/ui/Button";
 import { MatchingSettingsForm } from "@/components/matching/MatchingSettingsForm";
 import { CoverLetterSettings } from "@/components/resume/CoverLetterSettings";
+import { NotificationSettings } from "@/components/tracker/NotificationSettings";
 import { Section } from "@/components/ui/Field";
 import { ErrorMessage } from "@/components/ui/States";
 import { sendMessage } from "@/lib/messaging/client";
@@ -89,6 +90,9 @@ export function SettingsPage() {
         description="Naukri, Indeed, LinkedIn, Workday and any other form: Job Copilot fills, you review and submit."
       >
         <AssistSettings />
+      </Section>
+      <Section title="Notifications" description="Clicking a notification opens the right page.">
+        <NotificationSettings />
       </Section>
       <section>
         <h2 className="font-medium">Shared job feed</h2>
