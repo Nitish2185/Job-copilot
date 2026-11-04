@@ -63,7 +63,10 @@ export default defineBackground(() => {
       await syncAnswerMirror(getDb()).catch(() => undefined);
       if (reason === "install") {
         await updateFlags({ installedAt: new Date().toISOString() });
-        await openDashboard("#/onboarding");
+        // Reloading an unpacked extension can look like a fresh install: only ask for
+        // setup when there is no profile yet; otherwise open the jobs.
+        const profile = await getDb().profile.get("me");
+        await openDashboard(profile?.basics.fullName ? "#/matches" : "#/onboarding");
       }
       // After an update, re-rank every job: matching rules may have changed.
       if (reason === "update") await runPrefilter(true).catch(() => undefined);
