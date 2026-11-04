@@ -53,9 +53,9 @@ test("stays responsive with 10,000 jobs", async ({ context, extensionId, server 
     await expect(page.getByTestId("job-row").first()).toBeVisible();
   });
   await time("scroll to the end", async () => {
-    const list = page.getByTestId("job-list");
-    await list.evaluate((el) => {
-      el.scrollTop = el.scrollHeight;
+    // The whole page scrolls (the list is not a separate scroll box).
+    await page.evaluate(() => {
+      window.scrollTo(0, document.body.scrollHeight);
     });
     await page.waitForTimeout(100);
     expect(await page.getByTestId("job-row").count()).toBeLessThan(100);

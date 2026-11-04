@@ -1,7 +1,7 @@
 import { skillDisplayName, type JobScore } from "@job-copilot/shared";
-import { useVirtualizer } from "@tanstack/react-virtual";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useLiveQuery } from "dexie-react-hooks";
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router";
 import { ScoreBadge } from "@/components/matching/ScoreBadge";
 import { Badge } from "@/components/ui/Badge";
@@ -82,13 +82,29 @@ export function MatchesPage() {
   );
   const gaps = useMemo(() => (ranked ? skillGaps(rows, GAP_TOP) : []), [rows, ranked]);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Virtual is designed to be called this way
-  const virtualizer = useVirtualizer({
+  // The whole page scrolls; only the rows on screen are rendered (thousands of jobs stay fast).
+  const listRef = useRef<HTMLDivElement>(null);
+  const [listTop, setListTop] = useState(0);
+  const hasRows = visible.length > 0;
+  useLayoutEffect(() => {
+    const el = listRef.current;
+    if (!el) return;
+    // Where the list starts on the page; it moves when tips close or filters open.
+    const update = () => {
+      setListTop(el.getBoundingClientRect().top + window.scrollY);
+    };
+    queueMicrotask(update);
+    const observer = new ResizeObserver(update);
+    observer.observe(document.body);
+    return () => {
+      observer.disconnect();
+    };
+  }, [hasRows]);
+  const virtualizer = useWindowVirtualizer({
     count: visible.length,
-    getScrollElement: () => scrollRef.current,
     estimateSize: () => ROW_HEIGHT,
-    overscan: 12,
+    overscan: 8,
+    scrollMargin: listTop,
   });
 
   const queueSelected = async () => {
@@ -150,7 +166,7 @@ export function MatchesPage() {
   const allSelected = visible.length > 0 && visible.every((r) => selected.has(r.job.id));
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex min-h-screen flex-col">
       <FeedStatusBar />
       <div className="space-y-3 px-6 py-4">
         <div className="flex flex-wrap items-center gap-3">
@@ -248,11 +264,7 @@ export function MatchesPage() {
           </EmptyState>
         </div>
       ) : (
-        <div
-          ref={scrollRef}
-          className="min-h-0 flex-1 overflow-auto px-6 pb-6"
-          data-testid="job-list"
-        >
+        <div className="px-6 pb-6" data-testid="job-list">
           <label className="flex items-center gap-2 px-1 pb-3 text-sm text-stone-600 dark:text-stone-400">
             <input
               type="checkbox"
@@ -264,6 +276,7 @@ export function MatchesPage() {
             Select all shown
           </label>
           <div
+            ref={listRef}
             role="list"
             aria-label="Jobs"
             style={{ height: virtualizer.getTotalSize(), position: "relative" }}
@@ -281,7 +294,10 @@ export function MatchesPage() {
                   role="listitem"
                   data-testid="job-row"
                   className="absolute right-0 left-0"
-                  style={{ height: ROW_HEIGHT, transform: `translateY(${String(item.start)}px)` }}
+                  style={{
+                    height: ROW_HEIGHT,
+                    transform: `translateY(${String(item.start - listTop)}px)`,
+                  }}
                 >
                   <div className="flex h-[calc(100%-0.5rem)] items-start gap-4 rounded-xl border border-stone-200 bg-white px-4 py-3 shadow-xs transition-colors hover:border-stone-300 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-700">
                     <input
