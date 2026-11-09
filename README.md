@@ -100,7 +100,8 @@ fictional jobs and applications. Building from the sources zip is described in
 
 Tests never contact real job sites and never submit anything: forms are local fixtures, and the
 auto-apply test host exists only in end-to-end test builds (CI checks that release builds do not
-contain it).
+contain it). Every test case, automated or manual, is listed in
+[docs/TEST_CASES.md](docs/TEST_CASES.md).
 
 ### Architecture
 
