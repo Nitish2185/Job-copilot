@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-14T13:14:27Z",
+  "totalOpenJobs": 11390,
+  "companyCount": 166,
+  "skillsVersion": "2026-11-02",
+  "snapshot": {
+    "file": "snapshot.json",
+    "sha256": "296d8ed9c6bb83e5ad04b9a7cc5cfc794c4edb105a067b25e76b58b6a95d0b83",
+    "count": 11390
+  },
+  "shards": [
+    {
+      "date": "2026-11-02",
+      "file": "jobs/2026-11-02.json",
+      "count": 11350,
+      "sha256": "0674162af4290bb760cbfd6927e28d49ea0a442e6933abe538af55b164dad1cc"
+    },
+    {
+      "date": "2026-11-03",
+      "file": "jobs/2026-11-03.json",
+      "count": 262,
+      "sha256": "12b318b955a56f4e23abd0de94f45c8c97de39639db72ebc6c447fbab1b1d307"
+    },
+    {
+      "date": "2026-11-04",
+      "file": "jobs/2026-11-04.json",
+      "count": 301,
+      "sha256": "6d627eb43a5e897cfc9d427375b0cd316bfbec050abc173d1de28ab7103f3af3"
+    },
+    {
+      "date": "2026-11-05",
+      "file": "jobs/2026-11-05.json",
+      "count": 256,
+      "sha256": "6d310e3a964edf3a8523d927c969da923e5781dc7c15f9c314cd4eeae04eb59b"
+    },
+    {
+      "date": "2026-11-06",
+      "file": "jobs/2026-11-06.json",
+      "count": 271,
+      "sha256": "0de8122478e069c6ed76278d13985280fb0684e4b9ea9f9ecba14f5ad86c7504"
+    },
+    {
+      "date": "2026-11-07",
+      "file": "jobs/2026-11-07.json",
+      "count": 24,
+      "sha256": "d54105b70847225ab8466aa68289afa679901b89eb8c9601acc6cc09f245fd90"
+    },
+    {
+      "date": "2026-11-08",
+      "file": "jobs/2026-11-08.json",
+      "count": 10,
+      "sha256": "dded958a89e9b98a28f3e6f0ae0981e55e1e5aa7ba587fa037df73f9ddb5cbfb"
+    },
+    {
+      "date": "2026-11-09",
+      "file": "jobs/2026-11-09.json",
+      "count": 108,
+      "sha256": "7b9c600c3c8b5c40ea90b9faa36e9e7e906325a583632624a3a09bea62c5c7c4"
+    },
+    {
+      "date": "2026-11-10",
+      "file": "jobs/2026-11-10.json",
+      "count": 367,
+      "sha256": "f1b46b27a5364412111d3e1e2969689e9599e934a7e2b881d80da29660fdafe8"
+    },
+    {
+      "date": "2026-11-11",
+      "file": "jobs/2026-11-11.json",
+      "count": 150,
+      "sha256": "2fb7757ef316e07f52dde6b87f7fb797dc38da633217d699f1bc35445811ef90"
+    },
+    {
+      "date": "2026-11-12",
+      "file": "jobs/2026-11-12.json",
+      "count": 407,
+      "sha256": "9b5b5b51c39d9c57bb30676e94655cacd70ba7b6fd6846f23795ac6a5c316198"
+    },
+    {
+      "date": "2026-11-13",
+      "file": "jobs/2026-11-13.json",
+      "count": 243,
+      "sha256": "8d1c12da44c597edf5e29113467bf7269f65360c3f177fdbed44dfff5031a7c8"
+    },
+    {
+      "date": "2026-11-14",
+      "file": "jobs/2026-11-14.json",
+      "count": 33,
+      "sha256": "44be1ba3ededf8910d7138cad77586046b93f32d3c1fe9abf73c2dda4e390a1a"
+    }
+  ],
+  "closedShards": [
+    {
+      "date": "2026-11-03",
+      "file": "closed/2026-11-03.json",
+      "count": 285
+    },
+    {
+      "date": "2026-11-04",
+      "file": "closed/2026-11-04.json",
+      "count": 277
+    },
+    {
+      "date": "2026-11-05",
+      "file": "closed/2026-11-05.json",
+      "count": 304
+    },
+    {
+      "date": "2026-11-06",
+      "file": "closed/2026-11-06.json",
+      "count": 269
+    },
+    {
+      "date": "2026-11-07",
+      "file": "closed/2026-11-07.json",
+      "count": 26
+    },
+    {
+      "date": "2026-11-08",
+      "file": "closed/2026-11-08.json",
+      "count": 8
+    },
+    {
+      "date": "2026-11-09",
+      "file": "closed/2026-11-09.json",
+      "count": 107
+    },
+    {
+      "date": "2026-11-10",
+      "file": "closed/2026-11-10.json",
+      "count": 344
+    },
+    {
+      "date": "2026-11-11",
+      "file": "closed/2026-11-11.json",
+      "count": 132
+    },
+    {
+      "date": "2026-11-12",
+      "file": "closed/2026-11-12.json",
+      "count": 367
+    },
+    {
+      "date": "2026-11-13",
+      "file": "closed/2026-11-13.json",
+      "count": 252
+    },
+    {
+      "date": "2026-11-14",
+      "file": "closed/2026-11-14.json",
+      "count": 17
+    }
+  ]
+}
